@@ -1,19 +1,19 @@
 % !TEX root = ../../ctfp-print.tex
 
-\lettrine[lhang=0.17]{S}{o far we've been} mostly working with a single category or a pair of
-categories. In some cases that was a little too constraining.
+\lettrine[lhang=0.17]{Д}{о сих пор мы} в основном работали с одной категорией или парой
+категорий. В некоторых случаях это было слишком ограничивающим.
 
-For instance, when defining a limit in a category $\cat{C}$, we introduced an
-index category $\cat{I}$ as the template for the pattern that would
-form the basis for our cones. It would have made sense to introduce
-another category, a trivial one, to serve as a template for the apex of
-the cone. Instead we used the constant functor $\Delta_c$ from
-$\cat{I}$ to $\cat{C}$.
+Например, при определении предела в категории $\cat{C}$ мы вводили
+индексную категорию $\cat{I}$ как шаблон для паттерна, который
+формировал бы основу для наших конусов. Имело бы смысл ввести
+другую категорию, тривиальную, чтобы служить шаблоном для вершины
+конуса. Вместо этого мы использовали константный функтор $\Delta_c$ из
+$\cat{I}$ в $\cat{C}$.
 
-It's time to fix this awkwardness. Let's define a limit using three
-categories. Let's start with the functor $D$ from the index
-category $\cat{I}$ to $\cat{C}$. This is the functor that selects the base
-of the cone --- the diagram functor.
+Пришло время исправить эту неуклюжесть. Давайте определим предел, используя три
+категории. Начнём с функтора $D$ из индексной
+категории $\cat{I}$ в $\cat{C}$. Это функтор, который выбирает основание
+конуса --- функтор диаграммы.
 
 \begin{figure}[H]
   \centering
@@ -21,12 +21,12 @@ of the cone --- the diagram functor.
 \end{figure}
 
 \noindent
-The new addition is the category $\cat{1}$ that contains a single
-object (and a single identity morphism). There is only one possible
-functor $K$ from $\cat{I}$ to this category. It maps all objects
-to the only object in $\cat{1}$, and all morphisms to the identity
-morphism. Any functor $F$ from $\cat{1}$ to $\cat{C}$ picks a
-potential apex for our cone.
+Новое добавление — это категория $\cat{1}$, которая содержит один
+объект (и один тождественный морфизм). Существует только один возможный
+функтор $K$ из $\cat{I}$ в эту категорию. Он отображает все объекты
+в единственный объект в $\cat{1}$, и все морфизмы в тождественный
+морфизм. Любой функтор $F$ из $\cat{1}$ в $\cat{C}$ выбирает
+потенциальную вершину для нашего конуса.
 
 \begin{figure}[H]
   \centering
@@ -34,10 +34,10 @@ potential apex for our cone.
 \end{figure}
 
 \noindent
-A cone is a natural transformation $\varepsilon$ from $F \circ K$ to
-$D$. Notice that $F \circ K$ does exactly the same thing as
-our original $\Delta_c$. The following diagram shows this
-transformation.
+Конус — это естественное преобразование $\varepsilon$ из $F \circ K$ в
+$D$. Заметим, что $F \circ K$ делает в точности то же самое, что и
+наш исходный $\Delta_c$. Следующая диаграмма показывает это
+преобразование.
 
 \begin{figure}[H]
   \centering
@@ -45,17 +45,17 @@ transformation.
 \end{figure}
 
 \noindent
-We can now define a universal property that picks the ``best'' such
-functor $F$. This $F$ will map $\cat{1}$ to the object
-that is the limit of $D$ in $\cat{C}$, and the natural
-transformation $\varepsilon$ from $F \circ K$ to $D$ will
-provide the corresponding projections. This universal functor is called
-the right Kan extension of $D$ along $K$ and is denoted by
+Теперь мы можем определить универсальное свойство, которое выбирает ``лучший'' такой
+функтор $F$. Этот $F$ отобразит $\cat{1}$ в объект,
+который является пределом $D$ в $\cat{C}$, и естественное
+преобразование $\varepsilon$ из $F \circ K$ в $D$ даст
+соответствующие проекции. Этот универсальный функтор называется
+правым расширением Кана $D$ вдоль $K$ и обозначается
 $\Ran_{K}D$.
 
-Let's formulate the universal property. Suppose we have another cone ---
-that is another functor $F'$ together with a natural
-transformation $\varepsilon'$ from $F' \circ K$ to
+Давайте сформулируем универсальное свойство. Предположим, у нас есть другой конус ---
+то есть другой функтор $F'$ вместе с естественным
+преобразованием $\varepsilon'$ из $F' \circ K$ в
 $D$.
 
 \begin{figure}[H]
@@ -64,13 +64,13 @@ $D$.
 \end{figure}
 
 \noindent
-If the Kan extension $F = Ran_{K}D$ exists, there must be a unique
-natural transformation $\sigma$ from $F'$ to it, such
-that $\varepsilon'$ factorizes through $\varepsilon$, that is:
+Если расширение Кана $F = Ran_{K}D$ существует, должно существовать единственное
+естественное преобразование $\sigma$ из $F'$ в него, такое,
+что $\varepsilon'$ факторизуется через $\varepsilon$, то есть:
 \[\varepsilon' = \varepsilon \cdot (\sigma \circ K)\]
-Here, $\sigma \circ K$ is the horizontal composition of two natural
-transformations (one of them being the identity natural transformation
-on $K$). This transformation is then vertically composed with
+Здесь $\sigma \circ K$ — это горизонтальная композиция двух естественных
+преобразований (одно из них является тождественным естественным преобразованием
+на $K$). Это преобразование затем вертикально композируется с
 $\varepsilon$.
 
 \begin{figure}[H]
@@ -79,33 +79,33 @@ $\varepsilon$.
 \end{figure}
 
 \noindent
-In components, when acting on an object $i$ in $\cat{I}$, we get:
+По компонентам, при действии на объект $i$ в $\cat{I}$, мы получаем:
 \[\varepsilon'_i = \varepsilon_i \circ \sigma_{K i}\]
-In our case, $\sigma$ has only one component corresponding to the
-single object of $\cat{1}$. So, indeed, this is the unique morphism
-from the apex of the cone defined by $F'$ to the apex of
-the universal cone defined by $\Ran_{K}D$. The commuting conditions
-are exactly the ones required by the definition of a limit.
+В нашем случае $\sigma$ имеет только одну компоненту, соответствующую
+единственному объекту $\cat{1}$. Таким образом, это действительно единственный морфизм
+из вершины конуса, определённого $F'$, в вершину
+универсального конуса, определённого $\Ran_{K}D$. Коммутативные условия
+в точности совпадают с теми, которые требуются определением предела.
 
-But, importantly, we are free to replace the trivial category $\cat{1}$
-with an arbitrary category $\cat{A}$, and the definition of the right Kan
-extension remains valid.
+Но, что важно, мы вольны заменить тривиальную категорию $\cat{1}$
+произвольной категорией $\cat{A}$, и определение правого расширения
+Кана останется верным.
 
-\section{Right Kan Extension}
+\section{Правое расширение Кана}
 
-The right Kan extension of the functor $D \Colon \cat{I} \to \cat{C}$
-along the functor $K \Colon \cat{I} \to \cat{A}$ is a functor
-$F \Colon \cat{A} \to \cat{C}$ (denoted $\Ran_{K}D$) together with a
-natural transformation
+Правое расширение Кана функтора $D \Colon \cat{I} \to \cat{C}$
+вдоль функтора $K \Colon \cat{I} \to \cat{A}$ — это функтор
+$F \Colon \cat{A} \to \cat{C}$ (обозначаемый $\Ran_{K}D$) вместе с
+естественным преобразованием
 \[\varepsilon \Colon F \circ K \to D\]
-such that for any other functor $F' \Colon \cat{A} \to \cat{C}$ and
-a natural transformation
+таким, что для любого другого функтора $F' \Colon \cat{A} \to \cat{C}$ и
+естественного преобразования
 \[\varepsilon' \Colon F' \circ K \to D\]
-there is a unique natural transformation
+существует единственное естественное преобразование
 \[\sigma \Colon F' \to F\]
-that factorizes $\varepsilon'$:
+которое факторизует $\varepsilon'$:
 \[\varepsilon' = \varepsilon \cdot (\sigma \circ K)\]
-This is quite a mouthful, but it can be visualized in this nice diagram:
+Это довольно запутанно, но можно визуализировать на этой хорошей диаграмме:
 
 \begin{figure}[H]
   \centering
@@ -113,24 +113,24 @@ This is quite a mouthful, but it can be visualized in this nice diagram:
 \end{figure}
 
 \noindent
-An interesting way of looking at this is to notice that, in a sense, the
-Kan extension acts like the inverse of ``functor multiplication.'' Some
-authors go as far as use the notation $D/K$ for $\Ran_{K}D$.
-Indeed, in this notation, the definition of $\varepsilon$, which is also
-called the counit of the right Kan extension, looks like simple
-cancellation:
+Интересный способ взглянуть на это — заметить, что в некотором смысле
+расширение Кана действует как обратное к ``умножению функтора''. Некоторые
+авторы заходят так далеко, что используют обозначение $D/K$ для $\Ran_{K}D$.
+Действительно, в этих обозначениях определение $\varepsilon$, которое также
+называется коединицей правого расширения Кана, выглядит как простое
+сокращение:
 \[\varepsilon \Colon D/K \circ K \to D\]
-There is another interpretation of Kan extensions. Consider that the
-functor $K$ embeds the category $\cat{I}$ inside $\cat{A}$. In the
-simplest case $\cat{I}$ could just be a subcategory of $\cat{A}$. We have
-a functor $D$ that maps $\cat{I}$ to $\cat{C}$. Can we extend
-$D$ to a functor $F$ that is defined on the whole of
-$\cat{A}$? Ideally, such an extension would make the composition
-$F \circ K$ be isomorphic to $D$. In other words, $F$
-would be extending the domain of $D$ to $\cat{A}$. But a
-full-blown isomorphism is usually too much to ask, and we can do with
-just half of it, namely a one-way natural transformation $\varepsilon$ from
-$F \circ K$ to $D$. (The left Kan extension picks the other direction.)
+Существует другая интерпретация расширений Кана. Рассмотрим, что
+функтор $K$ вкладывает категорию $\cat{I}$ внутрь $\cat{A}$. В
+простейшем случае $\cat{I}$ может быть просто подкатегорией $\cat{A}$. У нас есть
+функтор $D$, который отображает $\cat{I}$ в $\cat{C}$. Можем ли мы расширить
+$D$ до функтора $F$, который определён на всём
+$\cat{A}$? В идеале такое расширение сделало бы композицию
+$F \circ K$ изоморфной $D$. Другими словами, $F$
+расширял бы область определения $D$ до $\cat{A}$. Но
+полноценный изоморфизм обычно слишком многого требует, и мы можем обойтись
+только половиной его, а именно односторонним естественным преобразованием $\varepsilon$ из
+$F \circ K$ в $D$. (Левое расширение Кана выбирает другое направление.)
 
 \begin{figure}[H]
   \centering
@@ -138,24 +138,24 @@ $F \circ K$ to $D$. (The left Kan extension picks the other direction.)
 \end{figure}
 
 \noindent
-Of course, the embedding picture breaks down when the functor $K$
-is not injective on objects or not faithful on hom-sets, as in the
-example of the limit. In that case, the Kan extension tries its best to
-extrapolate the lost information.
+Конечно, картина вложения рушится, когда функтор $K$
+не инъективен на объектах или не точен на hom-множествах, как в
+примере предела. В этом случае расширение Кана делает всё возможное, чтобы
+экстраполировать потерянную информацию.
 
-\section{Kan Extension as Adjunction}
+\section{Расширение Кана как сопряжение}
 
-Now suppose that the right Kan extension exists for any $D$ (and
-a fixed $K$). In that case $\Ran_{K}-$ (with the dash
-replacing $D$) is a functor from the functor category
-${[}\cat{I}, \cat{C}{]}$ to the functor category ${[}\cat{A}, \cat{C}{]}$. It
-turns out that this functor is the right adjoint to the precomposition
-functor $- \circ K$. The latter maps functors in ${[}\cat{A}, \cat{C}{]}$
-to functors in ${[}\cat{I}, \cat{C}{]}$. The adjunction is:
+Теперь предположим, что правое расширение Кана существует для любого $D$ (и
+фиксированного $K$). В этом случае $\Ran_{K}-$ (с тире,
+заменяющим $D$) является функтором из категории функторов
+${[}\cat{I}, \cat{C}{]}$ в категорию функторов ${[}\cat{A}, \cat{C}{]}$. Оказывается,
+что этот функтор является правым сопряжённым к функтору предкомпозиции
+$- \circ K$. Последний отображает функторы из ${[}\cat{A}, \cat{C}{]}$
+в функторы из ${[}\cat{I}, \cat{C}{]}$. Сопряжение:
 \[[\cat{I}, \cat{C}](F' \circ K, D) \cong [\cat{A}, \cat{C}](F', \Ran_{K}D)\]
-It is just a restatement of the fact that to every natural
-transformation we called $\varepsilon'$ corresponds a unique natural
-transformation we called $\sigma$.
+Это просто переформулировка факта, что каждому естественному
+преобразованию, которое мы назвали $\varepsilon'$, соответствует единственное естественное
+преобразование, которое мы назвали $\sigma$.
 
 \begin{figure}[H]
   \centering
@@ -163,46 +163,46 @@ transformation we called $\sigma$.
 \end{figure}
 
 \noindent
-Furthermore, if we chose the category $\cat{I}$ to be the same as
-$\cat{C}$, we can substitute the identity functor $I_{\cat{C}}$ for
-$D$. We get the following identity:
+Более того, если мы выберем категорию $\cat{I}$ такой же, как
+$\cat{C}$, мы можем подставить тождественный функтор $I_{\cat{C}}$ вместо
+$D$. Мы получим следующее тождество:
 \[[\cat{C}, \cat{C}](F' \circ K, I_{\cat{C}}) \cong [\cat{A}, \cat{C}](F', \Ran_{K}I_{\cat{C}})\]
-We can now chose $F'$ to be the same as $\Ran_{K}I_{\cat{C}}$. In
-that case the right hand side contains the identity natural
-transformation and, corresponding to it, the left hand side gives us the
-following natural transformation:
+Теперь мы можем выбрать $F'$ таким же, как $\Ran_{K}I_{\cat{C}}$. В
+этом случае правая часть содержит тождественное естественное
+преобразование, и, соответственно, левая часть даёт нам
+следующее естественное преобразование:
 \[\varepsilon \Colon \Ran_{K}I_{\cat{C}} \circ K \to I_{\cat{C}}\]
-This looks very much like the counit of an adjunction:
+Это очень похоже на коединицу сопряжения:
 \[\Ran_{K}I_{\cat{C}} \dashv K\]
-Indeed, the right Kan extension of the identity functor along a functor
-$K$ can be used to calculate the left adjoint of $K$. For
-that, one more condition is necessary: the right Kan extension must be
-preserved by the functor $K$. The preservation of the extension
-means that, if we calculate the Kan extension of the functor precomposed
-with $K$, we should get the same result as precomposing the
-original Kan extension with $K$. In our case, this condition
-simplifies to:
+Действительно, правое расширение Кана тождественного функтора вдоль функтора
+$K$ может использоваться для вычисления левого сопряжённого к $K$. Для
+этого необходимо ещё одно условие: правое расширение Кана должно быть
+сохранено функтором $K$. Сохранение расширения
+означает, что если мы вычислим расширение Кана функтора, предкомпонированного
+с $K$, мы должны получить тот же результат, что и при предкомпозиции
+исходного расширения Кана с $K$. В нашем случае это условие
+упрощается до:
 \[K \circ \Ran_{K}I_{\cat{C}} \cong \Ran_{K}K\]
-Notice that, using the division-by-$K$ notation, the adjunction can be
-written as:
+Заметим, что, используя обозначение деления на $K$, сопряжение можно
+записать как:
 \[I/K \dashv K\]
-which confirms our intuition that an adjunction describes some kind of
-an inverse. The preservation condition becomes:
+что подтверждает нашу интуицию, что сопряжение описывает некоторый вид
+обратного. Условие сохранения становится:
 \[K \circ I/K \cong K/K\]
-The right Kan extension of a functor along itself, $K/K$, is
-called a codensity monad.
+Правое расширение Кана функтора вдоль самого себя, $K/K$,
+называется моно́идой коплотности.
 
-The adjunction formula is an important result because, as we'll see
-soon, we can calculate Kan extensions using ends (coends), thus giving
-us practical means of finding right (and left) adjoints.
+Формула сопряжения — важный результат, потому что, как мы скоро увидим,
+мы можем вычислять расширения Кана, используя энды (коэнды), таким образом получая
+практические средства нахождения правых (и левых) сопряжённых.
 
-\section{Left Kan Extension}
+\section{Левое расширение Кана}
 
-There is a dual construction that gives us the left Kan extension. To
-build some intuition, we'll start with the definition of a colimit
-and restructure it to use the singleton category $\cat{1}$. We build a
-cocone by using the functor $D \Colon \cat{I} \to \cat{C}$ to form its
-base, and the functor $F \Colon \cat{1} \to \cat{C}$ to select its apex.
+Существует двойственная конструкция, которая даёт нам левое расширение Кана. Чтобы
+построить некоторую интуицию, мы начнём с определения копредела
+и перестроим его, чтобы использовать синглтонную категорию $\cat{1}$. Мы строим
+коконус, используя функтор $D \Colon \cat{I} \to \cat{C}$ для формирования его
+основания, и функтор $F \Colon \cat{1} \to \cat{C}$ для выбора его вершины.
 
 \begin{figure}[H]
   \centering
@@ -210,8 +210,8 @@ base, and the functor $F \Colon \cat{1} \to \cat{C}$ to select its apex.
 \end{figure}
 
 \noindent
-The sides of the cocone, the injections, are components of a natural
-transformation $\eta$ from $D$ to $F \circ K$.
+Стороны коконуса, инъекции, являются компонентами естественного
+преобразования $\eta$ из $D$ в $F \circ K$.
 
 \begin{figure}[H]
   \centering
@@ -219,8 +219,8 @@ transformation $\eta$ from $D$ to $F \circ K$.
 \end{figure}
 
 \noindent
-The colimit is the universal cocone. So for any other functor
-$F'$ and a natural transformation
+Копредел — это универсальный коконус. Поэтому для любого другого функтора
+$F'$ и естественного преобразования
 \[\eta' \Colon D \to F' \circ K\]
 
 \begin{figure}[H]
@@ -229,7 +229,7 @@ $F'$ and a natural transformation
 \end{figure}
 
 \noindent
-there is a unique natural transformation $\sigma$ from $F$ to $F'$
+существует единственное естественное преобразование $\sigma$ из $F$ в $F'$
 
 \begin{figure}[H]
   \centering
@@ -237,9 +237,9 @@ there is a unique natural transformation $\sigma$ from $F$ to $F'$
 \end{figure}
 
 \noindent
-such that:
+такое, что:
 \[\eta' = (\sigma \circ K) \cdot \eta\]
-This is illustrated in the following diagram:
+Это иллюстрируется следующей диаграммой:
 
 \begin{figure}[H]
   \centering
