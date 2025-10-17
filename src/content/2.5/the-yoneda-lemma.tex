@@ -1,54 +1,54 @@
 % !TEX root = ../../ctfp-print.tex
 
-\lettrine[lhang=0.17]{M}{ost constructions in} category theory are generalizations of results
-from other more specific areas of mathematics. Things like products,
-coproducts, monoids, exponentials, etc., have been known long before
-category theory. They might have been known under different names in
-different branches of mathematics. A Cartesian product in set theory, a
-meet in order theory, a conjunction in logic --- they are all specific
-examples of the abstract idea of a categorical product.
+\lettrine[lhang=0.17]{Б}{ольшинство конструкций в} теории категорий --- это обобщения результатов
+из других более специфических областей математики. Вещи типа произведений,
+копроизведений, моноидов, экспоненциалов и т.д. были известны задолго до
+теории категорий. Они могли быть известны под разными именами в
+разных ветвях математики. Декартово произведение в теории множеств,
+пересечение в теории порядка, конъюнкция в логике --- все они специфические
+примеры абстрактной идеи категорного произведения.
 
-The Yoneda lemma stands out in this respect as a sweeping statement
-about categories in general with little or no precedent in other
-branches of mathematics. Some say that its closest analog is Cayley's
-theorem in group theory (every group is isomorphic to a permutation
-group of some set).
+Лемма Ёнеды выделяется в этом отношении как широкое утверждение
+о категориях в общем с малым или вообще без прецедента в других
+ветвях математики. Некоторые говорят, что её ближайший аналог --- теорема
+Кэли в теории групп (каждая группа изоморфна группе перестановок
+некоторого множества).
 
-The setting for the Yoneda lemma is an arbitrary category $\cat{C}$
-together with a functor $F$ from $\cat{C}$ to $\Set$. We've
-seen in the previous section that some $\Set$-valued functors are
-representable, that is isomorphic to a hom-functor. The Yoneda lemma
-tells us that all $\Set$-valued functors can be obtained from
-hom-functors through natural transformations, and it explicitly
-enumerates all such transformations.
+Обстановка для леммы Ёнеды --- это произвольная категория $\cat{C}$
+вместе с функтором $F$ из $\cat{C}$ в $\Set$. Мы
+видели в предыдущей секции, что некоторые функторы со значениями в $\Set$
+представимы, то есть изоморфны hom-функтору. Лемма Ёнеды
+говорит нам, что все функторы со значениями в $\Set$ могут быть получены из
+hom-функторов через естественные преобразования, и она явно
+перечисляет все такие преобразования.
 
-When I talked about natural transformations, I mentioned that the
-naturality condition can be quite restrictive. When you define a
-component of a natural transformation at one object, naturality may be
-strong enough to ``transport'' this component to another object that is
-connected to it through a morphism. The more arrows between objects in
-the source and the target categories there are, the more constraints you
-have for transporting the components of natural transformations.
-$\Set$ happens to be a very arrow-rich category.
+Когда я говорил о естественных преобразованиях, я упоминал, что
+условие естественности может быть довольно ограничивающим. Когда вы определяете
+компоненту естественного преобразования в одном объекте, естественность может быть
+достаточно сильной, чтобы ``транспортировать'' эту компоненту к другому объекту, который
+соединён с ним через морфизм. Чем больше стрелок между объектами в
+исходной и целевой категориях, тем больше ограничений у вас
+есть для транспортировки компонент естественных преобразований.
+$\Set$ случается быть очень богатой стрелками категорией.
 
-The Yoneda lemma tells us that a natural transformation between a
-hom-functor and any other functor $F$ is completely determined by
-specifying the value of its single component at just one point! The rest
-of the natural transformation just follows from naturality conditions.
+Лемма Ёнеды говорит нам, что естественное преобразование между
+hom-функтором и любым другим функтором $F$ полностью определяется
+спецификацией значения его единственной компоненты в только одной точке! Остальная часть
+естественного преобразования просто следует из условий естественности.
 
-So let's review the naturality condition between the two functors
-involved in the Yoneda lemma. The first functor is the hom-functor. It
-maps any object $x$ in $\cat{C}$ to the set of morphisms
-$\cat{C}(a, x)$ --- for $a$ a fixed object in $\cat{C}$. We've
-also seen that it maps any morphism $f$ from $x \to y$ to $\cat{C}(a, f)$.
+Так что давайте рассмотрим условие естественности между двумя функторами,
+вовлечёнными в лемму Ёнеды. Первый функтор --- это hom-функтор. Он
+отображает любой объект $x$ в $\cat{C}$ в множество морфизмов
+$\cat{C}(a, x)$ --- для $a$, фиксированного объекта в $\cat{C}$. Мы также
+видели, что он отображает любой морфизм $f$ из $x \to y$ в $\cat{C}(a, f)$.
 
-The second functor is an arbitrary $\Set$-valued functor
+Второй функтор --- произвольный функтор со значениями в $\Set$,
 $F$.
 
-Let's call the natural transformation between these two functors
-$\alpha$. Because we are operating in $\Set$, the components of
-the natural transformation, like $\alpha_x$ or $\alpha_y$, are just
-regular functions between sets:
+Давайте назовём естественное преобразование между этими двумя функторами
+$\alpha$. Поскольку мы действуем в $\Set$, компоненты
+естественного преобразования, такие как $\alpha_x$ или $\alpha_y$, --- это просто
+обычные функции между множествами:
 \begin{gather*}
   \alpha_x \Colon \cat{C}(a, x) \to F x \\
   \alpha_y \Colon \cat{C}(a, y) \to F y
@@ -60,23 +60,23 @@ regular functions between sets:
 \end{figure}
 
 \noindent
-And because these are just functions, we can look at their values at
-specific points. But what's a point in the set $\cat{C}(a, x)$? Here's
-the key observation: Every point in the set $\cat{C}(a, x)$ is also a
-morphism $h$ from $a$ to $x$.
+И поскольку это просто функции, мы можем смотреть на их значения в
+конкретных точках. Но что такое точка в множестве $\cat{C}(a, x)$? Вот
+ключевое наблюдение: каждая точка в множестве $\cat{C}(a, x)$ --- это также
+морфизм $h$ из $a$ в $x$.
 
-So the naturality square for $\alpha$:
+Так что квадрат естественности для $\alpha$:
 \[\alpha_y \circ \cat{C}(a, f) = F f \circ \alpha_x\]
-becomes, point-wise, when acting on $h$:
+становится, поточечно, при действии на $h$:
 \[\alpha_y (\cat{C}(a, f) h) = (F f) (\alpha_x h)\]
-You might recall from the previous section that the action of the
-hom-functor $\cat{C}(a,-)$ on a morphism $f$ was defined as
-precomposition:
+Вы можете вспомнить из предыдущей секции, что действие
+hom-функтора $\cat{C}(a,-)$ на морфизм $f$ было определено как
+предкомпозиция:
 \[\cat{C}(a, f) h = f \circ h\]
-which leads to:
+что приводит к:
 \[\alpha_y (f \circ h) = (F f) (\alpha_x h)\]
-Just how strong this condition is can be seen by specializing it to the
-case of $x = a$.
+Насколько сильно это условие, можно увидеть, специализировав его к
+случаю $x = a$.
 
 \begin{figure}[H]
   \centering
@@ -84,53 +84,53 @@ case of $x = a$.
 \end{figure}
 
 \noindent
-In that case $h$ becomes a morphism from $a$ to
-$a$. We know that there is at least one such morphism,
-$h = \id_a$. Let's plug it in:
+В этом случае $h$ становится морфизмом из $a$ в
+$a$. Мы знаем, что есть как минимум один такой морфизм,
+$h = \id_a$. Давайте подставим его:
 \[\alpha_y f = (F f) (\alpha_a \id_a)\]
-Notice what has just happened: The left hand side is the action of
-$\alpha_y$ on an arbitrary element $f$ of $\cat{C}(a, y)$. And
-it is totally determined by the single value of $\alpha_a$ at
-$\id_a$. We can pick any such value and it will generate a natural
-transformation. Since the values of $\alpha_a$ are in the set
-$F a$, any point in $F a$ will define some $\alpha$.
+Обратите внимание, что только что произошло: левая сторона --- это действие
+$\alpha_y$ на произвольный элемент $f$ из $\cat{C}(a, y)$. И
+оно полностью определяется единственным значением $\alpha_a$ в
+$\id_a$. Мы можем выбрать любое такое значение, и оно сгенерирует естественное
+преобразование. Поскольку значения $\alpha_a$ находятся в множестве
+$F a$, любая точка в $F a$ определит некоторое $\alpha$.
 
-Conversely, given any natural transformation $\alpha$ from
-$\cat{C}(a, -)$ to $F$, you can evaluate it at $\id_a$ to
-get a point in $F a$.
+Наоборот, для данного любого естественного преобразования $\alpha$ из
+$\cat{C}(a, -)$ в $F$ вы можете вычислить его в $\id_a$, чтобы
+получить точку в $F a$.
 
-We have just proven the Yoneda lemma:
+Мы только что доказали лемму Ёнеды:
 
 \begin{quote}
-  There is a one-to-one correspondence between natural transformations
-  from $\cat{C}(a, -)$ to $F$ and elements of $F a$.
+  Существует взаимно однозначное соответствие между естественными преобразованиями
+  из $\cat{C}(a, -)$ в $F$ и элементами $F a$.
 \end{quote}
-in other words,
+другими словами,
 \[\mathit{Nat}(\cat{C}(a, -), F) \cong F a\]
-Or, if we use the notation $[\cat{C}, \Set]$ for the functor
-category between $\cat{C}$ and $\Set$, the set of natural
-transformation is just a hom-set in that category, and we can write:
+Или, если мы используем нотацию $[\cat{C}, \Set]$ для категории
+функторов между $\cat{C}$ и $\Set$, множество естественных
+преобразований --- это просто hom-множество в этой категории, и мы можем написать:
 \[[\cat{C}, \Set](\cat{C}(a, -), F) \cong F a\]
-I'll explain later how this correspondence is in fact a natural
-isomorphism.
+Я объясню позже, как это соответствие на самом деле естественный
+изоморфизм.
 
-Now let's try to get some intuition about this result. The most amazing
-thing is that the whole natural transformation crystallizes from just
-one nucleation site: the value we assign to it at $\id_a$. It
-spreads from that point following the naturality condition. It floods
-the image of $\cat{C}$ in $\Set$. So let's first consider what the
-image of $\cat{C}$ is under $\cat{C}(a, -)$.
+Теперь давайте попытаемся получить некоторую интуицию об этом результате. Самая удивительная
+вещь в том, что всё естественное преобразование кристаллизуется из только
+одного центра нуклеации: значения, которое мы назначаем ему в $\id_a$.
+Оно распространяется из этой точки, следуя условию естественности. Оно заливает
+образ $\cat{C}$ в $\Set$. Так что давайте сначала рассмотрим, каков
+образ $\cat{C}$ под $\cat{C}(a, -)$.
 
-Let's start with the image of $a$ itself. Under the hom-functor
-$\cat{C}(a, -)$, $a$ is mapped to the set $\cat{C}(a, a)$.
-Under the functor $F$, on the other hand, it is mapped to the set
-$F a$. The component of the natural transformation $\alpha_a$
-is some function from $\cat{C}(a, a)$ to $F a$. Let's focus on
-just one point in the set $\cat{C}(a, a)$, the point corresponding to
-the morphism $\id_a$. To emphasize the fact that it's just a point
-in a set, let's call it $p$. The component $\alpha_a$ should map
-$p$ to some point $q$ in $F a$. I'll show you that
-any choice of $q$ leads to a unique natural transformation.
+Давайте начнём с образа самого $a$. Под hom-функтором
+$\cat{C}(a, -)$, $a$ отображается в множество $\cat{C}(a, a)$.
+Под функтором $F$, с другой стороны, он отображается в множество
+$F a$. Компонента естественного преобразования $\alpha_a$
+--- это некоторая функция из $\cat{C}(a, a)$ в $F a$. Давайте сфокусируемся на
+только одной точке в множестве $\cat{C}(a, a)$, точке, соответствующей
+морфизму $\id_a$. Чтобы подчеркнуть факт, что это просто точка
+в множестве, давайте назовём её $p$. Компонента $\alpha_a$ должна отобразить
+$p$ в некоторую точку $q$ в $F a$. Я покажу вам, что
+любой выбор $q$ приводит к уникальному естественному преобразованию.
 
 \begin{figure}[H]
   \centering
@@ -138,15 +138,15 @@ any choice of $q$ leads to a unique natural transformation.
 \end{figure}
 
 \noindent
-The first claim is that the choice of one point $q$ uniquely
-determines the rest of the function $\alpha_a$. Indeed, let's pick any
-other point, $p'$ in $\cat{C}(a, a)$, corresponding to
-some morphism $g$ from $a$ to $a$. And here's where
-the magic of the Yoneda lemma happens: $g$ can be viewed as a
-point $p'$ in the set $\cat{C}(a, a)$. At the same time,
-it selects two \emph{functions} between sets. Indeed, under the
-hom-functor, the morphism $g$ is mapped to a function
-$\cat{C}(a, g)$; and under $F$ it's mapped to $F g$.
+Первое утверждение в том, что выбор одной точки $q$ уникально
+определяет остальную часть функции $\alpha_a$. Действительно, давайте выберем любую
+другую точку, $p'$ в $\cat{C}(a, a)$, соответствующую
+некоторому морфизму $g$ из $a$ в $a$. И вот где
+магия леммы Ёнеды происходит: $g$ может рассматриваться как
+точка $p'$ в множестве $\cat{C}(a, a)$. В то же время
+он выбирает две \emph{функции} между множествами. Действительно, под
+hom-функтором морфизм $g$ отображается в функцию
+$\cat{C}(a, g)$; а под $F$ он отображается в $F g$.
 
 \begin{figure}[H]
   \centering
@@ -154,36 +154,36 @@ $\cat{C}(a, g)$; and under $F$ it's mapped to $F g$.
 \end{figure}
 
 \noindent
-Now let's consider the action of $\cat{C}(a, g)$ on our original
-$p$ which, as you remember, corresponds to $\id_a$. It is
-defined as precomposition, $g \circ \id_a$, which is equal to $g$,
-which corresponds to our point $p'$. So the morphism
-$g$ is mapped to a function that, when acting on $p$
-produces $p'$, which is $g$. We have come full
-circle!
+Теперь давайте рассмотрим действие $\cat{C}(a, g)$ на наше исходное
+$p$, которое, как вы помните, соответствует $\id_a$. Оно
+определяется как предкомпозиция, $g \circ \id_a$, которая равна $g$,
+что соответствует нашей точке $p'$. Так что морфизм
+$g$ отображается в функцию, которая, действуя на $p$,
+производит $p'$, которое есть $g$. Мы замкнули
+круг!
 
-Now consider the action of $F g$ on $q$. It is some
-$q'$, a point in $F a$. To complete the naturality
-square, $p'$ must be mapped to $q'$ under
-$\alpha_a$. We picked an arbitrary $p'$ (an arbitrary
-$g$) and derived its mapping under $\alpha_a$. The function
-$\alpha_a$ is thus completely determined.
+Теперь рассмотрите действие $F g$ на $q$. Это некоторое
+$q'$, точка в $F a$. Чтобы завершить квадрат естественности,
+$p'$ должно быть отображено в $q'$ под
+$\alpha_a$. Мы выбрали произвольное $p'$ (произвольное
+$g$) и вывели его отображение под $\alpha_a$. Функция
+$\alpha_a$ таким образом полностью определена.
 
-The second claim is that $\alpha_x$ is uniquely determined for any
-object $x$ in $\cat{C}$ that is connected to $a$. The
-reasoning is analogous, except that now we have two more sets,
-$\cat{C}(a, x)$ and $F x$, and the morphism $g$ from
-$a$ to $x$ is mapped, under the hom-functor, to:
+Второе утверждение в том, что $\alpha_x$ уникально определён для любого
+объекта $x$ в $\cat{C}$, который соединён с $a$.
+Рассуждение аналогичное, за исключением того, что теперь у нас есть ещё два множества,
+$\cat{C}(a, x)$ и $F x$, и морфизм $g$ из
+$a$ в $x$ отображается, под hom-функтором, в:
 \[\cat{C}(a, g) \Colon \cat{C}(a, a) \to \cat{C}(a, x)\]
-and under $F$ to:
+а под $F$ в:
 \[F g \Colon F a \to F x\]
-Again, $\cat{C}(a, g)$ acting on our $p$ is given by the
-precomposition: $g \circ \id_a$, which corresponds to a point
-$p'$ in $\cat{C}(a, x)$. Naturality determines the value
-of $\alpha_x$ acting on $p'$ to be:
+Опять, $\cat{C}(a, g)$, действующий на наше $p$, задаётся
+предкомпозицией: $g \circ \id_a$, что соответствует точке
+$p'$ в $\cat{C}(a, x)$. Естественность определяет значение
+$\alpha_x$, действующего на $p'$, как:
 \[q' = (F g) q\]
-Since $p'$ was arbitrary, the whole function $\alpha_x$ is
-thus determined.
+Поскольку $p'$ было произвольным, вся функция $\alpha_x$
+таким образом определена.
 
 \begin{figure}[H]
   \centering
@@ -191,134 +191,133 @@ thus determined.
 \end{figure}
 
 \noindent
-What if there are objects in $\cat{C}$ that have no connection to
-$a$? They are all mapped under $\cat{C}(a, -)$ to a single set
---- the empty set. Recall that the empty set is the initial object in
-the category of sets. It means that there is a unique function from this
-set to any other set. We called this function \code{absurd}. So here,
-again, we have no choice for the component of the natural
-transformation: it can only be \code{absurd}.
+Что, если есть объекты в $\cat{C}$, которые не имеют соединения с
+$a$? Все они отображаются под $\cat{C}(a, -)$ в одно множество
+--- пустое множество. Вспомните, что пустое множество --- это начальный объект в
+категории множеств. Это означает, что существует уникальная функция из этого
+множества в любое другое множество. Мы назвали эту функцию \code{absurd}. Так что здесь
+снова у нас нет выбора для компоненты естественного
+преобразования: это может быть только \code{absurd}.
 
-One way of understanding the Yoneda lemma is to realize that natural
-transformations between $\Set$-valued functors are just families
-of functions, and functions are in general lossy. A function may
-collapse information and it may cover only parts of its codomain. The
-only functions that are not lossy are the ones that are invertible ---
-the isomorphisms. It follows then that the best structure-preserving
-$\Set$-valued functors are the representable ones. They are either
-the hom-functors or the functors that are naturally isomorphic to
-hom-functors. Any other functor $F$ is obtained from a
-hom-functor through a lossy transformation. Such a transformation may
-not only lose information, but it may also cover only a small part of
-the image of the functor $F$ in $\Set$.
+Один способ понимания леммы Ёнеды --- осознать, что естественные
+преобразования между функторами со значениями в $\Set$ --- это просто семейства
+функций, а функции в общем случае с потерями. Функция может
+схлопывать информацию, и она может покрывать только части своего кодомена.
+Единственные функции, которые не с потерями, --- это те, которые обратимы ---
+изоморфизмы. Отсюда следует, что лучшие структуро-сохраняющие
+функторы со значениями в $\Set$ --- это представимые. Они либо
+hom-функторы, либо функторы, которые естественно изоморфны
+hom-функторам. Любой другой функтор $F$ получается из
+hom-функтора через преобразование с потерями. Такое преобразование может
+не только терять информацию, но оно также может покрывать только малую часть
+образа функтора $F$ в $\Set$.
 
-\section{Yoneda in Haskell}
+\section{Ёнеда в Haskell}
 
-We have already encountered the hom-functor in Haskell under the guise
-of the reader functor:
+Мы уже встречали hom-функтор в Haskell под видом
+функтора reader:
 
 \src{snippet01}
-The reader maps morphisms (here, functions) by precomposition:
+Reader отображает морфизмы (здесь функции) предкомпозицией:
 
 \src{snippet02}
-The Yoneda lemma tells us that the reader functor can be naturally
-mapped to any other functor.
+Лемма Ёнеды говорит нам, что функтор reader может быть естественно
+отображён в любой другой функтор.
 
-A natural transformation is a polymorphic function. So given a functor
-\code{F}, we have a mapping to it from the reader functor:
+Естественное преобразование --- это полиморфная функция. Так что для данного функтора
+\code{F} у нас есть отображение в него из функтора reader:
 
 \src{snippet03}
-As usual, \code{forall} is optional, but I like to write it explicitly
-to emphasize parametric polymorphism of natural transformations.
+Как обычно, \code{forall} опционален, но мне нравится писать его явно,
+чтобы подчеркнуть параметрический полиморфизм естественных преобразований.
 
-The Yoneda lemma tells us that these natural transformations are in
-one-to-one correspondence with the elements of \code{F a}:
+Лемма Ёнеды говорит нам, что эти естественные преобразования находятся во
+взаимно однозначном соответствии с элементами \code{F a}:
 
 \begin{snipv}
 forall x . (a -> x) -> F x \ensuremath{\cong} F a
 \end{snipv}
-The right hand side of this identity is what we would normally consider
-a data structure. Remember the interpretation of functors as generalized
-containers? \code{F a} is a container of \code{a}. But the left
-hand side is a polymorphic function that takes a function as an
-argument. The Yoneda lemma tells us that the two representations are
-equivalent --- they contain the same information.
+Правая сторона этого тождества --- то, что мы обычно считаем
+структурой данных. Помните интерпретацию функторов как обобщённых
+контейнеров? \code{F a} --- это контейнер \code{a}. Но левая
+сторона --- это полиморфная функция, которая принимает функцию в качестве
+аргумента. Лемма Ёнеды говорит нам, что два представления
+эквивалентны --- они содержат одну и ту же информацию.
 
-Another way of saying this is: Give me a polymorphic function of the
-type:
+Другой способ сказать это: дайте мне полиморфную функцию типа:
 
 \src{snippet04}
-and I'll produce a container of \code{a}. The trick is the one we used
-in the proof of the Yoneda lemma: we call this function with \code{id}
-to get an element of \code{F a}:
+и я произведу контейнер \code{a}. Трюк тот, который мы использовали
+в доказательстве леммы Ёнеды: мы вызываем эту функцию с \code{id},
+чтобы получить элемент \code{F a}:
 
 \src{snippet05}
-The converse is also true: Given a value of the type \code{F a}:
+Обратное также верно: для данного значения типа \code{F a}:
 
 \src{snippet06}
-one can define a polymorphic function:
+можно определить полиморфную функцию:
 
 \src{snippet07}
-of the correct type. You can easily go back and forth between the two
-representations.
+правильного типа. Вы можете легко ходить туда и обратно между двумя
+представлениями.
 
-The advantage of having multiple representations is that one might be
-easier to compose than the other, or that one might be more efficient in
-some applications than the other.
+Преимущество наличия множественных представлений в том, что одно может быть
+легче композировать, чем другое, или что одно может быть более эффективным в
+некоторых применениях, чем другое.
 
-The simplest illustration of this principle is the code transformation
-that is often used in compiler construction: the continuation passing
-style or \acronym{CPS}. It's the simplest application of the Yoneda lemma to the
-identity functor. Replacing \code{F} with identity produces:
+Простейшая иллюстрация этого принципа --- преобразование кода,
+которое часто используется в конструкции компиляторов: стиль передачи продолжений
+или \acronym{CPS}. Это простейшее применение леммы Ёнеды к
+тождественному функтору. Замена \code{F} тождеством производит:
 
 \begin{snipv}
 forall r . (a -> r) -> r \ensuremath{\cong} a
 \end{snipv}
-The interpretation of this formula is that any type \code{a} can be
-replaced by a function that takes a ``handler'' for \code{a}. A
-handler is a function accepting \code{a} and performing the rest of
-the computation --- the continuation. (The type \code{r} usually
-encapsulates some kind of status code.)
+Интерпретация этой формулы в том, что любой тип \code{a} может быть
+заменён функцией, которая принимает ``обработчик'' для \code{a}.
+Обработчик --- это функция, принимающая \code{a} и выполняющая остальную часть
+вычисления --- продолжение. (Тип \code{r} обычно
+инкапсулирует какой-то код статуса.)
 
-This style of programming is very common in UIs, in asynchronous
-systems, and in concurrent programming. The drawback of \acronym{CPS} is that it
-involves inversion of control. The code is split between producers and
-consumers (handlers), and is not easily composable. Anybody who's done
-any amount of nontrivial web programming is familiar with the nightmare
-of spaghetti code from interacting stateful handlers. As we'll see
-later, judicious use of functors and monads can restore some
-compositional properties of \acronym{CPS}.
+Этот стиль программирования очень распространён в UI, в асинхронных
+системах и в конкурентном программировании. Недостаток \acronym{CPS} в том, что он
+включает инверсию контроля. Код разделён между производителями и
+потребителями (обработчиками) и не легко композируем. Любой, кто делал
+какое-либо количество нетривиального веб-программирования, знаком с кошмаром
+кода-спагетти из взаимодействующих состояние-полных обработчиков. Как мы увидим
+позже, разумное использование функторов и монад может восстановить некоторые
+композиционные свойства \acronym{CPS}.
 
-\section{Co-Yoneda}
+\section{Ко-Ёнеда}
 
-As usual, we get a bonus construction by inverting the direction of
-arrows. The Yoneda lemma can be applied to the opposite category
-$\cat{C}^\mathit{op}$ to give us a mapping between contravariant
-functors.
+Как обычно, мы получаем бонусную конструкцию, инвертируя направление
+стрелок. Лемма Ёнеды может быть применена к противоположной категории
+$\cat{C}^\mathit{op}$, чтобы дать нам отображение между контравариантными
+функторами.
 
-Equivalently, we can derive the co-Yoneda lemma by fixing the target
-object of our hom-functors instead of the source. We get the
-contravariant hom-functor from $\cat{C}$ to $\Set$:
-$\cat{C}(-, a)$. The contravariant version of the Yoneda lemma
-establishes one-to-one correspondence between natural transformations
-from this functor to any other contravariant functor $F$ and the
-elements of the set $F a$:
+Эквивалентно, мы можем вывести ко-лемму Ёнеды, фиксируя целевой
+объект наших hom-функторов вместо источника. Мы получаем
+контравариантный hom-функтор из $\cat{C}$ в $\Set$:
+$\cat{C}(-, a)$. Контравариантная версия леммы Ёнеды
+устанавливает взаимно однозначное соответствие между естественными преобразованиями
+из этого функтора в любой другой контравариантный функтор $F$ и
+элементами множества $F a$:
 \[\mathit{Nat}(\cat{C}(-, a), F) \cong F a\]
-Here's the Haskell version of the co-Yoneda lemma:
+Вот версия Haskell ко-леммы Ёнеды:
 
 \begin{snipv}
 forall x . (x -> a) -> F x \ensuremath{\cong} F a
 \end{snipv}
-Notice that in some literature it's the contravariant version that's
-called the Yoneda lemma.
+Обратите внимание, что в некоторой литературе именно контравариантная версия
+называется леммой Ёнеды.
 
-\section{Challenges}
+\section{Задачи}
 
 \begin{enumerate}
   \tightlist
   \item
-        Show that the two functions \code{phi} and \code{psi} that form
-        the Yoneda isomorphism in Haskell are inverses of each other.
+        Покажите, что две функции \code{phi} и \code{psi}, которые образуют
+        изоморфизм Ёнеды в Haskell, являются обратными друг другу.
 
         \begin{snip}{haskell}
 phi :: (forall x . (a -> x) -> F x) -> F a
@@ -328,22 +327,22 @@ psi :: F a -> (forall x . (a -> x) -> F x)
 psi fa h = fmap h fa
 \end{snip}
   \item
-        A discrete category is one that has objects but no morphisms other
-        than identity morphisms. How does the Yoneda lemma work for functors
-        from such a category?
+        Дискретная категория --- это та, которая имеет объекты, но никаких морфизмов, кроме
+        тождественных морфизмов. Как работает лемма Ёнеды для функторов
+        из такой категории?
   \item
-        A list of units \code{{[}(){]}} contains no other information but
-        its length. So, as a data type, it can be considered an encoding of
-        integers. An empty list encodes zero, a singleton \code{{[}(){]}} (a
-        value, not a type) encodes one, and so on. Construct another
-        representation of this data type using the Yoneda lemma for the list
-        functor.
+        Список юнитов \code{{[}(){]}} не содержит никакой другой информации, кроме
+        своей длины. Так что, как тип данных, он может рассматриваться как кодировка
+        целых чисел. Пустой список кодирует ноль, синглетон \code{{[}(){]}} (значение,
+        не тип) кодирует один, и так далее. Сконструируйте другое
+        представление этого типа данных, используя лемму Ёнеды для функтора
+        списка.
 \end{enumerate}
 
-\section{Bibliography}
+\section{Библиография}
 
 \begin{enumerate}
   \tightlist
   \item
-        \urlref{https://www.youtube.com/watch?v=TLMxHB19khE}{Catsters} video.
+        \urlref{https://www.youtube.com/watch?v=TLMxHB19khE}{Catsters} видео.
 \end{enumerate}

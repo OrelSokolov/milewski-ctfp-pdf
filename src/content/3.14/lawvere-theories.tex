@@ -1,68 +1,68 @@
 % !TEX root = ../../ctfp-print.tex
 
-\lettrine[lhang=0.17]{N}{owadays you can't} talk about functional programming without mentioning
-monads. But there is an alternative universe in which, by chance,
-Eugenio Moggi turned his attention to Lawvere theories rather than
-monads. Let's explore that universe.
+\lettrine[lhang=0.17]{С}{егодня невозможно} говорить о функциональном программировании без упоминания
+монад. Но существует альтернативная вселенная, в которой случайно
+Эудженио Могги обратил своё внимание на теории Ловера, а не на
+монады. Давайте исследуем эту вселенную.
 
-\section{Universal Algebra}
+\section{Универсальная алгебра}
 
-There are many ways of describing algebras at various levels of
-abstraction. We try to find a general language to describe things like
-monoids, groups, or rings. At the simplest level, all these
-constructions define \emph{operations} on elements of a set, plus some
-\emph{laws} that must be satisfied by these operations. For instance, a
-monoid can be defined in terms of a binary operation that is
-associative. We also have a unit element and unit laws. But with a
-little bit of imagination we can turn the unit element to a nullary
-operation --- an operation that takes no arguments and returns a special
-element of the set. If we want to talk about groups, we add a unary
-operator that takes an element and returns its inverse. There are
-corresponding left and right inverse laws to go with it. A ring defines
-two binary operators plus some more laws. And so on.
+Существует много способов описания алгебр на различных уровнях
+абстракции. Мы пытаемся найти общий язык для описания таких вещей, как
+моноиды, группы или кольца. На простейшем уровне все эти
+конструкции определяют \emph{операции} над элементами множества, плюс некоторые
+\emph{законы}, которые должны удовлетворяться этими операциями. Например,
+моноид можно определить в терминах бинарной операции, которая
+ассоциативна. У нас также есть единичный элемент и законы единицы. Но с
+небольшой долей воображения можем превратить единичный элемент в нульарную
+операцию --- операцию, которая не принимает аргументов и возвращает специальный
+элемент множества. Если хотим говорить о группах, добавляем унарный
+оператор, который берёт элемент и возвращает его обратный. Есть
+соответствующие левый и правый законы обратного элемента, идущие с ним. Кольцо определяет
+два бинарных оператора плюс ещё несколько законов. И так далее.
 
-The big picture is that an algebra is defined by a set of $n$-ary
-operations for various values of $n$, and a set of equational identities.
-These identities are all universally quantified. The associativity
-equation must be satisfied for all possible combinations of three
-elements, and so on.
+Общая картина в том, что алгебра определяется набором $n$-арных
+операций для различных значений $n$ и набором уравнительных тождеств.
+Эти тождества все универсально квантифицированы. Уравнение ассоциативности
+должно удовлетворяться для всех возможных комбинаций трёх
+элементов, и так далее.
 
-Incidentally, this eliminates fields from consideration, for the simple
-reason that zero (unit with respect to addition) has no inverse with
-respect to multiplication. The inverse law for a field can't be
-universally quantified.
+Кстати, это исключает поля из рассмотрения по простой
+причине, что ноль (единица относительно сложения) не имеет обратного относительно
+умножения. Закон обратного элемента для поля не может быть
+универсально квантифицирован.
 
-This definition of a universal algebra can be extended to categories
-other than $\Set$, if we replace operations (functions) with
-morphisms. Instead of a set, we select an object $a$ (called a
-generic object). A unary operation is just an endomorphism of
-$a$. But what about other arities (\newterm{arity} is the number of
-arguments for a given operation)? A binary operation (arity 2) can be
-defined as a morphism from the product $a\times{}a$ back to $a$.
-A general $n$-ary operation is a morphism from the $n^\text{th}$ power of
-$a$ to $a$:
+Это определение универсальной алгебры можно распространить на категории,
+отличные от $\Set$, если заменить операции (функции)
+морфизмами. Вместо множества выбираем объект $a$ (называемый
+типовым объектом). Унарная операция — это просто эндоморфизм
+$a$. А как насчёт других арностей (\newterm{арность} — это количество
+аргументов для данной операции)? Бинарная операция (арность 2) может быть
+определена как морфизм из произведения $a\times{}a$ обратно в $a$.
+Общая $n$-арная операция — это морфизм из $n$-ой степени
+$a$ в $a$:
 \[\alpha_n \Colon a^n \to a\]
-A nullary operation is a morphism from the terminal object (the zeroth
-power of $a$). So all we need in order to define any algebra is a
-category whose objects are powers of one special object $a$. The
-specific algebra is encoded in the hom-sets of this category. This is a
-Lawvere theory in a nutshell.
+Нульарная операция — это морфизм из терминального объекта (нулевой
+степени $a$). Так что всё, что нам нужно для определения любой алгебры, — это
+категория, чьи объекты являются степенями одного специального объекта $a$.
+Конкретная алгебра закодирована в hom-множествах этой категории. Это
+теория Ловера в двух словах.
 
-The derivation of Lawvere theories goes through many steps, so here's
-the roadmap:
+Выведение теорий Ловера проходит через много шагов, поэтому вот
+дорожная карта:
 
 \begin{enumerate}
   \tightlist
   \item
-        Category of finite sets $\cat{FinSet}$.
+        Категория конечных множеств $\cat{FinSet}$.
   \item
-        Its skeleton $\cat{F}$.
+        Её скелет $\cat{F}$.
   \item
-        Its opposite $\Fop$.
+        Её противоположная категория $\Fop$.
   \item
-        Lawvere theory $\cat{L}$: an object in the category $\cat{Law}$.
+        Теория Ловера $\cat{L}$: объект в категории $\cat{Law}$.
   \item
-        Model $M$ of a Lawvere category: an object in the category\\
+        Модель $M$ категории Ловера: объект в категории\\
         $\cat{Mod}(\cat{L}, \Set)$.
 \end{enumerate}
 
@@ -71,361 +71,360 @@ the roadmap:
   \includegraphics[width=0.8\textwidth]{images/lawvere1.png}
 \end{figure}
 
-\section{Lawvere Theories}
+\section{Теории Ловера}
 
-All Lawvere theories share a common backbone. All objects in a Lawvere
-theory are generated from just one object using products (really, just
-powers). But how do we define these products in a general category? It
-turns out that we can define products using a mapping from a simpler
-category. In fact this simpler category may define coproducts instead of
-products, and we'll use a \emph{contravariant} functor to embed them in
-our target category. A contravariant functor turns coproducts into
-products and injections to projections.
+Все теории Ловера имеют общий позвоночник. Все объекты в теории
+Ловера генерируются из одного объекта, используя произведения (на самом деле, просто
+степени). Но как определить эти произведения в общей категории?
+Оказывается, можем определить произведения с помощью отображения из более простой
+категории. Фактически эта более простая категория может определять копроизведения вместо
+произведений, и мы будем использовать \emph{контравариантный} функтор, чтобы вложить их в
+нашу целевую категорию. Контравариантный функтор превращает копроизведения в
+произведения, а инъекции в проекции.
 
-The natural choice for the backbone of a Lawvere category is the
-category of finite sets, $\cat{FinSet}$. It contains the empty set
-$\varnothing$, a singleton set $1$, a two-element set $2$,
-and so on. All objects in this category can be generated from the
-singleton set using coproducts (treating the empty set as a special case
-of a nullary coproduct). For instance, a two-element set is a sum of two
-singletons, $2 = 1 + 1$, as expressed in Haskell:
+Естественный выбор для позвоночника категории Ловера — это
+категория конечных множеств, $\cat{FinSet}$. Она содержит пустое множество
+$\varnothing$, синглтонное множество $1$, двухэлементное множество $2$
+и так далее. Все объекты в этой категории могут быть сгенерированы из
+синглтонного множества с помощью копроизведений (рассматривая пустое множество как специальный случай
+нульарного копроизведения). Например, двухэлементное множество — это сумма двух
+синглтонов, $2 = 1 + 1$, как выражено в Haskell:
 
 \src{snippet01}
-However, even though it's natural to think that there's only one empty
-set, there may be many distinct singleton sets. In particular, the set
-$1 + \varnothing$ is different from the set $\varnothing + 1$, and
-different from $1$ --- even though they are all isomorphic. The
-coproduct in the category of sets is not associative. We can remedy that
-situation by building a category that identifies all isomorphic sets.
-Such a category is called a \newterm{skeleton}. In other words, the
-backbone of any Lawvere theory is the skeleton $\cat{F}$ of
-$\cat{FinSet}$. The objects in this category can be identified with
-natural numbers (including zero) that correspond to the element count in
-$\cat{FinSet}$. Coproduct plays the role of addition. Morphisms in
-$\cat{F}$ correspond to functions between finite sets. For instance,
-there is a unique morphism from $\varnothing$ to $n$ (empty set
-being the initial object), no morphisms from $n$ to $\varnothing$
-(except $\varnothing \to \varnothing$), $n$ morphisms from $1$ to
-$n$ (the injections), one morphism from $n$ to $1$,
-and so on. Here, $n$ denotes an object in $\cat{F}$
-corresponding to all $n$-element sets in $\cat{FinSet}$ that have been
-identified through isomorphisms.
+Однако, хотя естественно думать, что существует только одно пустое
+множество, может быть много различных синглтонных множеств. В частности, множество
+$1 + \varnothing$ отличается от множества $\varnothing + 1$ и
+отличается от $1$ --- даже хотя они все изоморфны.
+Копроизведение в категории множеств не ассоциативно. Можем исправить эту
+ситуацию, построив категорию, которая отождествляет все изоморфные множества.
+Такая категория называется \newterm{скелетом}. Другими словами,
+позвоночник любой теории Ловера — это скелет $\cat{F}$
+$\cat{FinSet}$. Объекты в этой категории могут быть отождествлены с
+натуральными числами (включая ноль), которые соответствуют числу элементов в
+$\cat{FinSet}$. Копроизведение играет роль сложения. Морфизмы в
+$\cat{F}$ соответствуют функциям между конечными множествами. Например,
+существует уникальный морфизм из $\varnothing$ в $n$ (пустое множество
+является начальным объектом), нет морфизмов из $n$ в $\varnothing$
+(кроме $\varnothing \to \varnothing$), $n$ морфизмов из $1$ в
+$n$ (инъекции), один морфизм из $n$ в $1$,
+и так далее. Здесь $n$ обозначает объект в $\cat{F}$,
+соответствующий всем $n$-элементным множествам в $\cat{FinSet}$, которые были
+отождествлены через изоморфизмы.
 
-Using the category $\cat{F}$ we can formally define a \newterm{Lawvere
-  theory} as a category $\cat{L}$ equipped with a special functor:
+Используя категорию $\cat{F}$, можем формально определить \newterm{теорию
+  Ловера} как категорию $\cat{L}$, оснащённую специальным функтором:
 \[I_{\cat{L}} \Colon \Fop \to \cat{L}\]
-This functor must be a bijection on objects and it must preserve finite
-products (products in $\Fop$ are the same as
-coproducts in $\cat{F}$):
+Этот функтор должен быть биекцией на объектах и должен сохранять конечные
+произведения (произведения в $\Fop$ — это то же самое, что
+копроизведения в $\cat{F}$):
 \[I_{\cat{L}} (m\times{}n) = I_{\cat{L}} m\times{}I_{\cat{L}} n\]
-You may sometimes see this functor characterized as identity-on-objects,
-which means that the objects in $\cat{F}$ and $\cat{L}$ are the same.
-We will therefore use the same names for them --- we'll denote them by
-natural numbers. Keep in mind though that objects in $\cat{F}$ are not
-the same as sets (they are classes of isomorphic sets).
+Иногда этот функтор характеризуют как тождественный-на-объектах,
+что означает, что объекты в $\cat{F}$ и $\cat{L}$ одинаковы.
+Поэтому будем использовать для них одни и те же имена --- обозначим их
+натуральными числами. Но имейте в виду, что объекты в $\cat{F}$ — это не
+то же самое, что множества (это классы изоморфных множеств).
 
-The hom-sets in $\cat{L}$ are, in general, richer than those in
-$\Fop$. They may contain morphisms other than
-the ones corresponding to functions in $\cat{FinSet}$ (the latter are
-sometimes called \newterm{basic product operations}). Equational laws of a
-Lawvere theory are encoded in those morphisms.
+hom-множества в $\cat{L}$, в общем случае, богаче, чем в
+$\Fop$. Они могут содержать морфизмы, отличные от
+тех, которые соответствуют функциям в $\cat{FinSet}$ (последние иногда
+называются \newterm{базовыми операциями произведения}). Уравнительные законы
+теории Ловера закодированы в этих морфизмах.
 
-The key observation is that the singleton set $1$ in $\cat{F}$
-is mapped to some object that we also call $1$ in $\cat{L}$, and
-all the other objects in $\cat{L}$ are automatically powers of this
-object. For instance, the two-element set $2$ in $\cat{F}$ is
-the coproduct $1 + 1$, so it must be mapped to a product
-$1 \times 1$ (or $1^2$) in $\cat{L}$. In this sense, the category
-$\cat{F}$ behaves like the logarithm of $\cat{L}$.
+Ключевое наблюдение в том, что синглтонное множество $1$ в $\cat{F}$
+отображается в некоторый объект, который мы также называем $1$ в $\cat{L}$, и
+все остальные объекты в $\cat{L}$ автоматически являются степенями этого
+объекта. Например, двухэлементное множество $2$ в $\cat{F}$ является
+копроизведением $1 + 1$, поэтому оно должно отображаться в произведение
+$1 \times 1$ (или $1^2$) в $\cat{L}$. В этом смысле категория
+$\cat{F}$ ведёт себя как логарифм $\cat{L}$.
 
-Among morphisms in $\cat{L}$ we have those transferred by the functor
-$I_{\cat{L}}$ from $\cat{F}$. They play a structural role in $\cat{L}$. In
-particular coproduct injections $i_k$ become product projections
-$p_k$. A useful intuition is to imagine the projection:
+Среди морфизмов в $\cat{L}$ есть те, которые перенесены функтором
+$I_{\cat{L}}$ из $\cat{F}$. Они играют структурную роль в $\cat{L}$. В
+частности, инъекции копроизведения $i_k$ становятся проекциями произведения
+$p_k$. Полезная интуиция — представить проекцию:
 \[p_k \Colon 1^n \to 1\]
-as the prototype for a function of $n$ variables that ignores all but the
-$k^\text{th}$ variable. Conversely, constant morphisms $n \to 1$
-in $\cat{F}$ become diagonal morphisms $1 \to 1^n$ in
-$\cat{L}$. They correspond to duplication of variables.
+как прототип функции от $n$ переменных, которая игнорирует все, кроме
+$k$-ой переменной. И наоборот, константные морфизмы $n \to 1$
+в $\cat{F}$ становятся диагональными морфизмами $1 \to 1^n$ в
+$\cat{L}$. Они соответствуют дублированию переменных.
 
-The interesting morphisms in $\cat{L}$ are the ones that define $n$-ary
-operations other than projections. It's those morphisms that distinguish
-one Lawvere theory from another. These are the multiplications, the
-additions, the selections of unit elements, and so on, that define the
-algebra. But to make $\cat{L}$ a full category, we also need compound
-operations $n \to m$ (or, equivalently,
-$1^n \to 1^m$). Because of the simple structure of
-the category, they turn out to be products of simpler morphisms of the
-type $n \to 1$. This is a generalization of the
-statement that a function that returns a product is a product of
-functions (or, as we've seen earlier, that the hom-functor is
-continuous).
+Интересные морфизмы в $\cat{L}$ — это те, которые определяют $n$-арные
+операции, отличные от проекций. Именно эти морфизмы отличают
+одну теорию Ловера от другой. Это умножения,
+сложения, выборы единичных элементов и так далее, которые определяют
+алгебру. Но чтобы сделать $\cat{L}$ полной категорией, нам также нужны составные
+операции $n \to m$ (или, эквивалентно,
+$1^n \to 1^m$). Благодаря простой структуре
+категории, они оказываются произведениями более простых морфизмов
+типа $n \to 1$. Это обобщение
+утверждения, что функция, возвращающая произведение, является произведением
+функций (или, как мы видели ранее, что hom-функтор
+непрерывен).
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.8\textwidth]{images/lawvere1.png}
-  \caption{Lawvere theory $\cat{L}$ is based on $\Fop$, from which
-    it inherits the ``boring'' morphisms that define the products. It adds
-    the ``interesting'' morphisms that describe the $n$-ary operations (dotted
-    arrows).}
+  \caption{Теория Ловера $\cat{L}$ основана на $\Fop$, из которой
+    она наследует ``скучные'' морфизмы, определяющие произведения. Она добавляет
+    ``интересные'' морфизмы, описывающие $n$-арные операции (пунктирные
+    стрелки).}
 \end{figure}
 
-Lawvere theories form a category $\cat{Law}$, in which morphisms are
-functors that preserve finite products and commute with the functors
-$I$. Given two such theories, $(\cat{L}, I_{\cat{L}})$ and
-$(\cat{L'}, I'_{\cat{L'}})$, a morphism between them is a
-functor $F \Colon \cat{L} \to \cat{L'}$ such that:
+Теории Ловера образуют категорию $\cat{Law}$, в которой морфизмами являются
+функторы, сохраняющие конечные произведения и коммутирующие с функторами
+$I$. Для двух таких теорий, $(\cat{L}, I_{\cat{L}})$ и
+$(\cat{L'}, I'_{\cat{L'}})$, морфизм между ними — это
+функтор $F \Colon \cat{L} \to \cat{L'}$ такой, что:
 \begin{gather*}
   F (m \times n) = F m \times F n \\
   F \circ I_{\cat{L}} = I'_{\cat{L'}}
 \end{gather*}
-Morphisms between Lawvere theories encapsulate the idea of the
-interpretation of one theory inside another. For instance, group
-multiplication may be interpreted as monoid multiplication if we ignore
-inverses.
+Морфизмы между теориями Ловера инкапсулируют идею
+интерпретации одной теории внутри другой. Например, групповое
+умножение может интерпретироваться как моноидное умножение, если игнорировать
+обратные элементы.
 
-The simplest trivial example of a Lawvere category is
-$\Fop$ itself (corresponding to the choice of
-the identity functor for $I_{\cat{L}}$). This Lawvere theory that has no
-operations or laws happens to be the initial object in $\cat{Law}$.
+Простейший тривиальный пример категории Ловера — это
+сама $\Fop$ (соответствующая выбору
+тождественного функтора для $I_{\cat{L}}$). Эта теория Ловера, не имеющая
+операций или законов, случайно оказывается начальным объектом в $\cat{Law}$.
 
-At this point it would be very helpful to present a non-trivial example
-of a Lawvere theory, but it would be hard to explain it without first
-understanding what models are.
+На этом этапе было бы очень полезно представить нетривиальный пример
+теории Ловера, но было бы трудно объяснить его, не поняв сначала,
+что такое модели.
 
-\section{Models of Lawvere Theories}
+\section{Модели теорий Ловера}
 
-The key to understand Lawvere theories is to realize that one such
-theory generalizes a lot of individual algebras that share the same
-structure. For instance, the Lawvere theory of monoids describes the
-essence of being a monoid. It must be valid for all monoids. A
-particular monoid becomes a model of such a theory. A model is defined
-as a functor from the Lawvere theory $\cat{L}$ to the category of sets
-$\Set$. (There are generalizations of Lawvere theories that use
-other categories for models but here I'll just concentrate on
-$\Set$.) Since the structure of $\cat{L}$ depends heavily on
-products, we require that such a functor preserve finite products. A
-model of $\cat{L}$, also called the algebra over the Lawvere theory
-$\cat{L}$, is therefore defined by a functor:
+Ключ к пониманию теорий Ловера — осознать, что одна такая
+теория обобщает множество отдельных алгебр, имеющих одинаковую
+структуру. Например, теория Ловера моноидов описывает
+сущность быть моноидом. Она должна быть валидна для всех моноидов.
+Конкретный моноид становится моделью такой теории. Модель определяется
+как функтор из теории Ловера $\cat{L}$ в категорию множеств
+$\Set$. (Существуют обобщения теорий Ловера, которые используют
+другие категории для моделей, но здесь я просто сосредоточусь на
+$\Set$.) Поскольку структура $\cat{L}$ сильно зависит от
+произведений, мы требуем, чтобы такой функтор сохранял конечные произведения.
+Модель $\cat{L}$, также называемая алгеброй над теорией Ловера
+$\cat{L}$, поэтому определяется функтором:
 \begin{gather*}
   M \Colon \cat{L} \to \Set \\
   M (a \times b) \cong M a \times M b
 \end{gather*}
-Notice that we require the preservation of products only \emph{up to
-  isomorphism}. This is very important, because strict preservation of
-products would eliminate most interesting theories.
+Обратите внимание, что мы требуем сохранения произведений только \emph{с точностью до
+  изоморфизма}. Это очень важно, потому что строгое сохранение
+произведений исключило бы большинство интересных теорий.
 
-The preservation of products by models means that the image of
-$M$ in $\Set$ is a sequence of sets generated by powers of
-the set $M 1$ --- the image of the object $1$ from
-$\cat{L}$. Let's call this set $a$. (This set is sometimes
-called a \emph{sort}, and such an algebra is called \newterm{single-sorted}. There
-exist generalizations of Lawvere theories to multi-sorted algebras.) In
-particular, binary operations from $\cat{L}$ are mapped to functions:
+Сохранение произведений моделями означает, что образ
+$M$ в $\Set$ — это последовательность множеств, порождённых степенями
+множества $M 1$ --- образа объекта $1$ из
+$\cat{L}$. Назовём это множество $a$. (Это множество иногда
+называется \emph{сортом}, а такая алгебра называется \newterm{односортной}. Существуют
+обобщения теорий Ловера на многосортные алгебры.) В
+частности, бинарные операции из $\cat{L}$ отображаются в функции:
 \[a \times a \to a\]
-As with any functor, it's possible that multiple morphisms in $\cat{L}$
-are collapsed to the same function in $\Set$.
+Как и с любым функтором, возможно, что множество морфизмов в $\cat{L}$
+схлопываются в одну и ту же функцию в $\Set$.
 
-Incidentally, the fact that all laws are universally quantified
-equalities means that every Lawvere theory has a trivial model: a
-constant functor mapping all objects to the singleton set, and all morphisms
-to the identity function on it.
+Кстати, тот факт, что все законы универсально квантифицированы
+равенства, означает, что каждая теория Ловера имеет тривиальную модель:
+константный функтор, отображающий все объекты в синглтонное множество, а все морфизмы
+в тождественную функцию на нём.
 
-A general morphism in $\cat{L}$ of the form
-$m \to n$ is mapped to a function:
+Общий морфизм в $\cat{L}$ вида
+$m \to n$ отображается в функцию:
 \[a^m \to a^n\]
-If we have two different models, $M$ and $N$, a natural
-transformation between them is a family of functions indexed by
+Если у нас есть две различные модели, $M$ и $N$, естественное
+преобразование между ними — это семейство функций, индексированное
 $n$:
 \[\mu_n \Colon M n \to N n\]
-or, equivalently:
+или, эквивалентно:
 \[\mu_n \Colon a^n \to b^n\]
-where $b = N 1$.
+где $b = N 1$.
 
-Notice that the naturality condition guarantees the preservation of
-$n$-ary operations:
+Заметим, что условие естественности гарантирует сохранение
+$n$-арных операций:
 \[N f \circ \mu_n = \mu_1 \circ M f\]
-where $f \Colon n \to 1$ is an $n$-ary operation in
+где $f \Colon n \to 1$ — это $n$-арная операция в
 $\cat{L}$.
 
-The functors that define models form a category of models,
-$\cat{Mod}(\cat{L}, \Set)$, with natural transformations as morphisms.
+Функторы, определяющие модели, образуют категорию моделей,
+$\cat{Mod}(\cat{L}, \Set)$, с естественными преобразованиями как морфизмами.
 
-Consider a model for the trivial Lawvere category
-$\Fop$. Such a model is completely determined by
-its value at $1$, $M 1$. Since $M 1$ can be any
-set, there are as many of these models as there are sets in
-$\Set$. Moreover, every morphism in $\cat{Mod}(\Fop, \Set)$ (a
-natural transformation between functors $M$ and $N$) is
-uniquely determined by its component at $M 1$. Conversely, every
-function $M 1 \to N 1$ induces a natural
-transformation between the two models $M$ and $N$.
-Therefore $\cat{Mod}(\Fop, \Set)$ is equivalent to $\Set$.
+Рассмотрим модель для тривиальной категории Ловера
+$\Fop$. Такая модель полностью определяется своим
+значением в $1$, $M 1$. Поскольку $M 1$ может быть любым
+множеством, существует столько же таких моделей, сколько множеств в
+$\Set$. Более того, каждый морфизм в $\cat{Mod}(\Fop, \Set)$ (естественное
+преобразование между функторами $M$ и $N$)
+однозначно определяется своей компонентой в $M 1$. И наоборот, каждая
+функция $M 1 \to N 1$ индуцирует естественное
+преобразование между двумя моделями $M$ и $N$.
+Следовательно, $\cat{Mod}(\Fop, \Set)$ эквивалентна $\Set$.
 
-\section{The Theory of Monoids}
+\section{Теория моноидов}
 
-The simplest nontrivial example of a Lawvere theory describes the
-structure of monoids. It is a single theory that distills the structure
-of all possible monoids, in the sense that the models of this theory
-span the whole category $\cat{Mon}$ of monoids. We've already seen a
-\hyperref[free-monoids]{universal
-  construction}, which showed that every monoid can be obtained from an
-appropriate free monoid by identifying a subset of morphisms. So a
-single free monoid already generalizes a whole lot of monoids. There
-are, however, infinitely many free monoids. The Lawvere theory for
-monoids $\cat{L}_{\cat{Mon}}$ combines all of them in one
-elegant construction.
+Простейший нетривиальный пример теории Ловера описывает
+структуру моноидов. Это единая теория, которая выделяет структуру
+всех возможных моноидов в том смысле, что модели этой теории
+охватывают всю категорию $\cat{Mon}$ моноидов. Мы уже видели
+\hyperref[free-monoids]{универсальную
+  конструкцию}, которая показала, что каждый моноид можно получить из подходящего
+свободного моноида путём отождествления подмножества морфизмов. Таким образом,
+один свободный моноид уже обобщает множество моноидов. Однако
+существует бесконечно много свободных моноидов. Теория Ловера для
+моноидов $\cat{L}_{\cat{Mon}}$ объединяет все их в одной
+элегантной конструкции.
 
-Every monoid must have a unit, so we have to have a special morphism
-$\eta$ in $\cat{L}_{\cat{Mon}}$ that goes from $0$ to
-$1$. Notice that there can be no corresponding morphism in
-$\cat{F}$. Such a morphism would go in the opposite direction, from
-$1$ to $0$ which, in $\cat{FinSet}$, would be a function
-from the singleton set to the empty set. No such function exists.
+Каждый моноид должен иметь единицу, поэтому мы должны иметь специальный морфизм
+$\eta$ в $\cat{L}_{\cat{Mon}}$, который идёт из $0$ в
+$1$. Заметим, что не может быть соответствующего морфизма в
+$\cat{F}$. Такой морфизм шёл бы в противоположном направлении, из
+$1$ в $0$, что в $\cat{FinSet}$ было бы функцией
+из синглтонного множества в пустое множество. Такой функции не существует.
 
-Next, consider morphisms $2 \to 1$, members of
-$\cat{L}_{\cat{Mon}}(2, 1)$, which must contain prototypes of all binary
-operations. When constructing models in $\cat{Mod}(\cat{L}_{\cat{Mon}}, \Set)$, these
-morphisms will be mapped to functions from the Cartesian product
-$M 1 \times M 1$ to $M 1$. In other words, functions of
-two arguments.
+Далее рассмотрим морфизмы $2 \to 1$, члены
+$\cat{L}_{\cat{Mon}}(2, 1)$, которые должны содержать прототипы всех бинарных
+операций. При построении моделей в $\cat{Mod}(\cat{L}_{\cat{Mon}}, \Set)$ эти
+морфизмы будут отображаться в функции из декартова произведения
+$M 1 \times M 1$ в $M 1$. Другими словами, функции от
+двух аргументов.
 
-The question is: how many functions of two arguments can one implement
-using only the monoidal operator. Let's call the two arguments
-$a$ and $b$. There is one function that ignores both
-arguments and returns the monoidal unit. Then there are two projections
-that return $a$ and $b$, respectively. They are followed
-by functions that return $ab$, $ba$, $aa$,
-$bb$, $aab$, and so on\ldots{} In fact there are as many
-such functions of two arguments as there are elements in the free monoid
-with generators $a$ and $b$. Notice that
-$\cat{L}_{\cat{Mon}}(2, 1)$ must contain all those morphisms because one of the
-models is the free monoid. In a free monoid they correspond to distinct
-functions. Other models may collapse multiple morphisms in
-$\cat{L}_{\cat{Mon}}(2, 1)$ down to a single function, but not the free monoid.
+Вопрос: сколько функций от двух аргументов можно реализовать,
+используя только моноидальный оператор. Назовём два аргумента
+$a$ и $b$. Есть одна функция, которая игнорирует оба
+аргумента и возвращает моноидальную единицу. Затем есть две проекции,
+которые возвращают $a$ и $b$ соответственно. За ними следуют
+функции, которые возвращают $ab$, $ba$, $aa$,
+$bb$, $aab$ и так далее\ldots{} Фактически существует столько же
+таких функций от двух аргументов, сколько элементов в свободном моноиде
+с генераторами $a$ и $b$. Заметим, что
+$\cat{L}_{\cat{Mon}}(2, 1)$ должен содержать все эти морфизмы, потому что одна из
+моделей — это свободный моноид. В свободном моноиде они соответствуют различным
+функциям. Другие модели могут схлопывать множество морфизмов в
+$\cat{L}_{\cat{Mon}}(2, 1)$ до одной функции, но не свободный моноид.
 
-If we denote the free monoid with $n$ generators $n^*$, we may
-identify the hom-set $\cat{L}(2, 1)$ with the hom-set
-$\cat{Mon}(1^*, 2^*)$ in $\cat{Mon}$, the category of monoids. In
-general, we pick $\cat{L}_{\cat{Mon}}(m, n)$ to be $\cat{Mon}(n^*, m^*)$. In
-other words, the category $\cat{L}_{\cat{Mon}}$ is the opposite of the category
-of free monoids.
+Если обозначить свободный моноид с $n$ генераторами через $n^*$, можем
+отождествить hom-множество $\cat{L}(2, 1)$ с hom-множеством
+$\cat{Mon}(1^*, 2^*)$ в $\cat{Mon}$, категории моноидов. В
+общем случае выбираем $\cat{L}_{\cat{Mon}}(m, n)$ как $\cat{Mon}(n^*, m^*)$. Другими
+словами, категория $\cat{L}_{\cat{Mon}}$ — это противоположная категории
+свободных моноидов.
 
-The category of \emph{models} of the Lawvere theory for monoids,\\
-$\cat{Mod}(\cat{L}_{\cat{Mon}}, \Set)$, is equivalent to the category of all monoids,
+Категория \emph{моделей} теории Ловера для моноидов,\\
+$\cat{Mod}(\cat{L}_{\cat{Mon}}, \Set)$, эквивалентна категории всех моноидов,
 $\cat{Mon}$.
 
-\section{Lawvere Theories and Monads}
+\section{Теории Ловера и монады}
 
-As you may remember, algebraic theories can be described using monads
---- in particular
-\hyperref[algebras-for-monads]{algebras
-  for monads}. It should be no surprise then that there is a connection
-between Lawvere theories and monads.
+Как вы, возможно, помните, алгебраические теории можно описать с помощью монад
+--- в частности,
+\hyperref[algebras-for-monads]{алгебр
+  для монад}. Поэтому неудивительно, что существует связь
+между теориями Ловера и монадами.
 
-First, let's see how a Lawvere theory induces a monad. It does it
-through an
-\hyperref[free-forgetful-adjunctions]{adjunction}
-between a forgetful functor and a free functor. The forgetful functor
-$U$ assigns a set to each model. This set is given by evaluating
-the functor $M$ from $\cat{Mod}(\cat{L}, \Set)$ at the object $1$ in
+Во-первых, посмотрим, как теория Ловера индуцирует монаду. Она делает это
+через
+\hyperref[free-forgetful-adjunctions]{сопряжение}
+между забывающим функтором и свободным функтором. Забывающий функтор
+$U$ приписывает множество каждой модели. Это множество получается путём вычисления
+функтора $M$ из $\cat{Mod}(\cat{L}, \Set)$ в объекте $1$ в
 $\cat{L}$.
 
-Another way of deriving $U$ is by exploiting the fact that
-$\Fop$ is the initial object in $\cat{Law}$. It
-means that, for any Lawvere theory $\cat{L}$, there is a unique
-functor $\Fop \to \cat{L}$. This functor induces the
-opposite functor on models (since models are functors \emph{from}
-theories to sets):
+Другой способ выведения $U$ — использовать тот факт, что
+$\Fop$ — начальный объект в $\cat{Law}$. Это
+означает, что для любой теории Ловера $\cat{L}$ существует уникальный
+функтор $\Fop \to \cat{L}$. Этот функтор индуцирует
+противоположный функтор на моделях (поскольку модели — это функторы \emph{из}
+теорий в множества):
 \[\cat{Mod}(\cat{L}, \Set) \to \cat{Mod}(\Fop, \Set)\]
-But, as we discussed, the category of models of
-$\Fop$ is equivalent to $\Set$, so we get
-the forgetful functor:
+Но, как мы обсуждали, категория моделей
+$\Fop$ эквивалентна $\Set$, поэтому получаем
+забывающий функтор:
 \[U \Colon \cat{Mod}(\cat{L}, \Set) \to \Set\]
-It can be shown that so defined $U$ always has a left adjoint,
-the free functor $F$.
+Можно показать, что так определённый $U$ всегда имеет левый сопряжённый,
+свободный функтор $F$.
 
-This is easily seen for finite sets. The free functor $F$
-produces free algebras. A free algebra is a particular model in
-$\cat{Mod}(\cat{L}, \Set)$ that is generated from a finite set of generators
-$n$. We can implement $F$ as the representable functor:
+Это легко видеть для конечных множеств. Свободный функтор $F$
+производит свободные алгебры. Свободная алгебра — это конкретная модель в
+$\cat{Mod}(\cat{L}, \Set)$, которая генерируется из конечного множества генераторов
+$n$. Можем реализовать $F$ как представимый функтор:
 \[\cat{L}(n, -) \Colon \cat{L} \to \Set\]
-To show that it's indeed free, all we have to do is to prove that it's a
-left adjoint to the forgetful functor:
+Чтобы показать, что он действительно свободный, всё, что нам нужно сделать, — это доказать, что он является
+левым сопряжённым к забывающему функтору:
 \[\cat{Mod}(\cat{L}, \Set)(\cat{L}(n, -), M) \cong \Set(n, U(M))\]
-Let's simplify the right hand side:
+Упростим правую часть:
 \[\Set(n, U(M)) \cong \Set(n, M 1) \cong (M 1)^n \cong M n\]
-(I used the fact that a set of morphisms is isomorphic to the
-exponential which, in this case, is just the iterated product.) The
-adjunction is the result of the Yoneda lemma:
+(Я использовал тот факт, что множество морфизмов изоморфно
+экспоненте, которая в данном случае — это просто итерированное произведение.) Сопряжение — результат леммы Йонеды:
 \[[\cat{L}, \Set](\cat{L}(n, -), M) \cong M n\]
-Together, the forgetful and the free functor define a
-\hyperref[monads-categorically]{monad}
-$T = U \circ F$ on $\Set$. Thus every Lawvere theory generates
-a monad.
+Вместе забывающий и свободный функтор определяют
+\hyperref[monads-categorically]{монаду}
+$T = U \circ F$ на $\Set$. Таким образом, каждая теория Ловера генерирует
+монаду.
 
-It turns out that the category of
-\hyperref[algebras-for-monads]{algebras
-  for this monad} is equivalent to the category of models.
+Оказывается, что категория
+\hyperref[algebras-for-monads]{алгебр
+  для этой монады} эквивалентна категории моделей.
 
-You may recall that monad algebras define ways to evaluate expressions
-that are formed using monads. A Lawvere theory defines n-ary operations
-that can be used to generate expressions. Models provide means to
-evaluate these expressions.
+Вы можете вспомнить, что алгебры монад определяют способы вычисления выражений,
+которые формируются с помощью монад. Теория Ловера определяет n-арные операции,
+которые можно использовать для генерации выражений. Модели предоставляют средства для
+вычисления этих выражений.
 
-The connection between monads and Lawvere theories doesn't go both ways,
-though. Only finitary monads lead to Lawvere theories. A finitary monad
-is based on a finitary functor. A finitary functor on $\Set$ is
-fully determined by its action on finite sets. Its action on an
-arbitrary set $a$ can be evaluated using the following coend:
+Однако связь между монадами и теориями Ловера не является двусторонней.
+Только финитарные монады ведут к теориям Ловера. Финитарная монада
+основана на финитарном функторе. Финитарный функтор на $\Set$
+полностью определяется своим действием на конечные множества. Его действие на
+произвольное множество $a$ можно вычислить, используя следующую коэнду:
 \[F a = \int^n a^n \times (F n)\]
-Since the coend generalizes a coproduct, or a sum, this formula is a
-generalization of a power series expansion. Or we can use the intuition
-that a functor is a generalized container. In that case a finitary
-container of $a$s can be described as a sum of shapes and
-contents. Here, $F n$ is a set of shapes for storing $n$ elements,
-and the contents is an $n$-tuple of elements, itself an element of
-$a^n$. For instance, a list (as a functor) is finitary, with one
-shape for every arity. A tree has more shapes per arity, and so on.
+Поскольку коэнда обобщает копроизведение, или сумму, эта формула является
+обобщением разложения в степенной ряд. Или можем использовать интуицию,
+что функтор — это обобщённый контейнер. В этом случае финитарный
+контейнер $a$ можно описать как сумму форм и
+содержимого. Здесь $F n$ — это множество форм для хранения $n$ элементов,
+а содержимое — это $n$-кортеж элементов, сам являющийся элементом
+$a^n$. Например, список (как функтор) финитарен, с одной
+формой для каждой арности. Дерево имеет больше форм на арность, и так далее.
 
-First off, all monads that are generated from Lawvere theories are
-finitary and they can be expressed as coends:
+Во-первых, все монады, генерируемые из теорий Ловера, являются
+финитарными, и их можно выразить как коэнды:
 \[T_{\cat{L}} a = \int^n a^n \times \cat{L}(n, 1)\]
-Conversely, given any finitary monad $T$ on $\Set$, we can
-construct a Lawvere theory. We start by constructing a Kleisli category
-for $T$. As you may remember, a morphism in a Kleisli category
-from $a$ to $b$ is given by a morphism in the underlying
-category:
+И наоборот, для любой финитарной монады $T$ на $\Set$ можем
+построить теорию Ловера. Начнём с построения категории Клейсли
+для $T$. Как вы можете помнить, морфизм в категории Клейсли
+из $a$ в $b$ задаётся морфизмом в базовой
+категории:
 \[a \to T b\]
-When restricted to finite sets, this becomes:
+Ограничившись конечными множествами, это становится:
 \[m \to T n\]
-The category opposite to this Kleisli category,
-$\cat{Kl}^\mathit{op}_{T}$, restricted to finite
-sets, is the Lawvere theory in question. In particular, the hom-set
-$\cat{L}(n, 1)$ that describes n-ary operations in $\cat{L}$ is given
-by the hom-set $\cat{Kl}_{T}(1, n)$.
+Категория, противоположная этой категории Клейсли,
+$\cat{Kl}^\mathit{op}_{T}$, ограниченная конечными
+множествами, является рассматриваемой теорией Ловера. В частности, hom-множество
+$\cat{L}(n, 1)$, которое описывает n-арные операции в $\cat{L}$, задаётся
+hom-множеством $\cat{Kl}_{T}(1, n)$.
 
-It turns out that most monads that we encounter in programming are
-finitary, with the notable exception of the continuation monad. It is
-possible to extend the notion of Lawvere theory beyond finitary
-operations.
+Оказывается, что большинство монад, с которыми мы сталкиваемся в программировании, являются
+финитарными, за notable исключением монады продолжений. Возможно
+расширить понятие теории Ловера за пределы финитарных
+операций.
 
-\section{Monads as Coends}
+\section{Монады как коэнды}
 
-Let's explore the coend formula in more detail.
+Давайте исследуем формулу коэнды более подробно.
 \[T_{\cat{L}} a = \int^n a^n \times \cat{L}(n, 1)\]
-To begin with, this coend is taken over a profunctor $P$ in
-$\cat{F}$ defined as:
+Начнём с того, что эта коэнда берётся по профунктору $P$ в
+$\cat{F}$, определённому как:
 \[P n m = a^n \times \cat{L}(m, 1)\]
-This profunctor is contravariant in the first argument, $n$.
-Consider how it lifts morphisms. A morphism in $\cat{FinSet}$ is a
-mapping of finite sets $f \Colon m \to n$. Such a
-mapping describes a selection of $m$ elements from an $n$-element set
-(repetitions are allowed). It can be lifted to the mapping of powers of
-$a$, namely (notice the direction):
+Этот профунктор контравариантен в первом аргументе, $n$.
+Рассмотрим, как он поднимает морфизмы. Морфизм в $\cat{FinSet}$ — это
+отображение конечных множеств $f \Colon m \to n$. Такое
+отображение описывает выбор $m$ элементов из $n$-элементного множества
+(повторения разрешены). Его можно поднять до отображения степеней
+$a$, а именно (заметьте направление):
 \[a^n \to a^m\]
-The lifting simply selects $m$ elements from a tuple of $n$ elements\\
-$(a_1, a_2, \ldots{}, a_n)$ (possibly with repetitions).
+Поднятие просто выбирает $m$ элементов из кортежа из $n$ элементов\\
+$(a_1, a_2, \ldots{}, a_n)$ (возможно, с повторениями).
 
 \begin{figure}[H]
   \centering
@@ -433,32 +432,32 @@ $(a_1, a_2, \ldots{}, a_n)$ (possibly with repetitions).
 \end{figure}
 
 \noindent
-For instance, let's take $f_k \Colon 1 \to n$ --- a
-selection of the $k^\text{th}$ element from an $n$-element set. It lifts to
-a function that takes a $n$-tuple of elements of $a$ and returns
-the $k^\text{th}$ one.
+Например, возьмём $f_k \Colon 1 \to n$ ---
+выбор $k$-го элемента из $n$-элементного множества. Он поднимается до
+функции, которая берёт $n$-кортеж элементов $a$ и возвращает
+$k$-ый.
 
-Or let's take $f \Colon m \to 1$ --- a constant
-function that maps all $m$ elements to one. Its lifting is a function that
-takes a single element of $a$ and duplicates it $m$ times:
+Или возьмём $f \Colon m \to 1$ --- константную
+функцию, которая отображает все $m$ элементов в один. Её поднятие — это функция, которая
+берёт один элемент $a$ и дублирует его $m$ раз:
 \[\lambda{}x \to (\underbrace{x, x, \ldots{}, x}_{m})\]
-You might notice that it's not immediately obvious that the profunctor
-in question is covariant in the second argument. The hom-functor
-$\cat{L}(m, 1)$ is actually contravariant in $m$. However, we
-are taking the coend not in the category $\cat{L}$ but in the category
-$\cat{F}$. The coend variable $n$ goes over finite sets (or the
-skeletons of such). The category $\cat{L}$ contains the opposite of
-$\cat{F}$, so a morphism $m \to n$ in $\cat{F}$
-is a member of $\cat{L}(n, m)$ in $\cat{L}$ (the embedding is given
-by the functor $I_{\cat{L}}$).
+Вы можете заметить, что не сразу очевидно, что профунктор
+в вопросе ковариантен во втором аргументе. hom-функтор
+$\cat{L}(m, 1)$ на самом деле контравариантен в $m$. Однако мы
+берём коэнду не в категории $\cat{L}$, а в категории
+$\cat{F}$. Переменная коэнды $n$ проходит по конечным множествам (или их
+скелетам). Категория $\cat{L}$ содержит противоположную
+$\cat{F}$, поэтому морфизм $m \to n$ в $\cat{F}$
+является членом $\cat{L}(n, m)$ в $\cat{L}$ (вложение задаётся
+функтором $I_{\cat{L}}$).
 
-Let's check the functoriality of $\cat{L}(m, 1)$ as a functor from
-$\cat{F}$ to $\Set$. We want to lift a function
-$f \Colon m \to n$, so our goal is to implement a
-function from $\cat{L}(m, 1)$ to $\cat{L}(n, 1)$. Corresponding to
-the function $f$ there is a morphism in $\cat{L}$ from
-$n$ to $m$ (notice the direction). Precomposing this
-morphism with $\cat{L}(m, 1)$ gives us a subset of
+Давайте проверим функториальность $\cat{L}(m, 1)$ как функтора из
+$\cat{F}$ в $\Set$. Мы хотим поднять функцию
+$f \Colon m \to n$, поэтому наша цель — реализовать
+функцию из $\cat{L}(m, 1)$ в $\cat{L}(n, 1)$. Соответствуя
+функции $f$, есть морфизм в $\cat{L}$ из
+$n$ в $m$ (заметьте направление). Предкомпозиция этого
+морфизма с $\cat{L}(m, 1)$ даёт нам подмножество
 $\cat{L}(n, 1)$.
 
 \begin{figure}[H]
@@ -470,26 +469,26 @@ $\cat{L}(n, 1)$.
 \end{figure}
 
 \noindent
-Notice that, by lifting a function $1 \to n$ we can go
-from $\cat{L}(1, 1)$ to $\cat{L}(n, 1)$. We'll use this fact later
-on.
+Заметим, что поднимая функцию $1 \to n$, можем перейти
+из $\cat{L}(1, 1)$ в $\cat{L}(n, 1)$. Мы будем использовать этот факт
+позже.
 
-The product of a contravariant functor $a^n$ and a covariant
-functor $\cat{L}(m, 1)$ is a profunctor
-$\Fop \times \cat{F} \to \Set$. Remember that a coend can be defined
-as a coproduct (disjoint sum) of all the diagonal members of a
-profunctor, in which some elements are identified. The identifications
-correspond to cowedge conditions.
+Произведение контравариантного функтора $a^n$ и ковариантного
+функтора $\cat{L}(m, 1)$ является профунктором
+$\Fop \times \cat{F} \to \Set$. Помните, что коэнда может быть определена
+как копроизведение (дизъюнктная сумма) всех диагональных элементов
+профунктора, в которой некоторые элементы отождествлены. Отождествления
+соответствуют условиям коклина.
 
-Here, the coend starts as the disjoint sum of sets
-$a^n \times \cat{L}(n, 1)$ over all $n$s. The identifications can
-be generated by expressing the
-\hyperref[ends-and-coends]{coend as
-  a coequalizer}. We start with an off-diagonal term
-$a^n \times \cat{L}(m, 1)$. To get to the diagonal, we can apply a
-morphism $f \Colon m \to n$ either to the first or
-the second component of the product. The two results are then
-identified.
+Здесь коэнда начинается как дизъюнктная сумма множеств
+$a^n \times \cat{L}(n, 1)$ по всем $n$. Отождествления могут
+быть сгенерированы путём выражения
+\hyperref[ends-and-coends]{коэнды как
+  коэквалайзера}. Начнём с недиагонального члена
+$a^n \times \cat{L}(m, 1)$. Чтобы добраться до диагонали, можем применить
+морфизм $f \Colon m \to n$ либо к первому, либо
+ко второму компоненту произведения. Два результата затем
+отождествляются.
 
 \begin{figure}[H]
   \centering
@@ -506,73 +505,73 @@ identified.
 \end{figure}
 
 \noindent
-I have shown before that the lifting of
-$f \Colon 1 \to n$ results in these two
-transformations:
+Я показал ранее, что поднятие
+$f \Colon 1 \to n$ приводит к этим двум
+преобразованиям:
 \[a^n \to a\]
-and:
+и:
 \[\cat{L}(1, 1) \to \cat{L}(n, 1)\]
-Therefore, starting from $a^n \times \cat{L}(1, 1)$ we can reach both:
+Поэтому, начиная с $a^n \times \cat{L}(1, 1)$, можем достичь и:
 \[a \times \cat{L}(1, 1)\]
-when we lift $\langle f, \id \rangle$ and:
+когда поднимаем $\langle f, \id \rangle$, и:
 \[a^n \times \cat{L}(n, 1)\]
-when we lift $\langle \id, f \rangle$. This doesn't
-mean, however, that all elements of $a^n \times \cat{L}(n, 1)$ can be
-identified with $a \times \cat{L}(1, 1)$. That's because not all elements
-of $\cat{L}(n, 1)$ can be reached from $\cat{L}(1, 1)$. Remember
-that we can only lift morphisms from $\cat{F}$. A non-trivial $n$-ary
-operation in $\cat{L}$ cannot be constructed by lifting a morphism
+когда поднимаем $\langle \id, f \rangle$. Это, однако, не
+означает, что все элементы $a^n \times \cat{L}(n, 1)$ могут быть
+отождествлены с $a \times \cat{L}(1, 1)$. Это потому, что не все элементы
+$\cat{L}(n, 1)$ достижимы из $\cat{L}(1, 1)$. Помните,
+что можем поднимать только морфизмы из $\cat{F}$. Нетривиальная $n$-арная
+операция в $\cat{L}$ не может быть построена поднятием морфизма
 $f \Colon 1 \to n$.
 
-In other words, we can only identify all addends in the coend formula
-for which $\cat{L}(n, 1)$ can be reached from $\cat{L}(1, 1)$
-through the application of basic morphisms. They are all equivalent to
-$a \times \cat{L}(1, 1)$. Basic morphisms are the ones that are images of
-morphisms in $\cat{F}$.
+Другими словами, можем отождествить только все слагаемые в формуле коэнды,
+для которых $\cat{L}(n, 1)$ достижим из $\cat{L}(1, 1)$
+через применение базовых морфизмов. Они все эквивалентны
+$a \times \cat{L}(1, 1)$. Базовые морфизмы — это те, которые являются образами
+морфизмов в $\cat{F}$.
 
-Let's see how this works in the simplest case of the Lawvere theory, the
-$\Fop$ itself. In such a theory, every
-$\cat{L}(n, 1)$ can be reached from $\cat{L}(1, 1)$. This is because
-$\cat{L}(1, 1)$ is a singleton containing just the identity morphism,
-and $\cat{L}(n, 1)$ only contains morphisms corresponding to
-injections $1 \to n$ in $\cat{F}$, which \emph{are}
-basic morphisms. Therefore all the addends in the coproduct are
-equivalent and we get:
+Посмотрим, как это работает в простейшем случае теории Ловера, самой
+$\Fop$. В такой теории каждый
+$\cat{L}(n, 1)$ достижим из $\cat{L}(1, 1)$. Это потому, что
+$\cat{L}(1, 1)$ — синглтон, содержащий только тождественный морфизм,
+а $\cat{L}(n, 1)$ содержит только морфизмы, соответствующие
+инъекциям $1 \to n$ в $\cat{F}$, которые \emph{являются}
+базовыми морфизмами. Поэтому все слагаемые в копроизведении
+эквивалентны, и получаем:
 \[T a = a \times \cat{L}(1, 1) = a\]
-which is the identity monad.
+что является тождественной монадой.
 
-\section{Lawvere Theory of Side Effects}
+\section{Теория Ловера побочных эффектов}
 
-Since there is such a strong connection between monads and Lawvere
-theories, it's natural to ask the question if Lawvere theories could be
-used in programming as an alternative to monads. The major problem with
-monads is that they don't compose nicely. There is no generic recipe for
-building monad transformers. Lawvere theories have an advantage in this
-area: they can be composed using coproducts and tensor products. On the
-other hand, only finitary monads can be easily converted to Lawvere
-theories. The outlier here is the continuation monad. There is ongoing
-research in this area (see bibliography).
+Поскольку существует такая сильная связь между монадами и теориями
+Ловера, естественно задать вопрос, могут ли теории Ловера быть
+использованы в программировании как альтернатива монадам. Основная проблема с
+монадами в том, что они не композируются хорошо. Нет общего рецепта для
+построения трансформеров монад. Теории Ловера имеют преимущество в этой
+области: они могут композироваться с использованием копроизведений и тензорных произведений. С
+другой стороны, только финитарные монады могут легко конвертироваться в теории
+Ловера. Исключение здесь — монада продолжений. Ведутся текущие
+исследования в этой области (см. библиографию).
 
-To give you a taste of how a Lawvere theory can be used to describe side
-effects, I'll discuss the simple case of exceptions that are
-traditionally implemented using the \code{Maybe} monad.
+Чтобы дать вам представление о том, как теория Ловера может использоваться для описания побочных
+эффектов, я обсужу простой случай исключений, которые
+традиционно реализуются с помощью монады \code{Maybe}.
 
-The \code{Maybe} monad is generated by the Lawvere theory with a
-single nullary operation $0 \to 1$. A model of this
-theory is a functor that maps $1$ to some set $a$, and
-maps the nullary operation to a function:
+Монада \code{Maybe} генерируется теорией Ловера с
+единственной нульарной операцией $0 \to 1$. Модель этой
+теории — это функтор, который отображает $1$ в некоторое множество $a$ и
+отображает нульарную операцию в функцию:
 
 \src{snippet02}
-We can recover the \code{Maybe} monad using the coend formula. Let's
-consider what the addition of the nullary operation does to the hom-sets
-$\cat{L}(n, 1)$. Besides creating a new $\cat{L}(0, 1)$ (which is
-absent from $\Fop$), it also adds new morphisms
-to $\cat{L}(n, 1)$. These are the results of composing morphism of the
-type $n \to 0$ with our $0 \to 1$.
-Such contributions are all identified with $a^0 \times \cat{L}(0, 1)$ in
-the coend formula, because they can be obtained from:
+Можем восстановить монаду \code{Maybe}, используя формулу коэнды. Давайте
+рассмотрим, что добавление нульарной операции делает с hom-множествами
+$\cat{L}(n, 1)$. Помимо создания нового $\cat{L}(0, 1)$ (которое
+отсутствует в $\Fop$), оно также добавляет новые морфизмы
+в $\cat{L}(n, 1)$. Это результаты композиции морфизмов
+типа $n \to 0$ с нашим $0 \to 1$.
+Такие вклады все отождествляются с $a^0 \times \cat{L}(0, 1)$ в
+формуле коэнды, потому что их можно получить из:
 \[a^n \times \cat{L}(0, 1)\]
-by lifting $0 \to n$ in two different ways.
+поднимая $0 \to n$ двумя разными способами.
 
 \begin{figure}[H]
   \centering
@@ -589,39 +588,39 @@ by lifting $0 \to n$ in two different ways.
 \end{figure}
 
 \noindent
-The coend reduces to:
+Коэнда сводится к:
 \[T_{\cat{L}} a = a^0 + a^1\]
-or, using Haskell notation:
+или, используя обозначения Haskell:
 
 \src{snippet03}
-which is equivalent to:
+что эквивалентно:
 
 \src{snippet04}
-Notice that this Lawvere theory only supports the raising of exceptions,
-not their handling.
+Заметим, что эта теория Ловера поддерживает только выброс исключений,
+а не их обработку.
 
-\section{Challenges}
+\section{Задачи}
 
 \begin{enumerate}
   \tightlist
   \item
-        Enumerate all morphisms between $2$ and $3$ in $\cat{F}$ (the skeleton of
+        Перечислите все морфизмы между $2$ и $3$ в $\cat{F}$ (скелете
         $\cat{FinSet}$).
   \item
-        Show that the category of models for the Lawvere theory of monoids is
-        equivalent to the category of monad algebras for the list monad.
+        Покажите, что категория моделей для теории Ловера моноидов
+        эквивалентна категории алгебр монад для монады списка.
   \item
-        The Lawvere theory of monoids generates the list monad. Show that its
-        binary operations can be generated using the corresponding Kleisli
-        arrows.
+        Теория Ловера моноидов генерирует монаду списка. Покажите, что её
+        бинарные операции могут быть сгенерированы с использованием соответствующих стрелок
+        Клейсли.
   \item
-        \textbf{FinSet} is a subcategory of $\Set$ and there is a
-        functor that embeds it in $\Set$. Any functor on $\Set$
-        can be restricted to $\cat{FinSet}$. Show that a finitary functor is
-        the left Kan extension of its own restriction.
+        \textbf{FinSet} — подкатегория $\Set$, и существует
+        функтор, вкладывающий её в $\Set$. Любой функтор на $\Set$
+        может быть ограничен до $\cat{FinSet}$. Покажите, что финитарный функтор —
+        это левое расширение Кана его собственного ограничения.
 \end{enumerate}
 
-\section{Further Reading}
+\section{Дополнительное чтение}
 \begin{enumerate}
   \tightlist
   \item

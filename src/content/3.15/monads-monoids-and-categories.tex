@@ -1,121 +1,119 @@
 % !TEX root = ../../ctfp-print.tex
 
-\lettrine[lhang=0.17]{T}{here is no good place} to end a book on category theory. There's always
-more to learn. Category theory is a vast subject. At the same time, it's
-obvious that the same themes, concepts, and patterns keep showing up
-over and over again. There is a saying that all concepts are Kan
-extensions and, indeed, you can use Kan extensions to derive limits,
-colimits, adjunctions, monads, the Yoneda lemma, and much more. The
-notion of a category itself arises at all levels of abstraction, and so
-does the concept of a monoid and a monad. Which one is the most basic?
-As it turns out they are all interrelated, one leading to another in a
-never-ending cycle of abstractions. I decided that showing these
-interconnections might be a good way to end this book.
+\lettrine[lhang=0.17]{Н}{ет хорошего места}, чтобы закончить книгу о теории категорий. Всегда есть
+что изучать. Теория категорий — обширный предмет. В то же время очевидно,
+что одни и те же темы, концепции и паттерны продолжают появляться
+снова и снова. Есть поговорка, что все концепции — это расширения Кана
+и, действительно, можно использовать расширения Кана, чтобы вывести пределы,
+копределы, сопряжения, монады, лемму Йонеды и многое другое.
+Понятие самой категории возникает на всех уровнях абстракции, как и
+концепция моноида и монады. Какая из них самая базовая?
+Оказывается, они все взаимосвязаны, одна ведёт к другой в
+бесконечном цикле абстракций. Я решил, что показать эти
+взаимосвязи может быть хорошим способом закончить эту книгу.
 
-\section{Bicategories}
+\section{Бикатегории}
 
-One of the most difficult aspects of category theory is the constant
-switching of perspectives. Take the category of sets, for instance. We
-are used to defining sets in terms of elements. An empty set has no
-elements. A singleton set has one element. A Cartesian product of two
-sets is a set of pairs, and so on. But when talking about the category
-$\Set$ I asked you to forget about the contents of sets and
-instead concentrate on morphisms (arrows) between them. You were
-allowed, from time to time, to peek under the covers to see what a
-particular universal construction in $\Set$ described in terms of
-elements. The terminal object turned out to be a set with one element,
-and so on. But these were just sanity checks.
+Один из самых сложных аспектов теории категорий — постоянная
+смена перспектив. Возьмём категорию множеств, например. Мы
+привыкли определять множества в терминах элементов. Пустое множество не имеет
+элементов. Синглтонное множество имеет один элемент. Декартово произведение двух
+множеств — это множество пар, и так далее. Но когда говорили о категории
+$\Set$, я просил вас забыть о содержимом множеств и
+вместо этого сконцентрироваться на морфизмах (стрелках) между ними. Вам было
+позволено время от времени заглядывать под капот, чтобы увидеть, что
+конкретная универсальная конструкция в $\Set$ описывает в терминах
+элементов. Терминальный объект оказался множеством с одним элементом,
+и так далее. Но это были просто проверки на вменяемость.
 
-A functor is defined as a mapping of categories. It's natural to
-consider a mapping as a morphism in a category. A functor turned out to
-be a morphism in the category of categories (small categories, if we
-want to avoid questions about size). By treating a functor as an arrow,
-we forfeit the information about its action on the internals of a
-category (its objects and morphisms), just like we forfeit the
-information about the action of a function on elements of a set when we
-treat it as an arrow in $\Set$. But functors between any two
-categories also form a category. This time you are asked to consider
-something that was an arrow in one category to be an object in another.
-In a functor category functors are objects and natural transformations
-are morphisms. We have discovered that the same thing can be an arrow in
-one category and an object in another. The naive view of objects as
-nouns and arrows as verbs doesn't hold.
+Функтор определяется как отображение категорий. Естественно
+рассматривать отображение как морфизм в категории. Функтор оказался
+морфизмом в категории категорий (малых категорий, если мы
+хотим избежать вопросов о размере). Рассматривая функтор как стрелку,
+мы теряем информацию о его действии на внутренности
+категории (её объекты и морфизмы), так же как теряем
+информацию о действии функции на элементы множества, когда
+рассматриваем её как стрелку в $\Set$. Но функторы между любыми двумя
+категориями также образуют категорию. На этот раз вас просят рассмотреть
+что-то, что было стрелкой в одной категории, как объект в другой.
+В категории функторов функторы — это объекты, а естественные преобразования —
+морфизмы. Мы обнаружили, что одна и та же вещь может быть стрелкой в
+одной категории и объектом в другой. Наивный взгляд на объекты как на
+существительные, а на стрелки как на глаголы не работает.
 
-Instead of switching between two views, we can try to merge them into
-one. This is how we get the concept of a $\cat{2}$-category, in which objects
-are called $0$-cells, morphisms are $1$-cells, and morphisms between
-morphisms are $2$-cells.
+Вместо переключения между двумя взглядами, можем попытаться объединить их в
+один. Так мы получаем концепцию $\cat{2}$-категории, в которой объекты
+называются $0$-ячейками, морфизмы — $1$-ячейками, а морфизмы между
+морфизмами — $2$-ячейками.
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.35\textwidth]{images/twocat.png}
-  \caption{$0$-cells $a, b$; $1$-cells $f, g$; and a $2$-cell $\alpha$.}
+  \caption{$0$-ячейки $a, b$; $1$-ячейки $f, g$; и $2$-ячейка $\alpha$.}
 \end{figure}
 
 \noindent
-The category of categories $\Cat$ is an immediate example. We have
-categories as $0$-cells, functors as $1$-cells, and natural transformations
-as $2$-cells. The laws of a $\cat{2}$-category tell us that $1$-cells between any
-two $0$-cells form a category (in other words, $\cat{C}(a, b)$ is a
-hom-category rather than a hom-set). This fits nicely with our earlier
-assertion that functors between any two categories form a functor
-category.
+Категория категорий $\Cat$ — непосредственный пример. У нас есть
+категории как $0$-ячейки, функторы как $1$-ячейки и естественные преобразования
+как $2$-ячейки. Законы $\cat{2}$-категории говорят нам, что $1$-ячейки между любыми
+двумя $0$-ячейками образуют категорию (другими словами, $\cat{C}(a, b)$ —
+hom-категория, а не hom-множество). Это хорошо согласуется с нашим более ранним
+утверждением, что функторы между любыми двумя категориями образуют категорию функторов.
 
-In particular, $1$-cells from any $0$-cell back to itself also form a
-category, the hom-category $\cat{C}(a, a)$; but that category has even
-more structure. Members of $\cat{C}(a, a)$ can be viewed as arrows in
-$\cat{C}$ or as objects in $\cat{C}(a, a)$. As arrows, they can be
-composed with each other. But when we look at them as objects, the
-composition becomes a mapping from a pair of objects to an object. In
-fact it looks very much like a product --- a tensor product to be
-precise. This tensor product has a unit: the identity $1$-cell. It turns
-out that, in any $\cat{2}$-category, a hom-category $\cat{C}(a, a)$ is
-automatically a monoidal category with the tensor product defined as
-composition of $1$-cells. Associativity and unit laws simply fall out from
-the corresponding category laws.
+В частности, $1$-ячейки из любой $0$-ячейки обратно к себе также образуют
+категорию, hom-категорию $\cat{C}(a, a)$; но эта категория имеет ещё
+больше структуры. Члены $\cat{C}(a, a)$ можно рассматривать как стрелки в
+$\cat{C}$ или как объекты в $\cat{C}(a, a)$. Как стрелки, они могут быть
+композированы друг с другом. Но когда смотрим на них как на объекты,
+композиция становится отображением из пары объектов в объект. На
+самом деле это очень похоже на произведение --- точнее, на тензорное произведение. Это тензорное произведение имеет единицу: тождественную $1$-ячейку. Оказывается,
+что в любой $\cat{2}$-категории hom-категория $\cat{C}(a, a)$
+автоматически является моноидальной категорией с тензорным произведением, определённым как
+композиция $1$-ячеек. Законы ассоциативности и единицы просто следуют из
+соответствующих законов категории.
 
-Let's see what this means in our canonical example of a $\cat{2}$-category
-$\Cat$. The hom-category $\Cat(a, a)$ is the category of
-endofunctors on $a$. Endofunctor composition plays the role of a
-tensor product in it. The identity functor is the unit with respect to
-this product. We've seen before that endofunctors form a monoidal
-category (we used this fact in the definition of a monad), but now we
-see that this is a more general phenomenon: endo-$1$-cells in any
-$\cat{2}$-category form a monoidal category. We'll come back to it later when we
-generalize monads.
+Посмотрим, что это означает в нашем каноническом примере $\cat{2}$-категории
+$\Cat$. hom-категория $\Cat(a, a)$ — это категория
+эндофункторов на $a$. Композиция эндофункторов играет роль
+тензорного произведения в ней. Тождественный функтор — единица относительно
+этого произведения. Мы видели ранее, что эндофункторы образуют моноидальную
+категорию (мы использовали этот факт в определении монады), но теперь
+видим, что это более общее явление: эндо-$1$-ячейки в любой
+$\cat{2}$-категории образуют моноидальную категорию. Мы вернёмся к этому позже, когда будем
+обобщать монады.
 
-You might recall that, in a general monoidal category, we did not insist
-on the monoid laws being satisfied on the nose. It was often enough for
-the unit laws and the associativity laws to be satisfied up to
-isomorphism. In a $\cat{2}$-category, monoidal laws in $\cat{C}(a, a)$ follow
-from composition laws for $1$-cells. These laws are strict, so we will
-always get a strict monoidal category. It is, however, possible to relax
-these laws as well. We can say, for instance, that a composition of the
-identity $1$-cell $\idarrow[a]$ with another $1$-cell,
-$f \Colon a \to b$, is isomorphic, rather than equal,
-to $f$. Isomorphism of $1$-cells is defined using $2$-cells. In other
-words, there is a $2$-cell:
+Вы можете вспомнить, что в общей моноидальной категории мы не настаивали
+на том, чтобы законы моноида выполнялись точно. Часто было достаточно, чтобы
+законы единицы и ассоциативности выполнялись с точностью до
+изоморфизма. В $\cat{2}$-категории моноидальные законы в $\cat{C}(a, a)$ следуют
+из законов композиции для $1$-ячеек. Эти законы строгие, поэтому мы всегда
+получим строгую моноидальную категорию. Однако возможно ослабить
+и эти законы. Можем сказать, например, что композиция
+тождественной $1$-ячейки $\idarrow[a]$ с другой $1$-ячейкой,
+$f \Colon a \to b$, изоморфна, а не равна,
+$f$. Изоморфизм $1$-ячеек определяется с использованием $2$-ячеек. Другими
+словами, существует $2$-ячейка:
 \[\rho \Colon f \circ \idarrow[a] \to f\]
-that has an inverse.
+которая имеет обратную.
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.35\textwidth]{images/bicat.png}
-  \caption{Identity law in a bicategory holds up to isomorphism (an invertible
-    $2$-cell $\rho$).}
+  \caption{Закон единицы в бикатегории выполняется с точностью до изоморфизма (обратимая
+    $2$-ячейка $\rho$).}
 \end{figure}
 
 \noindent
-We can do the same for the left identity and associativity laws. This
-kind of relaxed $\cat{2}$-category is called a bicategory (there are some
-additional coherency laws, which I will omit here).
+Можем сделать то же самое для левой единицы и законов ассоциативности. Этот
+вид ослабленной $\cat{2}$-категории называется бикатегорией (есть некоторые
+дополнительные законы когерентности, которые я опущу здесь).
 
-As expected, endo-$1$-cells in a bicategory form a general monoidal
-category with non-strict laws.
+Как и ожидалось, эндо-$1$-ячейки в бикатегории образуют общую моноидальную
+категорию с нестрогими законами.
 
-An interesting example of a bicategory is the category of spans. A span
-between two objects $a$ and $b$ is an object $x$
-and a pair of morphisms:
+Интересный пример бикатегории — категория спанов. Спан
+между двумя объектами $a$ и $b$ — это объект $x$
+и пара морфизмов:
 \begin{gather*}
   f \Colon x \to a \\
   g \Colon x \to b
@@ -127,10 +125,10 @@ and a pair of morphisms:
 \end{figure}
 
 \noindent
-You might recall that we used spans in the definition of a categorical
-product. Here, we want to look at spans as $1$-cells in a bicategory. The
-first step is to define a composition of spans. Suppose that we have an
-adjoining span:
+Вы можете вспомнить, что мы использовали спаны в определении категориального
+произведения. Здесь мы хотим рассмотреть спаны как $1$-ячейки в бикатегории.
+Первый шаг — определить композицию спанов. Предположим, что у нас есть
+примыкающий спан:
 \begin{gather*}
   f' \Colon y \to b \\
   g' \Colon y \to c
@@ -142,17 +140,17 @@ adjoining span:
 \end{figure}
 
 \noindent
-The composition would be a third span, with some apex $z$. The
-most natural choice for it is the pullback of $g$ along
-$f'$. Remember that a pullback is the object $z$
-together with two morphisms:
+Композиция была бы третьим спаном с некоторой вершиной $z$. Самый
+естественный выбор для неё — откат $g$ вдоль
+$f'$. Помните, что откат — это объект $z$
+вместе с двумя морфизмами:
 \begin{align*}
   h  & \Colon z \to x \\
   h' & \Colon z \to y
 \end{align*}
-such that:
+такими, что:
 \[g \circ h = f' \circ h'\]
-which is universal among all such objects.
+что универсально среди всех таких объектов.
 
 \begin{figure}[H]
   \centering
@@ -160,49 +158,49 @@ which is universal among all such objects.
 \end{figure}
 
 \noindent
-For now, let's concentrate on spans over the category of sets. In that
-case, the pullback is just a set of pairs $(p, q)$ from the
-Cartesian product $x \times y$ such that:
+Пока давайте сконцентрируемся на спанах над категорией множеств. В этом
+случае откат — это просто множество пар $(p, q)$ из
+декартова произведения $x \times y$ таких, что:
 \[g\ p = f'\ q\]
-A morphism between two spans that share the same endpoints is defined as
-a morphism $h$ between their apices, such that the appropriate
-triangles commute.
+Морфизм между двумя спанами, имеющими одинаковые концы, определяется как
+морфизм $h$ между их вершинами такой, что соответствующие
+треугольники коммутируют.
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.4\textwidth]{images/morphspan.png}
-  \caption{A $2$-cell in $\cat{Span}$.}
+  \caption{$2$-ячейка в $\cat{Span}$.}
 \end{figure}
 
 \noindent
-To summarize, in the bicategory $\cat{Span}$: $0$-cells are sets, $1$-cells
-are spans, $2$-cells are span morphisms. An identity $1$-cell is a
-degenerate span in which all three objects are the same, and the two
-morphisms are identities.
+Подведём итог: в бикатегории $\cat{Span}$ $0$-ячейки — множества, $1$-ячейки —
+спаны, $2$-ячейки — морфизмы спанов. Тождественная $1$-ячейка — это
+вырожденный спан, в котором все три объекта одинаковы, а два
+морфизма — тождественные.
 
-We've seen another example of a bicategory before: the bicategory
-$\cat{Prof}$ of
-\hyperref[ends-and-coends]{profunctors},
-where 0-cells are categories, 1-cells are profunctors, and 2-cells are
-natural transformations. The composition of profunctors was given by a
-coend.
+Мы видели другой пример бикатегории раньше: бикатегорию
+$\cat{Prof}$
+\hyperref[ends-and-coends]{профункторов},
+где 0-ячейки — категории, 1-ячейки — профункторы, а 2-ячейки —
+естественные преобразования. Композиция профункторов задавалась
+коэндой.
 
-\section{Monads}
+\section{Монады}
 
-By now you should be pretty familiar with the definition of a monad as a
-monoid in the category of endofunctors. Let's revisit this definition
-with the new understanding that the category of endofunctors is just one
-small hom-category of endo-$1$-cells in the bicategory $\Cat$. We
-know it's a monoidal category: the tensor product comes from the
-composition of endofunctors. A monoid is defined as an object in a
-monoidal category --- here it will be an endofunctor $T$ ---
-together with two morphisms. Morphisms between endofunctors are natural
-transformations. One morphism maps the monoidal unit --- the identity
-endofunctor --- to $T$:
+К настоящему моменту вы должны быть хорошо знакомы с определением монады как
+моноида в категории эндофункторов. Давайте пересмотрим это определение
+с новым пониманием, что категория эндофункторов — это всего лишь одна
+малая hom-категория эндо-$1$-ячеек в бикатегории $\Cat$. Мы
+знаем, что это моноидальная категория: тензорное произведение происходит из
+композиции эндофункторов. Моноид определяется как объект в
+моноидальной категории --- здесь это будет эндофунктор $T$ ---
+вместе с двумя морфизмами. Морфизмы между эндофункторами — естественные
+преобразования. Один морфизм отображает моноидальную единицу --- тождественный
+эндофунктор --- в $T$:
 \[\eta \Colon I \to T\]
-The second morphism maps the tensor product of $T \otimes T$ to
-$T$. The tensor product is given by endofunctor composition, so
-we get:
+Второй морфизм отображает тензорное произведение $T \otimes T$ в
+$T$. Тензорное произведение задаётся композицией эндофункторов, поэтому
+получаем:
 \[\mu \Colon T \circ T \to T\]
 
 \begin{figure}[H]
@@ -211,20 +209,20 @@ we get:
 \end{figure}
 
 \noindent
-We recognize these as the two operations defining a monad (they are
-called \code{return} and \code{join} in Haskell), and we know that
-monoid laws turn to monad laws.
+Мы узнаём их как две операции, определяющие монаду (они
+называются \code{return} и \code{join} в Haskell), и мы знаем, что
+законы моноида превращаются в законы монады.
 
-Now let's remove all mention of endofunctors from this definition. We
-start with a bicategory $\cat{C}$ and pick a $0$-cell $a$ in it.
-As we've seen earlier, the hom-category $\cat{C}(a, a)$ is a monoidal
-category. We can therefore define a monoid in $\cat{C}(a, a)$ by
-picking a $1$-cell, $T$, and two $2$-cells:
+Теперь давайте уберём все упоминания эндофункторов из этого определения. Начнём
+с бикатегории $\cat{C}$ и выберем в ней $0$-ячейку $a$.
+Как мы видели ранее, hom-категория $\cat{C}(a, a)$ — моноидальная
+категория. Поэтому можем определить моноид в $\cat{C}(a, a)$,
+выбрав $1$-ячейку $T$ и две $2$-ячейки:
 \begin{align*}
   \eta & \Colon I \to T         \\
   \mu  & \Colon T \circ T \to T
 \end{align*}
-satisfying the monoid laws. We call \emph{this} a monad.
+удовлетворяющие законам моноида. Мы называем \emph{это} монадой.
 
 \begin{figure}[H]
   \centering
@@ -232,16 +230,16 @@ satisfying the monoid laws. We call \emph{this} a monad.
 \end{figure}
 
 \noindent
-That's a much more general definition of a monad using only $0$-cells,
-$1$-cells, and $2$-cells. It reduces to the usual monad when applied to the
-bicategory $\Cat$. But let's see what happens in other
-bicategories.
+Это гораздо более общее определение монады, использующее только $0$-ячейки,
+$1$-ячейки и $2$-ячейки. Оно сводится к обычной монаде при применении к
+бикатегории $\Cat$. Но посмотрим, что происходит в других
+бикатегориях.
 
-Let's construct a monad in $\cat{Span}$. We pick a $0$-cell, which is a
-set that, for reasons that will become clear soon, I will call
-$\mathit{Ob}$. Next, we pick an endo-$1$-cell: a span from $\mathit{Ob}$ back
-to $\mathit{Ob}$. It has a set at the apex, which I will call $\mathit{Ar}$,
-equipped with two functions:
+Давайте построим монаду в $\cat{Span}$. Выберем $0$-ячейку, которая является
+множеством, которое по причинам, которые скоро станут ясны, я назову
+$\mathit{Ob}$. Далее выберем эндо-$1$-ячейку: спан из $\mathit{Ob}$ обратно
+в $\mathit{Ob}$. Он имеет множество в вершине, которое я назову $\mathit{Ar}$,
+оснащённое двумя функциями:
 \begin{align*}
   \mathit{dom} & \Colon \mathit{Ar} \to \mathit{Ob} \\
   \mathit{cod} & \Colon \mathit{Ar} \to \mathit{Ob}
@@ -253,18 +251,18 @@ equipped with two functions:
 \end{figure}
 
 \noindent
-Let's call the elements of the set $\mathit{Ar}$ ``arrows.'' If I also
-tell you to call the elements of $\mathit{Ob}$ ``objects,'' you might get
-a hint where this is leading to. The two functions $\mathit{dom}$ and
-$\mathit{cod}$ assign the domain and the codomain to an ``arrow.''
+Назовём элементы множества $\mathit{Ar}$ ``стрелками''. Если я также
+скажу вам называть элементы $\mathit{Ob}$ ``объектами'', вы можете получить
+подсказку, к чему это ведёт. Две функции $\mathit{dom}$ и
+$\mathit{cod}$ приписывают область определения и кообласть ``стрелке''.
 
-To make our span into a monad, we need two $2$-cells, $\eta$ and
-$\mu$. The monoidal unit, in this case, is the trivial span from
-$\mathit{Ob}$ to $\mathit{Ob}$ with the apex at $\mathit{Ob}$ and two identity
-functions. The $2$-cell $\eta$ is a function between the apices
-$\mathit{Ob}$ and $\mathit{Ar}$. In other words, $\eta$ assigns an
-``arrow'' to every ``object.'' A $2$-cell in $\cat{Span}$ must satisfy
-commutation conditions --- in this case:
+Чтобы превратить наш спан в монаду, нам нужны две $2$-ячейки, $\eta$ и
+$\mu$. Моноидальная единица в этом случае — тривиальный спан из
+$\mathit{Ob}$ в $\mathit{Ob}$ с вершиной в $\mathit{Ob}$ и двумя тождественными
+функциями. $2$-ячейка $\eta$ — это функция между вершинами
+$\mathit{Ob}$ и $\mathit{Ar}$. Другими словами, $\eta$ приписывает
+``стрелку'' каждому ``объекту''. $2$-ячейка в $\cat{Span}$ должна удовлетворять
+условиям коммутации --- в данном случае:
 \begin{align*}
   \mathit{dom} & \circ \eta = \id \\
   \mathit{cod} & \circ \eta = \id
@@ -276,20 +274,20 @@ commutation conditions --- in this case:
 \end{figure}
 
 \noindent
-In components, this becomes:
+В компонентах это становится:
 \[\mathit{dom}\ (\eta\ \mathit{ob}) = \mathit{ob} = \mathit{cod}\ (\eta\ \mathit{ob})\]
-where $\mathit{ob}$ is an ``object'' in $\mathit{Ob}$. In other words,
-$\eta$ assigns to every ``object'' and ``arrow'' whose domain and
-codomain are that ``object.'' We'll call this special ``arrow'' the
-``identity arrow.''
+где $\mathit{ob}$ — ``объект'' в $\mathit{Ob}$. Другими словами,
+$\eta$ приписывает каждому ``объекту'' ``стрелку'', чья область определения и
+кообласть — этот ``объект''. Мы назовём эту специальную ``стрелку''
+``тождественной стрелкой''.
 
-The second $2$-cell $\mu$ acts on the composition of the span
-$\mathit{Ar}$ with itself. The composition is defined as a pullback, so
-its elements are pairs of elements from $\mathit{Ar}$ --- pairs of
-``arrows'' $(a_1, a_2)$. The pullback condition is:
+Вторая $2$-ячейка $\mu$ действует на композицию спана
+$\mathit{Ar}$ с самим собой. Композиция определяется как откат, поэтому
+его элементы — пары элементов из $\mathit{Ar}$ --- пары
+``стрелок'' $(a_1, a_2)$. Условие отката:
 \[\mathit{cod}\ a_1 = \mathit{dom}\ a_2\]
-We say that $a_1$ and $a_2$ are ``composable,'' because the
-domain of one is the codomain of the other.
+Мы говорим, что $a_1$ и $a_2$ ``композируемы'', потому что
+область определения одной — это кообласть другой.
 
 \begin{figure}[H]
   \centering
@@ -297,44 +295,44 @@ domain of one is the codomain of the other.
 \end{figure}
 
 \noindent
-The $2$-cell $\mu$ is a function that maps a pair of composable
-arrows $(a_1, a_2)$ to a single arrow $a_3$ from
-$\mathit{Ar}$. In other words $\mu$ defines composition of arrows.
+$2$-ячейка $\mu$ — это функция, которая отображает пару композируемых
+стрелок $(a_1, a_2)$ в одну стрелку $a_3$ из
+$\mathit{Ar}$. Другими словами, $\mu$ определяет композицию стрелок.
 
-It's easy to check that monad laws correspond to identity and
-associativity laws for arrows. We have just defined a category (a small
-category, mind you, in which objects and arrows form sets).
+Легко проверить, что законы монады соответствуют законам тождества и
+ассоциативности для стрелок. Мы только что определили категорию (малую
+категорию, заметьте, в которой объекты и стрелки образуют множества).
 
-So, all told, a category is just a monad in the bicategory of spans.
+Итак, в общем, категория — это просто монада в бикатегории спанов.
 
-What is amazing about this result is that it puts categories on the same
-footing as other algebraic structures like monads and monoids. There is
-nothing special about being a category. It's just two sets and four
-functions. In fact we don't even need a separate set for objects,
-because objects can be identified with identity arrows (they are in
-one-to-one correspondence). So it's really just a set and a few
-functions. Considering the pivotal role that category theory plays in
-all of mathematics, this is a very humbling realization.
+Что удивительно в этом результате, так это то, что он ставит категории на одну
+ногу с другими алгебраическими структурами, такими как монады и моноиды. Нет
+ничего особенного в том, чтобы быть категорией. Это просто два множества и четыре
+функции. На самом деле нам даже не нужно отдельное множество для объектов,
+потому что объекты можно отождествить с тождественными стрелками (они находятся во
+взаимно однозначном соответствии). Так что на самом деле это просто множество и несколько
+функций. Учитывая ключевую роль, которую теория категорий играет во
+всей математике, это очень смиряющее осознание.
 
-\section{Challenges}
+\section{Задачи}
 
 \begin{enumerate}
   \tightlist
   \item
-        Derive unit and associativity laws for the tensor product defined as
-        composition of endo-$1$-cells in a bicategory.
+        Выведите законы единицы и ассоциативности для тензорного произведения, определённого как
+        композиция эндо-$1$-ячеек в бикатегории.
   \item
-        Check that monad laws for a monad in $\cat{Span}$ correspond to
-        identity and associativity laws in the resulting category.
+        Проверьте, что законы монады для монады в $\cat{Span}$ соответствуют
+        законам тождества и ассоциативности в результирующей категории.
   \item
-        Show that a monad in $\cat{Prof}$ is an identity-on-objects functor.
+        Покажите, что монада в $\cat{Prof}$ — это функтор, тождественный на объектах.
   \item
-        What's a monad algebra for a monad in $\cat{Span}$?
+        Что такое алгебра монады для монады в $\cat{Span}$?
 \end{enumerate}
 
-\section{Bibliography}
+\section{Библиография}
 \begin{enumerate}
   \tightlist
   \item
-        \urlref{https://graphicallinearalgebra.net/2017/04/16/a-monoid-is-a-category-a-category-is-a-monad-a-monad-is-a-monoid/}{Paweł Sobociński’s blog}.
+        \urlref{https://graphicallinearalgebra.net/2017/04/16/a-monoid-is-a-category-a-category-is-a-monad-a-monad-is-a-monoid/}{Блог Павела Собоциньского}.
 \end{enumerate}

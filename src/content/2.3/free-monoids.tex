@@ -1,45 +1,45 @@
 % !TEX root = ../../ctfp-print.tex
 
-\lettrine[lhang=0.17]{M}{onoids are an important} concept in both category
-theory and in programming. Categories correspond to strongly typed languages,
-monoids to untyped languages. That's because in a monoid you can compose any
-two arrows, just as in an untyped language you can compose any two functions
-(of course, you may end up with a runtime error when you execute your
-program).
+\lettrine[lhang=0.17]{М}{оноиды --- важная} концепция как в теории категорий,
+так и в программировании. Категории соответствуют сильно типизированным языкам,
+моноиды --- нетипизированным языкам. Это потому, что в моноиде вы можете композировать любые
+две стрелки, так же, как в нетипизированном языке вы можете композировать любые две функции
+(конечно, вы можете получить ошибку времени выполнения, когда выполняете вашу
+программу).
 
-We've seen that a monoid may be described as a category with a single
-object, where all logic is encoded in the rules of morphism composition.
-This categorical model is fully equivalent to the more traditional
-set-theoretical definition of a monoid, where we ``multiply'' two
-elements of a set to get a third element. This process of
-``multiplication'' can be further dissected into first forming a pair of
-elements and then identifying this pair with an existing element ---
-their ``product.''
+Мы видели, что моноид может быть описан как категория с единственным
+объектом, где вся логика закодирована в правилах композиции морфизмов.
+Эта категорная модель полностью эквивалентна более традиционному
+теоретико-множественному определению моноида, где мы ``умножаем'' два
+элемента множества, чтобы получить третий элемент. Этот процесс
+``умножения'' может быть далее препарирован на сначала формирование пары
+элементов, а затем идентификацию этой пары с существующим элементом ---
+их ``произведением.''
 
-What happens when we forgo the second part of multiplication --- the
-identification of pairs with existing elements? We can, for instance,
-start with an arbitrary set, form all possible pairs of elements, and
-call them new elements. Then we'll pair these new elements with all
-possible elements, and so on. This is a chain reaction --- we'll keep
-adding new elements forever. The result, an infinite set, will be
-\emph{almost} a monoid. But a monoid also needs a unit element and the
-law of associativity. No problem, we can add a special unit element and
-identify some of the pairs --- just enough to support the unit and
-associativity laws.
+Что происходит, когда мы отказываемся от второй части умножения ---
+идентификации пар с существующими элементами? Мы можем, например,
+начать с произвольного множества, сформировать все возможные пары элементов и
+назвать их новыми элементами. Затем мы спарим эти новые элементы со всеми
+возможными элементами, и так далее. Это цепная реакция --- мы будем продолжать
+добавлять новые элементы вечно. Результат, бесконечное множество, будет
+\emph{почти} моноидом. Но моноиду также нужен единичный элемент и
+закон ассоциативности. Нет проблем, мы можем добавить специальный единичный элемент и
+идентифицировать некоторые из пар --- ровно столько, чтобы поддержать единицу и
+ассоциативность.
 
-Let's see how this works in a simple example. Let's start with a set of
-two elements, $\{a, b\}$. We'll call them the generators of the
-free monoid. First, we'll add a special element $e$ to serve as
-the unit. Next we'll add all the pairs of elements and call them
-``products''. The product of $a$ and $b$ will be the pair
-$(a, b)$. The product of $b$ and $a$ will be the
-pair $(b, a)$, the product of $a$ with $a$ will be
-$(a, a)$, the product of $b$ with $b$ will be
-$(b, b)$. We can also form pairs with $e$, like
-$(a, e)$, $(e, b)$, etc., but we'll identify them with
-$a$, $b$, etc. So in this round we'll only add
-$(a, a)$, $(a, b)$ and $(b, a)$ and
-$(b, b)$, and end up with the set
+Давайте посмотрим, как это работает в простом примере. Давайте начнём с множества из
+двух элементов, $\{a, b\}$. Мы назовём их генераторами
+свободного моноида. Сначала мы добавим специальный элемент $e$, который будет служить
+единицей. Затем мы добавим все пары элементов и назовём их
+``произведениями''. Произведение $a$ и $b$ будет парой
+$(a, b)$. Произведение $b$ и $a$ будет парой
+$(b, a)$, произведение $a$ с $a$ будет
+$(a, a)$, произведение $b$ с $b$ будет
+$(b, b)$. Мы также можем формировать пары с $e$, как
+$(a, e)$, $(e, b)$ и т.д., но мы идентифицируем их с
+$a$, $b$ и т.д. Так что в этом раунде мы только добавим
+$(a, a)$, $(a, b)$ и $(b, a)$ и
+$(b, b)$, и закончим с множеством
 $\{e, a, b, (a, a), (a, b), (b, a), (b, b)\}$.
 
 \begin{figure}[H]
@@ -48,142 +48,142 @@ $\{e, a, b, (a, a), (a, b), (b, a), (b, b)\}$.
 \end{figure}
 
 \noindent
-In the next round we'll keep adding elements like:
-$(a, (a, b))$, $((a, b), a)$, etc. At this point we'll
-have to make sure that associativity holds, so we'll identify
-$(a, (b, a))$ with $((a, b), a)$, etc. In other words,
-we won't be needing internal parentheses.
+В следующем раунде мы продолжим добавлять элементы типа:
+$(a, (a, b))$, $((a, b), a)$ и т.д. На этом этапе мы
+должны убедиться, что ассоциативность выполняется, поэтому мы идентифицируем
+$(a, (b, a))$ с $((a, b), a)$ и т.д. Другими словами,
+нам не понадобятся внутренние скобки.
 
-You can guess what the final result of this process will be: we'll
-create all possible lists of $a$s and $b$s. In fact, if we
-represent $e$ as an empty list, we can see that our
-``multiplication'' is nothing but list concatenation.
+Вы можете догадаться, каков будет финальный результат этого процесса: мы
+создадим все возможные списки из $a$ и $b$. На самом деле, если мы
+представим $e$ как пустой список, мы можем увидеть, что наше
+``умножение'' --- это не что иное, как конкатенация списков.
 
-This kind of construction, in which you keep generating all possible
-combinations of elements, and perform the minimum number of
-identifications --- just enough to uphold the laws --- is called a free
-construction. What we have just done is to construct a \newterm{free
-  monoid} from the set of generators $\{a, b\}$.
+Этот вид конструкции, в которой вы продолжаете генерировать все возможные
+комбинации элементов и выполняете минимальное количество
+идентификаций --- ровно столько, чтобы поддержать законы --- называется свободной
+конструкцией. То, что мы только что сделали, --- это сконструировать \newterm{свободный
+  моноид} из множества генераторов $\{a, b\}$.
 
-\section{Free Monoid in Haskell}
+\section{Свободный моноид в Haskell}
 
-A two-element set in Haskell is equivalent to the type \code{Bool},
-and the free monoid generated by this set is equivalent to the type
-\code{{[}Bool{]}} (list of \code{Bool}). (I am deliberately ignoring
-problems with infinite lists.)
+Двухэлементное множество в Haskell эквивалентно типу \code{Bool},
+и свободный моноид, порождённый этим множеством, эквивалентен типу
+\code{{[}Bool{]}} (список \code{Bool}). (Я намеренно игнорирую
+проблемы с бесконечными списками.)
 
-A monoid in Haskell is defined by the type class:
+Моноид в Haskell определяется классом типов:
 
 \src{snippet01}
-This just says that every \code{Monoid} must have a neutral element,
-which is called \code{mempty}, and a binary function (multiplication)
-called \code{mappend}. The unit and associativity laws cannot be
-expressed in Haskell and must be verified by the programmer every time a
-monoid is instantiated.
+Это просто говорит, что каждый \code{Monoid} должен иметь нейтральный элемент,
+который называется \code{mempty}, и бинарную функцию (умножение),
+называемую \code{mappend}. Законы единицы и ассоциативности не могут быть
+выражены в Haskell и должны быть проверены программистом каждый раз, когда
+моноид инстанцируется.
 
-The fact that a list of any type forms a monoid is described by this
-instance definition:
+Факт, что список любого типа образует моноид, описывается этим
+определением экземпляра:
 
 \src{snippet02}
-It states that an empty list \code{{[}{]}} is the unit element, and
-list concatenation \code{(++)} is the binary operation.
+Оно утверждает, что пустой список \code{{[}{]}} --- это единичный элемент, а
+конкатенация списков \code{(++)} --- это бинарная операция.
 
-As we have seen, a list of type \code{a} corresponds to a free monoid
-with the set \code{a} serving as generators. The set of natural
-numbers with multiplication is not a free monoid, because we identify
-lots of products. Compare for instance:
+Как мы видели, список типа \code{a} соответствует свободному моноиду
+с множеством \code{a}, служащим как генераторы. Множество натуральных
+чисел с умножением --- это не свободный моноид, потому что мы идентифицируем
+множество произведений. Сравните, например:
 
 \src{snippet03}
-That was easy, but the question is, can we perform this free
-construction in category theory, where we are not allowed to look inside
-objects? We'll use our workhorse: the universal construction.
+Это было просто, но вопрос в том, можем ли мы выполнить эту свободную
+конструкцию в теории категорий, где нам не разрешено заглядывать внутрь
+объектов? Мы будем использовать нашу рабочую лошадку: универсальную конструкцию.
 
-The second interesting question is, can any monoid be obtained from some
-free monoid by identifying more than the minimum number of elements
-required by the laws? I'll show you that this follows directly from the
-universal construction.
+Второй интересный вопрос: может ли любой моноид быть получен из какого-то
+свободного моноида идентификацией более чем минимального количества элементов,
+требуемого законами? Я покажу вам, что это следует напрямую из
+универсальной конструкции.
 
-\section{Free Monoid Universal Construction}
+\section{Универсальная конструкция свободного моноида}
 
-If you recall our previous experiences with universal constructions, you
-might notice that it's not so much about constructing something as about
-selecting an object that best fits a given pattern. So if we want to use
-the universal construction to ``construct'' a free monoid, we have to
-consider a whole bunch of monoids from which to pick one. We need a
-whole category of monoids to choose from. But do monoids form a category?
+Если вы вспомните наш предыдущий опыт с универсальными конструкциями, вы
+можете заметить, что речь не столько о конструировании чего-то, сколько о
+выборе объекта, который лучше всего подходит данному паттерну. Так что если мы хотим использовать
+универсальную конструкцию для ``конструирования'' свободного моноида, мы должны
+рассмотреть целую кучу моноидов, из которых выбрать один. Нам нужна
+целая категория моноидов для выбора. Но образуют ли моноиды категорию?
 
-Let's first look at monoids as sets equipped with additional structure
-defined by unit and multiplication. We'll pick as morphisms those
-functions that preserve the monoidal structure. Such
-structure-preserving functions are called \newterm{homomorphisms}. A monoid
-homomorphism must map the product of two elements to the product of the
-mapping of the two elements:
+Давайте сначала посмотрим на моноиды как множества, оснащённые дополнительной структурой,
+определённой единицей и умножением. Мы выберем в качестве морфизмов те
+функции, которые сохраняют моноидальную структуру. Такие
+структуро-сохраняющие функции называются \newterm{гомоморфизмами}. Гомоморфизм моноидов
+должен отображать произведение двух элементов в произведение
+отображений двух элементов:
 
 \src{snippet04}
-and it must map unit to unit.
+и он должен отображать единицу в единицу.
 
-For instance, consider a homomorphism from lists of integers to
-integers. If we map \code{{[}2{]}} to 2 and \code{{[}3{]}} to 3, we
-have to map \code{{[}2, 3{]}} to 6, because concatenation
+Например, рассмотрите гомоморфизм из списков целых чисел в
+целые числа. Если мы отображаем \code{{[}2{]}} в 2, а \code{{[}3{]}} в 3, мы
+должны отобразить \code{{[}2, 3{]}} в 6, потому что конкатенация
 
 \src{snippet05}
-becomes multiplication
+становится умножением
 
 \src{snippet06}
-Now let's forget about the internal structure of individual monoids, and
-only look at them as objects with corresponding morphisms. You get a
-category $\cat{Mon}$ of monoids.
+Теперь давайте забудем о внутренней структуре индивидуальных моноидов и
+только посмотрим на них как на объекты с соответствующими морфизмами. Вы получите
+категорию $\cat{Mon}$ моноидов.
 
-Okay, maybe before we forget about internal structure, let us notice an
-important property. Every object of $\cat{Mon}$ can be trivially mapped
-to a set. It's just the set of its elements. This set is called the
-\newterm{underlying} set. In fact, not only can we map objects of
-$\cat{Mon}$ to sets, but we can also map morphisms of $\cat{Mon}$
-(homomorphisms) to functions. Again, this seems sort of trivial, but it
-will become useful soon. This mapping of objects and morphisms from
-$\cat{Mon}$ to $\Set$ is in fact a functor. Since this functor
-``forgets'' the monoidal structure --- once we are inside a plain set,
-we no longer distinguish the unit element or care about multiplication
---- it's called a \newterm{forgetful functor}. Forgetful functors come up
-regularly in category theory.
+Хорошо, может быть, прежде чем мы забудем о внутренней структуре, давайте заметим
+важное свойство. Каждый объект $\cat{Mon}$ может быть тривиально отображён
+в множество. Это просто множество его элементов. Это множество называется
+\newterm{лежащим в основе} множеством. На самом деле, не только мы можем отображать объекты
+$\cat{Mon}$ в множества, но мы также можем отображать морфизмы $\cat{Mon}$
+(гомоморфизмы) в функции. Опять, это кажется вроде тривиальным, но
+станет полезным скоро. Это отображение объектов и морфизмов из
+$\cat{Mon}$ в $\Set$ --- на самом деле функтор. Поскольку этот функтор
+``забывает'' моноидальную структуру --- как только мы внутри простого множества,
+мы больше не различаем единичный элемент и не заботимся об умножении
+--- он называется \newterm{забывающим функтором}. Забывающие функторы появляются
+регулярно в теории категорий.
 
-We now have two different views of $\cat{Mon}$. We can treat it just
-like any other category with objects and morphisms. In that view, we
-don't see the internal structure of monoids. All we can say about a
-particular object in $\cat{Mon}$ is that it connects to itself and to
-other objects through morphisms. The ``multiplication'' table of
-morphisms --- the composition rules --- are derived from the other view:
-monoids-as-sets. By going to category theory we haven't lost this view
-completely --- we can still access it through our forgetful functor.
+Теперь у нас есть два разных взгляда на $\cat{Mon}$. Мы можем рассматривать его просто
+как любую другую категорию с объектами и морфизмами. В этом взгляде мы
+не видим внутренней структуры моноидов. Всё, что мы можем сказать о
+конкретном объекте в $\cat{Mon}$, --- это что он соединяется с собой и с
+другими объектами через морфизмы. Таблица ``умножения''
+морфизмов --- правила композиции --- выводятся из другого взгляда:
+моноиды-как-множества. Переходя к теории категорий, мы не потеряли этот взгляд
+полностью --- мы всё ещё можем получить к нему доступ через наш забывающий функтор.
 
-To apply the universal construction, we need to define a special
-property that would let us search through the category of monoids and
-pick the best candidate for a free monoid. But a free monoid is defined
-by its generators. Different choices of generators produce different
-free monoids (a list of \code{Bool} is not the same as a list of
-\code{Int}). Our construction must start with a set of generators. So
-we're back to sets!
+Чтобы применить универсальную конструкцию, нам нужно определить специальное
+свойство, которое позволило бы нам искать через категорию моноидов и
+выбрать лучшего кандидата для свободного моноида. Но свободный моноид определяется
+его генераторами. Разные выборы генераторов производят разные
+свободные моноиды (список \code{Bool} --- это не то же самое, что список
+\code{Int}). Наша конструкция должна начаться с множества генераторов. Так что
+мы вернулись к множествам!
 
-That's where the forgetful functor comes into play. We can use it to
-X-ray our monoids. We can identify the generators in the X-ray images of
-those blobs. Here's how it works:
+Вот где забывающий функтор вступает в игру. Мы можем использовать его для
+рентгеновского просвечивания наших моноидов. Мы можем идентифицировать генераторы на рентгеновских изображениях
+этих капель. Вот как это работает:
 
-We start with a set of generators, $x$. That's a set in
+Мы начинаем с множества генераторов, $x$. Это множество в
 $\Set$.
 
-The pattern we are going to match consists of a monoid $m$ --- an
-object of $\cat{Mon}$ --- and a function $p$ in $\Set$:
+Паттерн, который мы собираемся совместить, состоит из моноида $m$ ---
+объекта $\cat{Mon}$ --- и функции $p$ в $\Set$:
 
 \src{snippet07}
-where $U$ is our forgetful functor from $\cat{Mon}$ to
-$\Set$. This is a weird heterogeneous pattern --- half in
-$\cat{Mon}$ and half in $\Set$.
+где $U$ --- наш забывающий функтор из $\cat{Mon}$ в
+$\Set$. Это странный гетерогенный паттерн --- половина в
+$\cat{Mon}$ и половина в $\Set$.
 
-The idea is that the function $p$ will identify the set of
-generators inside the X-ray image of $m$. It doesn't matter that
-functions may be lousy at identifying points inside sets (they may
-collapse them). It will all be sorted out by the universal construction,
-which will pick the best representative of this pattern.
+Идея в том, что функция $p$ идентифицирует множество
+генераторов внутри рентгеновского изображения $m$. Не важно, что
+функции могут быть плохи в идентификации точек внутри множеств (они могут
+их схлопывать). Всё будет отсортировано универсальной конструкцией,
+которая выберет лучшего представителя этого паттерна.
 
 \begin{figure}[H]
   \centering
@@ -191,26 +191,26 @@ which will pick the best representative of this pattern.
 \end{figure}
 
 \noindent
-We also have to define the ranking among candidates. Suppose we have
-another candidate: a monoid $n$ and a function that identifies
-the generators in its X-ray image:
+Мы также должны определить ранжирование среди кандидатов. Предположим, у нас есть
+другой кандидат: моноид $n$ и функция, которая идентифицирует
+генераторы в его рентгеновском изображении:
 
 \src{snippet08}
-We'll say that $m$ is better than $n$ if there is a
-morphism of monoids (that's a structure-preserving homomorphism):
+Мы скажем, что $m$ лучше, чем $n$, если существует
+морфизм моноидов (это структуро-сохраняющий гомоморфизм):
 
 \src{snippet09}
-whose image under $U$ (remember, $U$ is a functor, so it
-maps morphisms to functions) factorizes through $p$:
+чей образ под $U$ (помните, $U$ --- функтор, поэтому он
+отображает морфизмы в функции) факторизуется через $p$:
 
 \src{snippet10}
-If you think of $p$ as selecting the generators in $m$;
-and $q$ as selecting ``the same'' generators in $n$; then
-you can think of $h$ as mapping these generators between the two
-monoids. Remember that $h$, by definition, preserves the monoidal
-structure. It means that a product of two generators in one monoid will
-be mapped to a product of the corresponding two generators in the second
-monoid, and so on.
+Если вы думаете о $p$ как о выборе генераторов в $m$;
+и $q$ как о выборе ``тех же'' генераторов в $n$; тогда
+вы можете думать о $h$ как об отображении этих генераторов между двумя
+моноидами. Помните, что $h$, по определению, сохраняет моноидальную
+структуру. Это означает, что произведение двух генераторов в одном моноиде будет
+отображено в произведение соответствующих двух генераторов во втором
+моноиде, и так далее.
 
 \begin{figure}[H]
   \centering
@@ -218,54 +218,54 @@ monoid, and so on.
 \end{figure}
 
 \noindent
-This ranking may be used to find the best candidate --- the free monoid.
-Here's the definition:
+Это ранжирование может быть использовано для нахождения лучшего кандидата --- свободного моноида.
+Вот определение:
 
 \begin{quote}
-  We'll say that $m$ (together with the function $p$) is the
-  \textbf{free monoid} with the generators $x$ if and only if there
-  is a \emph{unique} morphism $h$ from $m$ to any other
-  monoid $n$ (together with the function $q$) that satisfies
-  the above factorization property.
+  Мы скажем, что $m$ (вместе с функцией $p$) ---
+  \textbf{свободный моноид} с генераторами $x$ тогда и только тогда, когда существует
+  \emph{уникальный} морфизм $h$ из $m$ в любой другой
+  моноид $n$ (вместе с функцией $q$), который удовлетворяет
+  вышеуказанному свойству факторизации.
 \end{quote}
-Incidentally, this answers our second question. The function
-$U h$ is the one that has the power to collapse multiple
-elements of $U m$ to a single element of $U n$. This
-collapse corresponds to identifying some elements of the free monoid.
-Therefore any monoid with generators $x$ can be obtained from the
-free monoid based on $x$ by identifying some of the elements. The
-free monoid is the one where only the bare minimum of identifications
-have been made.
+Кстати, это отвечает на наш второй вопрос. Функция
+$U h$ --- та, которая имеет силу схлопнуть несколько
+элементов $U m$ в единственный элемент $U n$. Это
+схлопывание соответствует идентификации некоторых элементов свободного моноида.
+Следовательно, любой моноид с генераторами $x$ может быть получен из
+свободного моноида, основанного на $x$, идентификацией некоторых элементов.
+Свободный моноид --- тот, где только минимум идентификаций
+был сделан.
 
-We'll come back to free monoids when we talk about adjunctions.
+Мы вернёмся к свободным моноидам, когда будем говорить о сопряжениях.
 
-\section{Challenges}
+\section{Задачи}
 
 \begin{enumerate}
   \tightlist
   \item
-        You might think (as I did, originally) that the requirement that a
-        homomorphism of monoids preserve the unit is redundant. After all, we
-        know that for all $a$
+        Вы можете подумать (как и я, изначально), что требование, чтобы
+        гомоморфизм моноидов сохранял единицу, избыточно. В конце концов, мы
+        знаем, что для всех $a$
 
         \begin{snip}{text}
 h a * h e = h (a * e) = h a
 \end{snip}
-        So $h e$ acts like a right unit (and, by analogy, as a left
-        unit). The problem is that $h a$, for all $a$ might
-        only cover a sub-monoid of the target monoid. There may be a ``true''
-        unit outside of the image of $h$. Show that an isomorphism
-        between monoids that preserves multiplication must automatically
-        preserve unit.
+        Так что $h e$ действует как правая единица (и, по аналогии, как левая
+        единица). Проблема в том, что $h a$, для всех $a$, может
+        только покрывать подмоноид целевого моноида. Может быть ``истинная''
+        единица вне образа $h$. Покажите, что изоморфизм
+        между моноидами, который сохраняет умножение, должен автоматически
+        сохранять единицу.
   \item
-        Consider a monoid homomorphism from lists of integers with
-        concatenation to integers with multiplication. What is the image of
-        the empty list \code{{[}{]}}? Assume that all singleton lists are
-        mapped to the integers they contain, that is \code{{[}3{]}} is
-        mapped to 3, etc. What's the image of \code{{[}1, 2, 3, 4{]}}?
-        How many different lists map to the integer 12? Is there any other
-        homomorphism between the two monoids?
+        Рассмотрите гомоморфизм моноидов из списков целых чисел с
+        конкатенацией в целые числа с умножением. Каков образ
+        пустого списка \code{{[}{]}}? Предположите, что все одноэлементные списки
+        отображаются в целые числа, которые они содержат, то есть \code{{[}3{]}}
+        отображается в 3 и т.д. Каков образ \code{{[}1, 2, 3, 4{]}}?
+        Сколько разных списков отображаются в целое число 12? Есть ли какой-либо другой
+        гомоморфизм между двумя моноидами?
   \item
-        What is the free monoid generated by a one-element set? Can you see
-        what it's isomorphic to?
+        Что такое свободный моноид, порождённый одноэлементным множеством? Можете ли вы увидеть,
+        чему он изоморфен?
 \end{enumerate}

@@ -1,18 +1,18 @@
 % !TEX root = ../../ctfp-print.tex
 
-\lettrine[lhang=0.17]{I}{f you mention monads} to a programmer, you'll probably end up talking
-about effects. To a mathematician, monads are about algebras. We'll talk
-about algebras later --- they play an important role in programming ---
-but first I'd like to give you a little intuition about their relation
-to monads. For now, it's a bit of a hand-waving argument, but bear with
-me.
+\lettrine[lhang=0.17]{Е}{сли вы упомянете монады} программисту, вы, вероятно, закончите разговором
+об эффектах. Математику монады о алгебрах. Мы поговорим
+об алгебрах позже --- они играют важную роль в программировании ---
+но сначала я хотел бы дать вам немного интуиции об их отношении
+к монадам. Пока это немного размахивающий руками аргумент, но потерпите
+меня.
 
-Algebra is about creating, manipulating, and evaluating expressions.
-Expressions are built using operators. Consider this simple expression:
+Алгебра о создании, манипулировании и вычислении выражений.
+Выражения строятся с использованием операторов. Рассмотрите это простое выражение:
 \[x^2 + 2 x + 1\]
-This expression is formed using variables like $x$, and constants
-like $1$ or $2$, bound together with operators like plus or times. As
-programmers, we often think of expressions as trees.
+Это выражение сформировано с использованием переменных типа $x$ и констант
+типа $1$ или $2$, связанных вместе операторами типа плюс или умножить. Как
+программисты, мы часто думаем о выражениях как о деревьях.
 
 \begin{figure}[H]
   \centering
@@ -20,97 +20,96 @@ programmers, we often think of expressions as trees.
 \end{figure}
 
 \noindent
-Trees are containers so, more generally, an expression is a container
-for storing variables. In category theory, we represent containers as
-endofunctors. If we assign the type $a$ to the variable
-$x$, our expression will have the type $m\ a$, where
-$m$ is an endofunctor that builds expression trees. (Nontrivial
-branching expressions are usually created using recursively defined
-endofunctors.)
+Деревья --- контейнеры, так что, более обобщённо, выражение --- это контейнер
+для хранения переменных. В теории категорий мы представляем контейнеры как
+эндофункторы. Если мы назначим тип $a$ переменной
+$x$, наше выражение будет иметь тип $m\ a$, где
+$m$ --- эндофунктор, который строит деревья выражений. (Нетривиальные
+ветвящиеся выражения обычно создаются с использованием рекурсивно определённых
+эндофункторов.)
 
-What's the most common operation that can be performed on an expression?
-It's substitution: replacing variables with expressions. For instance,
-in our example, we could replace $X$ with $y - 1$ to
-get:
+Какая самая частая операция, которая может быть выполнена на выражении?
+Это подстановка: замена переменных выражениями. Например,
+в нашем примере мы могли бы заменить $X$ на $y - 1$, чтобы
+получить:
 \[(y - 1)^2 + 2 (y - 1) + 1\]
-Here's what happened: We took an expression of type $m\ a$ and
-applied a transformation of type $a \to m\ b$
-($b$ represents the type of $y$). The result is an
-expression of type $m\ b$. Let me spell it out:
+Вот что произошло: мы взяли выражение типа $m\ a$ и
+применили преобразование типа $a \to m\ b$
+($b$ представляет тип $y$). Результат ---
+выражение типа $m\ b$. Позвольте мне произнести это:
 \[m\ a \to (a \to m\ b) \to m\ b\]
-Yes, that's the signature of monadic bind.
+Да, это сигнатура монадического bind.
 
-That was a bit of motivation. Now let's get to the math of the monad.
-Mathematicians use different notation than programmers. They prefer to
-use the letter $T$ for the endofunctor, and Greek letters: $\mu$ for
-\code{join} and $\eta$ for \code{return}. Both \code{join} and
-\code{return} are polymorphic functions, so we can guess that they
-correspond to natural transformations.
+Это была немного мотивация. Теперь давайте перейдём к математике монады.
+Математики используют другую нотацию, чем программисты. Они предпочитают
+использовать букву $T$ для эндофунктора и греческие буквы: $\mu$ для
+\code{join} и $\eta$ для \code{return}. И \code{join}, и
+\code{return} --- полиморфные функции, так что мы можем догадаться, что они
+соответствуют естественным преобразованиям.
 
-Therefore, in category theory, a monad is defined as an endofunctor
-$T$ equipped with a pair of natural transformations $\mu$ and $\eta$.
+Поэтому в теории категорий монада определяется как эндофунктор
+$T$, оснащённый парой естественных преобразований $\mu$ и $\eta$.
 
-$\mu$ is a natural transformation from the square of the functor $T^2$
-back to $T$. The square is simply the functor composed with
-itself, $T \circ T$ (we can only do this kind of squaring for
-endofunctors).
+$\mu$ --- естественное преобразование из квадрата функтора $T^2$
+обратно в $T$. Квадрат --- просто функтор, скомпозированный с
+собой, $T \circ T$ (мы можем делать этот вид возведения в квадрат только для
+эндофункторов).
 \[\mu \Colon T^2 \to T\]
-The component of this natural transformation at an object $a$ is
-the morphism:
+Компонента этого естественного преобразования в объекте $a$ ---
+это морфизм:
 \[\mu_a \Colon T (T a) \to T a\]
-which, in $\Hask$, translates directly to our definition of
+который в $\Hask$ переводится напрямую в наше определение
 \code{join}.
 
-$\eta$ is a natural transformation between the identity functor $I$
-and $T$:
+$\eta$ --- естественное преобразование между тождественным функтором $I$
+и $T$:
 \[\eta \Colon I \to T\]
-Considering that the action of $I$ on the object $a$ is
-just $a$, the component of $\eta$ is given by the morphism:
+Учитывая, что действие $I$ на объект $a$ ---
+просто $a$, компонента $\eta$ задаётся морфизмом:
 \[\eta_a \Colon a \to T a\]
-which translates directly to our definition of \code{return}.
+который переводится напрямую в наше определение \code{return}.
 
-These natural transformations must satisfy some additional laws. One way
-of looking at it is that these laws let us define a Kleisli category for
-the endofunctor $T$. Remember that a Kleisli arrow between
-$a$ and $b$ is defined as a morphism
-$a \to T b$. The composition of two such arrows
-(I'll write it as a circle with the subscript $T$) can be
-implemented using $\mu$:
+Эти естественные преобразования должны удовлетворять некоторым дополнительным законам. Один способ
+взглянуть на это в том, что эти законы позволяют нам определить категорию Клейсли для
+эндофунктора $T$. Помните, что стрелка Клейсли между
+$a$ и $b$ определяется как морфизм
+$a \to T b$. Композиция двух таких стрелок
+(я запишу её как круг с индексом $T$) может быть
+реализована с использованием $\mu$:
 \[g \circ_T f = \mu_c \circ (T g) \circ f\]
-where
+где
 \begin{gather*}
   f \Colon a \to T b \\
   g \Colon b \to T c
 \end{gather*}
-Here $T$, being a functor, can be applied to the morphism
-$g$. It might be easier to recognize this formula in Haskell
-notation:
+Здесь $T$, будучи функтором, может быть применён к морфизму
+$g$. Может быть легче узнать эту формулу в нотации Haskell:
 
 \src{snippet01}
-or, in components:
+или в компонентах:
 
 \src{snippet02}
-In terms of the algebraic interpretation, we are just composing two
-successive substitutions.
+В терминах алгебраической интерпретации мы просто композируем две
+последовательные подстановки.
 
-For Kleisli arrows to form a category we want their composition to be
-associative, and $\eta_a$ to be the identity Kleisli arrow at
-$a$. This requirement can be translated to monadic laws for $\mu$ and
-$\eta$. But there is another way of deriving these laws that makes them look
-more like monoid laws. In fact $\mu$ is often called
-\emph{multiplication}, and $\eta$ -- \emph{unit}.
+Чтобы стрелки Клейсли образовали категорию, мы хотим, чтобы их композиция была
+ассоциативной, а $\eta_a$ была тождественной стрелкой Клейсли в
+$a$. Это требование может быть переведено в монадические законы для $\mu$ и
+$\eta$. Но есть другой способ вывода этих законов, который заставляет их выглядеть
+больше похожими на законы моноида. На самом деле $\mu$ часто называется
+\emph{умножением}, а $\eta$ --- \emph{единицей}.
 
-Roughly speaking, the associativity law states that the two ways of
-reducing the cube of $T$, $T^3$, down to $T$ must
-give the same result. Two unit laws (left and right) state that when
-$\eta$ is applied to $T$ and then reduced by $\mu$, we
-get back $T$.
+Грубо говоря, закон ассоциативности утверждает, что два способа
+редуцирования куба $T$, $T^3$, вниз к $T$ должны
+дать тот же результат. Два закона единицы (левый и правый) утверждают, что когда
+$\eta$ применяется к $T$ и затем редуцируется $\mu$, мы
+получаем обратно $T$.
 
-Things are a little tricky because we are composing natural
-transformations and functors. So a little refresher on horizontal
-composition is in order. For instance, $T^3$ can be seen as a
-composition of $T$ after $T^2$. We can apply to it the
-horizontal composition of two natural transformations:
+Вещи немного хитры, потому что мы композируем естественные
+преобразования и функторы. Так что немного освежения знаний по горизонтальной
+композиции в порядке. Например, $T^3$ может рассматриваться как
+композиция $T$ после $T^2$. Мы можем применить к ней
+горизонтальную композицию двух естественных преобразований:
 \[I_T \circ \mu\]
 
 \begin{figure}[H]
@@ -119,16 +118,16 @@ horizontal composition of two natural transformations:
 \end{figure}
 
 \noindent
-and get $T \circ T$; which can be further reduced to $T$ by
-applying $\mu$. $I_T$ is the identity natural transformation
-from $T$ to $T$. You will often see the notation for this
-type of horizontal composition $I_T \circ \mu$ shortened to
-$T \circ \mu$. This notation is unambiguous because it makes no sense to
-compose a functor with a natural transformation, therefore $T$
-must mean $I_T$ in this context.
+и получить $T \circ T$; которое может быть далее редуцировано к $T$
+применением $\mu$. $I_T$ --- тождественное естественное преобразование
+из $T$ в $T$. Вы часто увидите нотацию для этого
+типа горизонтальной композиции $I_T \circ \mu$ сокращённую до
+$T \circ \mu$. Эта нотация однозначна, потому что нет смысла
+композировать функтор с естественным преобразованием, следовательно, $T$
+должно означать $I_T$ в этом контексте.
 
 \noindent
-We can also draw the diagram in the (endo-) functor category ${[}\cat{C}, \cat{C}{]}$:
+Мы также можем нарисовать диаграмму в категории (эндо-) функторов ${[}\cat{C}, \cat{C}{]}$:
 
 \begin{figure}[H]
   \centering
@@ -136,10 +135,10 @@ We can also draw the diagram in the (endo-) functor category ${[}\cat{C}, \cat{C
 \end{figure}
 
 \noindent
-Alternatively, we can treat $T^3$ as the composition of
-$T^2 \circ T$ and apply $\mu \circ T$ to it. The result is also
-$T \circ T$ which, again, can be reduced to $T$ using $\mu$. We
-require that the two paths produce the same result.
+Альтернативно, мы можем рассматривать $T^3$ как композицию
+$T^2 \circ T$ и применить $\mu \circ T$ к ней. Результат также
+$T \circ T$, который, опять, может быть редуцирован к $T$, используя $\mu$. Мы
+требуем, чтобы два пути производили тот же результат.
 
 \begin{figure}[H]
   \centering
@@ -147,12 +146,12 @@ require that the two paths produce the same result.
 \end{figure}
 
 \noindent
-Similarly, we can apply the horizontal composition $\eta \circ T$ to the
-composition of the identity functor $I$ after $T$ to
-obtain $T^2$, which can then be reduced using $\mu$. The
-result should be the same as if we applied the identity natural
-transformation directly to \code{T}. And, by analogy, the same should
-be true for $T \circ \eta$.
+Аналогично, мы можем применить горизонтальную композицию $\eta \circ T$ к
+композиции тождественного функтора $I$ после $T$, чтобы
+получить $T^2$, который затем может быть редуцирован, используя $\mu$.
+Результат должен быть таким же, как если бы мы применили тождественное естественное
+преобразование напрямую к \code{T}. И, по аналогии, то же должно
+быть верно для $T \circ \eta$.
 
 \begin{figure}[H]
   \centering
@@ -160,119 +159,119 @@ be true for $T \circ \eta$.
 \end{figure}
 
 \noindent
-You can convince yourself that these laws guarantee that the composition
-of Kleisli arrows indeed satisfies the laws of a category.
+Вы можете убедить себя, что эти законы гарантируют, что композиция
+стрелок Клейсли действительно удовлетворяет законам категории.
 
-The similarities between a monad and a monoid are striking. We have
-multiplication $\mu$, unit $\eta$, associativity, and unit laws. But our
-definition of a monoid is too narrow to describe a monad as a monoid. So
-let's generalize the notion of a monoid.
+Сходства между монадой и моноидом поразительны. У нас есть
+умножение $\mu$, единица $\eta$, ассоциативность и законы единицы. Но наше
+определение моноида слишком узко, чтобы описать монаду как моноид. Так что
+давайте обобщим понятие моноида.
 
-\section{Monoidal Categories}
+\section{Моноидальные категории}
 
-Let's go back to the conventional definition of a monoid. It's a set
-with a binary operation and a special element called unit. In Haskell,
-this can be expressed as a typeclass:
+Давайте вернёмся к обычному определению моноида. Это множество
+с бинарной операцией и специальным элементом, называемым единицей. В Haskell
+это может быть выражено как класс типов:
 
 \src{snippet03}
-The binary operation \code{mappend} must be associative and unital
-(i.e., multiplication by the unit \code{mempty} is a no-op).
+Бинарная операция \code{mappend} должна быть ассоциативной и унитарной
+(т.е., умножение на единицу \code{mempty} --- это no-op).
 
-Notice that, in Haskell, the definition of \code{mappend} is curried.
-It can be interpreted as mapping every element of \code{m} to a
-function:
+Обратите внимание, что в Haskell определение \code{mappend} каррировано.
+Оно может быть интерпретировано как отображение каждого элемента \code{m} в
+функцию:
 
 \src{snippet04}
-It's this interpretation that gives rise to the definition of a monoid
-as a single-object category where endomorphisms
-\code{(m -> m)} represent the elements of the monoid.
-But because currying is built into Haskell, we could as well have
-started with a different definition of multiplication:
+Именно эта интерпретация порождает определение моноида
+как одно-объектной категории, где эндоморфизмы
+\code{(m -> m)} представляют элементы моноида.
+Но поскольку каррирование встроено в Haskell, мы также могли бы
+начать с другого определения умножения:
 
 \src{snippet05}
-Here, the Cartesian product \code{(m, m)} becomes the source of pairs
-to be multiplied.
+Здесь декартово произведение \code{(m, m)} становится источником пар
+для умножения.
 
-This definition suggests a different path to generalization: replacing
-the Cartesian product with categorical product. We could start with a
-category where products are globally defined, pick an object \code{m}
-there, and define multiplication as a morphism:
+Это определение предлагает другой путь к обобщению: замену
+декартова произведения категорным произведением. Мы могли бы начать с
+категории, где произведения определены глобально, выбрать объект \code{m}
+там и определить умножение как морфизм:
 \[\mu \Colon m\times{}m \to m\]
-We have one problem though: In an arbitrary category we can't peek
-inside an object, so how do we pick the unit element? There is a trick
-to it. Remember how element selection is equivalent to a function from
-the singleton set? In Haskell, we could replace the definition of
-\code{mempty} with a function:
+Однако у нас есть одна проблема: в произвольной категории мы не можем заглянуть
+внутрь объекта, так что как мы выбираем единичный элемент? Есть трюк
+для этого. Помните, как выбор элемента эквивалентен функции из
+одноэлементного множества? В Haskell мы могли бы заменить определение
+\code{mempty} функцией:
 
 \src{snippet06}
-The singleton is the terminal object in $\Set$, so it's natural to
-generalize this definition to any category that has a terminal object
+Синглетон --- терминальный объект в $\Set$, так что естественно
+обобщить это определение на любую категорию, которая имеет терминальный объект
 $t$:
 \[\eta \Colon t \to m\]
-This lets us pick the unit ``element'' without having to talk about
-elements.
+Это позволяет нам выбрать единичный ``элемент'' без необходимости говорить об
+элементах.
 
-Unlike in our previous definition of a monoid as a single-object
-category, monoidal laws here are not automatically satisfied --- we have
-to impose them. But in order to formulate them we have to establish the
-monoidal structure of the underlying categorical product itself. Let's
-recall how monoidal structure works in Haskell first.
+В отличие от нашего предыдущего определения моноида как одно-объектной
+категории, моноидальные законы здесь не автоматически удовлетворены --- мы должны
+наложить их. Но чтобы формулировать их, мы должны установить
+моноидальную структуру самого лежащего в основе категорного произведения. Давайте
+вспомним, как моноидальная структура работает в Haskell сначала.
 
-We start with associativity. In Haskell, the corresponding equational
-law is:
+Мы начинаем с ассоциативности. В Haskell соответствующий уравнительный
+закон:
 
 \src{snippet07}
-Before we can generalize it to other categories, we have to rewrite it
-as an equality of functions (morphisms). We have to abstract it away
-from its action on individual variables --- in other words, we have to
-use point-free notation. Knowing that the Cartesian product is a
-bifunctor, we can write the left hand side as:
+Прежде чем мы сможем обобщить его на другие категории, мы должны переписать его
+как равенство функций (морфизмов). Мы должны абстрагировать его
+от его действия на индивидуальные переменные --- другими словами, мы должны
+использовать бесточечную нотацию. Зная, что декартово произведение ---
+бифунктор, мы можем написать левую сторону как:
 
 \src{snippet08}
-and the right hand side as:
+а правую сторону как:
 
 \src{snippet09}
-This is almost what we want. Unfortunately, the Cartesian product is not
-strictly associative --- \code{(x, (y, z))} is not the same as
-\code{((x, y), z)} --- so we can't just write point-free:
+Это почти то, что мы хотим. К сожалению, декартово произведение не
+строго ассоциативно --- \code{(x, (y, z))} не то же самое, что
+\code{((x, y), z)} --- так что мы не можем просто написать бесточечно:
 
 \src{snippet10}
-On the other hand, the two nestings of pairs are isomorphic. There is an
-invertible function called the associator that converts between them:
+С другой стороны, два вложения пар изоморфны. Есть
+обратимая функция, называемая ассоциатором, которая конвертирует между ними:
 
 \src{snippet11}
-With the help of the associator, we can write the point-free
-associativity law for \code{mu}:
+С помощью ассоциатора мы можем написать бесточечный
+закон ассоциативности для \code{mu}:
 
 \src{snippet12}
-We can apply a similar trick to unit laws which, in the new notation,
-take the form:
+Мы можем применить похожий трюк к законам единицы, которые в новой нотации
+принимают форму:
 
 \src{snippet13}
-They can be rewritten as:
+Они могут быть переписаны как:
 
 \src{snippet14}
-The isomorphisms \code{lambda} and \code{rho} are called the left
-and right unitor, respectively. They witness the fact that the unit
-\code{()} is the identity of the Cartesian product up to isomorphism:
+Изоморфизмы \code{lambda} и \code{rho} называются левым
+и правым унитором, соответственно. Они свидетельствуют о факте, что единица
+\code{()} --- тождество декартова произведения с точностью до изоморфизма:
 
 \src{snippet15}
 
 \src{snippet16}
-The point-free versions of the unit laws are therefore:
+Бесточечные версии законов единицы следовательно:
 
 \src{snippet17}
-We have formulated point-free monoidal laws for \code{mu} and
-\code{eta} using the fact that the underlying Cartesian product itself
-acts like a monoidal multiplication in the category of types. Keep in
-mind though that the associativity and unit laws for the Cartesian
-product are valid only up to isomorphism.
+Мы сформулировали бесточечные моноидальные законы для \code{mu} и
+\code{eta}, используя факт, что само лежащее в основе декартово произведение
+действует как моноидальное умножение в категории типов. Имейте в
+виду, однако, что законы ассоциативности и единицы для декартова
+произведения верны только с точностью до изоморфизма.
 
-It turns out that these laws can be generalized to any category with
-products and a terminal object. Categorical products are indeed
-associative up to isomorphism and the terminal object is the unit, also
-up to isomorphism. The associator and the two unitors are natural
-isomorphisms. The laws can be represented by commuting diagrams.
+Оказывается, что эти законы могут быть обобщены на любую категорию с
+произведениями и терминальным объектом. Категорные произведения действительно
+ассоциативны с точностью до изоморфизма, а терминальный объект --- единица, также
+с точностью до изоморфизма. Ассоциатор и два унитора ---
+естественные изоморфизмы. Законы могут быть представлены коммутирующими диаграммами.
 
 \begin{figure}[H]
   \centering
@@ -280,65 +279,68 @@ isomorphisms. The laws can be represented by commuting diagrams.
 \end{figure}
 
 \noindent
-Notice that, because the product is a bifunctor, it can lift a pair of
-morphisms --- in Haskell this was done using \code{bimap}.
+Обратите внимание, что существенно, что произведение --- бифунктор,
+потому что нам нужно поднять пары морфизмов, чтобы формировать произведения типа
+$\mu \otimes \id$ или $\eta \otimes \id$. Эти диаграммы --- просто
+прямолинейное обобщение наших предыдущих результатов для категорных
+произведений.
 
-We could stop here and say that we can define a monoid on top of any
-category with categorical products and a terminal object. As long as we
-can pick an object $m$ and two morphisms $\mu$ and $\eta$ that satisfy
-monoidal laws, we have a monoid. But we can do better than that. We
-don't need a full-blown categorical product to formulate the laws for $\mu$
-and $\eta$. Recall that a product is defined through a universal construction
-that uses projections. We haven't used any projections in our
-formulation of monoidal laws.
+Мы могли бы остановиться здесь и сказать, что мы можем определить моноид поверх любой
+категории с категорными произведениями и терминальным объектом. Пока мы
+можем выбрать объект $m$ и два морфизма $\mu$ и $\eta$, которые удовлетворяют
+моноидальным законам, у нас есть моноид. Но мы можем сделать лучше. Нам
+не нужно полноценное категорное произведение для формулировки законов для $\mu$
+и $\eta$. Вспомните, что произведение определяется через универсальную конструкцию,
+которая использует проекции. Мы не использовали никаких проекций в нашей
+формулировке моноидальных законов.
 
-A bifunctor that behaves like a product without being a product is
-called a \newterm{tensor product}, often denoted by the infix operator $\otimes$. A
-definition of a tensor product in general is a bit tricky, but we won't
-worry about it. We'll just list its properties --- the most important
-being associativity up to isomorphism.
+Бифунктор, который ведёт себя как произведение, не являясь произведением,
+называется \newterm{тензорным произведением}, часто обозначаемым инфиксным оператором $\otimes$.
+Определение тензорного произведения в общем случае немного хитро, но мы не будем
+беспокоиться об этом. Мы просто перечислим его свойства --- наиболее важное ---
+ассоциативность с точностью до изоморфизма.
 
-Similarly, we don't need the object $t$ to be terminal. We never
-used its terminal property --- namely, the existence of a unique
-morphism from any object to it. What we require is that it works well in
-concert with the tensor product. Which means that we want it to be the
-unit of the tensor product, again, up to isomorphism. Let's put it all
-together:
+Аналогично, нам не нужен объект $t$ как терминальный. Мы никогда не
+использовали его терминальное свойство --- а именно, существование уникального
+морфизма из любого объекта в него. То, что мы требуем, --- что он хорошо работает в
+концерте с тензорным произведением. Что означает, что мы хотим, чтобы он был
+единицей тензорного произведения, опять, с точностью до изоморфизма. Давайте соберём всё
+вместе:
 
-A monoidal category is a category $\cat{C}$ equipped with a bifunctor
-called the tensor product:
+Моноидальная категория --- это категория $\cat{C}$, оснащённая бифунктором,
+называемым тензорным произведением:
 \[\otimes \Colon \cat{C}\times{}\cat{C} \to \cat{C}\]
-and a distinct object $i$ called the unit object, together with
-three natural isomorphisms called, respectively, the associator and the
-left and right unitors:
+и отдельным объектом $i$, называемым единичным объектом, вместе с
+тремя естественными изоморфизмами, называемыми, соответственно, ассоциатором и
+левым и правым унитором:
 \begin{align*}
   \alpha_{a b c} & \Colon (a \otimes b) \otimes c \to a \otimes (b \otimes c) \\
   \lambda_a      & \Colon i \otimes a \to a                                   \\
   \rho_a         & \Colon a \otimes i \to a
 \end{align*}
-(There is also a coherence condition for simplifying a quadruple tensor
-product.)
+(Есть также условие когерентности для упрощения четверного тензорного
+произведения.)
 
-What's important is that a tensor product describes many familiar
-bifunctors. In particular, it works for a product, a coproduct and, as
-we'll see shortly, for the composition of endofunctors (and also for
-some more esoteric products like Day convolution). Monoidal categories
-will play an essential role in the formulation of enriched categories.
+Что важно, так это то, что тензорное произведение описывает много знакомых
+бифункторов. В частности, оно работает для произведения, копроизведения и, как
+мы скоро увидим, для композиции эндофункторов (а также для
+некоторых более эзотерических произведений типа свёртки Дэя). Моноидальные категории
+будут играть существенную роль в формулировке обогащённых категорий.
 
-\section{Monoid in a Monoidal Category}
+\section{Моноид в моноидальной категории}
 
-We are now ready to define a monoid in a more general setting of a
-monoidal category. We start by picking an object $m$. Using the
-tensor product we can form powers of $m$. The square of
-$m$ is $m \otimes m$. There are two ways of forming the cube
-of $m$, but they are isomorphic through the associator. Similarly
-for higher powers of $m$ (that's where we need the coherence
-conditions). To form a monoid we need to pick two morphisms:
+Теперь мы готовы определить моноид в более общей обстановке
+моноидальной категории. Мы начинаем с выбора объекта $m$. Используя
+тензорное произведение, мы можем формировать степени $m$. Квадрат
+$m$ --- это $m \otimes m$. Есть два способа формирования куба
+$m$, но они изоморфны через ассоциатор. Аналогично
+для более высоких степеней $m$ (вот где нам нужны условия
+когерентности). Чтобы сформировать моноид, нам нужно выбрать два морфизма:
 \begin{align*}
   \mu  & \Colon m \otimes m \to m \\
   \eta & \Colon i \to m
 \end{align*}
-where $i$ is the unit object for our tensor product.
+где $i$ --- единичный объект для нашего тензорного произведения.
 
 \begin{figure}[H]
   \centering
@@ -346,8 +348,8 @@ where $i$ is the unit object for our tensor product.
 \end{figure}
 
 \noindent
-These morphisms have to satisfy associativity and unit laws, which can
-be expressed in terms of the following commuting diagrams:
+Эти морфизмы должны удовлетворять законам ассоциативности и единицы, которые могут быть
+выражены в терминах следующих коммутирующих диаграмм:
 
 \begin{figure}[H]
   \centering
@@ -360,39 +362,39 @@ be expressed in terms of the following commuting diagrams:
 \end{figure}
 
 \noindent
-Notice that it's essential that the tensor product be a bifunctor
-because we need to lift pairs of morphisms to form products such as
-$\mu \otimes \id$ or $\eta \otimes \id$. These diagrams are just a
-straightforward generalization of our previous results for categorical
-products.
+Обратите внимание, что существенно, что тензорное произведение --- бифунктор,
+потому что нам нужно поднимать пары морфизмов, чтобы формировать произведения типа
+$\mu \otimes \id$ или $\eta \otimes \id$. Эти диаграммы --- просто
+прямолинейное обобщение наших предыдущих результатов для категорных
+произведений.
 
-\section{Monads as Monoids}
+\section{Монады как моноиды}
 
-Monoidal structures pop up in unexpected places. One such place is the
-functor category. If you squint a little, you might be able to see
-functor composition as a form of multiplication. The problem is that not
-any two functors can be composed --- the target category of one has to
-be the source category of the other. That's just the usual rule of
-composition of morphisms --- and, as we know, functors are indeed
-morphisms in the category $\Cat$. But just like endomorphisms
-(morphisms that loop back to the same object) are always composable, so
-are endofunctors. For any given category $\cat{C}$, endofunctors from
-$\cat{C}$ to $\cat{C}$ form the functor category ${[}\cat{C}, \cat{C}{]}$. Its
-objects are endofunctors, and morphisms are natural transformations
-between them. We can take any two objects from this category, say
-endofunctors $F$ and $G$, and produce a third object $F \circ G$ ---
-an endofunctor that's their composition.
+Моноидальные структуры появляются в неожиданных местах. Одно такое место ---
+категория функторов. Если вы прищуритесь немного, вы можете увидеть
+композицию функторов как форму умножения. Проблема в том, что не
+любые два функтора могут быть скомпозированы --- целевая категория одного должна
+быть исходной категорией другого. Это просто обычное правило
+композиции морфизмов --- и, как мы знаем, функторы действительно
+морфизмы в категории $\Cat$. Но так же, как эндоморфизмы
+(морфизмы, которые замыкаются обратно на тот же объект) всегда композиционны, так же
+и эндофункторы. Для любой данной категории $\cat{C}$ эндофункторы из
+$\cat{C}$ в $\cat{C}$ образуют категорию функторов ${[}\cat{C}, \cat{C}{]}$. Её
+объекты --- эндофункторы, а морфизмы --- естественные преобразования
+между ними. Мы можем взять любые два объекта из этой категории, скажем,
+эндофункторы $F$ и $G$, и произвести третий объект $F \circ G$ ---
+эндофунктор, который является их композицией.
 
-Is endofunctor composition a good candidate for a tensor product? First,
-we have to establish that it's a bifunctor. Can it be used to lift a
-pair of morphisms --- here, natural transformations? The signature of
-the analog of \code{bimap} for the tensor product would look something
-like this:
+Является ли композиция эндофункторов хорошим кандидатом для тензорного произведения? Сначала
+мы должны установить, что это бифунктор. Может ли она быть использована для подъёма
+пары морфизмов --- здесь естественных преобразований? Сигнатура
+аналога \code{bimap} для тензорного произведения выглядела бы примерно
+так:
 \[\mathit{bimap} \Colon (a \to b) \to (c \to d) \to (a \otimes c \to b \otimes d)\]
-If you replace objects by endofunctors, arrows by natural
-transformations, and tensor products by composition, you get:
+Если вы заменяете объекты эндофункторами, стрелки естественными
+преобразованиями, а тензорные произведения композицией, вы получаете:
 \[(F \to F') \to (G \to G') \to (F \circ G \to F' \circ G')\]
-which you may recognize as the special case of horizontal composition.
+что вы можете узнать как специальный случай горизонтальной композиции.
 
 \begin{figure}[H]
   \centering
@@ -400,21 +402,21 @@ which you may recognize as the special case of horizontal composition.
 \end{figure}
 
 \noindent
-We also have at our disposal the identity endofunctor $I$, which
-can serve as the identity for endofunctor composition --- our new tensor
-product. Moreover, functor composition is associative. In fact
-associativity and unit laws are strict --- there's no need for the
-associator or the two unitors. So endofunctors form a strict monoidal
-category with functor composition as tensor product.
+У нас также в распоряжении тождественный эндофунктор $I$, который
+может служить тождеством для композиции эндофункторов --- нашего нового тензорного
+произведения. Более того, композиция функторов ассоциативна. На самом деле
+ассоциативность и законы единицы строги --- нет нужды в
+ассоциаторе или двух униторах. Так что эндофункторы образуют строгую моноидальную
+категорию с композицией функторов как тензорным произведением.
 
-What's a monoid in this category? It's an object --- that is an
-endofunctor $T$; and two morphisms --- that is natural
-transformations:
+Что такое моноид в этой категории? Это объект --- то есть
+эндофунктор $T$; и два морфизма --- то есть естественные
+преобразования:
 \begin{gather*}
   \mu \Colon T \circ T \to T \\
   \eta \Colon I \to T
 \end{gather*}
-Not only that, here are the monoid laws:
+Не только это, вот законы моноида:
 
 \begin{figure}[H]
   \centering
@@ -427,105 +429,104 @@ Not only that, here are the monoid laws:
 \end{figure}
 
 \noindent
-They are exactly the monad laws we've seen before. Now you understand
-the famous quote from Saunders Mac Lane:
+Они в точности законы монады, которые мы видели раньше. Теперь вы понимаете
+знаменитую цитату от Сондерса Мак-Лейна:
 
 \begin{quote}
-  All told, monad is just a monoid in the category of endofunctors.
+  В целом, монада --- это просто моноид в категории эндофункторов.
 \end{quote}
-You might have seen it emblazoned on some t-shirts at functional
-programming conferences.
+Вы можете видели её на некоторых футболках на конференциях по функциональному
+программированию.
 
-\section{Monads from Adjunctions}
+\section{Монады из сопряжений}
 
-An \hyperref[adjunctions]{adjunction}\footnote{See ch.18 on \hyperref[adjunctions]{adjunctions}.}
-$L \dashv R$, is a pair of functors going back and forth between two
-categories $\cat{C}$ and $\cat{D}$. There are two ways of composing them
-giving rise to two endofunctors, $R \circ L$ and $L \circ R$.
-As per an adjunction, these endofunctors are related to identity
-functors through two natural transformations called unit and counit:
+\hyperref[adjunctions]{Сопряжение}\footnote{См. гл.18 о \hyperref[adjunctions]{сопряжениях}.}
+$L \dashv R$ --- это пара функторов, идущих туда и обратно между двумя
+категориями $\cat{C}$ и $\cat{D}$. Есть два способа композиции их,
+порождающие два эндофунктора, $R \circ L$ и $L \circ R$.
+Согласно сопряжению, эти эндофункторы связаны с тождественными
+функторами через два естественных преобразования, называемые единицей и коединицей:
 \begin{gather*}
   \eta \Colon I_{\cat{D}} \to R \circ L \\
   \varepsilon \Colon L \circ R \to I_{\cat{C}}
 \end{gather*}
-Immediately we see that the unit of an adjunction looks just like the
-unit of a monad. It turns out that the endofunctor $R \circ L$ is
-indeed a monad. All we need is to define the appropriate $\mu$ to go with
-the $\eta$. That's a natural transformation between the square of our
-endofunctor and the endofunctor itself or, in terms of the adjoint
-functors:
+Немедленно мы видим, что единица сопряжения выглядит точно как
+единица монады. Оказывается, что эндофунктор $R \circ L$
+действительно монада. Всё, что нам нужно, --- определить подходящее $\mu$, чтобы идти с
+$\eta$. Это естественное преобразование между квадратом нашего
+эндофунктора и самим эндофунктором или, в терминах сопряжённых
+функторов:
 \[R \circ L \circ R \circ L \to R \circ L\]
-And, indeed, we can use the counit to collapse the $L \circ R$ in
-the middle. The exact formula for $\mu$ is given by the horizontal
-composition:
+И действительно, мы можем использовать коединицу, чтобы схлопнуть $L \circ R$ в
+середине. Точная формула для $\mu$ задаётся горизонтальной
+композицией:
 \[\mu = R \circ \varepsilon \circ L\]
-Monadic laws follow from the identities satisfied by the unit and counit
-of the adjunction and the interchange law.
+Монадические законы следуют из тождеств, удовлетворяемых единицей и коединицей
+сопряжения, и закона взаимозаменяемости.
 
-We don't see a lot of monads derived from adjunctions in Haskell,
-because an adjunction usually involves two categories. However, the
-definitions of an exponential, or a function object, is an exception.
-Here are the two endofunctors that form this adjunction:
+Мы не видим много монад, выведенных из сопряжений в Haskell,
+потому что сопряжение обычно включает две категории. Однако
+определения экспоненциала, или объекта-функции, --- исключение.
+Вот два эндофунктора, которые образуют это сопряжение:
 \begin{gather*}
   L z = z\times{}s \\
   R b = s \Rightarrow b
 \end{gather*}
-You may recognize their composition as the familiar state monad:
+Вы можете узнать их композицию как знакомую монаду состояния:
 \[R (L z) = s \Rightarrow (z\times{}s)\]
-We've seen this monad before in Haskell:
+Мы видели эту монаду раньше в Haskell:
 
 \src{snippet18}
-Let's also translate the adjunction to Haskell. The left functor is the
-product functor:
+Давайте также переведём сопряжение в Haskell. Левый функтор --- это
+функтор произведения:
 
 \src{snippet19}
-and the right functor is the reader functor:
+а правый функтор --- функтор reader:
 
 \src{snippet20}
-They form the adjunction:
+Они образуют сопряжение:
 
 \src{snippet21}
-You can easily convince yourself that the composition of the reader
-functor after the product functor is indeed equivalent to the state
-functor:
+Вы можете легко убедить себя, что композиция функтора
+reader после функтора произведения действительно эквивалентна функтору
+состояния:
 
 \src{snippet22}
-As expected, the \code{unit} of the adjunction is equivalent to the
-\code{return} function of the state monad. The \code{counit} acts by
-evaluating a function acting on its argument. This is recognizable as
-the uncurried version of the function \code{runState}:
+Как ожидалось, \code{unit} сопряжения эквивалентен
+функции \code{return} монады состояния. \code{counit} действует,
+вычисляя функцию, действующую на свой аргумент. Это узнаваемо как
+раскаррированная версия функции \code{runState}:
 
 \src{snippet23}
-(uncurried, because in \code{counit} it acts on a pair).
+(раскаррирована, потому что в \code{counit} она действует на пару).
 
-We can now define \code{join} for the state monad as a component of
-the natural transformation $\mu$. For that we need a horizontal composition
-of three natural transformations:
+Теперь мы можем определить \code{join} для монады состояния как компоненту
+естественного преобразования $\mu$. Для этого нам нужна горизонтальная композиция
+трёх естественных преобразований:
 \[\mu = R \circ \varepsilon \circ L\]
-In other words, we need to sneak the counit $\varepsilon$ across one level of the
-reader functor. We can't just call \code{fmap} directly, because the
-compiler would pick the one for the \code{State} functor, rather than
-the \code{Reader} functor. But recall that \code{fmap} for the
-reader functor is just left function composition. So we'll use function
-composition directly.
+Другими словами, нам нужно протащить коединицу $\varepsilon$ через один уровень
+функтора reader. Мы не можем просто вызвать \code{fmap} напрямую, потому что
+компилятор выбрал бы тот для функтора \code{State}, а не для
+функтора \code{Reader}. Но вспомните, что \code{fmap} для
+функтора reader --- это просто левая композиция функций. Так что мы будем использовать композицию функций
+напрямую.
 
-We have to first peel off the data constructor \code{State} to expose
-the function inside the \code{State} functor. This is done using
+Мы должны сначала снять конструктор данных \code{State}, чтобы выставить
+функцию внутри функтора \code{State}. Это делается с использованием
 \code{runState}:
 
 \src{snippet24}
-Then we left-compose it with the counit, which is defined by
-\code{uncurry runState}. Finally, we clothe it back in the
-\code{State} data constructor:
+Затем мы лево-композируем её с коединицей, которая определяется
+\code{uncurry runState}. Наконец, мы одеваем её обратно в
+конструктор данных \code{State}:
 
 \src{snippet25}
-This is indeed the implementation of \code{join} for the
-\code{State} monad.
+Это действительно реализация \code{join} для
+монады \code{State}.
 
-It turns out that not only every adjunction gives rise to a monad, but
-the converse is also true: every monad can be factorized into a
-composition of two adjoint functors. Such a factorization is not unique
-though.
+Оказывается, что не только каждое сопряжение порождает монаду, но
+обратное также верно: каждая монада может быть факторизована в
+композицию двух сопряжённых функторов. Такая факторизация, однако, не уникальна.
 
-We'll talk about the other endofunctor $L \circ R$ in the next
-section.
+Мы поговорим о другом эндофункторе $L \circ R$ в следующей
+секции.

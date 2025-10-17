@@ -1,44 +1,44 @@
 % !TEX root = ../../ctfp-print.tex
 
-\lettrine[lhang=0.17]{W}{e've seen previously} that, when we fix an object $a$ in the
-category $\cat{C}$, the mapping $\cat{C}(a, -)$ is a (covariant)
-functor from $\cat{C}$ to $\Set$.
+\lettrine[lhang=0.17]{М}{ы видели ранее}, что когда мы фиксируем объект $a$ в
+категории $\cat{C}$, отображение $\cat{C}(a, -)$ --- это (ковариантный)
+функтор из $\cat{C}$ в $\Set$.
 \[x \to \cat{C}(a, x)\]
-(The codomain is $\Set$ because the hom-set $\cat{C}(a, x)$ is a
-\emph{set}.) We call this mapping a hom-functor --- we have previously
-defined its action on morphisms as well.
+(Кодомен --- $\Set$, потому что hom-множество $\cat{C}(a, x)$ ---
+\emph{множество}.) Мы называем это отображение hom-функтором --- мы ранее
+определили его действие на морфизмы также.
 
-Now let's vary $a$ in this mapping. We get a new mapping that
-assigns the hom-\emph{functor} $\cat{C}(a, -)$ to any $a$.
+Теперь давайте варьировать $a$ в этом отображении. Мы получим новое отображение, которое
+назначает hom-\emph{функтор} $\cat{C}(a, -)$ любому $a$.
 \[a \to \cat{C}(a, -)\]
-It's a mapping of objects from category $\cat{C}$ to functors, which are
-\emph{objects} in the functor category (see the section about functor
-categories in
-\hyperref[natural-transformations]{Natural
-  Transformations}). Let's use the notation $[\cat{C}, \Set]$ for the
-functor category from $\cat{C}$ to $\Set$. You may also recall that
-hom-functors are the prototypical
-\hyperref[representable-functors]{representable
-  functors}.
+Это отображение объектов из категории $\cat{C}$ в функторы, которые являются
+\emph{объектами} в категории функторов (см. секцию о категориях
+функторов в
+\hyperref[natural-transformations]{Естественных
+  преобразованиях}). Давайте используем нотацию $[\cat{C}, \Set]$ для
+категории функторов из $\cat{C}$ в $\Set$. Вы также можете вспомнить, что
+hom-функторы --- это прототипические
+\hyperref[representable-functors]{представимые
+  функторы}.
 
-Every time we have a mapping of objects between two categories, it's
-natural to ask if such a mapping is also a functor. In other words
-whether we can lift a morphism from one category to a morphism in the
-other category. A morphism in $\cat{C}$ is just an element of
-$\cat{C}(a, b)$, but a morphism in the functor category
-$[\cat{C}, \Set]$ is a natural transformation. So we are looking
-for a mapping of morphisms to natural transformations.
+Каждый раз, когда у нас есть отображение объектов между двумя категориями,
+естественно спросить, является ли такое отображение также функтором. Другими словами,
+можем ли мы поднять морфизм из одной категории в морфизм в
+другой категории. Морфизм в $\cat{C}$ --- это просто элемент
+$\cat{C}(a, b)$, но морфизм в категории функторов
+$[\cat{C}, \Set]$ --- это естественное преобразование. Так что мы ищем
+отображение морфизмов в естественные преобразования.
 
-Let's see if we can find a natural transformation corresponding to a
-morphism $f \Colon a \to b$. First, lets see what
-$a$ and $b$ are mapped to. They are mapped to two
-functors: $\cat{C}(a, -)$ and $\cat{C}(b, -)$. We need a natural
-transformation between those two functors.
+Давайте посмотрим, можем ли мы найти естественное преобразование, соответствующее
+морфизму $f \Colon a \to b$. Сначала посмотрим, во что
+$a$ и $b$ отображаются. Они отображаются в два
+функтора: $\cat{C}(a, -)$ и $\cat{C}(b, -)$. Нам нужно естественное
+преобразование между этими двумя функторами.
 
-And here's the trick: we use the Yoneda lemma:
+И вот трюк: мы используем лемму Ёнеды:
 \[[\cat{C}, \Set](\cat{C}(a, -), F) \cong F a\]
-and replace the generic $F$ with the hom-functor
-$\cat{C}(b, -)$. We get:
+и заменяем обобщённый $F$ на hom-функтор
+$\cat{C}(b, -)$. Мы получаем:
 \[[\cat{C}, \Set](\cat{C}(a, -), \cat{C}(b, -)) \cong \cat{C}(b, a)\]
 \begin{figure}[H]
   \centering
@@ -46,11 +46,11 @@ $\cat{C}(b, -)$. We get:
 \end{figure}
 
 \noindent
-This is exactly the natural transformation between the two hom-functors
-we were looking for, but with a little twist: We have a mapping between
-a natural transformation and a morphism --- an element of
-$\cat{C}(b, a)$ --- that goes in the ``wrong'' direction. But that's
-okay; it only means that the functor we are looking at is contravariant.
+Это в точности естественное преобразование между двумя hom-функторами,
+которое мы искали, но с небольшим поворотом: у нас есть отображение между
+естественным преобразованием и морфизмом --- элементом
+$\cat{C}(b, a)$ --- который идёт в ``неправильном'' направлении. Но это
+нормально; это только означает, что функтор, на который мы смотрим, контравариантен.
 
 \begin{figure}[H]
   \centering
@@ -58,240 +58,240 @@ okay; it only means that the functor we are looking at is contravariant.
 \end{figure}
 
 \noindent
-Actually, we've got even more than we bargained for. The mapping from
-$\cat{C}$ to $[\cat{C}, \Set]$ is not only a contravariant functor
---- it is a \emph{fully faithful} functor. Fullness and faithfulness are
-properties of functors that describe how they map hom-sets.
+На самом деле мы получили даже больше, чем рассчитывали. Отображение из
+$\cat{C}$ в $[\cat{C}, \Set]$ --- это не только контравариантный функтор
+--- это \emph{полностью точный} функтор. Полнота и точность ---
+свойства функторов, которые описывают, как они отображают hom-множества.
 
-A \emph{faithful} functor is \newterm{injective} on hom-sets, meaning that
-it maps distinct morphisms to distinct morphisms. In other words, it
-doesn't coalesce them.
+\emph{Точный} функтор --- \newterm{инъективен} на hom-множествах, означая, что
+он отображает различные морфизмы в различные морфизмы. Другими словами, он
+их не объединяет.
 
-A \emph{full} functor is \newterm{surjective} on hom-sets, meaning that it
-maps one hom-set \emph{onto} the other hom-set, fully covering the
-latter.
+\emph{Полный} функтор --- \newterm{сюръективен} на hom-множествах, означая, что он
+отображает одно hom-множество \emph{на} другое hom-множество, полностью покрывая
+последнее.
 
-A fully faithful functor $F$ is a \newterm{bijection} on hom-sets
---- a one to one matching of all elements of both sets. For every pair
-of objects $a$ and $b$ in the source category $\cat{C}$
-there is a bijection between $\cat{C}(a, b)$ and
-$\cat{D}(F a, F b)$, where $\cat{D}$ is the target category of
-$F$ (in our case, the functor category, $[\cat{C}, \Set]$).
-Notice that this doesn't mean that $F$ is a bijection on
-\emph{objects}. There may be objects in $\cat{D}$ that are not in the
-image of $F$, and we can't say anything about hom-sets for those
-objects.
+Полностью точный функтор $F$ --- это \newterm{биекция} на hom-множествах
+--- взаимно однозначное соответствие всех элементов обоих множеств. Для каждой пары
+объектов $a$ и $b$ в исходной категории $\cat{C}$
+существует биекция между $\cat{C}(a, b)$ и
+$\cat{D}(F a, F b)$, где $\cat{D}$ --- целевая категория
+$F$ (в нашем случае категория функторов, $[\cat{C}, \Set]$).
+Обратите внимание, что это не означает, что $F$ --- биекция на
+\emph{объектах}. Могут быть объекты в $\cat{D}$, которые не находятся в
+образе $F$, и мы не можем сказать ничего о hom-множествах для этих
+объектов.
 
-\section{The Embedding}
+\section{Вложение}
 
-The (contravariant) functor we have just described, the functor that
-maps objects in $\cat{C}$ to functors in $[\cat{C}, \Set]$:
+(Контравариантный) функтор, который мы только что описали, функтор, который
+отображает объекты в $\cat{C}$ в функторы в $[\cat{C}, \Set]$:
 \[a \to \cat{C}(a, -)\]
-defines the \newterm{Yoneda embedding}. It \emph{embeds} a category
-$\cat{C}$ (strictly speaking, the category $\cat{C}^\mathit{op}$,
-because of contravariance) inside the functor category
-$[\cat{C}, \Set]$. It not only maps objects in $\cat{C}$ to
-functors, but also faithfully preserves all connections between them.
+определяет \newterm{вложение Ёнеды}. Он \emph{встраивает} категорию
+$\cat{C}$ (строго говоря, категорию $\cat{C}^\mathit{op}$,
+из-за контравариантности) внутрь категории функторов
+$[\cat{C}, \Set]$. Он не только отображает объекты в $\cat{C}$ в
+функторы, но также точно сохраняет все связи между ними.
 
-This is a very useful result because mathematicians know a lot about the
-category of functors, especially functors whose codomain is
-$\Set$. We can get a lot of insight about an arbitrary category
-$\cat{C}$ by embedding it in the functor category.
+Это очень полезный результат, потому что математики знают много о
+категории функторов, особенно о функторах, чей кодомен ---
+$\Set$. Мы можем получить много понимания о произвольной категории
+$\cat{C}$, встраивая её в категорию функторов.
 
-Of course there is a dual version of the Yoneda embedding, sometimes
-called the co-Yoneda embedding. Observe that we could have started by
-fixing the target object (rather than the source object) of each
-hom-set, $\cat{C}(-, a)$. That would give us a contravariant
-hom-functor. Contravariant functors from $\cat{C}$ to $\Set$ are
-our familiar presheaves (see, for instance,
-\hyperref[limits-and-colimits]{Limits
-  and Colimits}). The co-Yoneda embedding defines the embedding of a
-category $\cat{C}$ in the category of presheaves. Its action on morphisms
-is given by:
+Конечно, есть двойственная версия вложения Ёнеды, иногда
+называемая ко-вложением Ёнеды. Заметьте, что мы могли бы начать с
+фиксации целевого объекта (а не исходного объекта) каждого
+hom-множества, $\cat{C}(-, a)$. Это дало бы нам контравариантный
+hom-функтор. Контравариантные функторы из $\cat{C}$ в $\Set$ ---
+наши знакомые предпучки (см., например,
+\hyperref[limits-and-colimits]{Пределы
+  и копределы}). Ко-вложение Ёнеды определяет вложение
+категории $\cat{C}$ в категорию предпучков. Его действие на морфизмы
+задаётся:
 \[[\cat{C}^\mathit{op}, \Set](\cat{C}(-, a), \cat{C}(-, b)) \cong \cat{C}(a, b)\]
-Again, mathematicians know a lot about the category of presheaves, so
-being able to embed an arbitrary category in it is a big win.
+Опять, математики знают много о категории предпучков, так что
+возможность встроить произвольную категорию в неё --- это большой выигрыш.
 
-\section{Application to Haskell}
+\section{Применение к Haskell}
 
-In Haskell, the Yoneda embedding can be represented as the isomorphism
-between natural transformations amongst reader functors on the one hand,
-and functions (going in the opposite direction) on the other hand:
+В Haskell вложение Ёнеды может быть представлено как изоморфизм
+между естественными преобразованиями среди функторов reader с одной стороны
+и функциями (идущими в противоположном направлении) с другой стороны:
 
 \begin{snipv}
 forall x. (a -> x) -> (b -> x) \ensuremath{\cong} b -> a
 \end{snipv}
-(Remember, the reader functor is equivalent to
+(Помните, функтор reader эквивалентен
 \code{((->) a)}.)
 
-The left hand side of this identity is a polymorphic function that,
-given a function from \code{a} to \code{x} and a value of type
-\code{b}, can produce a value of type \code{x} (I'm uncurrying ---
-dropping the parentheses around --- the function
-\code{b -> x}). The only way this can be done for all
-\code{x} is if our function knows how to convert a \code{b} to an
-\code{a}. It has to secretly have access to a function
+Левая сторона этого тождества --- полиморфная функция, которая,
+для данной функции из \code{a} в \code{x} и значения типа
+\code{b}, может произвести значение типа \code{x} (я раскарриваю ---
+убираю скобки вокруг --- функцию
+\code{b -> x}). Единственный способ, которым это может быть сделано для всех
+\code{x}, --- если наша функция знает, как конвертировать \code{b} в
+\code{a}. Она должна тайно иметь доступ к функции
 \code{b -> a}.
 
-Given such a converter, \code{btoa}, one can define the left hand
-side, call it \code{fromY}, as:
+Для данного такого конвертера, \code{btoa}, можно определить левую сторону,
+назовём её \code{fromY}, как:
 
 \src{snippet01}
-Conversely, given a function \code{fromY} we can recover the converter
-by calling \code{fromY} with the identity:
+Наоборот, для данной функции \code{fromY} мы можем восстановить конвертер,
+вызвав \code{fromY} с тождеством:
 
 \src{snippet02}
-This establishes the bijection between functions of the type
-\code{fromY} and \code{btoa}.
+Это устанавливает биекцию между функциями типа
+\code{fromY} и \code{btoa}.
 
-An alternative way of looking at this isomorphism is that it's a \acronym{CPS}
-encoding of a function from \code{b} to \code{a}. The argument
-\code{a -> x} is a continuation (the handler). The result
-is a function from \code{b} to \code{x} which, when called with a
-value of type \code{b}, will execute the continuation precomposed with
-the function being encoded.
+Альтернативный способ взглянуть на этот изоморфизм --- что это \acronym{CPS}
+кодировка функции из \code{b} в \code{a}. Аргумент
+\code{a -> x} --- продолжение (обработчик). Результат
+--- функция из \code{b} в \code{x}, которая, когда вызвана со
+значением типа \code{b}, выполнит продолжение, предкомпозированное с
+кодируемой функцией.
 
-The Yoneda embedding also explains some of the alternative
-representations of data structures in Haskell. In particular, it
-provides a \urlref{https://bartoszmilewski.com/2015/07/13/from-lenses-to-yoneda-embedding/}
-{very useful representation}
-of lenses from the \code{Control.Lens} library.
+Вложение Ёнеды также объясняет некоторые альтернативные
+представления структур данных в Haskell. В частности, оно
+предоставляет \urlref{https://bartoszmilewski.com/2015/07/13/from-lenses-to-yoneda-embedding/}
+{очень полезное представление}
+линз из библиотеки \code{Control.Lens}.
 
-\section{Preorder Example}
+\section{Пример с предпорядком}
 
-This example was suggested by Robert Harper. It's the application of the
-Yoneda embedding to a category defined by a preorder. A preorder is a
-set with an ordering relation between its elements that's traditionally
-written as $\leqslant$ (less than or equal). The ``pre'' in
-preorder is there because we're only requiring the relation to be
-transitive and reflexive but not necessarily antisymmetric (so it's
-possible to have cycles).
+Этот пример был предложен Робертом Харпером. Это применение
+вложения Ёнеды к категории, определённой предпорядком. Предпорядок --- это
+множество с отношением упорядочения между его элементами, которое традиционно
+записывается как $\leqslant$ (меньше или равно). ``Пре'' в
+предпорядке там, потому что мы требуем только, чтобы отношение было
+транзитивным и рефлексивным, но не обязательно антисимметричным (так что
+возможно иметь циклы).
 
-A set with the preorder relation gives rise to a category. The objects
-are the elements of this set. A morphism from object $a$ to
-$b$ either doesn't exist, if the objects cannot be compared or if
-it's not true that $a \leqslant b$; or it exists if
-$a \leqslant b$, and it points from $a$ to
-$b$. There is never more than one morphism from one object to
-another. Therefore any hom-set in such a category is either an empty set
-or a one-element set. Such a category is called \emph{thin}.
+Множество с отношением предпорядка порождает категорию. Объекты
+--- это элементы этого множества. Морфизм из объекта $a$ в
+$b$ либо не существует, если объекты не могут быть сравнены или если
+неверно, что $a \leqslant b$; или существует, если
+$a \leqslant b$, и он указывает из $a$ в
+$b$. Никогда не бывает более одного морфизма из одного объекта в
+другой. Следовательно, любое hom-множество в такой категории либо пустое множество,
+либо одноэлементное множество. Такая категория называется \emph{тонкой}.
 
-It's easy to convince yourself that this construction is indeed a
-category: The arrows are composable because, if
-$a \leqslant b$ and $b \leqslant c$ then
-$a \leqslant c$; and the composition is associative. We also
-have the identity arrows because every element is (less than or) equal
-to itself (reflexivity of the underlying relation).
+Легко убедить себя, что эта конструкция действительно категория:
+стрелки композиционны, потому что если
+$a \leqslant b$ и $b \leqslant c$, то
+$a \leqslant c$; и композиция ассоциативна. У нас также
+есть тождественные стрелки, потому что каждый элемент (меньше или) равен
+себе (рефлексивность лежащего в основе отношения).
 
-We can now apply the co-Yoneda embedding to a preorder category. In
-particular, we're interested in its action on morphisms:
+Теперь мы можем применить ко-вложение Ёнеды к категории предпорядка. В
+частности, нас интересует его действие на морфизмы:
 \[[\cat{C}, \Set](\cat{C}(-, a), \cat{C}(-, b)) \cong \cat{C}(a, b)\]
-The hom-set on the right hand side is non-empty if and only if
-$a \leqslant b$ --- in which case it's a one-element set.
-Consequently, if $a \leqslant b$, there exists a single
-natural transformation on the left. Otherwise there is no natural
-transformation.
+Hom-множество на правой стороне непусто тогда и только тогда, когда
+$a \leqslant b$ --- в каком случае это одноэлементное множество.
+Следовательно, если $a \leqslant b$, существует единственное
+естественное преобразование слева. Иначе нет естественного
+преобразования.
 
-So what's a natural transformation between hom-functors in a preorder?
-It should be a family of functions between sets $\cat{C}(-, a)$ and
-$\cat{C}(-, b)$. In a preorder, each of these sets can either be empty
-or a singleton. Let's see what kind of functions are there at our
-disposal.
+Так что такое естественное преобразование между hom-функторами в предпорядке?
+Оно должно быть семейством функций между множествами $\cat{C}(-, a)$ и
+$\cat{C}(-, b)$. В предпорядке каждое из этих множеств может быть либо пустым,
+либо синглетоном. Давайте посмотрим, какие функции есть в нашем
+распоряжении.
 
-There is a function from an empty set to itself (the identity acting on
-an empty set), a function \code{absurd} from an empty set to a
-singleton set (it does nothing, since it only needs to be defined for
-elements of an empty set, of which there are none), and a function from
-a singleton to itself (the identity acting on a one-element set). The
-only combination that is forbidden is the mapping from a singleton to an
-empty set (what would the value of such a function be when acting on the
-single element?).
+Есть функция из пустого множества в себя (тождество, действующее на
+пустом множестве), функция \code{absurd} из пустого множества в
+одноэлементное множество (она ничего не делает, поскольку ей нужно быть определённой только для
+элементов пустого множества, которых нет), и функция из
+синглетона в себя (тождество, действующее на одноэлементном множестве).
+Единственная комбинация, которая запрещена, --- это отображение из синглетона в
+пустое множество (каким было бы значение такой функции при действии на
+единственный элемент?).
 
-So our natural transformation will never connect a singleton hom-set to
-an empty hom-set. In other words, if $x \leqslant a$
-(singleton hom-set $\cat{C}(x, a)$) then $\cat{C}(x, b)$ cannot be
-empty. A non-empty $\cat{C}(x, b)$ means that $x$ is less or
-equal to $b$. So the existence of the natural transformation in
-question requires that, for every $x$, if
-$x \leqslant a$ then $x \leqslant b$.
-\[\text{for all } x, x \leqslant a \Rightarrow x \leqslant b\]
-On the other hand, co-Yoneda tells us that the existence of this natural
-transformation is equivalent to $\cat{C}(a, b)$ being non-empty, or to
-$a \leqslant b$. Together, we get:
-\[a \leqslant b \text{ if and only if for all } x, x \leqslant a \Rightarrow x \leqslant b\]
-We could have arrived at this result directly. The intuition is that, if
-$a \leqslant b$ then all elements that are below $a$
-must also be below $b$. Conversely, when you substitute
-$a$ for $x$ on the right hand side, it follows that
-$a \leqslant b$. But you must admit that arriving at this
-result through the Yoneda embedding is much more exciting.
+Так что наше естественное преобразование никогда не соединит одноэлементное hom-множество с
+пустым hom-множеством. Другими словами, если $x \leqslant a$
+(одноэлементное hom-множество $\cat{C}(x, a)$), то $\cat{C}(x, b)$ не может быть
+пустым. Непустое $\cat{C}(x, b)$ означает, что $x$ меньше или
+равно $b$. Так что существование рассматриваемого естественного преобразования
+требует, чтобы для каждого $x$, если
+$x \leqslant a$, то $x \leqslant b$.
+\[\text{для всех } x, x \leqslant a \Rightarrow x \leqslant b\]
+С другой стороны, ко-Ёнеда говорит нам, что существование этого естественного
+преобразования эквивалентно тому, что $\cat{C}(a, b)$ непусто, или
+$a \leqslant b$. Вместе мы получаем:
+\[a \leqslant b \text{ тогда и только тогда, когда для всех } x, x \leqslant a \Rightarrow x \leqslant b\]
+Мы могли бы прийти к этому результату напрямую. Интуиция в том, что если
+$a \leqslant b$, то все элементы, которые ниже $a$,
+также должны быть ниже $b$. Наоборот, когда вы подставляете
+$a$ вместо $x$ на правой стороне, следует, что
+$a \leqslant b$. Но вы должны признать, что приход к этому
+результату через вложение Ёнеды намного более захватывающий.
 
-\section{Naturality}
+\section{Естественность}
 
-The Yoneda lemma establishes the isomorphism between the set of natural
-transformations and an object in $\Set$. Natural transformations
-are morphisms in the functor category $[\cat{C}, \Set]$. The set of
-natural transformation between any two functors is a hom-set in that
-category. The Yoneda lemma is the isomorphism:
+Лемма Ёнеды устанавливает изоморфизм между множеством естественных
+преобразований и объектом в $\Set$. Естественные преобразования ---
+это морфизмы в категории функторов $[\cat{C}, \Set]$. Множество
+естественных преобразований между любыми двумя функторами --- это hom-множество в этой
+категории. Лемма Ёнеды --- это изоморфизм:
 \[[\cat{C}, \Set](\cat{C}(a, -), F) \cong F a\]
-This isomorphism turns out to be natural in both $F$ and
-$a$. In other words, it's natural in $(F, a)$, a pair
-taken from the product category  $[\cat{C}, \Set] \times \cat{C}$. Notice
-that we are now treating $F$ as an \newterm{object} in the functor
-category.
+Этот изоморфизм оказывается естественным как в $F$, так и в
+$a$. Другими словами, он естественен в $(F, a)$, паре,
+взятой из категории произведения  $[\cat{C}, \Set] \times \cat{C}$. Обратите внимание,
+что теперь мы рассматриваем $F$ как \newterm{объект} в категории
+функторов.
 
-Let's think for a moment what this means. A natural isomorphism is an
-invertible \emph{natural transformation} between two functors. And
-indeed, the right hand side of our isomorphism is a functor. It's a
-functor from $[\cat{C}, \Set] \times \cat{C}$ to $\Set$. Its action on
-a pair $(F, a)$ is a set --- the result of evaluating the
-functor $F$ at the object $a$. This is called the
-evaluation functor.
+Давайте подумаем на мгновение, что это означает. Естественный изоморфизм --- это
+обратимое \emph{естественное преобразование} между двумя функторами. И
+действительно, правая сторона нашего изоморфизма --- функтор. Это
+функтор из $[\cat{C}, \Set] \times \cat{C}$ в $\Set$. Его действие на
+пару $(F, a)$ --- это множество --- результат вычисления
+функтора $F$ в объекте $a$. Это называется
+функтором вычисления.
 
-The left hand side is also a functor that takes $(F, a)$ to a
-set of natural transformations $[\cat{C}, \Set](\cat{C}(a, -), F)$.
+Левая сторона также функтор, который принимает $(F, a)$ в
+множество естественных преобразований $[\cat{C}, \Set](\cat{C}(a, -), F)$.
 
-To show that these are really functors, we should also define their
-action on morphisms. But what's a morphism between a pair
-$(F, a)$ and $(G, b)$? It's a pair of morphisms,
-$(\Phi, f)$; the first being a morphism between functors --- a
-natural transformation --- the second being a regular morphism in
+Чтобы показать, что это действительно функторы, мы также должны определить их
+действие на морфизмы. Но что такое морфизм между парой
+$(F, a)$ и $(G, b)$? Это пара морфизмов,
+$(\Phi, f)$; первый --- морфизм между функторами ---
+естественное преобразование --- второй --- обычный морфизм в
 $\cat{C}$.
 
-The evaluation functor takes this pair $(\Phi, f)$ and maps it to a
-function between two sets, $F a$ and $G b$. We can
-easily construct such a function from the component of $\Phi$ at
-$a$ (which maps $F a$ to $G a$) and the morphism
-$f$ lifted by $G$:
+Функтор вычисления принимает эту пару $(\Phi, f)$ и отображает её в
+функцию между двумя множествами, $F a$ и $G b$. Мы можем
+легко сконструировать такую функцию из компоненты $\Phi$ в
+$a$ (которая отображает $F a$ в $G a$) и морфизма
+$f$, поднятого $G$:
 \[(G f) \circ \Phi_a\]
-Notice that, because of naturality of $\Phi$, this is the same as:
+Обратите внимание, что из-за естественности $\Phi$ это то же самое, что:
 \[\Phi_b \circ (F f)\]
-I'm not going to prove the naturality of the whole isomorphism --- after
-you've established what the functors are, the proof is pretty
-mechanical. It follows from the fact that our isomorphism is built up
-from functors and natural transformations. There is simply no way for it
-to go wrong.
+Я не буду доказывать естественность всего изоморфизма --- после того,
+как вы установили, каковы функторы, доказательство довольно
+механическое. Оно следует из факта, что наш изоморфизм построен
+из функторов и естественных преобразований. Просто нет способа, чтобы оно
+пошло не так.
 
-\section{Challenges}
+\section{Задачи}
 
 \begin{enumerate}
   \tightlist
   \item
-        Express the co-Yoneda embedding in Haskell.
+        Выразите ко-вложение Ёнеды в Haskell.
   \item
-        Show that the bijection we established between \code{fromY} and
-        \code{btoa} is an isomorphism (the two mappings are the inverse of
-        each other).
+        Покажите, что биекция, которую мы установили между \code{fromY} и
+        \code{btoa}, --- это изоморфизм (два отображения --- обратные
+        друг другу).
   \item
-        Work out the Yoneda embedding for a monoid. What functor corresponds
-        to the monoid's single object? What natural transformations correspond
-        to monoid morphisms?
+        Разработайте вложение Ёнеды для моноида. Какой функтор соответствует
+        единственному объекту моноида? Какие естественные преобразования соответствуют
+        морфизмам моноида?
   \item
-        What is the application of the \emph{covariant} Yoneda embedding to
-        preorders? (Question suggested by Gershom Bazerman.)
+        Каково применение \emph{ковариантного} вложения Ёнеды к
+        предпорядкам? (Вопрос предложен Гершомом Базерманом.)
   \item
-        Yoneda embedding can be used to embed an arbitrary functor category
-        $[\cat{C}, \cat{D}]$ in the functor category
-        $[[\cat{C}, \cat{D}], \Set]$. Figure out how it works on morphisms
-        (which in this case are natural transformations).
+        Вложение Ёнеды может быть использовано для встраивания произвольной категории функторов
+        $[\cat{C}, \cat{D}]$ в категорию функторов
+        $[[\cat{C}, \cat{D}], \Set]$. Выясните, как оно работает на морфизмах
+        (которые в этом случае являются естественными преобразованиями).
 \end{enumerate}

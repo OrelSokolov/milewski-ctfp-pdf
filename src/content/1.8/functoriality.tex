@@ -1,52 +1,52 @@
 % !TEX root = ../../ctfp-print.tex
 
-\lettrine[lhang=0.17]{N}{ow that you know} what a functor is, and have seen a few examples, let's
-see how we can build larger functors from smaller ones. In particular
-it's interesting to see which type constructors (which correspond to
-mappings between objects in a category) can be extended to functors
-(which include mappings between morphisms).
+\lettrine[lhang=0.17]{Т}{еперь, когда вы знаете}, что такое функтор, и видели несколько примеров, давайте
+посмотрим, как мы можем строить более крупные функторы из меньших. В частности,
+интересно посмотреть, какие конструкторы типов (которые соответствуют
+отображениям между объектами в категории) могут быть расширены до функторов
+(которые включают отображения между морфизмами).
 
-\section{Bifunctors}
+\section{Бифункторы}
 
-Since functors are morphisms in $\Cat$ (the category of categories),
-a lot of intuitions about morphisms --- and functions in particular ---
-apply to functors as well. For instance, just like you can have a
-function of two arguments, you can have a functor of two arguments, or a
-\newterm{bifunctor}. On objects, a bifunctor maps every pair of objects,
-one from category $\cat{C}$, and one from category $\cat{D}$, to an object in category
-$\cat{E}$. Notice that this is just saying that it's a mapping from a
-\newterm{Cartesian product} of categories $\cat{C}\times{}\cat{D}$ to $\cat{E}$.
+Поскольку функторы --- это морфизмы в $\Cat$ (категории категорий),
+многие интуиции о морфизмах --- и функциях в частности ---
+применимы к функторам также. Например, так же, как вы можете иметь
+функцию двух аргументов, вы можете иметь функтор двух аргументов, или
+\newterm{бифунктор}. На объектах бифунктор отображает каждую пару объектов,
+один из категории $\cat{C}$, а другой из категории $\cat{D}$, в объект в категории
+$\cat{E}$. Заметьте, что это просто говорит, что это отображение из
+\newterm{декартова произведения} категорий $\cat{C}\times{}\cat{D}$ в $\cat{E}$.
 
 \begin{figure}[H]
   \centering\includegraphics[width=0.3\textwidth]{images/bifunctor.jpg}
 \end{figure}
 
 \noindent
-That's pretty straightforward. But functoriality means that a bifunctor
-has to map morphisms as well. This time, though, it must map a pair of
-morphisms, one from $\cat{C}$ and one from $\cat{D}$, to a morphism in $\cat{E}$.
+Это довольно прямолинейно. Но функториальность означает, что бифунктор
+должен отображать морфизмы также. На этот раз, однако, он должен отображать пару
+морфизмов, один из $\cat{C}$ и один из $\cat{D}$, в морфизм в $\cat{E}$.
 
-Again, a pair of morphisms is just a single morphism in the product
-category $\cat{C}\times{}\cat{D}$. We define a morphism in a Cartesian product of categories
-as a pair of morphisms which goes from one pair of objects to another
-pair of objects. These pairs of morphisms can be composed in the obvious
-way:
+Опять же, пара морфизмов --- это просто единственный морфизм в произведении
+категорий $\cat{C}\times{}\cat{D}$. Мы определяем морфизм в декартовом произведении категорий
+как пару морфизмов, которая идёт из одной пары объектов в другую
+пару объектов. Эти пары морфизмов могут быть скомпозированы очевидным
+способом:
 \[(f, g) \circ (f', g') = (f \circ f', g \circ g')\]
-The composition is associative and it has an identity --- a pair of
-identity morphisms $(\id, \id)$. So a Cartesian product of categories
-is indeed a category.
+Композиция ассоциативна, и у неё есть тождество --- пара
+тождественных морфизмов $(\id, \id)$. Так что декартово произведение категорий
+действительно является категорией.
 
-An easier way to think about bifunctors would be to consider them functors in
-each argument separately. So instead of translating functorial laws ---
-associativity and identity preservation --- from functors to bifunctors,
-it would be enough to check them separately for each argument. However, in general,
-separate functoriality is not enough to prove joint functoriality. Categories in which
-joint functoriality fails are called \newterm{premonoidal}.
+Более простой способ думать о бифункторах --- рассматривать их как функторы в
+каждом аргументе отдельно. Поэтому вместо того, чтобы транслировать функториальные законы ---
+ассоциативность и сохранение тождества --- от функторов к бифункторам,
+было бы достаточно проверить их отдельно для каждого аргумента. Однако, в общем случае,
+отдельная функториальность недостаточна для доказательства совместной функториальности. Категории, в которых
+совместная функториальность не выполняется, называются \newterm{премоноидальными}.
 
-Let's define a bifunctor in Haskell. In this case all three categories
-are the same: the category of Haskell types. A bifunctor is a type
-constructor that takes two type arguments. Here's the definition of the
-\code{Bifunctor} typeclass taken directly from the library
+Давайте определим бифунктор в Haskell. В этом случае все три категории
+одинаковы: категория типов Haskell. Бифунктор --- это конструктор типа,
+который принимает два аргумента типа. Вот определение класса типов
+\code{Bifunctor}, взятое прямо из библиотеки
 \code{Control.Bifunctor}:
 
 \src{snippet01}
@@ -56,22 +56,22 @@ constructor that takes two type arguments. Here's the definition of the
   \caption{bimap}
 \end{figure}
 
-The type variable \code{f} represents the bifunctor. You can see that
-in all type signatures it's always applied to two type arguments. The
-first type signature defines \code{bimap}: a mapping of two functions
-at once. The result is a lifted function,
-\code{(f a b -> f c d)}, operating on types
-generated by the bifunctor's type constructor. There is a default
-implementation of \code{bimap} in terms of \code{first} and
-\code{second}. (As mentioned before, this doesn't always work, because
-the two maps may not commute, that is \code{first g . second h} may not
-be the same as \code{second h . first g}.)
+Типовая переменная \code{f} представляет бифунктор. Вы можете увидеть, что
+во всех сигнатурах типов она всегда применяется к двум аргументам типа.
+Первая сигнатура типа определяет \code{bimap}: отображение двух функций
+одновременно. Результат --- это поднятая функция,
+\code{(f a b -> f c d)}, действующая на типы,
+сгенерированные конструктором типов бифунктора. Есть реализация по умолчанию
+для \code{bimap} в терминах \code{first} и
+\code{second}. (Как упоминалось ранее, это не всегда работает, потому что
+два отображения могут не коммутировать, то есть \code{first g . second h} может не
+быть таким же, как \code{second h . first g}.)
 
 
 \noindent
-The two other type signatures, \code{first} and \code{second}, are
-the two \code{fmap}s witnessing the functoriality of \code{f} in the
-first and the second argument, respectively.
+Две другие сигнатуры типов, \code{first} и \code{second}, ---
+это два \code{fmap}а, свидетельствующие о функториальности \code{f} в
+первом и втором аргументе, соответственно.
 
 \begin{figure}[H]
   \centering
@@ -88,221 +88,219 @@ first and the second argument, respectively.
 \end{figure}
 
 \noindent
-The typeclass definition provides default implementations for both of
-them in terms of \code{bimap}.
+Определение класса типов предоставляет реализации по умолчанию для обоих
+в терминах \code{bimap}.
 
-When declaring an instance of \code{Bifunctor}, you have a choice of
-either implementing \code{bimap} and accepting the defaults for
-\code{first} and \code{second}, or implementing both \code{first}
-and \code{second} and accepting the default for \code{bimap} (of
-course, you may implement all three of them, but then it's up to you to
-make sure they are related to each other in this manner).
+При объявлении экземпляра \code{Bifunctor} у вас есть выбор:
+либо реализовать \code{bimap} и принять значения по умолчанию для
+\code{first} и \code{second}, либо реализовать оба \code{first}
+и \code{second} и принять значение по умолчанию для \code{bimap} (конечно,
+вы можете реализовать все три, но тогда вы должны убедиться,
+что они связаны друг с другом таким образом).
 
-\section{Product and Coproduct Bifunctors}
+\section{Бифункторы произведения и копроизведения}
 
-An important example of a bifunctor is the categorical product --- a
-product of two objects that is defined by a \hyperref[products-and-coproducts]{universal
-  construction}. If the product exists for any pair of objects, the
-mapping from those objects to the product is bifunctorial. This is true
-in general, and in Haskell in particular. Here's the \code{Bifunctor}
-instance for a pair constructor --- the simplest product type:
+Важный пример бифунктора --- это категорное произведение ---
+произведение двух объектов, которое определяется \hyperref[products-and-coproducts]{универсальной
+  конструкцией}. Если произведение существует для любой пары объектов,
+отображение из этих объектов в произведение бифункториально. Это верно
+в общем случае, и в Haskell в частности. Вот экземпляр \code{Bifunctor}
+для конструктора пары --- простейшего типа произведения:
 
 \src{snippet02}[b]
-There isn't much choice: \code{bimap} simply applies the first
-function to the first component, and the second function to the second
-component of a pair. The code pretty much writes itself, given the
-types:
+Выбора немного: \code{bimap} просто применяет первую
+функцию к первому компоненту, а вторую функцию ко второму
+компоненту пары. Код практически пишется сам, учитывая
+типы:
 
 \src{snippet03}
-The action of the bifunctor here is to make pairs of types, for
-instance:
+Действие бифунктора здесь состоит в том, чтобы делать пары типов, например:
 
 \begin{snip}{haskell}
 (,) a b = (a, b)
 \end{snip}
-By duality, a coproduct, if it's defined for every pair of objects in a
-category, is also a bifunctor. In Haskell, this is exemplified by the
-\code{Either} type constructor being an instance of
+По двойственности, копроизведение, если оно определено для каждой пары объектов в
+категории, также является бифунктором. В Haskell это проиллюстрировано тем, что
+конструктор типа \code{Either} является экземпляром
 \code{Bifunctor}:
 
 \src{snippet04}[b]
-This code also writes itself.
+Этот код также пишется сам.
 
-Now, remember when we talked about monoidal categories? A monoidal
-category defines a binary operator acting on objects, together with a
-unit object. I mentioned that $\Set$ is a monoidal category with
-respect to Cartesian product, with the singleton set as a unit. And it's
-also a monoidal category with respect to disjoint union, with the empty
-set as a unit. What I haven't mentioned is that one of the requirements
-for a monoidal category is that the binary operator be a bifunctor. This
-is a very important requirement --- we want the monoidal product to be
-compatible with the structure of the category, which is defined by
-morphisms. We are now one step closer to the full definition of a
-monoidal category (we still need to learn about naturality, before we
-can get there).
+Теперь, помните, когда мы говорили о моноидальных категориях? Моноидальная
+категория определяет бинарный оператор, действующий на объекты, вместе с
+единичным объектом. Я упоминал, что $\Set$ --- это моноидальная категория по
+отношению к декартову произведению, с одноэлементным множеством как единицей. И это
+также моноидальная категория по отношению к дизъюнктному объединению, с пустым
+множеством как единицей. Что я не упоминал, так это то, что одно из требований
+для моноидальной категории состоит в том, что бинарный оператор должен быть бифунктором. Это
+очень важное требование --- мы хотим, чтобы моноидальное произведение было
+совместимо со структурой категории, которая определяется
+морфизмами. Теперь мы на один шаг ближе к полному определению
+моноидальной категории (нам всё ещё нужно узнать о естественности, прежде чем мы
+сможем добраться туда).
 
-\section{Functorial Algebraic Data Types}
+\section{Функториальные алгебраические типы данных}
 
-We've seen several examples of parameterized data types that turned out
-to be functors --- we were able to define \code{fmap} for them.
-Complex data types are constructed from simpler data types. In
-particular, algebraic data types (\acronym{ADT}s) are created using sums and
-products. We have just seen that sums and products are functorial. We
-also know that functors compose. So if we can show that the basic
-building blocks of \acronym{ADT}s are functorial, we'll know that parameterized
-\acronym{ADT}s are functorial too.
+Мы видели несколько примеров параметризованных типов данных, которые оказались
+функторами --- мы смогли определить \code{fmap} для них.
+Сложные типы данных конструируются из более простых типов данных. В
+частности, алгебраические типы данных (\acronym{ADT}) создаются с использованием сумм и
+произведений. Мы только что видели, что суммы и произведения функториальны. Мы
+также знаем, что функторы композируются. Так что если мы можем показать, что основные
+строительные блоки \acronym{ADT} функториальны, мы будем знать, что параметризованные
+\acronym{ADT} тоже функториальны.
 
-So what are the building blocks of parameterized algebraic data types?
-First, there are the items that have no dependency on the type parameter
-of the functor, like \code{Nothing} in \code{Maybe}, or \code{Nil}
-in \code{List}. They are equivalent to the \code{Const} functor.
-Remember, the \code{Const} functor ignores its type parameter (really,
-the \emph{second} type parameter, which is the one of interest to us,
-the first one being kept constant).
+Так каковы строительные блоки параметризованных алгебраических типов данных?
+Во-первых, есть элементы, которые не имеют зависимости от параметра типа
+функтора, как \code{Nothing} в \code{Maybe}, или \code{Nil}
+в \code{List}. Они эквивалентны функтору \code{Const}.
+Помните, функтор \code{Const} игнорирует свой параметр типа (действительно,
+\emph{второй} параметр типа, который представляет для нас интерес,
+первый хранится постоянным).
 
-Then there are the elements that simply encapsulate the type parameter
-itself, like \code{Just} in \code{Maybe}. They are equivalent to the
-identity functor. I mentioned the identity functor previously, as the
-identity morphism in \emph{Cat}, but didn't give its definition in
-Haskell. Here it is:
+Затем есть элементы, которые просто инкапсулируют сам параметр типа,
+как \code{Just} в \code{Maybe}. Они эквивалентны
+тождественному функтору. Я упоминал тождественный функтор ранее, как
+тождественный морфизм в \emph{Cat}, но не дал его определение в
+Haskell. Вот оно:
 
 \src{snippet05}
 
 \src{snippet06}
-You can think of \code{Identity} as the simplest possible container
-that always stores just one (immutable) value of type \code{a}.
+Вы можете думать об \code{Identity} как о простейшем возможном контейнере,
+который всегда хранит только одно (неизменяемое) значение типа \code{a}.
 
-Everything else in algebraic data structures is constructed from these
-two primitives using products and sums.
+Всё остальное в алгебраических структурах данных конструируется из этих
+двух примитивов с использованием произведений и сумм.
 
-With this new knowledge, let's have a fresh look at the \code{Maybe}
-type constructor:
+С этим новым знанием давайте по-новому взглянем на конструктор типа \code{Maybe}:
 
 \src{snippet07}
-It's a sum of two types, and we now know that the sum is functorial. The
-first part, \code{Nothing} can be represented as a \code{Const ()}
-acting on \code{a} (the first type parameter of \code{Const} is set
-to unit --- later we'll see more interesting uses of \code{Const}).
-The second part is just a different name for the identity functor. We
-could have defined \code{Maybe}, up to isomorphism, as:
+Это сумма двух типов, и теперь мы знаем, что сумма функториальна.
+Первая часть, \code{Nothing}, может быть представлена как \code{Const ()},
+действующий на \code{a} (первый параметр типа \code{Const} установлен
+в unit --- позже мы увидим более интересные применения \code{Const}).
+Вторая часть --- это просто другое имя для тождественного функтора. Мы
+могли бы определить \code{Maybe}, с точностью до изоморфизма, как:
 
 \src{snippet08}
-So \code{Maybe} is the composition of the bifunctor \code{Either}
-with two functors, \code{Const ()} and \code{Identity}.
-(\code{Const} is really a bifunctor, but here we always use it
-partially applied.)
+Итак, \code{Maybe} --- это композиция бифунктора \code{Either}
+с двумя функторами, \code{Const ()} и \code{Identity}.
+(\code{Const} --- это действительно бифунктор, но здесь мы всегда используем его
+частично применённым.)
 
-We've already seen that a composition of functors is a functor --- we
-can easily convince ourselves that the same is true of bifunctors. All
-we need is to figure out how a composition of a bifunctor with two
-functors works on morphisms. Given two morphisms, we simply lift one
-with one functor and the other with the other functor. We then lift the
-resulting pair of lifted morphisms with the bifunctor.
+Мы уже видели, что композиция функторов --- это функтор --- мы
+можем легко убедить себя, что то же самое верно для бифункторов. Всё,
+что нам нужно, это выяснить, как композиция бифунктора с двумя
+функторами работает на морфизмах. Для данных двух морфизмов мы просто поднимаем один
+с одним функтором, а другой с другим функтором. Затем мы поднимаем
+результирующую пару поднятых морфизмов с бифунктором.
 
-We can express this composition in Haskell. Let's define a data type
-that is parameterized by a bifunctor \code{bf} (it's a type variable
-that is a type constructor that takes two types as arguments), two
-functors \code{fu} and \code{gu} (type constructors that take one
-type variable each), and two regular types \code{a} and \code{b}. We
-apply \code{fu} to \code{a} and \code{gu} to \code{b}, and then
-apply \code{bf} to the resulting two types:
+Мы можем выразить эту композицию в Haskell. Давайте определим тип данных,
+который параметризован бифунктором \code{bf} (это типовая переменная,
+которая является конструктором типа, принимающим два типа в качестве аргументов), двумя
+функторами \code{fu} и \code{gu} (конструкторы типов, принимающие по одной
+переменной типа каждый), и двумя обычными типами \code{a} и \code{b}.
+Мы применяем \code{fu} к \code{a} и \code{gu} к \code{b}, а затем
+применяем \code{bf} к получившимся двум типам:
 
 \src{snippet09}
-That's the composition on objects, or types. Notice how in Haskell we
-apply type constructors to types, just like we apply functions to
-arguments. The syntax is the same.
+Это композиция на объектах, или типах. Обратите внимание, как в Haskell мы
+применяем конструкторы типов к типам, точно так же, как мы применяем функции к
+аргументам. Синтаксис одинаков.
 
-If you're getting a little lost, try applying \code{BiComp} to
-\code{Either}, \code{Const ()}, \code{Identity}, \code{a}, and
-\code{b}, in this order. You will recover our bare-bone version of
-\code{Maybe b} (\code{a} is ignored).
+Если вы немного потерялись, попробуйте применить \code{BiComp} к
+\code{Either}, \code{Const ()}, \code{Identity}, \code{a} и
+\code{b}, в этом порядке. Вы восстановите нашу голую версию
+\code{Maybe b} (\code{a} игнорируется).
 
-The new data type \code{BiComp} is a bifunctor in \code{a} and
-\code{b}, but only if \code{bf} is itself a \code{Bifunctor} and
-\code{fu} and \code{gu} are \code{Functor}s. The compiler must
-know that there will be a definition of \code{bimap} available for
-\code{bf}, and definitions of \code{fmap} for \code{fu} and
-\code{gu}. In Haskell, this is expressed as a precondition in the
-instance declaration: a set of class constraints followed by a double
-arrow:
+Новый тип данных \code{BiComp} --- это бифунктор в \code{a} и
+\code{b}, но только если \code{bf} сам является \code{Bifunctor}, а
+\code{fu} и \code{gu} являются \code{Functor}ами. Компилятор должен
+знать, что будет доступно определение \code{bimap} для
+\code{bf}, и определения \code{fmap} для \code{fu} и
+\code{gu}. В Haskell это выражается как предусловие в
+объявлении экземпляра: набор ограничений класса, за которым следует двойная
+стрелка:
 
 \src{snippet10}[b]
-The implementation of \code{bimap} for \code{BiComp} is given in
-terms of \code{bimap} for \code{bf} and the two \code{fmap}s for
-\code{fu} and \code{gu}. The compiler automatically infers all the
-types and picks the correct overloaded functions whenever
-\code{BiComp} is used.
+Реализация \code{bimap} для \code{BiComp} дана в
+терминах \code{bimap} для \code{bf} и двух \code{fmap} для
+\code{fu} и \code{gu}. Компилятор автоматически выводит все
+типы и выбирает правильные перегруженные функции, когда бы ни
+использовался \code{BiComp}.
 
-The \code{x} in the definition of \code{bimap} has the type:
+\code{x} в определении \code{bimap} имеет тип:
 
 \src{snippet11}
-which is quite a mouthful. The outer \code{bimap} breaks through the
-outer \code{bf} layer, and the two \code{fmap}s dig under
-\code{fu} and \code{gu}, respectively. If the types of \code{f1}
-and \code{f2} are:
+что довольно словоохотливо. Внешний \code{bimap} пробивается через
+внешний слой \code{bf}, а два \code{fmap}а копают под
+\code{fu} и \code{gu}, соответственно. Если типы \code{f1}
+и \code{f2} ---
 
 \src{snippet12}
-then the final result is of the type
+то конечный результат имеет тип
 \code{bf (fu a') (gu b')}:
 
 \src{snippet13}[b]
-If you like jigsaw puzzles, these kinds of type manipulations can
-provide hours of entertainment.
+Если вам нравятся пазлы, эти виды манипуляций с типами могут
+предоставить часы развлечений.
 
-So it turns out that we didn't have to prove that \code{Maybe} was a
-functor --- this fact followed from the way it was constructed as a sum
-of two functorial primitives.
+Итак, оказывается, что нам не нужно было доказывать, что \code{Maybe} --- это
+функтор --- этот факт следует из способа, которым он был сконструирован как сумма
+двух функториальных примитивов.
 
-A perceptive reader might ask the question: If the derivation of the
-\code{Functor} instance for algebraic data types is so mechanical,
-can't it be automated and performed by the compiler? Indeed, it can, and
-it is. You need to enable a particular Haskell extension by including
-this line at the top of your source file:
+Проницательный читатель может задать вопрос: если выведение
+экземпляра \code{Functor} для алгебраических типов данных настолько механично,
+не может ли это быть автоматизировано и выполнено компилятором? Действительно, может, и
+так оно и есть. Вам нужно включить конкретное расширение Haskell, включив
+эту строку в начале вашего исходного файла:
 
 \begin{snip}{haskell}
 {-# LANGUAGE DeriveFunctor #-}
 \end{snip}
-and then add \code{deriving Functor} to your data structure:
+и затем добавить \code{deriving Functor} к вашей структуре данных:
 
 \begin{snip}{haskell}
 data Maybe a = Nothing | Just a deriving Functor
 \end{snip}
-and the corresponding \code{fmap} will be implemented for you.
+и соответствующий \code{fmap} будет реализован для вас.
 
-The regularity of algebraic data structures makes it possible to derive
-instances not only of \code{Functor} but of several other type
-classes, including the \code{Eq} type class I mentioned before. There
-is also the option of teaching the compiler to derive instances of your
-own typeclasses, but that's a bit more advanced. The idea though is the
-same: You provide the behavior for the basic building blocks and sums
-and products, and let the compiler figure out the rest.
+Регулярность алгебраических структур данных делает возможным вывод
+экземпляров не только \code{Functor}, но и нескольких других классов типов,
+включая класс типов \code{Eq}, который я упоминал ранее. Также есть
+опция научить компилятор выводить экземпляры ваших
+собственных классов типов, но это немного более продвинуто. Идея, однако, та же
+самая: вы предоставляете поведение для основных строительных блоков и сумм
+и произведений, и позволяете компилятору выяснить остальное.
 
-\section{Functors in C++}
+\section{Функторы в C++}
 
-If you are a C++ programmer, you obviously are on your own as far as
-implementing functors goes. However, you should be able to recognize
-some types of algebraic data structures in C++. If such a data structure
-is made into a generic template, you should be able to quickly implement
-\code{fmap} for it.
+Если вы программист на C++, вы, очевидно, сами по себе в плане
+реализации функторов. Однако вы должны быть способны распознать
+некоторые типы алгебраических структур данных в C++. Если такая структура данных
+сделана в виде обобщённого шаблона, вы должны быть способны быстро реализовать
+\code{fmap} для неё.
 
-Let's have a look at a tree data structure, which we would define in
-Haskell as a recursive sum type:
+Давайте посмотрим на структуру данных дерева, которую мы бы определили в
+Haskell как рекурсивный тип суммы:
 
 \src{snippet14}
-As I mentioned before, one way of implementing sum types in C++ is
-through class hierarchies. It would be natural, in an object-oriented
-language, to implement \code{fmap} as a virtual function of the base
-class \code{Functor} and then override it in all subclasses.
-Unfortunately this is impossible because \code{fmap} is a template,
-parameterized not only by the type of the object it's acting upon (the
-\code{this} pointer) but also by the return type of the function
-that's been applied to it. Virtual functions cannot be templatized in
-C++. We'll implement \code{fmap} as a generic free function, and we'll
-replace pattern matching with \code{dynamic\_cast}.
+Как я упоминал ранее, один способ реализации типов суммы в C++ ---
+через иерархии классов. Было бы естественно в объектно-ориентированном
+языке реализовать \code{fmap} как виртуальную функцию базового
+класса \code{Functor}, а затем переопределить её во всех подклассах.
+К сожалению, это невозможно, потому что \code{fmap} --- это шаблон,
+параметризованный не только типом объекта, на который он действует (указатель
+\code{this}), но и типом возврата функции,
+которая к нему применена. Виртуальные функции не могут быть шаблонизированы в
+C++. Мы реализуем \code{fmap} как обобщённую свободную функцию, и мы
+заменим сопоставление с образцом на \code{dynamic\_cast}.
 
-The base class must define at least one virtual function in order to
-support dynamic casting, so we'll make the destructor virtual (which is
-a good idea in any case):
+Базовый класс должен определять хотя бы одну виртуальную функцию, чтобы
+поддерживать динамическое приведение, поэтому мы сделаем деструктор виртуальным (что является
+хорошей идеей в любом случае):
 
 \begin{snip}{cpp}
 template<class T>
@@ -310,7 +308,7 @@ struct Tree {
     virtual ~Tree() {}
 };
 \end{snip}
-The \code{Leaf} is just an \code{Identity} functor in disguise:
+\code{Leaf} --- это просто функтор \code{Identity} в маскировке:
 
 \begin{snip}{cpp}
 template<class T>
@@ -319,7 +317,7 @@ struct Leaf : public Tree<T> {
     Leaf(T l) : _label(l) {}
 };
 \end{snip}
-The \code{Node} is a product type:
+\code{Node} --- это тип произведения:
 
 \begin{snip}{cpp}
 template<class T>
@@ -329,13 +327,13 @@ struct Node : public Tree<T> {
     Node(Tree<T> * l, Tree<T> * r) : _left(l), _right(r) {}
 };
 \end{snip}
-When implementing \code{fmap} we take advantage of dynamic dispatching
-on the type of the \code{Tree}. The \code{Leaf} case applies the
-\code{Identity} version of \code{fmap}, and the \code{Node} case
-is treated like a bifunctor composed with two copies of the
-\code{Tree} functor. As a C++ programmer, you're probably not used to
-analyzing code in these terms, but it's a good exercise in categorical
-thinking.
+При реализации \code{fmap} мы используем динамическую диспетчеризацию
+по типу \code{Tree}. Случай \code{Leaf} применяет версию
+\code{fmap} из \code{Identity}, а случай \code{Node}
+рассматривается как бифунктор, скомпозированный с двумя копиями
+функтора \code{Tree}. Как программист на C++, вы, вероятно, не привыкли
+анализировать код в этих терминах, но это хорошее упражнение в категорном
+мышлении.
 
 \begin{snip}{cpp}
 template<class A, class B>
@@ -350,142 +348,139 @@ Tree<B> * fmap(std::function<B(A)> f, Tree<A> * t) {
     return nullptr;
 }
 \end{snip}
-For simplicity, I decided to ignore memory and resource management
-issues, but in production code you would probably use smart pointers
-(unique or shared, depending on your policy).
+Для простоты я решил игнорировать вопросы управления памятью и ресурсами,
+но в производственном коде вы, вероятно, использовали бы умные указатели
+(уникальные или общие, в зависимости от вашей политики).
 
-Compare it with the Haskell implementation of \code{fmap}:
+Сравните это с реализацией Haskell для \code{fmap}:
 
 \src{snippet15}
-This implementation can also be automatically derived by the compiler.
+Эта реализация также может быть автоматически выведена компилятором.
 
-\section{The Writer Functor}
+\section{Функтор Writer}
 
-I promised that I would come back to the \hyperref[kleisli-categories]{Kleisli
-  category} I described earlier. Morphisms in that category were
-represented as ``embellished'' functions returning the \code{Writer}
-data structure.
+Я обещал, что вернусь к \hyperref[kleisli-categories]{категории Клейсли},
+которую я описал ранее. Морфизмы в этой категории были
+представлены как ``приукрашенные'' функции, возвращающие структуру данных \code{Writer}.
 
 \src{snippet16}
-I said that the embellishment was somehow related to endofunctors. And,
-indeed, the \code{Writer} type constructor is functorial in
-\code{a}. We don't even have to implement \code{fmap} for it,
-because it's just a simple product type.
+Я сказал, что приукрашивание как-то связано с эндофункторами. И
+действительно, конструктор типа \code{Writer} функториален по
+\code{a}. Нам даже не нужно реализовывать \code{fmap} для него,
+потому что это просто простой тип произведения.
 
-But what's the relation between a Kleisli category and a functor --- in
-general? A Kleisli category, being a category, defines composition and
-identity. Let me remind you that the composition is given by the fish
-operator:
+Но какая связь между категорией Клейсли и функтором --- в
+общем случае? Категория Клейсли, будучи категорией, определяет композицию и
+тождество. Позвольте мне напомнить вам, что композиция задаётся оператором рыбы:
 
 \src{snippet17}
-and the identity morphism by a function called \code{return}:
+а тождественный морфизм --- функцией, называемой \code{return}:
 
 \src{snippet18}
-It turns out that, if you look at the types of these two functions long
-enough (and I mean, \emph{long} enough), you can find a way to combine
-them to produce a function with the right type signature to serve as
-\code{fmap}. Like this:
+Оказывается, что если вы посмотрите на типы этих двух функций достаточно
+долго (и я имею в виду, \emph{долго} достаточно), вы можете найти способ объединить
+их, чтобы произвести функцию с правильной сигнатурой типа, служащую как
+\code{fmap}. Вот так:
 
 \src{snippet19}
-Here, the fish operator combines two functions: one of them is the
-familiar \code{id}, and the other is a lambda that applies
-\code{return} to the result of acting with \code{f} on the lambda's
-argument. The hardest part to wrap your brain around is probably the use
-of \code{id}. Isn't the argument to the fish operator supposed to be a
-function that takes a ``normal'' type and returns an embellished type?
-Well, not really. Nobody says that \code{a} in
-\code{a -> Writer b} must be a ``normal'' type. It's a
-type variable, so it can be anything, in particular it can be an
-embellished type, like \code{Writer b}.
+Здесь оператор рыбы объединяет две функции: одна из них ---
+знакомый \code{id}, а другая --- лямбда, которая применяет
+\code{return} к результату действия \code{f} на аргумент лямбды.
+Самая сложная часть для понимания --- это, вероятно, использование
+\code{id}. Разве аргумент оператора рыбы не должен быть
+функцией, которая принимает ``нормальный'' тип и возвращает приукрашенный тип?
+Ну, не совсем. Никто не говорит, что \code{a} в
+\code{a -> Writer b} должен быть ``нормальным'' типом. Это
+типовая переменная, поэтому она может быть чем угодно, в частности, может быть приукрашенным
+типом, как \code{Writer b}.
 
-So \code{id} will take \code{Writer a} and turn it into
-\code{Writer a}. The fish operator will fish out the value of
-\code{a} and pass it as \code{x} to the lambda. There, \code{f}
-will turn it into a \code{b} and \code{return} will embellish it,
-making it \code{Writer b}. Putting it all together, we end up with a
-function that takes \code{Writer a} and returns \code{Writer b},
-exactly what \code{fmap} is supposed to produce.
+Так что \code{id} примет \code{Writer a} и превратит его в
+\code{Writer a}. Оператор рыбы выловит значение
+\code{a} и передаст его как \code{x} в лямбду. Там \code{f}
+превратит его в \code{b}, а \code{return} приукрасит его,
+делая его \code{Writer b}. Собирая всё вместе, мы получаем
+функцию, которая принимает \code{Writer a} и возвращает \code{Writer b},
+именно то, что \code{fmap} должен производить.
 
-Notice that this argument is very general: you can replace
-\code{Writer} with any type constructor. As long as it supports a fish
-operator and \code{return}, you can define \code{fmap} as well. So
-the embellishment in the Kleisli category is always a functor. (Not
-every functor, though, gives rise to a Kleisli category.)
+Обратите внимание, что этот аргумент очень общий: вы можете заменить
+\code{Writer} на любой конструктор типа. Пока он поддерживает оператор рыбы
+и \code{return}, вы можете определить \code{fmap} также. Итак,
+приукрашивание в категории Клейсли всегда является функтором. (Однако не
+каждый функтор порождает категорию Клейсли.)
 
-You might wonder if the \code{fmap} we have just defined is the same
-\code{fmap} the compiler would have derived for us with
-\code{deriving Functor}. Interestingly enough, it is. This is due to
-the way Haskell implements polymorphic functions. It's called
-\newterm{parametric polymorphism}, and it's a source of so called
-\newterm{theorems for free}. One of those theorems says that, if there is
-an implementation of \code{fmap} for a given type constructor, one
-that preserves identity, then it must be unique.
+Вы можете задаться вопросом, тот ли самый \code{fmap}, который мы только что определили,
+\code{fmap}, который компилятор вывел бы для нас с
+\code{deriving Functor}. Интересно, что да. Это благодаря
+способу, которым Haskell реализует полиморфные функции. Это называется
+\newterm{параметрический полиморфизм}, и это источник так называемых
+\newterm{теорем бесплатно}. Одна из этих теорем говорит, что если существует
+реализация \code{fmap} для данного конструктора типа, которая
+сохраняет тождество, то она должна быть уникальной.
 
-\section{Covariant and Contravariant Functors}
+\section{Ковариантные и контравариантные функторы}
 
-Now that we've reviewed the writer functor, let's go back to the reader
-functor. It was based on the partially applied function-arrow type
-constructor:
+Теперь, когда мы рассмотрели функтор writer, давайте вернёмся к функтору reader.
+Он был основан на частично применённом конструкторе типа функции-стрелки:
 
 \src{snippet20}
-We can rewrite it as a type synonym:
+Мы можем переписать его как синоним типа:
 
 \src{snippet21}
-for which the \code{Functor} instance, as we've seen before, reads:
+для которого экземпляр \code{Functor}, как мы видели ранее, читается:
 
 \src{snippet22}
-But just like the pair type constructor, or the \code{Either} type
-constructor, the function type constructor takes two type arguments. The
-pair and \code{Either} were functorial in both arguments --- they were
-bifunctors. Is the function constructor a bifunctor too?
+Но так же, как конструктор типа пары или конструктор типа \code{Either},
+конструктор типа функции принимает два аргумента типа.
+Пара и \code{Either} были функториальны в обоих аргументах --- они были
+бифункторами. Является ли конструктор функции тоже бифунктором?
 
-Let's try to make it functorial in the first argument. We'll start with
-a type synonym --- it's just like the \code{Reader} but with the
-arguments flipped:
+Давайте попытаемся сделать его функториальным в первом аргументе. Мы начнём с
+синонима типа --- он как \code{Reader}, но с
+аргументами перевёрнутыми:
 
 \src{snippet23}
-This time we fix the return type, \code{r}, and vary the argument
-type, \code{a}. Let's see if we can somehow match the types in order
-to implement \code{fmap}, which would have the following type
-signature:
+На этот раз мы фиксируем тип возврата, \code{r}, и варьируем тип аргумента,
+\code{a}. Давайте посмотрим, можем ли мы как-то согласовать типы, чтобы
+реализовать \code{fmap}, который имел бы следующую сигнатуру
+типа:
 
 \src{snippet24}
-With just two functions taking \code{a} and returning, respectively,
-\code{b} and \code{r}, there is simply no way to build a function
-taking \code{b} and returning \code{r}! It would be different if we
-could somehow invert the first function, so that it took \code{b} and
-returned \code{a} instead. We can't invert an arbitrary function, but
-we can go to the opposite category.
+С всего двумя функциями, принимающими \code{a} и возвращающими, соответственно,
+\code{b} и \code{r}, просто нет способа построить функцию,
+принимающую \code{b} и возвращающую \code{r}! Было бы иначе, если бы мы
+могли как-то инвертировать первую функцию, так что она принимала \code{b} и
+возвращала \code{a} вместо этого. Мы не можем инвертировать произвольную функцию, но
+мы можем пойти в противоположную категорию.
 
-A short recap: For every category $\cat{C}$ there is a dual category
-$\cat{C}^\mathit{op}$. It's a category with the same objects as
-$\cat{C}$, but with all the arrows reversed.
+Краткий повтор: для каждой категории $\cat{C}$ существует двойственная категория
+$\cat{C}^\mathit{op}$. Это категория с теми же объектами, что и
+$\cat{C}$, но со всеми стрелками, обращёнными вспять.
 
-Consider a functor that goes between $\cat{C}^\mathit{op}$ and
-some other category $\cat{D}$:
+Рассмотрим функтор, который идёт между $\cat{C}^\mathit{op}$ и
+некоторой другой категорией $\cat{D}$:
 \[F \Colon \cat{C}^\mathit{op} \to \cat{D}\]
-Such a functor maps a morphism $f^\mathit{op} \Colon a \to b$ in
-$\cat{C}^\mathit{op}$ to the morphism $F f^\mathit{op} \Colon F a \to F b$ in $\cat{D}$. But the morphism
-$f^\mathit{op}$ secretly corresponds to some morphism
-$f \Colon b \to a$ in the original category $\cat{C}$. Notice the
-inversion.
+Такой функтор отображает морфизм $f^\mathit{op} \Colon a \to b$ в
+$\cat{C}^\mathit{op}$ в морфизм $F f^\mathit{op} \Colon F a \to F b$ в $\cat{D}$. Но морфизм
+$f^\mathit{op}$ тайно соответствует некоторому морфизму
+$f \Colon b \to a$ в исходной категории $\cat{C}$. Обратите внимание на
+инверсию.
 
-Now, $F$ is a regular functor, but there is another mapping we can
-define based on $F$, which is not a functor --- let's call it
-$G$. It's a mapping from $\cat{C}$ to $\cat{D}$. It maps objects the
-same way $F$ does, but when it comes to mapping morphisms, it
-reverses them. It takes a morphism $f \Colon b \to a$ in $\cat{C}$, maps
-it first to the opposite morphism $f^\mathit{op} \Colon a \to b$
-and then uses the functor $F$ on it, to get $F f^\mathit{op} \Colon F a \to F b$.
+Теперь $F$ --- это обычный функтор, но есть другое отображение, которое мы можем
+определить на основе $F$, которое не является функтором --- давайте назовём его
+$G$. Это отображение из $\cat{C}$ в $\cat{D}$. Оно отображает объекты так же,
+как $F$, но когда дело доходит до отображения морфизмов, оно
+обращает их. Оно принимает морфизм $f \Colon b \to a$ в $\cat{C}$, отображает
+его сначала в противоположный морфизм $f^\mathit{op} \Colon a \to b$,
+а затем использует функтор $F$ на нём, чтобы получить $F f^\mathit{op} \Colon F a \to F b$.
 
-Considering that $F a$ is the same as $G a$ and $F b$ is
-the same as $G b$, the whole trip can be described as: $G f \Colon (b \to a) \to (G a \to G b)$
-It's a ``functor with a twist.'' A mapping of categories that inverts
-the direction of morphisms in this manner is called a
-\emph{contravariant functor}. Notice that a contravariant functor is
-just a regular functor from the opposite category. The regular functors,
-by the way --- the kind we've been studying thus far --- are called
-\emph{covariant} functors.
+Учитывая, что $F a$ --- то же самое, что $G a$, и $F b$ ---
+то же самое, что $G b$, всё путешествие может быть описано как: $G f \Colon (b \to a) \to (G a \to G b)$
+Это ``функтор с изюминкой.'' Отображение категорий, которое инвертирует
+направление морфизмов таким образом, называется
+\emph{контравариантным функтором}. Обратите внимание, что контравариантный функтор ---
+это просто обычный функтор из противоположной категории. Обычные функторы,
+кстати --- те, которые мы изучали до сих пор --- называются
+\emph{ковариантными} функторами.
 
 \begin{figure}[H]
   \centering
@@ -493,48 +488,48 @@ by the way --- the kind we've been studying thus far --- are called
 \end{figure}
 
 \noindent
-Here's the typeclass defining a contravariant functor (really, a
-contravariant \emph{endo}functor) in Haskell:
+Вот класс типов, определяющий контравариантный функтор (действительно, контравариантный
+\emph{эндо}функтор) в Haskell:
 
 \src{snippet25}
-Our type constructor \code{Op} is an instance of it:
+Наш конструктор типа \code{Op} является его экземпляром:
 
 \src{snippet26}
-Notice that the function \code{f} inserts itself \emph{before} (that
-is, to the right of) the contents of \code{Op} --- the function
+Обратите внимание, что функция \code{f} вставляет себя \emph{перед} (то
+есть справа от) содержимого \code{Op} --- функции
 \code{g}.
 
-The definition of \code{contramap} for \code{Op} may be made even
-terser, if you notice that it's just the function composition operator
-with the arguments flipped. There is a special function for flipping
-arguments, called \code{flip}:
+Определение \code{contramap} для \code{Op} может быть сделано ещё
+более лаконичным, если вы заметите, что это просто оператор композиции функций
+с аргументами, перевёрнутыми. Есть специальная функция для переворачивания
+аргументов, называемая \code{flip}:
 
 \src{snippet27}
-With it, we get:
+С ней мы получаем:
 
 \src{snippet28}
 
-\section{Profunctors}
+\section{Профункторы}
 
-We've seen that the function-arrow operator is contravariant in its
-first argument and covariant in the second. Is there a name for such a
-beast? It turns out that, if the target category is $\Set$, such a
-beast is called a \newterm{profunctor}. Because a contravariant functor is
-equivalent to a covariant functor from the opposite category, a
-profunctor is defined as:
+Мы видели, что оператор функции-стрелки контравариантен в своём
+первом аргументе и ковариантен во втором. Есть ли имя для такого
+зверя? Оказывается, что если целевая категория --- $\Set$, такой
+зверь называется \newterm{профунктор}. Поскольку контравариантный функтор
+эквивалентен ковариантному функтору из противоположной категории,
+профунктор определяется как:
 \[\cat{C}^\mathit{op} \times \cat{D} \to \Set\]
-Since, to first approximation, Haskell types are sets, we apply the name
-\code{Profunctor} to a type constructor \code{p} of two arguments,
-which is contra-functorial in the first argument and functorial in the
-second. Here's the appropriate typeclass taken from the
-\code{Data.Profunctor} library:
+Поскольку, в первом приближении, типы Haskell --- это множества, мы применяем имя
+\code{Profunctor} к конструктору типа \code{p} с двумя аргументами,
+который контра-функториален в первом аргументе и функториален во
+втором. Вот соответствующий класс типов, взятый из
+библиотеки \code{Data.Profunctor}:
 
 \src{snippet29}[b]
-All three functions come with default implementations. Just like with
-\code{Bifunctor}, when declaring an instance of \code{Profunctor},
-you have a choice of either implementing \code{dimap} and accepting
-the defaults for \code{lmap} and \code{rmap}, or implementing both
-\code{lmap} and \code{rmap} and accepting the default for
+Все три функции поставляются с реализациями по умолчанию. Так же, как с
+\code{Bifunctor}, при объявлении экземпляра \code{Profunctor}
+у вас есть выбор: либо реализовать \code{dimap} и принять
+значения по умолчанию для \code{lmap} и \code{rmap}, либо реализовать оба
+\code{lmap} и \code{rmap} и принять значение по умолчанию для
 \code{dimap}.
 
 \begin{figure}[H]
@@ -544,78 +539,78 @@ the defaults for \code{lmap} and \code{rmap}, or implementing both
 \end{figure}
 
 \noindent
-Now we can assert that the function-arrow operator is an instance of a
+Теперь мы можем утверждать, что оператор функции-стрелки --- это экземпляр
 \code{Profunctor}:
 
 \src{snippet30}[b]
-Profunctors have their application in the Haskell lens library. We'll
-see them again when we talk about ends and coends.
+Профункторы имеют своё применение в библиотеке линз Haskell. Мы
+увидим их снова, когда будем говорить о концах и коконцах.
 
-\section{The Hom-Functor}
+\section{Hom-функтор}
 
-The above examples are the reflection of a more general statement that
-the mapping that takes a pair of objects $a$ and $b$ and
-assigns to it the set of morphisms between them, the hom-set
-$\cat{C}(a, b)$, is a functor. It is a functor from the product
-category $\cat{C}^\mathit{op}\times{}\cat{C}$ to the category of sets, $\Set$.
+Приведённые выше примеры являются отражением более общего утверждения, что
+отображение, которое принимает пару объектов $a$ и $b$ и
+назначает ей множество морфизмов между ними, hom-множество
+$\cat{C}(a, b)$, --- это функтор. Это функтор из произведения
+категорий $\cat{C}^\mathit{op}\times{}\cat{C}$ в категорию множеств, $\Set$.
 
-Let's define its action on morphisms. A morphism in
-$\cat{C}^\mathit{op}\times{}\cat{C}$ is a pair of morphisms from $\cat{C}$:
+Давайте определим его действие на морфизмы. Морфизм в
+$\cat{C}^\mathit{op}\times{}\cat{C}$ --- это пара морфизмов из $\cat{C}$:
 \begin{gather*}
   f \Colon a' \to a \\
   g \Colon b \to b'
 \end{gather*}
-The lifting of this pair must be a morphism (a function) from the set
-$\cat{C}(a, b)$ to the set $\cat{C}(a', b')$. Just pick
-any element $h$ of $\cat{C}(a, b)$ (it's a morphism from
-$a$ to $b$) and assign to it:
+Подъём этой пары должен быть морфизмом (функцией) из множества
+$\cat{C}(a, b)$ в множество $\cat{C}(a', b')$. Просто выберите
+любой элемент $h$ из $\cat{C}(a, b)$ (это морфизм из
+$a$ в $b$) и назначьте ему:
 \[g \circ h \circ f\]
-which is an element of $\cat{C}(a', b')$.
+который является элементом $\cat{C}(a', b')$.
 
-As you can see, the hom-functor is a special case of a profunctor.
+Как вы можете видеть, hom-функтор --- это частный случай профунктора.
 
-\section{Challenges}
+\section{Задачи}
 
 \begin{enumerate}
   \tightlist
   \item
-        Show that the data type:
+        Покажите, что тип данных:
 
         \begin{snip}{haskell}
 data Pair a b = Pair a b
 \end{snip}
 
-        is a bifunctor. For additional credit implement all three methods of
-        \code{Bifunctor} and use equational reasoning to show that these
-        definitions are compatible with the default implementations whenever
-        they can be applied.
+        является бифунктором. Для дополнительного кредита реализуйте все три метода
+        \code{Bifunctor} и используйте уравнительное рассуждение, чтобы показать, что эти
+        определения совместимы с реализациями по умолчанию, когда
+        они могут быть применены.
   \item
-        Show the isomorphism between the standard definition of \code{Maybe}
-        and this desugaring:
+        Покажите изоморфизм между стандартным определением \code{Maybe}
+        и этим десахаризованным определением:
 
         \begin{snip}{haskell}
 type Maybe' a = Either (Const () a) (Identity a)
 \end{snip}
 
-        Hint: Define two mappings between the two implementations. For
-        additional credit, show that they are the inverse of each other using
-        equational reasoning.
+        Подсказка: Определите два отображения между двумя реализациями. Для
+        дополнительного кредита покажите, что они являются обратными друг другу, используя
+        уравнительное рассуждение.
   \item
-        Let's try another data structure. I call it a \code{PreList} because
-        it's a precursor to a \code{List}. It replaces recursion with a type
-        parameter \code{b}.
+        Давайте попробуем другую структуру данных. Я называю её \code{PreList}, потому что
+        это предшественник \code{List}. Она заменяет рекурсию параметром типа
+        \code{b}.
 
         \begin{snip}{haskell}
 data PreList a b = Nil | Cons a b
 \end{snip}
 
-        You could recover our earlier definition of a \code{List} by
-        recursively applying \code{PreList} to itself (we'll see how it's
-        done when we talk about fixed points).
+        Вы можете восстановить наше более раннее определение \code{List},
+        рекурсивно применяя \code{PreList} к самому себе (мы увидим, как это
+        делается, когда будем говорить о неподвижных точках).
 
-        Show that \code{PreList} is an instance of \code{Bifunctor}.
+        Покажите, что \code{PreList} --- это экземпляр \code{Bifunctor}.
   \item
-        Show that the following data types define bifunctors in \code{a} and
+        Покажите, что следующие типы данных определяют бифункторы в \code{a} и
         \code{b}:
 
         \begin{snip}{haskell}
@@ -626,14 +621,14 @@ data Fst a b = Fst a
 data Snd a b = Snd b
 \end{snip}
 
-        For additional credit, check your solutions against Conor McBride's
-        paper \urlref{http://strictlypositive.org/CJ.pdf}{Clowns to the Left of
+        Для дополнительного кредита проверьте ваши решения против статьи Конора Макбрайда
+        \urlref{http://strictlypositive.org/CJ.pdf}{Clowns to the Left of
           me, Jokers to the Right}.
   \item
-        Define a bifunctor in a language other than Haskell. Implement
-        \code{bimap} for a generic pair in that language.
+        Определите бифунктор на языке, отличном от Haskell. Реализуйте
+        \code{bimap} для обобщённой пары на этом языке.
   \item
-        Should \code{std::map} be considered a bifunctor or a profunctor in
-        the two template arguments \code{Key} and \code{T}? How would you
-        redesign this data type to make it so?
+        Должен ли \code{std::map} рассматриваться как бифунктор или профунктор в
+        двух аргументах шаблона \code{Key} и \code{T}? Как бы вы
+        переделали этот тип данных, чтобы сделать его таковым?
 \end{enumerate}

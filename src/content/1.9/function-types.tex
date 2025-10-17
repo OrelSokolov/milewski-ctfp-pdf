@@ -1,285 +1,285 @@
 % !TEX root = ../../ctfp-print.tex
 
-\lettrine[lhang=0.17]{S}{o far} I've been glossing over the meaning of function types. A function
-type is different from other types.
+\lettrine[lhang=0.17]{Д}{о сих пор} я обходил стороной значение типов функций. Тип функции
+отличается от других типов.
 
-Take \code{Integer}, for instance: It's just a set of integers.
-\code{Bool} is a two element set. But a function type
-$a\to b$ is more than that: it's a set of morphisms
-between objects $a$ and $b$. A set of morphisms between
-two objects in any category is called a hom-set. It just so happens that
-in the category $\Set$ every hom-set is itself an object in the
-same category ---because it is, after all, a \emph{set}.
+Возьмите \code{Integer}, например: это просто множество целых чисел.
+\code{Bool} --- это двухэлементное множество. Но тип функции
+$a\to b$ больше, чем это: это множество морфизмов
+между объектами $a$ и $b$. Множество морфизмов между
+двумя объектами в любой категории называется hom-множеством. Так случилось, что
+в категории $\Set$ каждое hom-множество само является объектом в той же
+категории --- потому что это, в конце концов, \emph{множество}.
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.35\textwidth]{images/set-hom-set.jpg}
-  \caption{Hom-set in Set is just a set}
+  \caption{Hom-множество в Set --- это просто множество}
 \end{figure}
 
 \noindent
-The same is not true of other categories where hom-sets are external to
-a category. They are even called \emph{external} hom-sets.
+То же самое неверно для других категорий, где hom-множества внешние по отношению к
+категории. Они даже называются \emph{внешними} hom-множествами.
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.35\textwidth]{images/hom-set.jpg}
-  \caption{Hom-set in category C is an external set}
+  \caption{Hom-множество в категории C --- это внешнее множество}
 \end{figure}
 
 \noindent
-It's the self-referential nature of the category $\Set$ that makes
-function types special. But there is a way, at least in some categories,
-to construct objects that represent hom-sets. Such objects are called
-\newterm{internal} hom-sets.
+Именно самореферентная природа категории $\Set$ делает
+типы функций особенными. Но есть способ, по крайней мере в некоторых категориях,
+сконструировать объекты, которые представляют hom-множества. Такие объекты называются
+\newterm{внутренними} hom-множествами.
 
-\section{Universal Construction}
+\section{Универсальная конструкция}
 
-Let's forget for a moment that function types are sets and try to
-construct a function type, or more generally, an internal hom-set, from
-scratch. As usual, we'll take our cues from the $\Set$ category,
-but carefully avoid using any properties of sets, so that the
-construction will automatically work for other categories.
+Давайте на мгновение забудем, что типы функций --- это множества, и попытаемся
+сконструировать тип функции, или, более обобщённо, внутреннее hom-множество, с
+нуля. Как обычно, мы возьмём наши подсказки из категории $\Set$,
+но тщательно избежим использования любых свойств множеств, так что
+конструкция автоматически будет работать для других категорий.
 
-A function type may be considered a composite type because of its
-relationship to the argument type and the result type. We've already
-seen the constructions of composite types --- those that involved
-relationships between objects. We used universal constructions to define
-a \hyperref[products-and-coproducts]{product
-  and coproduct types}. We can use the same trick to define a
-function type. We will need a pattern that involves three objects: the
-function type that we are constructing, the argument type, and the
-result type.
+Тип функции может считаться составным типом из-за его
+отношения к типу аргумента и типу результата. Мы уже
+видели конструкции составных типов --- те, которые включали
+отношения между объектами. Мы использовали универсальные конструкции для определения
+\hyperref[products-and-coproducts]{произведения
+  и копроизведения типов}. Мы можем использовать тот же трюк для определения
+типа функции. Нам понадобится паттерн, который включает три объекта:
+тип функции, который мы конструируем, тип аргумента и
+тип результата.
 
-The obvious pattern that connects these three types is called
-\newterm{function application} or \newterm{evaluation}. Given a candidate for
-a function type, let's call it $z$ (notice that, if we are not in
-the category $\Set$, this is just an object like any other
-object), and the argument type $a$ (an object), the application
-maps this pair to the result type $b$ (an object). We have three
-objects, two of them fixed (the ones representing the argument type and
-the result type).
+Очевидный паттерн, который соединяет эти три типа, называется
+\newterm{применение функции} или \newterm{вычисление}. Для кандидата на
+тип функции, назовём его $z$ (заметьте, что если мы не в
+категории $\Set$, это просто объект, как любой другой
+объект), и тип аргумента $a$ (объект), применение
+отображает эту пару в тип результата $b$ (объект). У нас три
+объекта, два из них фиксированы (те, что представляют тип аргумента и
+тип результата).
 
-We also have the application, which is a mapping. How do we incorporate
-this mapping into our pattern? If we were allowed to look inside
-objects, we could pair a function $f$ (an element of $z$)
-with an argument $x$ (an element of $a$) and map it to
-$f x$ (the application of $f$ to $x$, which is an
-element of $b$).
+У нас также есть применение, которое является отображением. Как мы встраиваем
+это отображение в наш паттерн? Если бы нам разрешили заглянуть внутрь
+объектов, мы могли бы спарить функцию $f$ (элемент $z$)
+с аргументом $x$ (элементом $a$) и отобразить это в
+$f x$ (применение $f$ к $x$, которое является
+элементом $b$).
 
 \begin{figure}[H]
   \centering\includegraphics[width=0.35\textwidth]{images/functionset.jpg}
-  \caption{In Set we can pick a function $f$ from a set of functions $z$ and we can
-    pick an argument $x$ from the set (type) $a$. We get an element $f x$ in the
-    set (type) $b$.}
+  \caption{В Set мы можем выбрать функцию $f$ из множества функций $z$, и мы можем
+    выбрать аргумент $x$ из множества (типа) $a$. Мы получаем элемент $f x$ в
+    множестве (типе) $b$.}
 \end{figure}
 
 \noindent
-But instead of dealing with individual pairs $(f, x)$, we can as
-well talk about the whole \emph{product} of the function type $z$
-and the argument type $a$. The product $z\times{}a$ is an object,
-and we can pick, as our application morphism, an arrow $g$ from
-that object to $b$. In $\Set$, $g$ would be the
-function that maps every pair $(f, x)$ to $f x$.
+Но вместо того, чтобы иметь дело с индивидуальными парами $(f, x)$, мы можем также
+говорить о целом \emph{произведении} типа функции $z$
+и типа аргумента $a$. Произведение $z\times{}a$ --- это объект,
+и мы можем выбрать в качестве нашего морфизма применения стрелку $g$ из
+этого объекта в $b$. В $\Set$, $g$ была бы
+функцией, которая отображает каждую пару $(f, x)$ в $f x$.
 
-So that's the pattern: a product of two objects $z$ and
-$a$ connected to another object $b$ by a morphism $g$.
+Итак, вот паттерн: произведение двух объектов $z$ и
+$a$, соединённое с другим объектом $b$ морфизмом $g$.
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.4\textwidth]{images/functionpattern.jpg}
-  \caption{A pattern of objects and morphisms that is the starting point of the
-    universal construction}
+  \caption{Паттерн объектов и морфизмов, который является отправной точкой
+    универсальной конструкции}
 \end{figure}
 
 \noindent
-Is this pattern specific enough to single out the function type using a
-universal construction? Not in every category. But in the categories of
-interest to us it is. And another question: Would it be possible to
-define a function object without first defining a product? There are
-categories in which there is no product, or there isn't a product for
-all pairs of objects. The answer is no: there is no function type, if
-there is no product type. We'll come back to this later when we talk
-about exponentials.
+Достаточно ли специфичен этот паттерн, чтобы выделить тип функции, используя
+универсальную конструкцию? Не в каждой категории. Но в категориях,
+представляющих для нас интерес, да. И ещё вопрос: было бы возможно
+определить объект-функцию без предварительного определения произведения? Есть
+категории, в которых нет произведения, или нет произведения для
+всех пар объектов. Ответ --- нет: нет типа функции, если
+нет типа произведения. Мы вернёмся к этому позже, когда будем говорить
+об экспоненциалах.
 
-Let's review the universal construction. We start with a pattern of
-objects and morphisms. That's our imprecise query, and it usually yields
-lots and lots of hits. In particular, in $\Set$, pretty much
-everything is connected to everything. We can take any object
-$z$, form its product with $a$, and there's going to be a
-function from it to $b$ (except when $b$ is an empty set).
+Давайте рассмотрим универсальную конструкцию. Мы начинаем с паттерна
+объектов и морфизмов. Это наш неточный запрос, и он обычно даёт
+много и много совпадений. В частности, в $\Set$ практически
+всё соединено со всем. Мы можем взять любой объект
+$z$, сформировать его произведение с $a$, и будет существовать
+функция из него в $b$ (за исключением случая, когда $b$ --- пустое множество).
 
-That's when we apply our secret weapon: ranking. This is usually done by
-requiring that there be a unique mapping between candidate objects --- a
-mapping that somehow factorizes our construction. In our case, we'll
-decree that $z$ together with the morphism $g$ from
-$z \times a$ to $b$ is \emph{better} than some other
-$z'$ with its own application $g'$, if and
-only if there is a unique mapping $h$ from $z'$ to
-$z$ such that the application of $g'$ factors
-through the application of $g$. (Hint: Read this sentence while
-looking at the picture.)
+Вот когда мы применяем наше секретное оружие: ранжирование. Обычно это делается
+требованием, чтобы существовало уникальное отображение между кандидатами объектов ---
+отображение, которое как-то факторизует нашу конструкцию. В нашем случае мы
+постановим, что $z$ вместе с морфизмом $g$ из
+$z \times a$ в $b$ \emph{лучше}, чем какой-то другой
+$z'$ с его собственным применением $g'$, если и
+только если существует уникальное отображение $h$ из $z'$ в
+$z$ такое, что применение $g'$ факторизуется
+через применение $g$. (Подсказка: читайте это предложение, глядя
+на картинку.)
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.4\textwidth]{images/functionranking.jpg}
-  \caption{Establishing a ranking between candidates for the function object}
+  \caption{Установление ранжирования между кандидатами для объекта-функции}
 \end{figure}
 
 \noindent
-Now here's the tricky part, and the main reason I postponed this
-particular universal construction till now. Given the morphism
-$h \Colon z'\to z$, we want to close the diagram
-that has both $z'$ and $z$ crossed with $a$.
-What we really need, given the mapping $h$ from $z'$
-to $z$, is a mapping from $z' \times a$ to $z \times a$.
-And now, after discussing the \hyperref[functoriality]{functoriality
-  of the product}, we know how to do it. Because the product itself is a
-functor (more precisely an endo-bi-functor), it's possible to lift pairs
-of morphisms. In other words, we can define not only products of objects
-but also products of morphisms.
+Теперь вот сложная часть, и основная причина, по которой я отложил эту
+конкретную универсальную конструкцию до сих пор. Для данного морфизма
+$h \Colon z'\to z$ мы хотим замкнуть диаграмму,
+которая имеет и $z'$, и $z$, скрещённые с $a$.
+То, что нам действительно нужно, для данного отображения $h$ из $z'$
+в $z$, это отображение из $z' \times a$ в $z \times a$.
+И теперь, после обсуждения \hyperref[functoriality]{функториальности
+  произведения}, мы знаем, как это сделать. Поскольку произведение само является
+функтором (более точно, эндо-би-функтором), возможно поднять пары
+морфизмов. Другими словами, мы можем определить не только произведения объектов,
+но и произведения морфизмов.
 
-Since we are not touching the second component of the product
-$z' \times a$, we will lift the pair of morphisms
-$(h, \id)$, where $\id$ is an identity on $a$.
+Поскольку мы не трогаем второй компонент произведения
+$z' \times a$, мы поднимем пару морфизмов
+$(h, \id)$, где $\id$ --- тождество на $a$.
 
-So, here's how we can factor one application, $g$, out of another
-application $g'$:
+Итак, вот как мы можем факторизовать одно применение, $g$, из другого
+применения $g'$:
 \[g' = g \circ (h \times \id)\]
-The key here is the action of the product on morphisms.
+Ключ здесь --- действие произведения на морфизмы.
 
-The third part of the universal construction is selecting the object
-that is universally the best. Let's call this object $a \Rightarrow b$ (think
-of this as a symbolic name for one object, not to be confused with a
-Haskell typeclass constraint --- I'll discuss different ways of naming
-it later). This object comes with its own application --- a morphism
-from $(a \Rightarrow b) \times a$ to $b$ --- which we will call
-$\mathit{eval}$. The object \code{$a \Rightarrow b$} is the best if any other
-candidate for a function object can be uniquely mapped to it in such a
-way that its application morphism $g$ factorizes through
-$\mathit{eval}$. This object is better than any other object according to
-our ranking.
+Третья часть универсальной конструкции --- выбор объекта,
+который универсально лучший. Давайте назовём этот объект $a \Rightarrow b$ (думайте
+об этом как о символическом имени для одного объекта, не путать с
+ограничением класса типов Haskell --- я обсужу разные способы его именования
+позже). Этот объект идёт со своим собственным применением --- морфизмом
+из $(a \Rightarrow b) \times a$ в $b$ --- которое мы назовём
+$\mathit{eval}$. Объект \code{$a \Rightarrow b$} лучший, если любой другой
+кандидат для объекта-функции может быть уникально отображён в него таким
+образом, что его морфизм применения $g$ факторизуется через
+$\mathit{eval}$. Этот объект лучше, чем любой другой объект, согласно
+нашему ранжированию.
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.4\textwidth]{images/universalfunctionobject.jpg}
-  \caption{The definition of the universal function object. This is the same
-    diagram as above, but now the object $a \Rightarrow b$ is \emph{universal}.}
+  \caption{Определение универсального объекта-функции. Это та же
+    диаграмма, что и выше, но теперь объект $a \Rightarrow b$ \emph{универсален}.}
 \end{figure}
 
 \noindent
-Formally:
+Формально:
 
 \begin{longtable}[]{@{}l@{}}
   \toprule
   \begin{minipage}[t]{0.97\columnwidth}\raggedright\strut
-    A \emph{function object} from $a$ to $b$ is an object
-    $a \Rightarrow b$ together with the morphism
+    \emph{Объект-функция} из $a$ в $b$ --- это объект
+    $a \Rightarrow b$ вместе с морфизмом
     \[\mathit{eval} \Colon ((a \Rightarrow b) \times a) \to b\]
-    such that for any other object $z$ with a morphism
+    такой, что для любого другого объекта $z$ с морфизмом
     \[g \Colon z \times a \to b\]
-    there is a unique morphism
+    существует уникальный морфизм
     \[h \Colon z \to (a \Rightarrow b)\]
-    that factors $g$ through $\mathit{eval}$:
+    который факторизует $g$ через $\mathit{eval}$:
     \[g = \mathit{eval} \circ (h \times \id)\]
   \end{minipage}\tabularnewline
   \bottomrule
 \end{longtable}
 
 \noindent
-Of course, there is no guarantee that such an object $a \Rightarrow b$ exists
-for any pair of objects $a$ and $b$ in a given category.
-But it always does in $\Set$. Moreover, in $\Set$, this
-object is isomorphic to the hom-set $\Set(a, b)$.
+Конечно, нет гарантии, что такой объект $a \Rightarrow b$ существует
+для любой пары объектов $a$ и $b$ в данной категории.
+Но он всегда существует в $\Set$. Более того, в $\Set$ этот
+объект изоморфен hom-множеству $\Set(a, b)$.
 
-This is why, in Haskell, we interpret the function type
-\code{a -> b} as the categorical function object $a \Rightarrow b$.
+Вот почему в Haskell мы интерпретируем тип функции
+\code{a -> b} как категорный объект-функцию $a \Rightarrow b$.
 
-\section{Currying}
+\section{Каррирование}
 
-Let's have a second look at all the candidates for the function object.
-This time, however, let's think of the morphism $g$ as a function
-of two variables, $z$ and $a$.
+Давайте ещё раз взглянем на всех кандидатов для объекта-функции.
+На этот раз, однако, давайте думать о морфизме $g$ как о функции
+двух переменных, $z$ и $a$.
 \[g \Colon z \times a \to b\]
-Being a morphism from a product comes as close as it gets to being a
-function of two variables. In particular, in $\Set$, $g$ is
-a function from pairs of values, one from the set $z$ and one
-from the set $a$.
+Быть морфизмом из произведения --- это настолько близко, насколько можно подойти к тому, чтобы быть
+функцией двух переменных. В частности, в $\Set$, $g$ ---
+это функция из пар значений, одно из множества $z$, а другое
+из множества $a$.
 
-On the other hand, the universal property tells us that for each such
-$g$ there is a unique morphism $h$ that maps $z$ to
-a function object $a \Rightarrow b$.
+С другой стороны, универсальное свойство говорит нам, что для каждого такого
+$g$ существует уникальный морфизм $h$, который отображает $z$ в
+объект-функцию $a \Rightarrow b$.
 \[h \Colon z \to (a \Rightarrow b)\]
-In $\Set$, this just means that $h$ is a function that
-takes one variable of type $z$ and returns a function from
-$a$ to $b$. That makes $h$ a higher order function.
-Therefore the universal construction establishes a one-to-one
-correspondence between functions of two variables and functions of one
-variable returning functions. This correspondence is called
-\newterm{currying}, and $h$ is called the curried version of $g$.
+В $\Set$ это просто означает, что $h$ --- это функция, которая
+принимает одну переменную типа $z$ и возвращает функцию из
+$a$ в $b$. Это делает $h$ функцией высшего порядка.
+Следовательно, универсальная конструкция устанавливает взаимно однозначное
+соответствие между функциями двух переменных и функциями одной
+переменной, возвращающими функции. Это соответствие называется
+\newterm{каррирование}, а $h$ называется каррированной версией $g$.
 
-This correspondence is one-to-one, because given any $g$ there is
-a unique $h$, and given any $h$ you can always recreate
-the two-argument function $g$ using the formula:
+Это соответствие взаимно однозначное, потому что для любого $g$ существует
+уникальный $h$, и для любого $h$ вы всегда можете воссоздать
+функцию двух аргументов $g$, используя формулу:
 \[g = \mathit{eval} \circ (h \times \id)\]
-The function $g$ can be called the \emph{uncurried} version of $h$.
+Функция $g$ может быть названа \emph{раскаррированной} версией $h$.
 
-Currying is essentially built into the syntax of Haskell. A function
-returning a function:
+Каррирование по существу встроено в синтаксис Haskell. Функция,
+возвращающая функцию:
 
 \src{snippet01}
-is often thought of as a function of two variables. That's how we read
-the un-parenthesized signature:
+часто рассматривается как функция двух переменных. Так мы читаем
+нескобочную сигнатуру:
 
 \src{snippet02}
-This interpretation is apparent in the way we define multi-argument
-functions. For instance:
+Эта интерпретация очевидна в способе, которым мы определяем функции с несколькими аргументами.
+Например:
 
 \src{snippet03}
-The same function can be written as a one-argument function returning a
-function --- a lambda:
+Та же функция может быть написана как функция одного аргумента, возвращающая
+функцию --- лямбду:
 
 \src{snippet04}
-These two definitions are equivalent, and either can be partially
-applied to just one argument, producing a one-argument function, as in:
+Эти два определения эквивалентны, и любое может быть частично
+применено к одному аргументу, производя функцию одного аргумента, как в:
 
 \src{snippet05}
-Strictly speaking, a function of two variables is one that takes a pair
-(a product type):
+Строго говоря, функция двух переменных --- это та, которая принимает пару
+(тип произведения):
 
 \src{snippet06}
-It's trivial to convert between the two representations, and the two
-(higher-order) functions that do it are called, unsurprisingly,
-\code{curry} and \code{uncurry}:
+Тривиально конвертировать между двумя представлениями, и две
+(функции высшего порядка), которые делают это, называются, неудивительно,
+\code{curry} и \code{uncurry}:
 
 \src{snippet07}
-and
+и
 
 \src{snippet08}
-Notice that \code{curry} is the \emph{factorizer} for the universal
-construction of the function object. This is especially apparent if it's
-rewritten in this form:
+Обратите внимание, что \code{curry} --- это \emph{факторизатор} для универсальной
+конструкции объекта-функции. Это особенно очевидно, если его
+переписать в этой форме:
 
 \src{snippet09}
-(As a reminder: A factorizer produces the factorizing function from a
-candidate.)
+(Напоминание: факторизатор производит факторизующую функцию из
+кандидата.)
 
-In non-functional languages, like C++, currying is possible but
-nontrivial. You can think of multi-argument functions in C++ as
-corresponding to Haskell functions taking tuples (although, to confuse
-things even more, in C++ you can define functions that take an explicit
-\code{std::tuple}, as well as variadic functions, and functions taking
-initializer lists).
+В нефункциональных языках, таких как C++, каррирование возможно, но
+нетривиально. Вы можете думать о функциях с несколькими аргументами в C++ как о
+соответствующих функциям Haskell, принимающим кортежи (хотя, чтобы запутать
+вещи ещё больше, в C++ вы можете определить функции, которые принимают явный
+\code{std::tuple}, а также вариадические функции и функции, принимающие
+списки инициализации).
 
-You can partially apply a C++ function using the template
-\code{std::bind}. For instance, given a function of two strings:
+Вы можете частично применить функцию C++, используя шаблон
+\code{std::bind}. Например, для данной функции двух строк:
 
 \begin{snip}{cpp}
 std::string catstr(std::string s1, std::string s2) {
     return s1 + s2;
 }
 \end{snip}
-you can define a function of one string:
+вы можете определить функцию одной строки:
 
 \begin{snip}{cpp}
 using namespace std::placeholders;
@@ -287,320 +287,320 @@ using namespace std::placeholders;
 auto greet = std::bind(catstr, "Hello ", _1);
 std::cout << greet("Haskell Curry");
 \end{snip}
-Scala, which is more functional than C++ or Java, falls somewhere in
-between. If you anticipate that the function you're defining will be
-partially applied, you define it with multiple argument lists:
+Scala, которая более функциональна, чем C++ или Java, находится где-то
+посередине. Если вы предвидите, что определяемая вами функция будет
+частично применена, вы определяете её с несколькими списками аргументов:
 
 \begin{snip}{cpp}
 def catstr(s1: String)(s2: String) = s1 + s2
 \end{snip}
-Of course that requires some amount of foresight or prescience on the
-part of a library writer.
+Конечно, это требует некоторого предвидения или прозорливости со стороны
+автора библиотеки.
 
-\section{Exponentials}
+\section{Экспоненциалы}
 
-In mathematical literature, the function object, or the internal
-hom-object between two objects $a$ and $b$, is often
-called the \newterm{exponential} and denoted by $b^{a}$. Notice that
-the argument type is in the exponent. This notation might seem strange
-at first, but it makes perfect sense if you think of the relationship
-between functions and products. We've already seen that we have to use
-the product in the universal construction of the internal hom-object,
-but the connection goes deeper than that.
+В математической литературе объект-функция, или внутренний
+hom-объект между двумя объектами $a$ и $b$, часто
+называется \newterm{экспоненциалом} и обозначается как $b^{a}$. Обратите внимание, что
+тип аргумента в экспоненте. Эта нотация может показаться странной
+сначала, но она имеет полный смысл, если вы думаете об отношении
+между функциями и произведениями. Мы уже видели, что мы должны использовать
+произведение в универсальной конструкции внутреннего hom-объекта,
+но связь глубже, чем это.
 
-This is best seen when you consider functions between finite types ---
-types that have a finite number of values, like \code{Bool},
-\code{Char}, or even \code{Int} or \code{Double}. Such functions,
-at least in principle, can be fully memoized or turned into data
-structures to be looked up. And this is the essence of the equivalence
-between functions, which are morphisms, and function types, which are
-objects.
+Это лучше всего видно, когда вы рассматриваете функции между конечными типами ---
+типами, которые имеют конечное количество значений, такими как \code{Bool},
+\code{Char}, или даже \code{Int} или \code{Double}. Такие функции,
+по крайней мере в принципе, могут быть полностью мемоизированы или превращены в структуры данных
+для поиска. И это суть эквивалентности
+между функциями, которые являются морфизмами, и типами функций, которые являются
+объектами.
 
-For instance a (pure) function from \code{Bool} is completely
-specified by a pair of values: one corresponding to \code{False}, and
-one corresponding to \code{True}. The set of all possible functions
-from \code{Bool} to, say, \code{Int} is the set of all pairs of
-\code{Int}s. This is the same as the product \code{Int} \times{} \code{Int} or,
-being a little creative with notation, \code{Int}\textsuperscript{2}.
+Например, (чистая) функция из \code{Bool} полностью
+определяется парой значений: одно, соответствующее \code{False}, и
+одно, соответствующее \code{True}. Множество всех возможных функций
+из \code{Bool} в, скажем, \code{Int}, --- это множество всех пар
+\code{Int}ов. Это то же самое, что произведение \code{Int} \times{} \code{Int} или,
+будучи немного креативным с нотацией, \code{Int}\textsuperscript{2}.
 
-For another example, let's look at the C++ type \code{char}, which
-contains 256 values (Haskell \code{Char} is larger, because Haskell
-uses Unicode). There are several functions in the part of the
-C++ Standard Library that are usually implemented using lookups.
-Functions like \code{isupper} or \code{isspace} are implemented
-using tables, which are equivalent to tuples of 256 Boolean values. A
-tuple is a product type, so we are dealing with products of 256
-Booleans: \code{bool \times{} bool \times{} bool \times{} ... \times{} bool}. We know from
-arithmetics that an iterated product defines a power. If you
-``multiply'' \code{bool} by itself 256 (or \code{char}) times, you
-get \code{bool} to the power of \code{char}, or \code{bool}\textsuperscript{\code{char}}.
+Для другого примера давайте посмотрим на тип C++ \code{char}, который
+содержит 256 значений (Haskell \code{Char} больше, потому что Haskell
+использует Unicode). Есть несколько функций в части
+стандартной библиотеки C++, которые обычно реализуются с использованием поиска.
+Функции, такие как \code{isupper} или \code{isspace}, реализуются
+с использованием таблиц, которые эквивалентны кортежам из 256 булевых значений.
+Кортеж --- это тип произведения, поэтому мы имеем дело с произведениями 256
+булевых: \code{bool \times{} bool \times{} bool \times{} ... \times{} bool}. Мы знаем из
+арифметики, что итерированное произведение определяет степень. Если вы
+``умножите'' \code{bool} на себя 256 (или \code{char}) раз, вы
+получите \code{bool} в степени \code{char}, или \code{bool}\textsuperscript{\code{char}}.
 
-How many values are there in the type defined as 256-tuples of
-\code{bool}? Exactly $2^{256}$. This is also the number
-of different functions from \code{char} to \code{bool}, each
-function corresponding to a unique 256-tuple. You can similarly
-calculate that the number of functions from \code{bool} to
-\code{char} is $256^{2}$, and so on. The exponential
-notation for function types makes perfect sense in these cases.
+Сколько значений в типе, определённом как 256-кортежи
+\code{bool}? Точно $2^{256}$. Это также количество
+разных функций из \code{char} в \code{bool}, каждая
+функция соответствует уникальному 256-кортежу. Вы можете аналогично
+вычислить, что количество функций из \code{bool} в
+\code{char} --- это $256^{2}$, и так далее. Экспоненциальная
+нотация для типов функций имеет полный смысл в этих случаях.
 
-We probably wouldn't want to fully memoize a function from \code{int}
-or \code{double}. But the equivalence between functions and data
-types, if not always practical, is there. There are also infinite types,
-for instance lists, strings, or trees. Eager memoization of functions
-from those types would require infinite storage. But Haskell is a lazy
-language, so the boundary between lazily evaluated (infinite) data
-structures and functions is fuzzy. This function vs. data duality
-explains the identification of Haskell's function type with the
-categorical exponential object --- which corresponds more to our idea of
-\emph{data}.
+Мы, вероятно, не хотели бы полностью мемоизировать функцию из \code{int}
+или \code{double}. Но эквивалентность между функциями и типами
+данных, если не всегда практична, существует. Есть также бесконечные типы,
+например, списки, строки или деревья. Жадная мемоизация функций
+из этих типов потребовала бы бесконечного хранилища. Но Haskell --- это ленивый
+язык, поэтому граница между лениво вычисляемыми (бесконечными) структурами
+данных и функциями размыта. Эта двойственность функция vs. данные
+объясняет идентификацию типа функции Haskell с
+категорным объектом-экспоненциалом --- который больше соответствует нашей идее
+\emph{данных}.
 
-\section{Cartesian Closed Categories}
+\section{Декартово замкнутые категории}
 
-Although I will continue using the category of sets as a model for types
-and functions, it's worth mentioning that there is a larger family of
-categories that can be used for that purpose. These categories are
-called \newterm{Cartesian closed}, and $\Set$ is just one example of
-such a category.
+Хотя я буду продолжать использовать категорию множеств как модель для типов
+и функций, стоит упомянуть, что есть большее семейство
+категорий, которые могут быть использованы для этой цели. Эти категории
+называются \newterm{декартово замкнутыми}, и $\Set$ --- это только один пример
+такой категории.
 
-A Cartesian closed category must contain:
+Декартово замкнутая категория должна содержать:
 
 \begin{enumerate}
   \tightlist
   \item
-        The terminal object,
+        Терминальный объект,
   \item
-        A product of any pair of objects, and
+        Произведение любой пары объектов, и
   \item
-        An exponential for any pair of objects.
+        Экспоненциал для любой пары объектов.
 \end{enumerate}
-If you consider an exponential as an iterated product (possibly
-infinitely many times), then you can think of a Cartesian closed
-category as one supporting products of an arbitrary arity. In
-particular, the terminal object can be thought of as a product of zero
-objects --- or the zero-th power of an object.
+Если вы рассматриваете экспоненциал как итерированное произведение (возможно,
+бесконечно много раз), то вы можете думать о декартово замкнутой
+категории как о поддерживающей произведения произвольной арности. В
+частности, терминальный объект может рассматриваться как произведение нуля
+объектов --- или нулевая степень объекта.
 
-What's interesting about Cartesian closed categories from the
-perspective of computer science is that they provide models for the
-simply typed lambda calculus, which forms the basis of all typed
-programming languages.
+Что интересно в декартово замкнутых категориях с
+перспективы компьютерных наук, так это то, что они предоставляют модели для
+просто типизированного лямбда-исчисления, которое формирует основу всех типизированных
+языков программирования.
 
-The terminal object and the product have their duals: the initial object
-and the coproduct. A Cartesian closed category that also supports those
-two, and in which product can be distributed over coproduct
+Терминальный объект и произведение имеют свои двойственные: начальный объект
+и копроизведение. Декартово замкнутая категория, которая также поддерживает эти
+два, и в которой произведение может быть распределено над копроизведением
 \begin{gather*}
   a \times (b + c) = a \times b + a \times c \\
   (b + c) \times a = b \times a + c \times a
 \end{gather*}
-is called a \newterm{bicartesian closed} category. We'll see in the next
-section that bicartesian closed categories, of which $\Set$ is a
-prime example, have some interesting properties.
+называется \newterm{бидекартово замкнутой} категорией. Мы увидим в следующей
+секции, что бидекартово замкнутые категории, из которых $\Set$ ---
+главный пример, имеют некоторые интересные свойства.
 
-\section{Exponentials and Algebraic Data Types}
+\section{Экспоненциалы и алгебраические типы данных}
 
-The interpretation of function types as exponentials fits very well into
-the scheme of algebraic data types. It turns out that all the basic
-identities from high-school algebra relating numbers zero and one, sums,
-products, and exponentials hold pretty much unchanged in any bicartesian
-closed category for, respectively, initial and final objects,
-coproducts, products, and exponentials. We don't have the tools yet to
-prove them (such as adjunctions or the Yoneda lemma), but I'll list them
-here nevertheless as a source of valuable intuitions.
+Интерпретация типов функций как экспоненциалов очень хорошо вписывается в
+схему алгебраических типов данных. Оказывается, что все базовые
+тождества из школьной алгебры, связывающие числа ноль и один, суммы,
+произведения и экспоненциалы, выполняются практически без изменений в любой бидекартово
+замкнутой категории для, соответственно, начального и финального объектов,
+копроизведений, произведений и экспоненциалов. У нас ещё нет инструментов, чтобы
+доказать их (таких как сопряжения или лемма Ёнеды), но я перечислю их
+здесь как источник ценных интуиций.
 
-\subsection{Zeroth Power}
+\subsection{Нулевая степень}
 
 \[a^{0} = 1\]
-In the categorical interpretation, we replace 0 with the initial object,
-1 with the final object, and equality with isomorphism. The exponential
-is the internal hom-object. This particular exponential represents the
-set of morphisms going from the initial object to an arbitrary object
-$a$. By the definition of the initial object, there is exactly
-one such morphism, so the hom-set $\cat{C}(0, a)$ is a singleton set. A
-singleton set is the terminal object in $\Set$, so this identity
-trivially works in $\Set$. What we are saying is that it works in
-any bicartesian closed category.
+В категорной интерпретации мы заменяем 0 начальным объектом,
+1 финальным объектом, а равенство изоморфизмом. Экспоненциал ---
+это внутренний hom-объект. Этот конкретный экспоненциал представляет
+множество морфизмов, идущих из начального объекта в произвольный объект
+$a$. По определению начального объекта существует точно
+один такой морфизм, поэтому hom-множество $\cat{C}(0, a)$ --- это множество-синглетон.
+Множество-синглетон --- это терминальный объект в $\Set$, поэтому это тождество
+тривиально работает в $\Set$. То, что мы говорим, --- это что оно работает в
+любой бидекартово замкнутой категории.
 
-In Haskell, we replace 0 with \code{Void}; 1 with the unit type
-\code{()}; and the exponential with function type. The claim is that
-the set of functions from \code{Void} to any type \code{a} is
-equivalent to the unit type --- which is a singleton. In other words,
-there is only one function \code{Void -> a}. We've seen
-this function before: it's called \code{absurd}.
+В Haskell мы заменяем 0 на \code{Void}; 1 на тип unit
+\code{()}; а экспоненциал на тип функции. Утверждение состоит в том, что
+множество функций из \code{Void} в любой тип \code{a}
+эквивалентно типу unit --- который является синглетоном. Другими словами,
+существует только одна функция \code{Void -> a}. Мы видели
+эту функцию раньше: она называется \code{absurd}.
 
-This is a little bit tricky, for two reasons. One is that in Haskell we
-don't really have uninhabited types --- every type contains the ``result
-of a never ending calculation,'' or the bottom. The second reason is
-that all implementations of \code{absurd} are equivalent because, no
-matter what they do, nobody can ever execute them. There is no value
-that can be passed to \code{absurd}. (And if you manage to pass it a
-never ending calculation, it will never return!)
+Это немного хитро по двум причинам. Одна в том, что в Haskell у нас
+на самом деле нет необитаемых типов --- каждый тип содержит ``результат
+бесконечно выполняющегося вычисления'', или дно. Вторая причина в том,
+что все реализации \code{absurd} эквивалентны, потому что, не
+важно, что они делают, никто никогда не сможет их выполнить. Нет значения,
+которое может быть передано в \code{absurd}. (И если вам удастся передать
+бесконечно выполняющееся вычисление, оно никогда не вернётся!)
 
-\subsection{Powers of One}
+\subsection{Степени единицы}
 
 \[1^{a} = 1\]
-This identity, when interpreted in $\Set$, restates the definition
-of the terminal object: There is a unique morphism from any object to
-the terminal object. In general, the internal hom-object from $a$
-to the terminal object is isomorphic to the terminal object itself.
+Это тождество, когда интерпретируется в $\Set$, пересказывает определение
+терминального объекта: существует уникальный морфизм из любого объекта в
+терминальный объект. В общем случае, внутренний hom-объект из $a$
+в терминальный объект изоморфен самому терминальному объекту.
 
-In Haskell, there is only one function from any type \code{a} to unit.
-We've seen this function before --- it's called \code{unit}. You can
-also think of it as the function \code{const} partially applied to
+В Haskell существует только одна функция из любого типа \code{a} в unit.
+Мы видели эту функцию раньше --- она называется \code{unit}. Вы можете
+также думать о ней как о функции \code{const}, частично применённой к
 \code{()}.
 
-\subsection{First Power}
+\subsection{Первая степень}
 
 \[a^{1} = a\]
-This is a restatement of the observation that morphisms from the
-terminal object can be used to pick ``elements'' of the object
-\code{a}. The set of such morphisms is isomorphic to the object
-itself. In $\Set$, and in Haskell, the isomorphism is between
-elements of the set \code{a} and functions that pick those elements,
+Это пересказ наблюдения, что морфизмы из
+терминального объекта могут быть использованы для выбора ``элементов'' объекта
+\code{a}. Множество таких морфизмов изоморфно самому объекту.
+В $\Set$, и в Haskell, изоморфизм между
+элементами множества \code{a} и функциями, которые выбирают эти элементы,
 \code{() -> a}.
 
-\subsection{Exponentials of Sums}
+\subsection{Экспоненциалы сумм}
 
 \[a^{b+c} = a^{b} \times a^{c}\]
-Categorically, this says that the exponential from a coproduct of two
-objects is isomorphic to a product of two exponentials. In Haskell, this
-algebraic identity has a very practical interpretation. It tells us
-that a function from a sum of two types is equivalent to a pair of
-functions from individual types. This is just the case analysis that we
-use when defining functions on sums. Instead of writing one function
-definition with a \code{case} clause, we usually split it into two
-(or more) functions dealing with each type constructor separately. For
-instance, take a function from the sum type
+Категорно это говорит, что экспоненциал из копроизведения двух
+объектов изоморфен произведению двух экспоненциалов. В Haskell это
+алгебраическое тождество имеет очень практическую интерпретацию. Оно говорит нам,
+что функция из суммы двух типов эквивалентна паре
+функций из отдельных типов. Это просто анализ случаев, который мы
+используем при определении функций на суммах. Вместо написания одного определения функции
+с клаузой \code{case}, мы обычно разделяем его на две
+(или более) функции, работающие с каждым конструктором типа отдельно. Например,
+возьмите функцию из типа-суммы
 \code{(Either Int Double)}:
 
 \src{snippet10}
-It may be defined as a pair of functions from, respectively,
-\code{Int} and \code{Double}:
+Она может быть определена как пара функций из, соответственно,
+\code{Int} и \code{Double}:
 
 \src{snippet11}
-Here, \code{n} is an \code{Int} and \code{x} is a \code{Double}.
+Здесь \code{n} --- это \code{Int}, а \code{x} --- это \code{Double}.
 
-\subsection{Exponentials of Exponentials}
+\subsection{Экспоненциалы экспоненциалов}
 
 \[(a^{b})^{c} = a^{b \times c}\]
-This is just a way of expressing currying purely in terms of exponential
-objects. A function returning a function is equivalent to a function
-from a product (a two-argument function).
+Это просто способ выражения каррирования чисто в терминах экспоненциальных
+объектов. Функция, возвращающая функцию, эквивалентна функции
+из произведения (функции двух аргументов).
 
-\subsection{Exponentials over Products}
+\subsection{Экспоненциалы над произведениями}
 
 \[(a \times b)^{c} = a^{c} \times b^{c}\]
-In Haskell: A function returning a pair is equivalent to a pair of
-functions, each producing one element of the pair.
+В Haskell: функция, возвращающая пару, эквивалентна паре
+функций, каждая из которых производит один элемент пары.
 
-It's pretty incredible how those simple high-school algebraic identities
-can be lifted to category theory and have practical application in
-functional programming.
+Довольно невероятно, как эти простые школьные алгебраические тождества
+могут быть подняты в теорию категорий и иметь практическое применение в
+функциональном программировании.
 
-\section{Curry-Howard Isomorphism}
+\section{Изоморфизм Карри-Говарда}
 
-I have already mentioned the correspondence between logic and algebraic
-data types. The \code{Void} type and the unit type \code{()}
-correspond to false and true. Product types and sum types correspond to
-logical conjunction $\wedge$ (AND) and disjunction $\vee$ (OR). In this scheme, the
-function type we have just defined corresponds to logical implication $\Rightarrow$.
-In other words, the type \code{a -> b} can be read as ``if
-a then b.''
+Я уже упоминал соответствие между логикой и алгебраическими
+типами данных. Тип \code{Void} и тип unit \code{()}
+соответствуют ложь и истина. Типы произведения и суммы соответствуют
+логической конъюнкции $\wedge$ (И) и дизъюнкции $\vee$ (ИЛИ). В этой схеме
+тип функции, который мы только что определили, соответствует логической импликации $\Rightarrow$.
+Другими словами, тип \code{a -> b} может быть прочитан как ``если
+a, то b.''
 
-According to the Curry-Howard isomorphism, every type can be interpreted
-as a proposition --- a statement or a judgment that may be true or
-false. Such a proposition is considered true if the type is inhabited
-and false if it isn't. In particular, a logical implication is true if
-the function type corresponding to it is inhabited, which means that
-there exists a function of that type. An implementation of a function is
-therefore a proof of a theorem. Writing programs is equivalent to
-proving theorems. Let's see a few examples.
+Согласно изоморфизму Карри-Говарда, каждый тип может быть интерпретирован
+как предложение --- утверждение или суждение, которое может быть истинным или
+ложным. Такое предложение считается истинным, если тип обитаем,
+и ложным, если нет. В частности, логическая импликация истинна, если
+тип функции, соответствующий ей, обитаем, что означает, что
+существует функция этого типа. Реализация функции
+следовательно является доказательством теоремы. Написание программ эквивалентно
+доказательству теорем. Давайте рассмотрим несколько примеров.
 
-Let's take the function \code{eval} we have introduced in the
-definition of the function object. Its signature is:
+Давайте возьмём функцию \code{eval}, которую мы ввели в
+определении объекта-функции. Её сигнатура:
 
 \src{snippet12}
-It takes a pair consisting of a function and its argument and produces a
-result of the appropriate type. It's the Haskell implementation of the
-morphism:
+Она принимает пару, состоящую из функции и её аргумента, и производит
+результат соответствующего типа. Это реализация Haskell
+морфизма:
 
 \[\mathit{eval} \Colon (a \Rightarrow b) \times a \to b\]
-which defines the function type $a \Rightarrow b$ (or the exponential object
-$b^{a}$). Let's translate this signature to a logical predicate
-using the Curry-Howard isomorphism:
+который определяет тип функции $a \Rightarrow b$ (или экспоненциальный объект
+$b^{a}$). Давайте переведём эту сигнатуру в логический предикат,
+используя изоморфизм Карри-Говарда:
 
 \[((a \Rightarrow b) \wedge a) \Rightarrow b\]
-Here's how you can read this statement: If it's true that $b$
-follows from $a$, and $a$ is true, then $b$ must be
-true. This makes perfect intuitive sense and has been known since
-antiquity as \newterm{modus ponens}. We can prove this theorem by
-implementing the function:
+Вот как вы можете прочитать это утверждение: если истинно, что $b$
+следует из $a$, и $a$ истинно, то $b$ должно быть
+истинно. Это имеет полный интуитивный смысл и было известно с
+древности как \newterm{modus ponens}. Мы можем доказать эту теорему,
+реализовав функцию:
 
 \src{snippet13}
-If you give me a pair consisting of a function \code{f} taking
-\code{a} and returning \code{b}, and a concrete value \code{x} of
-type \code{a}, I can produce a concrete value of type \code{b} by
-simply applying the function \code{f} to \code{x}. By implementing
-this function I have just shown that the type
-\code{((a -> b), a) -> b} is inhabited.
-Therefore \newterm{modus ponens} is true in our logic.
+Если вы дадите мне пару, состоящую из функции \code{f}, принимающей
+\code{a} и возвращающей \code{b}, и конкретное значение \code{x}
+типа \code{a}, я могу произвести конкретное значение типа \code{b},
+просто применив функцию \code{f} к \code{x}. Реализовав
+эту функцию, я только что показал, что тип
+\code{((a -> b), a) -> b} обитаем.
+Следовательно, \newterm{modus ponens} истинен в нашей логике.
 
-How about a predicate that is blatantly false? For instance: if
-$a$ or $b$ is true then $a$ must be true.
+Как насчёт предиката, который явно ложен? Например: если
+$a$ или $b$ истинно, то $a$ должно быть истинно.
 
 \[a \vee b \Rightarrow a\]
-This is obviously wrong because you can choose an $a$ that is
-false and a $b$ that is true, and that's a counter-example.
+Это, очевидно, неправильно, потому что вы можете выбрать $a$, которое
+ложно, и $b$, которое истинно, и это контрпример.
 
-Mapping this predicate into a function signature using the Curry-Howard
-isomorphism, we get:
+Отображая этот предикат в сигнатуру функции, используя изоморфизм Карри-Говарда,
+мы получаем:
 
 \src{snippet14}
-Try as you may, you can't implement this function --- you can't produce
-a value of type \code{a} if you are called with the \code{Right}
-value. (Remember, we are talking about \emph{pure} functions.)
+Как бы вы ни старались, вы не можете реализовать эту функцию --- вы не можете произвести
+значение типа \code{a}, если вас вызвали со значением \code{Right}.
+(Помните, мы говорим о \emph{чистых} функциях.)
 
-Finally, we come to the meaning of the \code{absurd} function:
+Наконец, мы подходим к значению функции \code{absurd}:
 
 \src{snippet15}
-Considering that \code{Void} translates into false, we get:
+Учитывая, что \code{Void} переводится в ложь, мы получаем:
 
 \[\mathit{false} \Rightarrow a\]
-Anything follows from falsehood (\emph{ex falso quodlibet}). Here's one
-possible proof (implementation) of this statement (function) in Haskell:
+Всё следует из лжи (\emph{ex falso quodlibet}). Вот одно
+возможное доказательство (реализация) этого утверждения (функции) в Haskell:
 
 \begin{snip}{haskell}
 absurd (Void a) = absurd a
 \end{snip}
-where \code{Void} is defined as:
+где \code{Void} определён как:
 
 \begin{snip}{haskell}
 newtype Void = Void Void
 \end{snip}
-As always, the type \code{Void} is tricky. This definition makes it
-impossible to construct a value because in order to construct one, you
-would need to provide one. Therefore, the function \code{absurd} can
-never be called.
+Как всегда, тип \code{Void} хитрый. Это определение делает
+невозможным сконструировать значение, потому что для того, чтобы сконструировать одно, вам
+нужно предоставить одно. Следовательно, функция \code{absurd} никогда
+не может быть вызвана.
 
-These are all interesting examples, but is there a practical side to
-Curry-Howard isomorphism? Probably not in everyday programming. But
-there are programming languages like Agda or Coq, which take advantage
-of the Curry-Howard isomorphism to prove theorems.
+Это все интересные примеры, но есть ли практическая сторона
+изоморфизма Карри-Говарда? Вероятно, нет в повседневном программировании. Но
+есть языки программирования, такие как Agda или Coq, которые используют
+изоморфизм Карри-Говарда для доказательства теорем.
 
-Computers are not only helping mathematicians do their work --- they are
-revolutionizing the very foundations of mathematics. The latest hot
-research topic in that area is called Homotopy Type Theory, and is an
-outgrowth of type theory. It's full of Booleans, integers, products and
-coproducts, function types, and so on. And, as if to dispel any doubts,
-the theory is being formulated in Coq and Agda. Computers are
-revolutionizing the world in more than one way.
+Компьютеры не только помогают математикам делать их работу --- они
+революционизируют сами основы математики. Последняя горячая
+исследовательская тема в этой области называется гомотопической теорией типов и является
+продолжением теории типов. Она полна булевых, целых чисел, произведений и
+копроизведений, типов функций и так далее. И, как бы для рассеивания любых сомнений,
+теория формулируется в Coq и Agda. Компьютеры
+революционизируют мир более чем одним способом.
 
-\section{Bibliography}
+\section{Библиография}
 
 \begin{enumerate}
   \tightlist
   \item
         Ralf Hinze, Daniel W. H. James,
         \urlref{http://www.cs.ox.ac.uk/ralf.hinze/publications/WGP10.pdf}{Reason
-          Isomorphically!}. This paper contains proofs of all those high-school
-        algebraic identities in category theory that I mentioned in this
-        chapter.
+          Isomorphically!}. Эта статья содержит доказательства всех тех школьных
+        алгебраических тождеств в теории категорий, которые я упоминал в этой
+        главе.
 \end{enumerate}

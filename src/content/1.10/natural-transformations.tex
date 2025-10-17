@@ -1,31 +1,31 @@
 % !TEX root = ../../ctfp-print.tex
 
-\lettrine[lhang=0.17]{W}{e talked about} functors as mappings between categories that preserve
-their structure.
+\lettrine[lhang=0.17]{М}{ы говорили о} функторах как отображениях между категориями, которые сохраняют
+их структуру.
 
-A functor ``embeds'' one category in another. It may
-collapse multiple things into one, but it never breaks connections. One
-way of thinking about it is that with a functor we are modeling one
-category inside another. The source category serves as a model, a
-blueprint, for some structure that's part of the target category.
+Функтор ``встраивает'' одну категорию в другую. Он может
+схлопывать несколько вещей в одну, но никогда не разрывает связи. Один
+способ думать об этом --- что с помощью функтора мы моделируем одну
+категорию внутри другой. Исходная категория служит моделью,
+чертежом, для некоторой структуры, которая является частью целевой категории.
 
 \begin{figure}[H]
   \centering\includegraphics[width=0.4\textwidth]{images/1_functors.jpg}
 \end{figure}
 
 \noindent
-There may be many ways of embedding one category in another. Sometimes
-they are equivalent, sometimes very different. One may collapse the
-whole source category into one object, another may map every object to a
-different object and every morphism to a different morphism. The same
-blueprint may be realized in many different ways. Natural
-transformations help us compare these realizations. They are mappings of
-functors --- special mappings that preserve their functorial nature.
+Может быть много способов встраивания одной категории в другую. Иногда
+они эквивалентны, иногда очень различны. Один может схлопнуть
+всю исходную категорию в один объект, другой может отобразить каждый объект в
+разный объект, а каждый морфизм в разный морфизм. Один и тот же
+чертёж может быть реализован многими разными способами. Естественные
+преобразования помогают нам сравнивать эти реализации. Они являются отображениями
+функторов --- специальными отображениями, которые сохраняют их функториальную природу.
 
-Consider two functors $F$ and $G$ between categories
-$\cat{C}$ and $\cat{D}$. If you focus on just one object $a$ in
-$\cat{C}$, it is mapped to two objects: $F a$ and $G a$.
-A mapping of functors should therefore map $F a$ to
+Рассмотрим два функтора $F$ и $G$ между категориями
+$\cat{C}$ и $\cat{D}$. Если вы сосредоточитесь только на одном объекте $a$ в
+$\cat{C}$, он отображается в два объекта: $F a$ и $G a$.
+Отображение функторов должно следовательно отображать $F a$ в
 $G a$.
 
 \begin{figure}[H]
@@ -34,41 +34,41 @@ $G a$.
 \end{figure}
 
 \noindent
-Notice that $F a$ and $G a$ are objects in the same
-category $\cat{D}$. Mappings between objects in the same category should
-not go against the grain of the category. We don't want to make
-artificial connections between objects. So it's \emph{natural} to use
-existing connections, namely morphisms. A natural transformation is a
-selection of morphisms: for every object $a$, it picks one
-morphism from $F a$ to $G a$. If we call the natural
-transformation $\alpha$, this morphism is called the \newterm{component}
-of $\alpha$ at $a$, or $\alpha_a$.
+Обратите внимание, что $F a$ и $G a$ --- объекты в одной и той же
+категории $\cat{D}$. Отображения между объектами в одной и той же категории не должны
+идти против зерна категории. Мы не хотим делать
+искусственные связи между объектами. Поэтому \emph{естественно} использовать
+существующие связи, а именно морфизмы. Естественное преобразование --- это
+выбор морфизмов: для каждого объекта $a$ оно выбирает один
+морфизм из $F a$ в $G a$. Если мы называем естественное
+преобразование $\alpha$, этот морфизм называется \newterm{компонентой}
+$\alpha$ в $a$, или $\alpha_a$.
 
 \[\alpha_a \Colon F a \to G a\]
-Keep in mind that $a$ is an object in $\cat{C}$ while $\alpha_a$
-is a morphism in $\cat{D}$.
+Имейте в виду, что $a$ --- это объект в $\cat{C}$, в то время как $\alpha_a$
+--- это морфизм в $\cat{D}$.
 
-If, for some $a$, there is no morphism between $F a$ and
-$G a$ in $\cat{D}$, there can be no natural transformation
-between $F$ and $G$.
+Если для некоторого $a$ нет морфизма между $F a$ и
+$G a$ в $\cat{D}$, не может быть естественного преобразования
+между $F$ и $G$.
 
-Of course that's only half of the story, because functors not only map
-objects, they map morphisms as well. So what does a natural
-transformation do with those mappings? It turns out that the mapping of
-morphisms is fixed --- under any natural transformation between $F$ and $G$,
-$F f$ must be transformed into $G f$. What's more, the
-mapping of morphisms by the two functors drastically restricts the
-choices we have in defining a natural transformation that's compatible
-with it. Consider a morphism $f$ between two objects $a$
-and $b$ in $\cat{C}$. It's mapped to two morphisms, $F f$
-and $G f$ in $\cat{D}$:
+Конечно, это только половина истории, потому что функторы не только отображают
+объекты, они также отображают морфизмы. Так что же делает естественное
+преобразование с этими отображениями? Оказывается, что отображение
+морфизмов фиксировано --- при любом естественном преобразовании между $F$ и $G$,
+$F f$ должен быть преобразован в $G f$. Более того,
+отображение морфизмов двумя функторами резко ограничивает
+выборы, которые мы имеем в определении естественного преобразования, совместимого
+с ним. Рассмотрим морфизм $f$ между двумя объектами $a$
+и $b$ в $\cat{C}$. Он отображается в два морфизма, $F f$
+и $G f$ в $\cat{D}$:
 
 \begin{gather*}
   F f \Colon F a \to F b \\
   G f \Colon G a \to G b
 \end{gather*}
-The natural transformation $\alpha$ provides two additional morphisms
-that complete the diagram in \emph{D}:
+Естественное преобразование $\alpha$ предоставляет два дополнительных морфизма,
+которые завершают диаграмму в \emph{D}:
 
 \begin{gather*}
   \alpha_a \Colon F a \to G a \\
@@ -81,15 +81,15 @@ that complete the diagram in \emph{D}:
 \end{figure}
 
 \noindent
-Now we have two ways of getting from $F a$ to $G b$. To
-make sure that they are equal, we must impose the \newterm{naturality
-  condition} that holds for any $f$:
+Теперь у нас есть два способа попасть из $F a$ в $G b$. Чтобы
+убедиться, что они равны, мы должны наложить \newterm{условие естественности},
+которое выполняется для любого $f$:
 
 \[G f \circ \alpha_a = \alpha_b \circ F f\]
-The naturality condition is a pretty stringent requirement. For
-instance, if the morphism $F f$ is invertible, naturality
-determines $\alpha_b$ in terms of $\alpha_a$. It \emph{transports}
-$\alpha_a$ along $f$:
+Условие естественности --- довольно строгое требование. Например,
+если морфизм $F f$ обратим, естественность
+определяет $\alpha_b$ в терминах $\alpha_a$. Оно \emph{транспортирует}
+$\alpha_a$ вдоль $f$:
 
 \[\alpha_b = (G f) \circ \alpha_a \circ (F f)^{-1}\]
 
@@ -99,19 +99,19 @@ $\alpha_a$ along $f$:
 \end{figure}
 
 \noindent
-If there is more than one invertible morphism between two objects, all
-these transports have to agree. In general, though, morphisms are not
-invertible; but you can see that the existence of natural
-transformations between two functors is far from guaranteed. So the
-scarcity or the abundance of functors that are related by natural
-transformations may tell you a lot about the structure of categories
-between which they operate. We'll see some examples of that when we talk
-about limits and the Yoneda lemma.
+Если существует более одного обратимого морфизма между двумя объектами, все
+эти транспорты должны совпадать. В общем случае, однако, морфизмы не
+обратимы; но вы можете видеть, что существование естественных
+преобразований между двумя функторами далеко не гарантировано. Так что
+редкость или изобилие функторов, которые связаны естественными
+преобразованиями, может многое сказать вам о структуре категорий,
+между которыми они действуют. Мы увидим некоторые примеры этого, когда будем говорить
+о пределах и лемме Ёнеды.
 
-Looking at a natural transformation component-wise, one may say that it
-maps objects to morphisms. Because of the naturality condition, one may
-also say that it maps morphisms to commuting squares --- there is one
-commuting naturality square in $\cat{D}$ for every morphism in $\cat{C}$.
+Глядя на естественное преобразование покомпонентно, можно сказать, что оно
+отображает объекты в морфизмы. Из-за условия естественности можно
+также сказать, что оно отображает морфизмы в коммутирующие квадраты --- есть один
+коммутирующий квадрат естественности в $\cat{D}$ для каждого морфизма в $\cat{C}$.
 
 \begin{figure}[H]
   \centering
@@ -119,289 +119,288 @@ commuting naturality square in $\cat{D}$ for every morphism in $\cat{C}$.
 \end{figure}
 
 \noindent
-This property of natural transformations comes in very handy in a lot of
-categorical constructions, which often include commuting diagrams. With
-a judicious choice of functors, a lot of these commutativity conditions
-may be transformed into naturality conditions. We'll see examples of
-that when we get to limits, colimits, and adjunctions.
+Это свойство естественных преобразований очень удобно во многих
+категорных конструкциях, которые часто включают коммутирующие диаграммы. С
+разумным выбором функторов много этих условий коммутативности
+могут быть превращены в условия естественности. Мы увидим примеры
+этого, когда доберёмся до пределов, копределов и сопряжений.
 
-Finally, natural transformations may be used to define isomorphisms of
-functors. Saying that two functors are naturally isomorphic is almost
-like saying they are the same. \newterm{Natural isomorphism} is defined as
-a natural transformation whose components are all isomorphisms
-(invertible morphisms).
+Наконец, естественные преобразования могут быть использованы для определения изоморфизмов
+функторов. Говорить, что два функтора естественно изоморфны, почти
+как говорить, что они одинаковы. \newterm{Естественный изоморфизм} определяется как
+естественное преобразование, чьи компоненты --- все изоморфизмы
+(обратимые морфизмы).
 
-\section{Polymorphic Functions}
+\section{Полиморфные функции}
 
-We talked about the role of functors (or, more specifically,
-endofunctors) in programming. They correspond to type constructors that
-map types to types. They also map functions to functions, and this
-mapping is implemented by a higher order function \code{fmap} (or
-\code{transform}, \code{then}, and the like in C++).
+Мы говорили о роли функторов (или, более конкретно,
+эндофункторов) в программировании. Они соответствуют конструкторам типов, которые
+отображают типы в типы. Они также отображают функции в функции, и это
+отображение реализуется функцией высшего порядка \code{fmap} (или
+\code{transform}, \code{then} и подобными в C++).
 
-To construct a natural transformation we start with an object, here a
-type, \code{a}. One functor, \code{F}, maps it to the type
-$F a$. Another functor, \code{G}, maps it to $G a$.
-The component of a natural transformation \code{alpha} at \code{a}
-is a function from $F a$ to $G a$. In pseudo-Haskell:
+Для конструирования естественного преобразования мы начинаем с объекта, здесь
+типа, \code{a}. Один функтор, \code{F}, отображает его в тип
+$F a$. Другой функтор, \code{G}, отображает его в $G a$.
+Компонента естественного преобразования \code{alpha} в \code{a}
+--- это функция из $F a$ в $G a$. В псевдо-Haskell:
 
 \begin{snipv}
 alpha\textsubscript{a} :: F a -> G a
 \end{snipv}
-A natural transformation is a polymorphic function that is defined for
-all types \code{a}:
+Естественное преобразование --- это параметрически полиморфная функция, которая определена для
+всех типов \code{a}:
 
 \src{snippet01}
-The \code{forall a} is optional in Haskell (and in fact requires
-turning on the language extension \code{ExplicitForAll}). Normally,
-you would write it like this:
+\code{forall a} опционален в Haskell (и на самом деле требует
+включения расширения языка \code{ExplicitForAll}). Обычно
+вы бы написали это так:
 
 \src{snippet02}
-Keep in mind that it's really a family of functions parameterized by
-\code{a}. This is another example of the terseness of the Haskell
-syntax. A similar construct in C++ would be slightly more verbose:
+Имейте в виду, что это действительно семейство функций, параметризованное
+\code{a}. Это ещё один пример лаконичности синтаксиса Haskell.
+Похожая конструкция в C++ была бы немного более многословной:
 
 \begin{snip}{cpp}
 template<class A> G<A> alpha(F<A>);
 \end{snip}
-There is a more profound difference between Haskell's polymorphic
-functions and C++ generic functions, and it's reflected in the way these
-functions are implemented and type-checked. In Haskell, a polymorphic
-function must be defined uniformly for all types. One formula must work
-across all types. This is called \newterm{parametric polymorphism}.
+Есть более глубокое различие между полиморфными функциями Haskell
+и обобщёнными функциями C++, и оно отражено в способе, которым эти
+функции реализуются и проверяются на типы. В Haskell полиморфная
+функция должна быть определена единообразно для всех типов. Одна формула должна работать
+для всех типов. Это называется \newterm{параметрический полиморфизм}.
 
-C++, on the other hand, supports by default \newterm{ad hoc polymorphism},
-which means that a template doesn't have to be well-defined for all
-types. Whether a template will work for a given type is decided at
-instantiation time, where a concrete type is substituted for the type
-parameter. Type checking is deferred, which unfortunately often leads to
-incomprehensible error messages.
+C++, с другой стороны, поддерживает по умолчанию \newterm{ad hoc полиморфизм},
+что означает, что шаблон не должен быть хорошо определён для всех
+типов. Будет ли шаблон работать для данного типа, решается во время
+инстанцирования, где конкретный тип подставляется вместо параметра типа.
+Проверка типов откладывается, что, к сожалению, часто приводит к
+непонятным сообщениям об ошибках.
 
-In C++, there is also a mechanism for function overloading and template
-specialization, which allows different definitions of the same function
-for different types. In Haskell this functionality is provided by type
-classes and type families.
+В C++ также есть механизм для перегрузки функций и
+специализации шаблонов, который позволяет разные определения одной и той же функции
+для разных типов. В Haskell эта функциональность предоставляется классами типов
+и семействами типов.
 
-Haskell's parametric polymorphism has an unexpected consequence: any
-polymorphic function of the type:
+Параметрический полиморфизм Haskell имеет неожиданное следствие: любая
+полиморфная функция типа:
 
 \src{snippet03}
-where \code{F} and \code{G} are functors, automatically satisfies
-the naturality condition. Here it is in categorical notation ($f$
-is a function $f \Colon a \to b$):
+где \code{F} и \code{G} --- функторы, автоматически удовлетворяет
+условию естественности. Вот оно в категорной нотации ($f$
+--- это функция $f \Colon a \to b$):
 
 \[G f \circ \alpha_a = \alpha_b \circ F f\]
-In Haskell, the action of a functor \code{G} on a morphism \code{f}
-is implemented using \code{fmap}. I'll first write it in
-pseudo-Haskell, with explicit type annotations:
+В Haskell действие функтора \code{G} на морфизм \code{f}
+реализуется с использованием \code{fmap}. Сначала я напишу это в
+псевдо-Haskell, с явными аннотациями типов:
 
 \begin{snipv}
 fmap\textsubscript{G} f . alpha\textsubscript{a} = alpha\textsubscript{b} . fmap\textsubscript{F} f
 \end{snipv}
-Because of type inference, these annotations are not necessary, and the
-following equation holds:
+Из-за вывода типов эти аннотации не нужны, и
+следующее уравнение выполняется:
 
 \begin{snip}{text}
 fmap f . alpha = alpha . fmap f
 \end{snip}
-This is still not real Haskell --- function equality is not expressible
-in code --- but it's an identity that can be used by the programmer in
-equational reasoning; or by the compiler, to implement optimizations.
+Это всё ещё не настоящий Haskell --- равенство функций не выразимо
+в коде --- но это тождество, которое может быть использовано программистом в
+уравнительном рассуждении; или компилятором для реализации оптимизаций.
 
-The reason why the naturality condition is automatic in Haskell has to
-do with ``theorems for free.'' Parametric polymorphism, which is used to
-define natural transformations in Haskell, imposes very strong
-limitations on the implementation --- one formula for all types. These
-limitations translate into equational theorems about such functions. In
-the case of functions that transform functors, free theorems are the
-naturality conditions.\footnote{
-  You may read more about free theorems in my
-  blog \href{https://bartoszmilewski.com/2014/09/22/parametricity-money-for-nothing-and-theorems-for-free/}{``Parametricity:
+Причина, по которой условие естественности автоматично в Haskell, связана
+с ``теоремами бесплатно''. Параметрический полиморфизм, который используется для
+определения естественных преобразований в Haskell, накладывает очень сильные
+ограничения на реализацию --- одна формула для всех типов. Эти
+ограничения переводятся в уравнительные теоремы о таких функциях. В
+случае функций, которые преобразуют функторы, свободные теоремы --- это
+условия естественности.\footnote{
+  Вы можете прочитать больше о свободных теоремах в моём
+  блоге \href{https://bartoszmilewski.com/2014/09/22/parametricity-money-for-nothing-and-theorems-for-free/}{``Parametricity:
     Money for Nothing and Theorems for Free}.''}
 
-One way of thinking about functors in Haskell that I mentioned earlier
-is to consider them generalized containers. We can continue this analogy
-and consider natural transformations to be recipes for repackaging the
-contents of one container into another container. We are not touching
-the items themselves: we don't modify them, and we don't create new
-ones. We are just copying (some of) them, sometimes multiple times, into
-a new container.
+Один способ думать о функторах в Haskell, который я упоминал ранее,
+--- рассматривать их как обобщённые контейнеры. Мы можем продолжить эту аналогию
+и рассматривать естественные преобразования как рецепты для переупаковки
+содержимого одного контейнера в другой контейнер. Мы не трогаем
+сами элементы: мы не модифицируем их и не создаём новые.
+Мы просто копируем (некоторые из) них, иногда несколько раз, в
+новый контейнер.
 
-The naturality condition becomes the statement that it doesn't matter
-whether we modify the items first, through the application of
-\code{fmap}, and repackage later; or repackage first, and then modify
-the items in the new container, with its own implementation of
-\code{fmap}. These two actions, repackaging and \code{fmap}ping, are
-orthogonal. ``One moves the eggs, the other boils them.''
+Условие естественности становится утверждением, что не имеет значения,
+модифицируем ли мы элементы сначала, через применение
+\code{fmap}, и переупаковываем позже; или переупаковываем сначала, а затем модифицируем
+элементы в новом контейнере, с его собственной реализацией
+\code{fmap}. Эти два действия, переупаковка и \code{fmap}пинг,
+ортогональны. ``Одно перемещает яйца, другое их варит.''
 
-Let's see a few examples of natural transformations in Haskell. The
-first is between the list functor, and the \code{Maybe} functor. It
-returns the head of the list, but only if the list is non-empty:
+Давайте посмотрим на несколько примеров естественных преобразований в Haskell.
+Первое между функтором списка и функтором \code{Maybe}. Оно
+возвращает голову списка, но только если список непустой:
 
 \src{snippet04}
-It's a function polymorphic in \code{a}. It works for any type
-\code{a}, with no limitations, so it is an example of parametric
-polymorphism. Therefore it is a natural transformation between the two
-functors. But just to convince ourselves, let's verify the naturality
-condition.
+Это функция, полиморфная в \code{a}. Она работает для любого типа
+\code{a}, без ограничений, поэтому это пример параметрического
+полиморфизма. Следовательно, это естественное преобразование между двумя
+функторами. Но просто для того, чтобы убедить себя, давайте проверим условие
+естественности.
 
 \src{snippet05}
-We have two cases to consider; an empty list:
+У нас есть два случая для рассмотрения; пустой список:
 
 \src{snippet06}
 
 \src{snippet07}
-and a non-empty list:
+и непустой список:
 
 \src{snippet08}
 
 \src{snippet09}
-I used the implementation of \code{fmap} for lists:
+Я использовал реализацию \code{fmap} для списков:
 
 \src{snippet10}
-and for \code{Maybe}:
+и для \code{Maybe}:
 
 \src{snippet11}
-An interesting case is when one of the functors is the trivial
-\code{Const} functor. A natural transformation from or to a
-\code{Const} functor looks just like a function that's either
-polymorphic in its return type or in its argument type.
+Интересный случай --- когда один из функторов --- тривиальный
+функтор \code{Const}. Естественное преобразование из или в
+функтор \code{Const} выглядит как функция, которая либо
+полиморфна в своём типе возврата, либо в своём типе аргумента.
 
-For instance, \code{length} can be thought of as a natural
-transformation from the list functor to the \code{Const Int} functor:
+Например, \code{length} может рассматриваться как естественное
+преобразование из функтора списка в функтор \code{Const Int}:
 
 \src{snippet12}
-Here, \code{unConst} is used to peel off the \code{Const}
-constructor:
+Здесь \code{unConst} используется для снятия конструктора \code{Const}:
 
 \src{snippet13}
-Of course, in practice \code{length} is defined as:
+Конечно, на практике \code{length} определяется как:
 
 \src{snippet14}
-which effectively hides the fact that it's a natural transformation.
+что эффективно скрывает факт, что это естественное преобразование.
 
-Finding a parametrically polymorphic function \emph{from} a
-\code{Const} functor is a little harder, since it would require the
-creation of a value from nothing. The best we can do is:
+Найти параметрически полиморфную функцию \emph{из}
+функтора \code{Const} немного сложнее, потому что это потребовало бы
+создания значения из ничего. Лучшее, что мы можем сделать:
 
 \src{snippet15}
-Another common functor that we've seen already, and which will play an
-important role in the Yoneda lemma, is the \code{Reader} functor. I
-will rewrite its definition as a \code{newtype}:
+Другой общий функтор, который мы уже видели и который будет играть
+важную роль в лемме Ёнеды, --- это функтор \code{Reader}. Я
+перепишу его определение как \code{newtype}:
 
 \src{snippet16}
-It is parameterized by two types, but is (covariantly) functorial only
-in the second one:
+Он параметризован двумя типами, но (ковариантно) функториален только
+во втором:
 
 \src{snippet17}
-For every type \code{e}, you can define a family of natural
-transformations from \code{Reader e} to any other functor \code{f}.
-We'll see later that the members of this family are always in one to one
-correspondence with the elements of \code{f e} (the
-\hyperref[the-yoneda-lemma]{Yoneda lemma}).
+Для каждого типа \code{e} вы можете определить семейство естественных
+преобразований из \code{Reader e} в любой другой функтор \code{f}.
+Мы увидим позже, что члены этого семейства всегда находятся во взаимно однозначном
+соответствии с элементами \code{f e}
+(\hyperref[the-yoneda-lemma]{лемма Ёнеды}).
 
-For instance, consider the somewhat trivial unit type \code{()} with
-one element \code{()}. The functor \code{Reader ()} takes any type
-\code{a} and maps it into a function type \code{() -> a}.
-These are just all the functions that pick a single element from the set
-\code{a}. There are as many of these as there are elements in
-\code{a}. Now let's consider natural transformations from this functor
-to the \code{Maybe} functor:
+Например, рассмотрим несколько тривиальный тип unit \code{()} с
+одним элементом \code{()}. Функтор \code{Reader ()} принимает любой тип
+\code{a} и отображает его в тип функции \code{() -> a}.
+Это просто все функции, которые выбирают один элемент из множества
+\code{a}. Их столько же, сколько элементов в
+\code{a}. Теперь давайте рассмотрим естественные преобразования из этого функтора
+в функтор \code{Maybe}:
 
 \src{snippet18}
-There are only two of these, \code{dumb} and \code{obvious}:
+Есть только два таких, \code{dumb} и \code{obvious}:
 
 \src{snippet19}
-and
+и
 
 \src{snippet20}
-(The only thing you can do with \code{g} is to apply it to the unit
-value \code{()}.)
+(Единственное, что вы можете сделать с \code{g}, --- это применить его к значению
+unit \code{()}.)
 
-And, indeed, as predicted by the Yoneda lemma, these correspond to the
-two elements of the \code{Maybe ()} type, which are \code{Nothing}
-and \code{Just ()}. We'll come back to the Yoneda lemma later ---
-this was just a little teaser.
+И действительно, как предсказано леммой Ёнеды, они соответствуют
+двум элементам типа \code{Maybe ()}, которые являются \code{Nothing}
+и \code{Just ()}. Мы вернёмся к лемме Ёнеды позже ---
+это был просто небольшой тизер.
 
-\section{Beyond Naturality}
+\section{За пределами естественности}
 
-A parametrically polymorphic function between two functors (including
-the edge case of the \code{Const} functor) is always a natural
-transformation. Since all standard algebraic data types are functors,
-any polymorphic function between such types is a natural transformation.
+Параметрически полиморфная функция между двумя функторами (включая
+краевой случай функтора \code{Const}) всегда является естественным
+преобразованием. Поскольку все стандартные алгебраические типы данных --- функторы,
+любая полиморфная функция между такими типами --- это естественное преобразование.
 
-We also have function types at our disposal, and those are functorial in
-their return type. We can use them to build functors (like the
-\code{Reader} functor) and define natural transformations that are
-higher-order functions.
+У нас также есть типы функций в нашем распоряжении, и они функториальны в
+своём типе возврата. Мы можем использовать их для построения функторов (как
+функтор \code{Reader}) и определения естественных преобразований, которые являются
+функциями высшего порядка.
 
-However, function types are not covariant in the argument type. They are
-\newterm{contravariant}. Of course contravariant functors are equivalent to
-covariant functors from the opposite category. Polymorphic functions
-between two contravariant functors are still natural transformations in
-the categorical sense, except that they work on functors from the
-opposite category to Haskell types.
+Однако типы функций не ковариантны в типе аргумента. Они
+\newterm{контравариантны}. Конечно, контравариантные функторы эквивалентны
+ковариантным функторам из противоположной категории. Полиморфные функции
+между двумя контравариантными функторами всё ещё являются естественными преобразованиями в
+категорном смысле, за исключением того, что они работают на функторах из
+противоположной категории в типы Haskell.
 
-You might remember the example of a contravariant functor we've looked
-at before:
+Вы можете вспомнить пример контравариантного функтора, на который мы смотрели
+раньше:
 
 \src{snippet21}
-This functor is contravariant in \code{a}:
+Этот функтор контравариантен в \code{a}:
 
 \src{snippet22}
-We can write a polymorphic function from, say, \code{Op Bool} to
+Мы можем написать полиморфную функцию из, скажем, \code{Op Bool} в
 \code{Op String}:
 
 \src{snippet23}
-But since the two functors are not covariant, this is not a natural
-transformation in $\Hask$. However, because they are both
-contravariant, they satisfy the ``opposite'' naturality condition:
+Но поскольку два функтора не ковариантны, это не естественное
+преобразование в $\Hask$. Однако, поскольку они оба
+контравариантны, они удовлетворяют ``противоположному'' условию естественности:
 
 \src{snippet24}[b]
-Notice that the function \code{f} must go in the opposite direction
-than what you'd use with \code{fmap}, because of the signature of
+Обратите внимание, что функция \code{f} должна идти в противоположном направлении,
+чем то, что вы бы использовали с \code{fmap}, из-за сигнатуры
 \code{contramap}:
 
 \src{snippet25}
-Are there any type constructors that are not functors, whether covariant
-or contravariant? Here's one example:
+Есть ли конструкторы типов, которые не являются функторами, будь то ковариантные
+или контравариантные? Вот один пример:
 
 \src{snippet26}
-This is not a functor because the same type \code{a} is used both in
-the negative (contravariant) and positive (covariant) position. You
-can't implement \code{fmap} or \code{contramap} for this type.
-Therefore a function of the signature:
+Это не функтор, потому что один и тот же тип \code{a} используется и в
+отрицательной (контравариантной), и в положительной (ковариантной) позиции. Вы
+не можете реализовать \code{fmap} или \code{contramap} для этого типа.
+Следовательно, функция сигнатуры:
 
 \src{snippet27}
-where \code{f} is an arbitrary functor, cannot be a natural
-transformation. Interestingly, there is a generalization of natural
-transformations, called dinatural transformations, that deals with such
-cases. We'll get to them when we discuss ends.
+где \code{f} --- произвольный функтор, не может быть естественным
+преобразованием. Интересно, что есть обобщение естественных
+преобразований, называемое динатуральными преобразованиями, которое имеет дело с такими
+случаями. Мы доберёмся до них, когда будем обсуждать концы.
 
-\section{Functor Category}
+\section{Категория функторов}
 
-Now that we have mappings between functors --- natural transformations
---- it's only natural to ask the question whether functors form a
-category. And indeed they do! There is one category of functors for each
-pair of categories, $\cat{C}$ and $\cat{D}$. Objects in this category are functors from
-$\cat{C}$ to $\cat{D}$, and morphisms are natural transformations between those
-functors.
+Теперь, когда у нас есть отображения между функторами --- естественные преобразования
+--- естественно задать вопрос, образуют ли функторы
+категорию. И действительно, образуют! Есть одна категория функторов для каждой
+пары категорий, $\cat{C}$ и $\cat{D}$. Объекты в этой категории --- функторы из
+$\cat{C}$ в $\cat{D}$, а морфизмы --- естественные преобразования между этими
+функторами.
 
-We have to define composition of two natural transformations, but that's
-quite easy. The components of natural transformations are morphisms, and
-we know how to compose morphisms.
+Мы должны определить композицию двух естественных преобразований, но это
+довольно просто. Компоненты естественных преобразований --- морфизмы, и
+мы знаем, как композировать морфизмы.
 
-Indeed, let's take a natural transformation $\alpha$ from functor $F$ to $G$. Its
-component at object $a$ is some morphism:
+Действительно, давайте возьмём естественное преобразование $\alpha$ из функтора $F$ в $G$. Его
+компонента в объекте $a$ --- это некоторый морфизм:
 \[\alpha_a \Colon F a \to G a\]
-We'd like to compose $\alpha$ with $\beta$, which is a natural transformation from
-functor $G$ to $H$. The component of $\beta$ at $a$ is a morphism:
+Мы хотим скомпозировать $\alpha$ с $\beta$, которое является естественным преобразованием из
+функтора $G$ в $H$. Компонента $\beta$ в $a$ --- это морфизм:
 \[\beta_a \Colon G a \to H a\]
-These morphisms are composable and their composition is another
-morphism:
+Эти морфизмы композиционны, и их композиция --- другой
+морфизм:
 \[\beta_a \circ \alpha_a \Colon F a \to H a\]
-We will use this morphism as the component of the natural transformation
-$\beta \cdot \alpha$ --- the composition of two natural transformations $\beta$ after $\alpha$:
+Мы будем использовать этот морфизм как компоненту естественного преобразования
+$\beta \cdot \alpha$ --- композицию двух естественных преобразований $\beta$ после $\alpha$:
 \[(\beta \cdot \alpha)_a = \beta_a \circ \alpha_a\]
 
 \begin{figure}[H]
@@ -410,8 +409,8 @@ $\beta \cdot \alpha$ --- the composition of two natural transformations $\beta$ 
 \end{figure}
 
 \noindent
-One (long) look at a diagram convinces us that the result of this
-composition is indeed a natural transformation from F to H:
+Один (долгий) взгляд на диаграмму убеждает нас, что результат этой
+композиции действительно является естественным преобразованием из F в H:
 \[H f \circ (\beta \cdot \alpha)_a = (\beta \cdot \alpha)_b \circ F f\]
 
 \begin{figure}[H]
@@ -420,22 +419,22 @@ composition is indeed a natural transformation from F to H:
 \end{figure}
 
 \noindent
-Composition of natural transformations is associative, because their
-components, which are regular morphisms, are associative with respect to
-their composition.
+Композиция естественных преобразований ассоциативна, потому что их
+компоненты, которые являются обычными морфизмами, ассоциативны относительно
+своей композиции.
 
-Finally, for each functor $F$ there is an identity natural transformation
-$1_F$ whose components are the identity morphisms:
+Наконец, для каждого функтора $F$ существует тождественное естественное преобразование
+$1_F$, чьи компоненты --- тождественные морфизмы:
 \[\id_{F a} \Colon F a \to F a\]
-So, indeed, functors form a category.
+Итак, действительно, функторы образуют категорию.
 
-A word about notation. Following Saunders Mac Lane I use the dot for the
-kind of natural transformation composition I have just described. The
-problem is that there are two ways of composing natural transformations.
-This one is called the vertical composition, because the functors are
-usually stacked up vertically in the diagrams that describe it. Vertical
-composition is important in defining the functor category. I'll explain
-horizontal composition shortly.
+Слово о нотации. Следуя Сондерсу Мак-Лейну, я использую точку для
+вида композиции естественных преобразований, который я только что описал.
+Проблема в том, что есть два способа композиции естественных преобразований.
+Это называется вертикальной композицией, потому что функторы обычно
+расположены вертикально на диаграммах, которые её описывают. Вертикальная
+композиция важна в определении категории функторов. Я объясню
+горизонтальную композицию вскоре.
 
 \begin{figure}[H]
   \centering
@@ -443,19 +442,19 @@ horizontal composition shortly.
 \end{figure}
 
 \noindent
-The functor category between categories $\cat{C}$ and $\cat{D}$ is written as
-$\cat{Fun(C, D)}$, or $\cat{{[}C, D{]}}$, or sometimes as
-$\cat{D^C}$. This last notation suggests that a functor category itself
-might be considered a function object (an exponential) in some other
-category. Is this indeed the case?
+Категория функторов между категориями $\cat{C}$ и $\cat{D}$ записывается как
+$\cat{Fun(C, D)}$, или $\cat{{[}C, D{]}}$, или иногда как
+$\cat{D^C}$. Эта последняя нотация предполагает, что категория функторов сама
+может рассматриваться как объект-функция (экспоненциал) в некоторой другой
+категории. Действительно ли это так?
 
-Let's have a look at the hierarchy of abstractions that we've been
-building so far. We started with a category, which is a collection of
-objects and morphisms. Categories themselves (or, strictly speaking
-\emph{small} categories, whose objects form sets) are themselves objects
-in a higher-level category $\Cat$. Morphisms in that category are
-functors. A Hom-set in $\Cat$ is a set of functors. For instance
-$\cat{Cat(C, D)}$ is a set of functors between two categories $\cat{C}$ and $\cat{D}$.
+Давайте посмотрим на иерархию абстракций, которую мы строили
+до сих пор. Мы начали с категории, которая является коллекцией
+объектов и морфизмов. Категории сами (или, строго говоря,
+\emph{малые} категории, чьи объекты образуют множества) сами являются объектами
+в категории более высокого уровня $\Cat$. Морфизмы в этой категории ---
+функторы. Hom-множество в $\Cat$ --- это множество функторов. Например,
+$\cat{Cat(C, D)}$ --- это множество функторов между двумя категориями $\cat{C}$ и $\cat{D}$.
 
 \begin{figure}[H]
   \centering
@@ -463,56 +462,56 @@ $\cat{Cat(C, D)}$ is a set of functors between two categories $\cat{C}$ and $\ca
 \end{figure}
 
 \noindent
-A functor category $\cat{{[}C, D{]}}$ is also a set of functors between two
-categories (plus natural transformations as morphisms). Its objects are
-the same as the members of $\cat{Cat(C, D)}$. Moreover, a functor category,
-being a category, must itself be an object of $\Cat$ (it so
-happens that the functor category between two small categories is itself
-small). We have a relationship between a Hom-set in a category and an
-object in the same category. The situation is exactly like the
-exponential object that we've seen in the last section. Let's see how we
-can construct the latter in $\Cat$.
+Категория функторов $\cat{{[}C, D{]}}$ также является множеством функторов между двумя
+категориями (плюс естественные преобразования как морфизмы). Её объекты ---
+те же, что и члены $\cat{Cat(C, D)}$. Более того, категория функторов,
+будучи категорией, должна сама быть объектом $\Cat$ (так
+случается, что категория функторов между двумя малыми категориями сама
+мала). У нас есть отношение между Hom-множеством в категории и
+объектом в той же категории. Ситуация точно такая же, как с
+экспоненциальным объектом, который мы видели в последней секции. Давайте посмотрим, как мы
+можем сконструировать последний в $\Cat$.
 
-As you may remember, in order to construct an exponential, we need to
-first define a product. In $\Cat$, this turns out to be relatively
-easy, because small categories are \emph{sets} of objects, and we know
-how to define Cartesian products of sets. So an object in a product
-category $\cat{C\times D}$ is just a pair of objects, $(c, d)$, one from $\cat{C}$
-and one from $\cat{D}$. Similarly, a morphism between two such pairs,
-$(c, d)$ and $(c', d')$, is a pair of morphisms, $(f, g)$, where
-$f \Colon c \to c'$ and $g \Colon d \to d'$. These pairs of morphisms
-compose component-wise, and there is always an identity pair that is
-just a pair of identity morphisms. To make the long story short,
-$\Cat$ is a full-blown Cartesian closed category in which there is
-an exponential object $\cat{D^C}$ for any pair of categories.
-And by ``object'' in $\Cat$ I mean a category, so
-$\cat{D^C}$ is a category, which we can identify with the
-functor category between $\cat{C}$ and $\cat{D}$.
+Как вы можете вспомнить, чтобы сконструировать экспоненциал, нам нужно
+сначала определить произведение. В $\Cat$ это оказывается относительно
+просто, потому что малые категории --- \emph{множества} объектов, и мы знаем,
+как определить декартовы произведения множеств. Итак, объект в произведении
+категорий $\cat{C\times D}$ --- это просто пара объектов, $(c, d)$, один из $\cat{C}$
+и один из $\cat{D}$. Аналогично, морфизм между двумя такими парами,
+$(c, d)$ и $(c', d')$, --- это пара морфизмов, $(f, g)$, где
+$f \Colon c \to c'$ и $g \Colon d \to d'$. Эти пары морфизмов
+композируются покомпонентно, и всегда есть тождественная пара, которая
+просто пара тождественных морфизмов. Чтобы сделать длинную историю короткой,
+$\Cat$ --- это полноценная декартово замкнутая категория, в которой есть
+экспоненциальный объект $\cat{D^C}$ для любой пары категорий.
+И под ``объектом'' в $\Cat$ я имею в виду категорию, так что
+$\cat{D^C}$ --- это категория, которую мы можем идентифицировать с
+категорией функторов между $\cat{C}$ и $\cat{D}$.
 
-\section{2-Categories}
+\section{2-категории}
 
-With that out of the way, let's have a closer look at $\Cat$. By
-definition, any Hom-set in $\Cat$ is a set of functors. But, as we
-have seen, functors between two objects have a richer structure than
-just a set. They form a category, with natural transformations acting as
-morphisms. Since functors are considered morphisms in $\Cat$,
-natural transformations are morphisms between morphisms.
+Убрав это с пути, давайте присмотримся к $\Cat$. По
+определению любое Hom-множество в $\Cat$ --- это множество функторов. Но, как мы
+видели, функторы между двумя объектами имеют более богатую структуру, чем
+просто множество. Они образуют категорию, с естественными преобразованиями, действующими как
+морфизмы. Поскольку функторы рассматриваются как морфизмы в $\Cat$,
+естественные преобразования --- это морфизмы между морфизмами.
 
-This richer structure is an example of a $\cat{2}$-category, a generalization of
-a category where, besides objects and morphisms (which might be called
-$1$-morphisms in this context), there are also $2$-morphisms, which are
-morphisms between morphisms.
+Эта более богатая структура --- пример $\cat{2}$-категории, обобщения
+категории, где, кроме объектов и морфизмов (которые могут быть названы
+$1$-морфизмами в этом контексте), есть также $2$-морфизмы, которые являются
+морфизмами между морфизмами.
 
-In the case of $\Cat$ seen as a $\cat{2}$-category we have:
+В случае $\Cat$, рассматриваемого как $\cat{2}$-категория, у нас есть:
 
 \begin{itemize}
   \tightlist
   \item
-        Objects: (Small) categories
+        Объекты: (Малые) категории
   \item
-        1-morphisms: Functors between categories
+        1-морфизмы: Функторы между категориями
   \item
-        2-morphisms: Natural transformations between functors.
+        2-морфизмы: Естественные преобразования между функторами.
 \end{itemize}
 
 \begin{figure}[H]
@@ -521,26 +520,26 @@ In the case of $\Cat$ seen as a $\cat{2}$-category we have:
 \end{figure}
 
 \noindent
-Instead of a Hom-set between two categories $\cat{C}$ and $\cat{D}$, we have a
-Hom-category --- the functor category $\cat{D^C}$. We have
-regular functor composition: a functor $F$ from $\cat{D^C}$
-composes with a functor $G$ from $\cat{E^D}$ to give $G \circ F$ from
-$\cat{E^C}$. But we also have composition inside each
-Hom-category --- vertical composition of natural transformations, or
-2-morphisms, between functors.
+Вместо Hom-множества между двумя категориями $\cat{C}$ и $\cat{D}$ у нас есть
+Hom-категория --- категория функторов $\cat{D^C}$. У нас есть
+обычная композиция функторов: функтор $F$ из $\cat{D^C}$
+композируется с функтором $G$ из $\cat{E^D}$, чтобы дать $G \circ F$ из
+$\cat{E^C}$. Но у нас также есть композиция внутри каждой
+Hom-категории --- вертикальная композиция естественных преобразований, или
+2-морфизмов, между функторами.
 
-With two kinds of composition in a $\cat{2}$-category, the question arises: How
-do they interact with each other?
+С двумя видами композиции в $\cat{2}$-категории возникает вопрос: как
+они взаимодействуют друг с другом?
 
-Let's pick two functors, or 1-morphisms, in $\Cat$:
+Давайте выберем два функтора, или 1-морфизма, в $\Cat$:
 \begin{gather*}
   F \Colon \cat{C} \to \cat{D} \\
   G \Colon \cat{D} \to \cat{E}
 \end{gather*}
-and their composition:
+и их композицию:
 \[G \circ F \Colon \cat{C} \to \cat{E}\]
-Suppose we have two natural transformations, $\alpha$ and $\beta$, that act,
-respectively, on functors $F$ and $G$:
+Предположим, у нас есть два естественных преобразования, $\alpha$ и $\beta$, которые действуют,
+соответственно, на функторы $F$ и $G$:
 \begin{gather*}
   \alpha \Colon F \to F' \\
   \beta \Colon G \to G'
@@ -552,15 +551,15 @@ respectively, on functors $F$ and $G$:
 \end{figure}
 
 \noindent
-Notice that we cannot apply vertical composition to this pair, because
-the target of $\alpha$ is different from the source of $\beta$. In fact they are
-members of two different functor categories: $\cat{D^C}$ and $\cat{E^D}$.
-We can, however, apply composition to the functors
-$F'$ and $G'$, because the target of $F'$ is the source of $G'$ --- it's the
-category $\cat{D}$. What's the relation between the functors $G' \circ F'$ and $G \circ F$?
+Обратите внимание, что мы не можем применить вертикальную композицию к этой паре, потому что
+цель $\alpha$ отличается от источника $\beta$. На самом деле они являются
+членами двух разных категорий функторов: $\cat{D^C}$ и $\cat{E^D}$.
+Однако мы можем применить композицию к функторам
+$F'$ и $G'$, потому что цель $F'$ --- это источник $G'$ --- это
+категория $\cat{D}$. Каково отношение между функторами $G' \circ F'$ и $G \circ F$?
 
-Having $\alpha$ and $\beta$ at our disposal, can we define a natural transformation
-from $G \circ F$ to $G' \circ F'$? Let me sketch the construction.
+Имея $\alpha$ и $\beta$ в нашем распоряжении, можем ли мы определить естественное преобразование
+из $G \circ F$ в $G' \circ F'$? Позвольте мне набросать конструкцию.
 
 \begin{figure}[H]
   \centering
@@ -568,56 +567,56 @@ from $G \circ F$ to $G' \circ F'$? Let me sketch the construction.
 \end{figure}
 
 \noindent
-As usual, we start with an object $a$ in $\cat{C}$. Its image splits into
-two objects in $\cat{D}$: $F a$ and $F'a$. There is also a
-morphism, a component of $\alpha$, connecting these two objects:
+Как обычно, мы начинаем с объекта $a$ в $\cat{C}$. Его образ расщепляется на
+два объекта в $\cat{D}$: $F a$ и $F'a$. Есть также
+морфизм, компонента $\alpha$, соединяющая эти два объекта:
 \[\alpha_a \Colon F a \to F'a\]
-When going from $\cat{D}$ to $\cat{E}$, these two objects split further into four
-objects: $G (F a)$, $G'(F a)$, $G (F'a)$, $G'(F'a)$.
-We also have four morphisms forming a square. Two of these morphisms are
-the components of the natural transformation $\beta$:
+При переходе из $\cat{D}$ в $\cat{E}$ эти два объекта расщепляются дальше на четыре
+объекта: $G (F a)$, $G'(F a)$, $G (F'a)$, $G'(F'a)$.
+У нас также есть четыре морфизма, образующих квадрат. Два из этих морфизмов ---
+компоненты естественного преобразования $\beta$:
 \begin{gather*}
   \beta_{F a} \Colon G (F a) \to G'(F a) \\
   \beta_{F'a} \Colon G (F'a) \to G'(F'a)
 \end{gather*}
-The other two are the images of $\alpha_a$ under the two
-functors (functors map morphisms):
+Два других --- образы $\alpha_a$ под двумя
+функторами (функторы отображают морфизмы):
 \begin{gather*}
   G \alpha_a \Colon G (F a) \to G (F'a) \\
   G'\alpha_a \Colon G'(F a) \to G'(F'a)
 \end{gather*}
-That's a lot of morphisms. Our goal is to find a morphism that goes from
-$G (F a)$ to $G'(F'a)$, a candidate for the
-component of a natural transformation connecting the two functors $G \circ F$
-and $G' \circ F'$. In fact there's not one but two paths we can take from
-$G (F a)$ to $G'(F'a)$:
+Это много морфизмов. Наша цель --- найти морфизм, который идёт из
+$G (F a)$ в $G'(F'a)$, кандидат для
+компоненты естественного преобразования, соединяющего два функтора $G \circ F$
+и $G' \circ F'$. На самом деле есть не один, а два пути, которые мы можем взять из
+$G (F a)$ в $G'(F'a)$:
 \begin{gather*}
   G'\alpha_a \circ \beta_{F a} \\
   \beta_{F'a} \circ G \alpha_a
 \end{gather*}
-Luckily for us, they are equal, because the square we have formed turns
-out to be the naturality square for $\beta$.
+К счастью для нас, они равны, потому что квадрат, который мы сформировали, оказывается
+квадратом естественности для $\beta$.
 
-We have just defined a component of a natural transformation from $G \circ F$
-to $G' \circ F'$. The proof of naturality for this transformation is pretty
-straightforward, provided you have enough patience.
+Мы только что определили компоненту естественного преобразования из $G \circ F$
+в $G' \circ F'$. Доказательство естественности для этого преобразования довольно
+прямолинейно, если у вас есть достаточно терпения.
 
-We call this natural transformation the \newterm{horizontal composition} of
-$\alpha$ and $\beta$:
+Мы называем это естественное преобразование \newterm{горизонтальной композицией}
+$\alpha$ и $\beta$:
 \[\beta \circ \alpha \Colon G \circ F \to G' \circ F'\]
-Again, following Mac Lane I use the small circle for horizontal
-composition, although you may also encounter star in its place.
+Опять же, следуя Мак-Лейну, я использую маленький круг для горизонтальной
+композиции, хотя вы также можете встретить звёздочку на её месте.
 
-Here's a categorical rule of thumb: Every time you have composition, you
-should look for a category. We have vertical composition of natural
-transformations, and it's part of the functor category. But what about
-the horizontal composition? What category does that live in?
+Вот категорное эмпирическое правило: каждый раз, когда у вас есть композиция, вы
+должны искать категорию. У нас есть вертикальная композиция естественных
+преобразований, и она часть категории функторов. Но как насчёт
+горизонтальной композиции? В какой категории она живёт?
 
-The way to figure this out is to look at $\Cat$ sideways. Look at
-natural transformations not as arrows between functors but as arrows
-between categories. A natural transformation sits between two
-categories, the ones that are connected by the functors it transforms.
-We can think of it as connecting these two categories.
+Способ выяснить это --- посмотреть на $\Cat$ боком. Смотрите на
+естественные преобразования не как на стрелки между функторами, а как на стрелки
+между категориями. Естественное преобразование сидит между двумя
+категориями, теми, которые соединены функторами, которые оно преобразует.
+Мы можем думать о нём как о соединении этих двух категорий.
 
 \begin{figure}[H]
   \centering
@@ -625,98 +624,98 @@ We can think of it as connecting these two categories.
 \end{figure}
 
 \noindent
-Let's focus on two objects of $\Cat$ --- categories $\cat{C}$ and $\cat{D}$. There
-is a set of natural transformations that go between functors that
-connect $\cat{C}$ to $\cat{D}$. These natural transformations are our new arrows from $\cat{C}$
-to $\cat{D}$. By the same token, there are natural transformations going between
-functors that connect $\cat{D}$ to $\cat{E}$, which we can treat as new arrows going
-from $\cat{D}$ to $\cat{E}$. Horizontal composition is the composition of these arrows.
+Давайте сосредоточимся на двух объектах $\Cat$ --- категориях $\cat{C}$ и $\cat{D}$. Есть
+множество естественных преобразований, которые идут между функторами, которые
+соединяют $\cat{C}$ с $\cat{D}$. Эти естественные преобразования --- наши новые стрелки из $\cat{C}$
+в $\cat{D}$. По тому же принципу есть естественные преобразования, идущие между
+функторами, которые соединяют $\cat{D}$ с $\cat{E}$, которые мы можем рассматривать как новые стрелки, идущие
+из $\cat{D}$ в $\cat{E}$. Горизонтальная композиция --- это композиция этих стрелок.
 
-We also have an identity arrow going from $\cat{C}$ to $\cat{C}$. It's the identity
-natural transformation that maps the identity functor on $\cat{C}$ to itself.
-Notice that the identity for horizontal composition is also the identity
-for vertical composition, but not vice versa.
+У нас также есть тождественная стрелка, идущая из $\cat{C}$ в $\cat{C}$. Это
+тождественное естественное преобразование, которое отображает тождественный функтор на $\cat{C}$ в себя.
+Обратите внимание, что тождество для горизонтальной композиции также является тождеством
+для вертикальной композиции, но не наоборот.
 
-Finally, the two compositions satisfy the interchange law:
+Наконец, две композиции удовлетворяют закону взаимозаменяемости:
 \[(\beta' \cdot \alpha') \circ (\beta \cdot \alpha) = (\beta' \circ \beta) \cdot (\alpha' \circ \alpha)\]
-I will quote Saunders Mac Lane here: The reader may enjoy writing down
-the evident diagrams needed to prove this fact.
+Я процитирую Сондерса Мак-Лейна здесь: Читатель может получить удовольствие, записав
+очевидные диаграммы, необходимые для доказательства этого факта.
 
-There is one more piece of notation that might come in handy in the
-future. In this new sideways interpretation of $\Cat$ there are
-two ways of getting from object to object: using a functor or using a
-natural transformation. We can, however, re-interpret the functor arrow
-as a special kind of natural transformation: the identity natural
-transformation acting on this functor. So you'll often see this
-notation:
+Есть ещё один кусочек нотации, который может пригодиться в
+будущем. В этой новой боковой интерпретации $\Cat$ есть
+два способа попасть из объекта в объект: используя функтор или используя
+естественное преобразование. Однако мы можем переинтерпретировать стрелку функтора
+как специальный вид естественного преобразования: тождественное естественное
+преобразование, действующее на этом функторе. Поэтому вы часто увидите эту
+нотацию:
 \[F \circ \alpha\]
-where $F$ is a functor from $\cat{D}$ to $\cat{E}$, and $\alpha$ is a natural transformation
-between two functors going from $\cat{C}$ to $\cat{D}$. Since you can't compose a
-functor with a natural transformation, this is interpreted as a
-horizontal composition of the identity natural transformation
-$1_F$ after $\alpha$.
+где $F$ --- функтор из $\cat{D}$ в $\cat{E}$, а $\alpha$ --- естественное преобразование
+между двумя функторами, идущими из $\cat{C}$ в $\cat{D}$. Поскольку вы не можете скомпозировать
+функтор с естественным преобразованием, это интерпретируется как
+горизонтальная композиция тождественного естественного преобразования
+$1_F$ после $\alpha$.
 
-Similarly:
+Аналогично:
 \[\alpha \circ F\]
-is a horizontal composition of $\alpha$ after $1_F$.
+это горизонтальная композиция $\alpha$ после $1_F$.
 
-\section{Conclusion}
+\section{Заключение}
 
-This concludes the first part of the book. We've learned the basic
-vocabulary of category theory. You may think of objects and categories
-as nouns; and morphisms, functors, and natural transformations as verbs.
-Morphisms connect objects, functors connect categories, natural
-transformations connect functors.
+Это завершает первую часть книги. Мы выучили базовый
+словарь теории категорий. Вы можете думать об объектах и категориях
+как о существительных; а о морфизмах, функторах и естественных преобразованиях как о глаголах.
+Морфизмы соединяют объекты, функторы соединяют категории, естественные
+преобразования соединяют функторы.
 
-But we've also seen that, what appears as an action at one level of
-abstraction, becomes an object at the next level. A set of morphisms
-turns into a function object. As an object, it can be a source or a
-target of another morphism. That's the idea behind higher order
-functions.
+Но мы также видели, что то, что выглядит как действие на одном уровне
+абстракции, становится объектом на следующем уровне. Множество морфизмов
+превращается в объект-функцию. Как объект, он может быть источником или
+целью другого морфизма. Это идея, лежащая в основе функций высшего
+порядка.
 
-A functor maps objects to objects, so we can use it as a type
-constructor, or a parametric type. A functor also maps morphisms, so it
-is a higher order function --- \code{fmap}. There are some simple
-functors, like \code{Const}, product, and coproduct, that can be used
-to generate a large variety of algebraic data types. Function types are
-also functorial, both covariant and contravariant, and can be used to
-extend algebraic data types.
+Функтор отображает объекты в объекты, поэтому мы можем использовать его как
+конструктор типа, или параметрический тип. Функтор также отображает морфизмы, поэтому он
+является функцией высшего порядка --- \code{fmap}. Есть несколько простых
+функторов, таких как \code{Const}, произведение и копроизведение, которые могут быть использованы
+для генерации большого разнообразия алгебраических типов данных. Типы функций
+также функториальны, как ковариантно, так и контравариантно, и могут быть использованы для
+расширения алгебраических типов данных.
 
-Functors may be looked upon as objects in the functor category. As such,
-they become sources and targets of morphisms: natural transformations. A
-natural transformation is a special type of polymorphic function.
+Функторы могут рассматриваться как объекты в категории функторов. Как таковые,
+они становятся источниками и целями морфизмов: естественных преобразований.
+Естественное преобразование --- это специальный тип полиморфной функции.
 
-\section{Challenges}
+\section{Задачи}
 
 \begin{enumerate}
   \tightlist
   \item
-        Define a natural transformation from the \code{Maybe} functor to the
-        list functor. Prove the naturality condition for it.
+        Определите естественное преобразование из функтора \code{Maybe} в
+        функтор списка. Докажите условие естественности для него.
   \item
-        Define at least two different natural transformations between
-        \code{Reader ()} and the list functor. How many different lists of
-        \code{()} are there?
+        Определите хотя бы два разных естественных преобразования между
+        \code{Reader ()} и функтором списка. Сколько существует различных списков из
+        \code{()}?
   \item
-        Continue the previous exercise with \code{Reader Bool} and
+        Продолжите предыдущее упражнение с \code{Reader Bool} и
         \code{Maybe}.
   \item
-        Show that horizontal composition of natural transformation satisfies
-        the naturality condition (hint: use components). It's a good exercise
-        in diagram chasing.
+        Покажите, что горизонтальная композиция естественных преобразований удовлетворяет
+        условию естественности (подсказка: используйте компоненты). Это хорошее упражнение
+        в погоне за диаграммами.
   \item
-        Write a short essay about how you may enjoy writing down the evident
-        diagrams needed to prove the interchange law.
+        Напишите короткое эссе о том, как вы можете получить удовольствие от записи очевидных
+        диаграмм, необходимых для доказательства закона взаимозаменяемости.
   \item
-        Create a few test cases for the opposite naturality condition of
-        transformations between different \code{Op} functors. Here's one
-        choice:
+        Создайте несколько тестовых случаев для противоположного условия естественности
+        преобразований между разными функторами \code{Op}. Вот один
+        выбор:
 
         \begin{snip}{haskell}
 op :: Op Bool Int
 op = Op (\x -> x > 0)
 \end{snip}
-        and
+        и
 
         \begin{snip}{haskell}
 f :: String -> Int

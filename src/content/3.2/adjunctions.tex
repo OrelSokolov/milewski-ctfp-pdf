@@ -1,39 +1,39 @@
 % !TEX root = ../../ctfp-print.tex
 
-\lettrine[lhang=0.17]{I}{n mathematics we have} various ways of saying that one thing is like
-another. The strictest is equality. Two things are equal if there is no
-way to distinguish one from another. One can be substituted for the
-other in every imaginable context. For instance, did you notice that we
-used \newterm{equality} of morphisms every time we talked about commuting
-diagrams? That's because morphisms form a set (hom-set) and set elements
-can be compared for equality.
+\lettrine[lhang=0.17]{В}{математике у нас есть} различные способы сказать, что одна вещь похожа на
+другую. Самый строгий --- равенство. Две вещи равны, если нет
+способа отличить одну от другой. Одна может быть подставлена вместо
+другой в каждом мыслимом контексте. Например, замечали ли вы, что мы
+использовали \newterm{равенство} морфизмов каждый раз, когда говорили о коммутирующих
+диаграммах? Это потому, что морфизмы образуют множество (hom-множество), и элементы множества
+могут быть сравнены на равенство.
 
-But equality is often too strong. There are many examples of things
-being the same for all intents and purposes, without actually being
-equal. For instance, the pair type \code{(Bool, Char)} is not
-strictly equal to \code{(Char, Bool)}, but we understand that they
-contain the same information. This concept is best captured by an
-\newterm{isomorphism} between two types --- a morphism that's invertible.
-Since it's a morphism, it preserves the structure; and being ``iso''
-means that it's part of a round trip that lands you in the same spot, no
-matter on which side you start. In the case of pairs, this isomorphism
-is called \code{swap}:
+Но равенство часто слишком сильно. Есть много примеров вещей,
+бы одинаковыми для всех практических целей, фактически не являясь
+равными. Например, тип пары \code{(Bool, Char)} не
+строго равен \code{(Char, Bool)}, но мы понимаем, что они
+содержат одну и ту же информацию. Эта концепция лучше всего передаётся
+\newterm{изоморфизмом} между двумя типами --- морфизмом, который обратим.
+Поскольку это морфизм, он сохраняет структуру; а быть ``изо''
+означает, что это часть кругового пути, который приводит вас в то же место, не
+важно, с какой стороны вы начинаете. В случае пар этот изоморфизм
+называется \code{swap}:
 
 \src{snippet01}
-\code{swap} happens to be its own inverse.
+\code{swap} случайно является своим собственным обратным.
 
-\section{Adjunction and Unit/Counit Pair}
+\section{Сопряжение и пара единица/коединица}
 
-When we talk about categories being isomorphic, we express this in terms
-of mappings between categories, a.k.a. functors. We would like to be
-able to say that two categories $\cat{C}$ and $\cat{D}$ are isomorphic if
-there exists a functor $R$ (``right'') from $\cat{C}$ to $\cat{D}$,
-which is invertible. In other words, there exists another functor
-$L$ (``left'') from $\cat{D}$ back to $\cat{C}$ which, when
-composed with $R$, is equal to the identity functor $I$.
-There are two possible compositions, $R \circ L$ and
-$L \circ R$; and two possible identity functors: one in $\cat{C}$
-and another in $\cat{D}$.
+Когда мы говорим о категориях, являющихся изоморфными, мы выражаем это в терминах
+отображений между категориями, т.е. функторов. Мы хотели бы иметь возможность
+сказать, что две категории $\cat{C}$ и $\cat{D}$ изоморфны, если
+существует функтор $R$ (``правый'') из $\cat{C}$ в $\cat{D}$,
+который обратим. Другими словами, существует другой функтор
+$L$ (``левый'') из $\cat{D}$ обратно в $\cat{C}$, который, когда
+скомпозирован с $R$, равен тождественному функтору $I$.
+Есть две возможные композиции, $R \circ L$ и
+$L \circ R$; и два возможных тождественных функтора: один в $\cat{C}$
+и другой в $\cat{D}$.
 
 \begin{figure}[H]
   \centering
@@ -41,67 +41,67 @@ and another in $\cat{D}$.
 \end{figure}
 
 \noindent
-But here's the tricky part: What does it mean for two functors to be
-\emph{equal}? What do we mean by this equality:
+Но вот сложная часть: что означает для двух функторов быть
+\emph{равными}? Что мы имеем в виду под этим равенством:
 \[R \circ L = I_{\cat{D}}\]
-or this one:
+или этим:
 \[L \circ R = I_{\cat{C}}\]
-It would be reasonable to define functor equality in terms of equality
-of objects. Two functors, when acting on equal objects, should produce
-equal objects. But we don't, in general, have the notion of object
-equality in an arbitrary category. It's just not part of the definition.
-(Going deeper into this rabbit hole of ``what equality really is,'' we
-would end up in Homotopy Type Theory.)
+Было бы разумно определить равенство функторов в терминах равенства
+объектов. Два функтора, при действии на равные объекты, должны производить
+равные объекты. Но у нас, в общем случае, нет понятия равенства объектов
+в произвольной категории. Это просто не часть определения.
+(Углубляясь в эту кроличью нору ``что такое равенство на самом деле'', мы
+закончили бы в гомотопической теории типов.)
 
-You might argue that functors \emph{are} morphisms in the category of
-categories, so they should be equality-comparable. And indeed, as long
-as we are talking about small categories, where objects form a set, we
-can indeed use the equality of elements of a set to equality-compare
-objects.
+Вы можете возразить, что функторы \emph{являются} морфизмами в категории
+категорий, так что они должны быть сравнимы на равенство. И действительно, пока
+мы говорим о малых категориях, где объекты образуют множество, мы
+можем действительно использовать равенство элементов множества для сравнения
+объектов на равенство.
 
-But, remember, $\Cat$ is really a $\cat{2}$-category. Hom-sets in a
-$\cat{2}$-category have additional structure --- there are $2$-morphisms acting
-between $1$-morphisms. In $\Cat$, $1$-morphisms are functors, and
-$2$-morphisms are natural transformations. So it's more natural (can't
-avoid this pun!) to consider natural isomorphisms as substitutes for
-equality when talking about functors.
+Но помните, $\Cat$ --- это на самом деле $\cat{2}$-категория. Hom-множества в
+$\cat{2}$-категории имеют дополнительную структуру --- есть $2$-морфизмы, действующие
+между $1$-морфизмами. В $\Cat$ $1$-морфизмы --- функторы, а
+$2$-морфизмы --- естественные преобразования. Так что более естественно (не могу
+избежать этого каламбура!) рассматривать естественные изоморфизмы как замены
+равенству при разговоре о функторах.
 
-So, instead of isomorphism of categories, it makes sense to consider a
-more general notion of \newterm{equivalence}. Two categories $\cat{C}$ and
-$\cat{D}$ are \emph{equivalent} if we can find two functors going back
-and forth between them, whose composition (either way) is
-\newterm{naturally isomorphic} to the identity functor. In other words,
-there is a two-way natural transformation between the composition
-$R \circ L$ and the identity functor $I_{\cat{D}}$, and another
-between $L \circ R$ and the identity functor $I_{\cat{C}}$.
+Так что вместо изоморфизма категорий имеет смысл рассматривать
+более общее понятие \newterm{эквивалентности}. Две категории $\cat{C}$ и
+$\cat{D}$ \emph{эквивалентны}, если мы можем найти два функтора, идущие туда и
+обратно между ними, чья композиция (в любом направлении)
+\newterm{естественно изоморфна} тождественному функтору. Другими словами,
+есть двунаправленное естественное преобразование между композицией
+$R \circ L$ и тождественным функтором $I_{\cat{D}}$, и другое
+между $L \circ R$ и тождественным функтором $I_{\cat{C}}$.
 
-Adjunction is even weaker than equivalence, because it doesn't require
-that the composition of the two functors be \emph{isomorphic} to the
-identity functor. Instead it stipulates the existence of a \newterm{one
-  way} natural transformation from $I_{\cat{D}}$ to $R \circ L$, and
-another from $L \circ R$ to $I_{\cat{C}}$. Here are the signatures of
-these two natural transformations:
+Сопряжение ещё слабее, чем эквивалентность, потому что оно не требует,
+чтобы композиция двух функторов была \emph{изоморфна}
+тождественному функтору. Вместо этого оно постулирует существование \newterm{однонаправленного}
+естественного преобразования из $I_{\cat{D}}$ в $R \circ L$, и
+другого из $L \circ R$ в $I_{\cat{C}}$. Вот сигнатуры
+этих двух естественных преобразований:
 \begin{gather*}
   \eta \Colon I_{\cat{D}} \to R \circ L \\
   \varepsilon \Colon L \circ R \to I_{\cat{C}}
 \end{gather*}
-$\eta$ is called the unit, and $\varepsilon$ the counit of the adjunction.
+$\eta$ называется единицей, а $\varepsilon$ коединицей сопряжения.
 
-Notice the asymmetry between these two definitions. In general, we don't
-have the two remaining mappings:
+Обратите внимание на асимметрию между этими двумя определениями. В общем случае у нас нет
+двух оставшихся отображений:
 \begin{gather*}
-  R \circ L \to I_{\cat{D}} \quad\quad\text{not necessarily} \\
-  I_{\cat{C}} \to L \circ R \quad\quad\text{not necessarily}
+  R \circ L \to I_{\cat{D}} \quad\quad\text{не обязательно} \\
+  I_{\cat{C}} \to L \circ R \quad\quad\text{не обязательно}
 \end{gather*}
-Because of this asymmetry, the functor $L$ is called the
-\newterm{left adjoint} to the functor $R$, while the functor
-$R$ is the right adjoint to $L$. (Of course, left and
-right make sense only if you draw your diagrams one particular way.)
+Из-за этой асимметрии функтор $L$ называется
+\newterm{левым сопряжённым} к функтору $R$, в то время как функтор
+$R$ --- правый сопряжённый к $L$. (Конечно, левый и
+правый имеют смысл только если вы рисуете ваши диаграммы одним конкретным способом.)
 
-The compact notation for the adjunction is:
+Компактная нотация для сопряжения:
 \[L \dashv R\]
-To better understand the adjunction, let's analyze the unit and the
-counit in more detail.
+Чтобы лучше понять сопряжение, давайте проанализируем единицу и
+коединицу более детально.
 
 \begin{figure}[H]
   \centering
@@ -109,18 +109,18 @@ counit in more detail.
 \end{figure}
 
 \noindent
-Let's start with the unit. It's a natural transformation, so it's a
-family of morphisms. Given an object $d$ in $\cat{D}$, the
-component of $\eta$ is a morphism between $I d$, which is equal to
-$d$, and $(R \circ L) d$; which, in the picture, is called
+Давайте начнём с единицы. Это естественное преобразование, так что это
+семейство морфизмов. Для данного объекта $d$ в $\cat{D}$
+компонента $\eta$ --- это морфизм между $I d$, который равен
+$d$, и $(R \circ L) d$; который на картинке называется
 $d'$:
 \[\eta_d \Colon d \to (R \circ L) d\]
-Notice that the composition $R \circ L$ is an endofunctor in $\cat{D}$.
+Обратите внимание, что композиция $R \circ L$ --- эндофунктор в $\cat{D}$.
 
-This equation tells us that we can pick any object $d$ in
-$\cat{D}$ as our starting point, and use the round trip functor
-$R \circ L$ to pick our target object $d'$. Then we
-shoot an arrow --- the morphism $\eta_d$ --- to our target.
+Это уравнение говорит нам, что мы можем выбрать любой объект $d$ в
+$\cat{D}$ как нашу начальную точку и использовать функтор кругового пути
+$R \circ L$, чтобы выбрать наш целевой объект $d'$. Затем мы
+пускаем стрелу --- морфизм $\eta_d$ --- в нашу цель.
 
 \begin{figure}[H]
   \centering
@@ -128,27 +128,27 @@ shoot an arrow --- the morphism $\eta_d$ --- to our target.
 \end{figure}
 
 \noindent
-By the same token, the component of the counit $\varepsilon$ can be described as:
+По тому же принципу компонента коединицы $\varepsilon$ может быть описана как:
 \[\varepsilon_{c} \Colon (L \circ R) c \to c\]
-It tells us that we
-can pick any object $c$ in $\cat{C}$ as our target, and use the
-round trip functor $L \circ R$ to pick the source
-$c' = (L \circ R) c$. Then we shoot the arrow --- the morphism
-$\varepsilon_{c}$ --- from the source to the target.
+Она говорит нам, что мы
+можем выбрать любой объект $c$ в $\cat{C}$ как нашу цель и использовать
+функтор кругового пути $L \circ R$, чтобы выбрать источник
+$c' = (L \circ R) c$. Затем мы пускаем стрелу --- морфизм
+$\varepsilon_{c}$ --- из источника в цель.
 
-Another way of looking at unit and counit is that unit lets us
-\emph{introduce} the composition $R \circ L$ anywhere we could
-insert an identity functor on $\cat{D}$; and counit lets us
-\emph{eliminate} the composition $L \circ R$, replacing it with the
-identity on $\cat{C}$. That leads to some ``obvious'' consistency
-conditions, which make sure that introduction followed by elimination
-doesn't change anything:
+Другой способ взглянуть на единицу и коединицу в том, что единица позволяет нам
+\emph{ввести} композицию $R \circ L$ везде, где мы могли бы
+вставить тождественный функтор на $\cat{D}$; а коединица позволяет нам
+\emph{устранить} композицию $L \circ R$, заменяя её
+тождеством на $\cat{C}$. Это приводит к некоторым ``очевидным'' условиям согласованности,
+которые гарантируют, что введение, за которым следует устранение,
+ничего не меняет:
 \begin{gather*}
   L = L \circ I_{\cat{D}} \to L \circ R \circ L \to I_{\cat{C}} \circ L = L \\
   R = I_{\cat{D}} \circ R \to R \circ L \circ R \to R \circ I_{\cat{C}} = R
 \end{gather*}
-These are called triangular identities because they make the following
-diagrams commute:
+Они называются треугольными тождествами, потому что они заставляют следующие
+диаграммы коммутировать:
 
 \begin{figure}[H]
   \centering
@@ -173,85 +173,85 @@ diagrams commute:
 \end{figure}
 
 \noindent
-These are diagrams in the functor category: the arrows are natural
-transformations, and their composition is the horizontal composition of
-natural transformations. In components, these identities become:
+Это диаграммы в категории функторов: стрелки --- естественные
+преобразования, а их композиция --- горизонтальная композиция
+естественных преобразований. В компонентах эти тождества становятся:
 \begin{gather*}
   \varepsilon_{L d} \circ L \eta_d = \id_{L d} \\
   R \varepsilon_{c} \circ \eta_{R c} = \id_{R c}
 \end{gather*}
-We often see unit and counit in Haskell under different names. Unit is
-known as \code{return} (or \code{pure}, in the definition of
+Мы часто видим единицу и коединицу в Haskell под разными именами. Единица
+известна как \code{return} (или \code{pure}, в определении
 \code{Applicative}):
 
 \src{snippet02}
-and counit as \code{extract}:
+а коединица как \code{extract}:
 
 \src{snippet03}
-Here, \code{m} is the (endo-) functor corresponding to $R \circ L$,
-and \code{w} is the (endo-) functor corresponding to $L \circ R$. As
-we'll see later, they are part of the definition of a monad and a
-comonad, respectively.
+Здесь \code{m} --- (эндо-) функтор, соответствующий $R \circ L$,
+а \code{w} --- (эндо-) функтор, соответствующий $L \circ R$. Как
+мы увидим позже, они являются частью определения монады и
+комонады, соответственно.
 
-If you think of an endofunctor as a container, the unit (or
-\code{return}) is a polymorphic function that creates a default box
-around a value of arbitrary type. The counit (or \code{extract}) does
-the reverse: it retrieves or produces a single value from a container.
+Если вы думаете об эндофункторе как о контейнере, единица (или
+\code{return}) --- это полиморфная функция, которая создаёт коробку по умолчанию
+вокруг значения произвольного типа. Коединица (или \code{extract}) делает
+обратное: она извлекает или производит единственное значение из контейнера.
 
-We'll see later that every pair of adjoint functors defines a monad and
-a comonad. Conversely, every monad or comonad may be factorized into a
-pair of adjoint functors --- this factorization is not unique, though.
+Мы увидим позже, что каждая пара сопряжённых функторов определяет монаду и
+комонаду. Наоборот, каждая монада или комонада может быть факторизована в
+пару сопряжённых функторов --- эта факторизация не уникальна, однако.
 
-In Haskell, we use monads a lot, but only rarely factorize them into
-pairs of adjoint functors, primarily because those functors would
-normally take us out of $\Hask$.
+В Haskell мы используем монады много, но редко факторизуем их в
+пары сопряжённых функторов, прежде всего потому, что эти функторы обычно
+вывели бы нас из $\Hask$.
 
-We can however define adjunctions of \newterm{endofunctors} in Haskell.
-Here's part of the definition taken from
+Однако мы можем определить сопряжения \newterm{эндофункторов} в Haskell.
+Вот часть определения, взятая из
 \code{Data.Functor.Adjunction}:
 
 \src{snippet04}
-This definition requires some explanation. First of all, it describes a
-multi-parameter type class --- the two parameters being \code{f} and
-\code{u}. It establishes a relation called \code{Adjunction} between
-these two type constructors.
+Это определение требует некоторого объяснения. Прежде всего, оно описывает
+класс типов с несколькими параметрами --- двумя параметрами являются \code{f} и
+\code{u}. Оно устанавливает отношение, называемое \code{Adjunction}, между
+этими двумя конструкторами типов.
 
-Additional conditions, after the vertical bar, specify functional
-dependencies. For instance, \code{f -> u} means that
-\code{u} is determined by \code{f} (the relation between \code{f}
-and \code{u} is a function, here on type constructors). Conversely,
-\code{u -> f} means that, if we know \code{u}, then
-\code{f} is uniquely determined.
+Дополнительные условия после вертикальной черты специфицируют функциональные
+зависимости. Например, \code{f -> u} означает, что
+\code{u} определяется \code{f} (отношение между \code{f}
+и \code{u} --- функция, здесь на конструкторах типов). Наоборот,
+\code{u -> f} означает, что если мы знаем \code{u}, то
+\code{f} уникально определён.
 
-I'll explain in a moment why, in Haskell, we can impose the condition
-that the right adjoint \code{u} be a \newterm{representable} functor.
+Я объясню через мгновение, почему в Haskell мы можем наложить условие,
+что правый сопряжённый \code{u} должен быть \newterm{представимым} функтором.
 
-\section{Adjunctions and Hom-Sets}
+\section{Сопряжения и hom-множества}
 
-There is an equivalent definition of the adjunction in terms of natural
-isomorphisms of hom-sets. This definition ties nicely with universal
-constructions we've been studying so far. Every time you hear the
-statement that there is some unique morphism, which factorizes some
-construction, you should think of it as a mapping of some set to a
-hom-set. That's the meaning of ``picking a unique morphism.''
+Есть эквивалентное определение сопряжения в терминах естественных
+изоморфизмов hom-множеств. Это определение хорошо связывается с универсальными
+конструкциями, которые мы изучали до сих пор. Каждый раз, когда вы слышите
+утверждение, что существует некоторый уникальный морфизм, который факторизует некоторую
+конструкцию, вы должны думать об этом как об отображении некоторого множества в
+hom-множество. Это значение ``выбора уникального морфизма.''
 
-Furthermore, factorization can be often described in terms of natural
-transformations. Factorization involves commuting diagrams --- some
-morphism being equal to a composition of two morphisms (factors). A
-natural transformation maps morphisms to commuting diagrams. So, in a
-universal construction, we go from a morphism to a commuting diagram,
-and then to a unique morphism. We end up with a mapping from morphism to
-morphism, or from one hom-set to another (usually in different
-categories). If this mapping is invertible, and if it can be naturally
-extended across all hom-sets, we have an adjunction.
+Кроме того, факторизация часто может быть описана в терминах естественных
+преобразований. Факторизация включает коммутирующие диаграммы --- некоторый
+морфизм, равный композиции двух морфизмов (факторов).
+Естественное преобразование отображает морфизмы в коммутирующие диаграммы. Так что в
+универсальной конструкции мы идём от морфизма к коммутирующей диаграмме,
+а затем к уникальному морфизму. Мы заканчиваем с отображением из морфизма в
+морфизм, или из одного hom-множества в другое (обычно в разных
+категориях). Если это отображение обратимо и если оно может быть естественно
+расширено на все hom-множества, у нас есть сопряжение.
 
-The main difference between universal constructions and adjunctions is
-that the latter are defined globally --- for all hom-sets. For instance,
-using a universal construction you can define a product of two select
-objects, even if it doesn't exist for any other pair of objects in that
-category. As we'll see soon, if the product of \emph{any pair} of
-objects exists in a category, it can be also defined through an
-adjunction.
+Главное различие между универсальными конструкциями и сопряжениями в том,
+что последние определяются глобально --- для всех hom-множеств. Например,
+используя универсальную конструкцию, вы можете определить произведение двух выбранных
+объектов, даже если оно не существует для любой другой пары объектов в этой
+категории. Как мы скоро увидим, если произведение \emph{любой пары}
+объектов существует в категории, оно также может быть определено через
+сопряжение.
 
 \begin{figure}[H]
   \centering
@@ -259,156 +259,156 @@ adjunction.
 \end{figure}
 
 \noindent
-Here's the alternative definition of the adjunction using hom-sets. As
-before, we have two functors $L \Colon \cat{D} \to \cat{C}$ and
-$R \Colon \cat{C} \to \cat{D}$. We pick two arbitrary objects: the
-source object $d$ in $\cat{D}$, and the target object $c$
-in $\cat{C}$. We can map the source object $d$ to $\cat{C}$ using
-$L$. Now we have two objects in $\cat{C}$, $L d$ and
-$c$. They define a hom-set:
+Вот альтернативное определение сопряжения, используя hom-множества. Как
+раньше, у нас есть два функтора $L \Colon \cat{D} \to \cat{C}$ и
+$R \Colon \cat{C} \to \cat{D}$. Мы выбираем два произвольных объекта:
+исходный объект $d$ в $\cat{D}$ и целевой объект $c$
+в $\cat{C}$. Мы можем отобразить исходный объект $d$ в $\cat{C}$, используя
+$L$. Теперь у нас есть два объекта в $\cat{C}$, $L d$ и
+$c$. Они определяют hom-множество:
 \[\cat{C}(L d, c)\]
-Similarly, we can map the target object $c$ using $R$. Now
-we have two objects in $\cat{D}$, $d$ and $R c$. They,
-too, define a hom set:
+Аналогично, мы можем отобразить целевой объект $c$, используя $R$. Теперь
+у нас есть два объекта в $\cat{D}$, $d$ и $R c$. Они
+тоже определяют hom-множество:
 \[\cat{D}(d, R c)\]
-We say that $L$ is left adjoint to $R$ iff there is an
-isomorphism of hom sets:
+Мы говорим, что $L$ левый сопряжённый к $R$ тогда и только тогда, когда существует
+изоморфизм hom-множеств:
 \[\cat{C}(L d, c) \cong \cat{D}(d, R c)\]
-that is natural both in $d$ and $c$.
-Naturality means that the source $d$ can be varied smoothly
-across $\cat{D}$; and the target $c$, across $\cat{C}$. More
-precisely, we have a natural transformation $\varphi$ between the
-following two (covariant) functors from $\cat{C}$ to $\Set$. Here's
-the action of these functors on objects:
+который естественен как в $d$, так и в $c$.
+Естественность означает, что источник $d$ может варьироваться плавно
+по $\cat{D}$; а цель $c$ по $\cat{C}$. Более
+точно, у нас есть естественное преобразование $\varphi$ между
+следующими двумя (ковариантными) функторами из $\cat{C}$ в $\Set$. Вот
+действие этих функторов на объекты:
 \begin{gather*}
   c \to \cat{C}(L d, c) \\
   c \to \cat{D}(d, R c)
 \end{gather*}
-The other natural transformation, $\psi$, acts between the following
-(contravariant) functors:
+Другое естественное преобразование, $\psi$, действует между следующими
+(контравариантными) функторами:
 \begin{gather*}
   d \to \cat{C}(L d, c) \\
   d \to \cat{D}(d, R c)
 \end{gather*}
-Both natural transformations must be invertible.
+Оба естественных преобразования должны быть обратимыми.
 
-It's easy to show that the two definitions of the adjunction are
-equivalent. For instance, let's derive the unit transformation starting
-from the isomorphism of hom-sets:
+Легко показать, что два определения сопряжения
+эквивалентны. Например, давайте выведем преобразование единицы, начиная
+из изоморфизма hom-множеств:
 \[\cat{C}(L d, c) \cong \cat{D}(d, R c)\]
-Since this isomorphism works for any object $c$, it must also
-work for $c = L d$:
+Поскольку этот изоморфизм работает для любого объекта $c$, он также должен
+работать для $c = L d$:
 \[\cat{C}(L d, L d) \cong \cat{D}(d, (R \circ L) d)\]
-We know that the left hand side must contain at least one morphism, the
-identity. The natural transformation will map this morphism to an
-element of $\cat{D}(d, (R \circ L) d)$ or, inserting the identity
-functor $I$, a morphism in:
+Мы знаем, что левая сторона должна содержать как минимум один морфизм,
+тождество. Естественное преобразование отобразит этот морфизм в
+элемент $\cat{D}(d, (R \circ L) d)$ или, вставляя тождественный
+функтор $I$, морфизм в:
 \[\cat{D}(I d, (R \circ L) d)\]
-We get a family of morphisms parameterized by $d$. They form a
-natural transformation between the functor $I$ and the functor
-$R \circ L$ (the naturality condition is easy to verify). This is
-exactly our unit, $\eta$.
+Мы получаем семейство морфизмов, параметризованных $d$. Они образуют
+естественное преобразование между функтором $I$ и функтором
+$R \circ L$ (условие естественности легко проверить). Это
+в точности наша единица, $\eta$.
 
-Conversely, starting from the existence of the unit and counit, we can
-define the transformations between hom-sets. For instance, let's pick an
-arbitrary morphism $f$ in the hom-set $\cat{C}(L d, c)$. We
-want to define a $\varphi$ that, acting on $f$, produces a
-morphism in $\cat{D}(d, R c)$.
+Наоборот, начиная с существования единицы и коединицы, мы можем
+определить преобразования между hom-множествами. Например, давайте выберем
+произвольный морфизм $f$ в hom-множестве $\cat{C}(L d, c)$. Мы
+хотим определить $\varphi$, который, действуя на $f$, производит
+морфизм в $\cat{D}(d, R c)$.
 
-There isn't really much choice. One thing we can try is to lift
-$f$ using $R$. That will produce a morphism $R f$
-from $R (L d)$ to $R c$ --- a morphism that's an
-element of $\cat{D}((R \circ L) d, R c)$.
+На самом деле выбора немного. Одна вещь, которую мы можем попробовать, --- поднять
+$f$, используя $R$. Это произведёт морфизм $R f$
+из $R (L d)$ в $R c$ --- морфизм, который является
+элементом $\cat{D}((R \circ L) d, R c)$.
 
-What we need for a component of $\varphi$, is a morphism from
-$d$ to $R c$. That's not a problem, since we can use a
-component of $\eta_d$ to get from $d$ to
-$(R \circ L) d$. We get:
+То, что нам нужно для компоненты $\varphi$, --- это морфизм из
+$d$ в $R c$. Это не проблема, поскольку мы можем использовать
+компоненту $\eta_d$, чтобы попасть из $d$ в
+$(R \circ L) d$. Мы получаем:
 \[\varphi_f = R f \circ \eta_d\]
-The other direction is analogous, and so is the derivation of $\psi$.
+Другое направление аналогично, как и вывод $\psi$.
 
-Going back to the Haskell definition of \code{Adjunction}, the natural
-transformations $\varphi$ and $\psi$ are replaced by polymorphic
-(in \code{a} and \code{b}) functions \code{leftAdjunct} and
-\code{rightAdjunct}, respectively. The functors $L$ and
-$R$ are called \code{f} and \code{u}:
+Возвращаясь к определению Haskell для \code{Adjunction}, естественные
+преобразования $\varphi$ и $\psi$ заменяются полиморфными
+(в \code{a} и \code{b}) функциями \code{leftAdjunct} и
+\code{rightAdjunct}, соответственно. Функторы $L$ и
+$R$ называются \code{f} и \code{u}:
 
 \src{snippet05}
-The equivalence between the \code{unit}/\code{counit} formulation
-and the \code{leftAdjunct}/\allowbreak\code{rightAdjunct} formulation is
-witnessed by these mappings:
+Эквивалентность между формулировкой \code{unit}/\code{counit}
+и формулировкой \code{leftAdjunct}/\allowbreak\code{rightAdjunct}
+свидетельствуется этими отображениями:
 
 \src{snippet06}
-It's very instructive to follow the translation from the categorical
-description of the adjunction to Haskell code. I highly encourage this
-as an exercise.
+Очень поучительно следовать за переводом от категорного
+описания сопряжения к коду Haskell. Я крайне рекомендую это
+как упражнение.
 
-We are now ready to explain why, in Haskell, the right adjoint is
-automatically a \hyperref[representable-functors]{representable
-  functor}. The reason for this is that, to the first approximation, we
-can treat the category of Haskell types as the category of sets.
+Теперь мы готовы объяснить, почему в Haskell правый сопряжённый
+автоматически является \hyperref[representable-functors]{представимым
+  функтором}. Причина этого в том, что, в первом приближении, мы
+можем рассматривать категорию типов Haskell как категорию множеств.
 
-When the right category $\cat{D}$ is $\Set$, the right adjoint
-$R$ is a functor from $\cat{C}$ to $\Set$. Such a functor is
-representable if we can find an object $\mathit{rep}$ in $\cat{C}$ such
-that the hom-functor $\cat{C}(\mathit{rep}, \_)$ is naturally isomorphic to
-$R$. It turns out that, if $R$ is the right adjoint of
-some functor $L$ from $\Set$ to $\cat{C}$, such an object
-always exists --- it's the image of the singleton set $()$ under
+Когда правая категория $\cat{D}$ --- $\Set$, правый сопряжённый
+$R$ --- функтор из $\cat{C}$ в $\Set$. Такой функтор
+представим, если мы можем найти объект $\mathit{rep}$ в $\cat{C}$ такой,
+что hom-функтор $\cat{C}(\mathit{rep}, \_)$ естественно изоморфен
+$R$. Оказывается, что если $R$ --- правый сопряжённый
+некоторого функтора $L$ из $\Set$ в $\cat{C}$, такой объект
+всегда существует --- это образ одноэлементного множества $()$ под
 $L$:
 \[\mathit{rep} = L ()\]
-Indeed, the adjunction tells us that the following two hom-sets are
-naturally isomorphic:
+Действительно, сопряжение говорит нам, что следующие два hom-множества
+естественно изоморфны:
 \[\cat{C}(L (), c) \cong \Set((), R c)\]
-For a given $c$, the right hand side is the set of functions from
-the singleton set $()$ to $R c$. We've seen earlier that
-each such function picks one element from the set $R c$. The set
-of such functions is isomorphic to the set $R c$. So we have:
+Для данного $c$ правая сторона --- множество функций из
+одноэлементного множества $()$ в $R c$. Мы видели ранее, что
+каждая такая функция выбирает один элемент из множества $R c$. Множество
+таких функций изоморфно множеству $R c$. Так что у нас есть:
 \[\cat{C}(L (), -) \cong R\]
-which shows that $R$ is indeed representable.
+что показывает, что $R$ действительно представим.
 
-\section{Product from Adjunction}
+\section{Произведение из сопряжения}
 
-We have previously introduced several concepts using universal
-constructions. Many of those concepts, when defined globally, are easier
-to express using adjunctions. The simplest non-trivial example is that
-of the product. The gist of the \hyperref[products-and-coproducts]{universal
-  construction of the product} is the ability to factorize any
-product-like candidate through the universal product.
+Мы ранее вводили несколько концепций, используя универсальные
+конструкции. Многие из этих концепций, когда определены глобально, легче
+выразить, используя сопряжения. Простейший нетривиальный пример ---
+произведение. Суть \hyperref[products-and-coproducts]{универсальной
+  конструкции произведения} --- способность факторизовать любого
+кандидата, подобного произведению, через универсальное произведение.
 
-More precisely, the product of two objects $a$ and $b$ is
-the object $(a\times{}b)$ (or \code{(a, b)} in the Haskell
-notation) equipped with two morphisms $\mathit{fst}$ and $\mathit{snd}$ such
-that, for any other candidate $c$ equipped with two morphisms
-$p \Colon c \to a$ and $q \Colon c \to b$, there
-exists a unique morphism $m \Colon c \to (a, b)$ that
-factorizes $p$ and $q$ through $\mathit{fst}$ and $\mathit{snd}$.
+Более точно, произведение двух объектов $a$ и $b$ ---
+это объект $(a\times{}b)$ (или \code{(a, b)} в нотации Haskell),
+оснащённый двумя морфизмами $\mathit{fst}$ и $\mathit{snd}$ такими,
+что для любого другого кандидата $c$, оснащённого двумя морфизмами
+$p \Colon c \to a$ и $q \Colon c \to b$, существует
+уникальный морфизм $m \Colon c \to (a, b)$, который
+факторизует $p$ и $q$ через $\mathit{fst}$ и $\mathit{snd}$.
 
-As we've seen earlier, in Haskell, we can implement a \code{factorizer} that generates this
-morphism from the two projections:
+Как мы видели ранее, в Haskell мы можем реализовать \code{factorizer}, который генерирует этот
+морфизм из двух проекций:
 
 \src{snippet07}
-It's easy to verify that the factorization conditions hold:
+Легко проверить, что условия факторизации выполняются:
 
 \src{snippet08}
-We have a mapping that takes a pair of morphisms \code{p} and
-\code{q} and produces another morphism
+У нас есть отображение, которое принимает пару морфизмов \code{p} и
+\code{q} и производит другой морфизм
 \code{m = factorizer p q}.
 
-How can we translate this into a mapping between two hom-sets that we
-need to define an adjunction? The trick is to go outside of
-$\Hask$ and treat the pair of morphisms as a single morphism in
-the product category.
+Как мы можем перевести это в отображение между двумя hom-множествами, которые нам
+нужны для определения сопряжения? Трюк в том, чтобы выйти за пределы
+$\Hask$ и рассматривать пару морфизмов как единственный морфизм в
+категории произведения.
 
-Let me remind you what a product category is. Take two arbitrary
-categories $\cat{C}$ and $\cat{D}$. The objects in the product category
-$\cat{C}\times{}\cat{D}$ are pairs of objects, one from $\cat{C}$ and one from
-$\cat{D}$. The morphisms are pairs of morphisms, one from $\cat{C}$ and
-one from $\cat{D}$.
+Позвольте мне напомнить вам, что такое категория произведения. Возьмите две произвольные
+категории $\cat{C}$ и $\cat{D}$. Объекты в категории произведения
+$\cat{C}\times{}\cat{D}$ --- пары объектов, один из $\cat{C}$, а другой из
+$\cat{D}$. Морфизмы --- пары морфизмов, один из $\cat{C}$, а
+один из $\cat{D}$.
 
-To define a product in some category $\cat{C}$, we should start with the
-product category $\cat{C}\times{}\cat{C}$. Pairs of morphism from $\cat{C}$ are single
-morphisms in the product category $\cat{C}\times{}\cat{C}$.
+Чтобы определить произведение в некоторой категории $\cat{C}$, мы должны начать с
+категории произведения $\cat{C}\times{}\cat{C}$. Пары морфизмов из $\cat{C}$ --- единственные
+морфизмы в категории произведения $\cat{C}\times{}\cat{C}$.
 
 \begin{figure}[H]
   \centering
@@ -416,53 +416,53 @@ morphisms in the product category $\cat{C}\times{}\cat{C}$.
 \end{figure}
 
 \noindent
-It might be a little confusing at first that we are using a product
-category to define a product. These are, however, very different
-products. We don't need a universal construction to define a product
-category. All we need is the notion of a pair of objects and a pair of
-morphisms.
+Может быть немного запутанным сначала, что мы используем категорию
+произведения для определения произведения. Это, однако, очень разные
+произведения. Нам не нужна универсальная конструкция для определения категории
+произведения. Всё, что нам нужно, --- это понятие пары объектов и пары
+морфизмов.
 
-However, a pair of objects from $\cat{C}$ is \emph{not} an object in
-$\cat{C}$. It's an object in a different category, $\cat{C}\times{}\cat{C}$. We can
-write the pair formally as $\langle a, b \rangle$,
-where $a$ and $b$ are objects of $\cat{C}$. The universal
-construction, on the other hand, is necessary in order to define the
-object $a\times{}b$ (or \code{(a, b)} in Haskell), which is an object
-in \emph{the same} category $\cat{C}$. This object is supposed to
-represent the pair $\langle a, b \rangle$ in a way
-specified by the universal construction. It doesn't always exist and,
-even if it exists for some, might not exist for other pairs of objects
-in $\cat{C}$.
+Однако пара объектов из $\cat{C}$ \emph{не} является объектом в
+$\cat{C}$. Это объект в другой категории, $\cat{C}\times{}\cat{C}$. Мы можем
+записать пару формально как $\langle a, b \rangle$,
+где $a$ и $b$ --- объекты $\cat{C}$. Универсальная
+конструкция, с другой стороны, необходима для определения
+объекта $a\times{}b$ (или \code{(a, b)} в Haskell), который является объектом
+в \emph{той же} категории $\cat{C}$. Этот объект должен
+представлять пару $\langle a, b \rangle$ способом,
+специфицированным универсальной конструкцией. Он не всегда существует, и
+даже если существует для некоторых, может не существовать для других пар объектов
+в $\cat{C}$.
 
-Let's now look at the \code{factorizer} as a mapping of hom-sets. The
-first hom-set is in the product category $\cat{C}\times{}\cat{C}$, and the second is
-in $\cat{C}$. A general morphism in $\cat{C}\times{}\cat{C}$ would be a pair of
-morphisms $\langle f, g \rangle$:
+Теперь давайте посмотрим на \code{factorizer} как на отображение hom-множеств.
+Первое hom-множество находится в категории произведения $\cat{C}\times{}\cat{C}$, а второе ---
+в $\cat{C}$. Общий морфизм в $\cat{C}\times{}\cat{C}$ был бы парой
+морфизмов $\langle f, g \rangle$:
 \begin{gather*}
   f \Colon c' \to a \\
   g \Colon c'' \to b
 \end{gather*}
-with $c''$ potentially different from
-$c'$. But to define a product, we are interested in a
-special morphism in $\cat{C}\times{}\cat{C}$, the pair $p$ and $q$ that
-share the same source object $c$. That's okay: In the definition
-of an adjunction, the source of the left hom-set is not an arbitrary
-object --- it's the result of the left functor $L$ acting on some
-object from the right category. The functor that fits the bill is easy
-to guess --- it's the diagonal functor $\Delta$ from $\cat{C}$ to $\cat{C}\times{}\cat{C}$,
-whose action on objects is:
+с $c''$ потенциально отличным от
+$c'$. Но чтобы определить произведение, мы интересуемся
+специальным морфизмом в $\cat{C}\times{}\cat{C}$, парой $p$ и $q$, которые
+имеют общий исходный объект $c$. Это нормально: в определении
+сопряжения источник левого hom-множества --- не произвольный
+объект --- это результат левого функтора $L$, действующего на некоторый
+объект из правой категории. Функтор, который подходит, легко
+угадать --- это диагональный функтор $\Delta$ из $\cat{C}$ в $\cat{C}\times{}\cat{C}$,
+чьё действие на объекты:
 \[\Delta c = \langle c, c \rangle\]
-The left-hand side hom-set in our adjunction should thus be:
+Левое hom-множество в нашем сопряжении должно таким образом быть:
 \[(\cat{C}\times{}\cat{C})(\Delta c, \langle a, b \rangle)\]
-It's a hom-set in the product category. Its elements are pairs of
-morphisms that we recognize as the arguments to our \code{factorizer}:
+Это hom-множество в категории произведения. Его элементы --- пары
+морфизмов, которые мы узнаём как аргументы нашего \code{factorizer}:
 \[(c \to a) \to (c \to b) \ldots{}\]
-The right-hand side hom-set lives in $\cat{C}$, and it goes between the
-source object $c$ and the result of some functor $R$
-acting on the target object in $\cat{C}\times{}\cat{C}$. That's the functor that maps
-the pair $\langle a, b \rangle$ to our product object,
-$a\times{}b$. We recognize this element of the hom-set as the
-\emph{result} of the \code{factorizer}:
+Правое hom-множество живёт в $\cat{C}$, и оно идёт между
+исходным объектом $c$ и результатом некоторого функтора $R$,
+действующего на целевой объект в $\cat{C}\times{}\cat{C}$. Это функтор, который отображает
+пару $\langle a, b \rangle$ в наш объект произведения,
+$a\times{}b$. Мы узнаём этот элемент hom-множества как
+\emph{результат} \code{factorizer}:
 \[\ldots{} \to (c \to (a, b))\]
 
 \begin{figure}[H]
@@ -471,74 +471,74 @@ $a\times{}b$. We recognize this element of the hom-set as the
 \end{figure}
 
 \noindent
-We still don't have a full adjunction. For that we first need our
-\code{factorizer} to be invertible --- we are building an
-\emph{isomorphism} between hom-sets. The inverse of the
-\code{factorizer} should start from a morphism $m$ --- a
-morphism from some object $c$ to the product object $a\times{}b$.
-In other words, $m$ should be an element of:
+У нас всё ещё нет полного сопряжения. Для этого нам сначала нужно, чтобы наш
+\code{factorizer} был обратим --- мы строим
+\emph{изоморфизм} между hom-множествами. Обратный
+\code{factorizer} должен начинаться с морфизма $m$ ---
+морфизма из некоторого объекта $c$ в объект произведения $a\times{}b$.
+Другими словами, $m$ должен быть элементом:
 \[\cat{C}(c, a\times{}b)\]
-The inverse factorizer should map $m$ to a morphism
-$\langle p, q \rangle$ in $\cat{C}\times{}\cat{C}$ that goes from
-$\langle c, c \rangle$ to
-$\langle a, b \rangle$; in other words, a morphism
-that's an element of:
+Обратный факторизатор должен отобразить $m$ в морфизм
+$\langle p, q \rangle$ в $\cat{C}\times{}\cat{C}$, который идёт из
+$\langle c, c \rangle$ в
+$\langle a, b \rangle$; другими словами, морфизм,
+который является элементом:
 \[(\cat{C}\times{}\cat{C})(\Delta\ c, \langle a, b \rangle)\]
-If that mapping exists, we conclude that there exists the right adjoint
-to the diagonal functor. That functor defines a product.
+Если это отображение существует, мы заключаем, что существует правый сопряжённый
+к диагональному функтору. Этот функтор определяет произведение.
 
-In Haskell, we can always construct the inverse of the
-\code{factorizer} by composing \code{m} with, respectively,
-\code{fst} and \code{snd}.
+В Haskell мы всегда можем сконструировать обратный
+\code{factorizer}, композируя \code{m} с, соответственно,
+\code{fst} и \code{snd}.
 
 \begin{snip}{haskell}
 p = fst . m
 q = snd . m
 \end{snip}
-To complete the proof of the equivalence of the two ways of defining a
-product we also need to show that the mapping between hom-sets is
-natural in $a$, $b$, and $c$. I will leave this as
-an exercise for the dedicated reader.
+Чтобы завершить доказательство эквивалентности двух способов определения
+произведения, нам также нужно показать, что отображение между hom-множествами
+естественно в $a$, $b$ и $c$. Я оставлю это как
+упражнение для преданного читателя.
 
-To summarize what we have done: A categorical product may be defined
-globally as the \newterm{right adjoint} of the diagonal functor:
+Подводя итог тому, что мы сделали: категорное произведение может быть определено
+глобально как \newterm{правый сопряжённый} диагонального функтора:
 \[(\cat{C}\times{}\cat{C})(\Delta c, \langle a, b \rangle) \cong \cat{C}(c, a\times{}b)\]
-Here, $a\times{}b$ is the result of the action of our right adjoint
-functor $\mathit{Product}$ on the pair
-$\langle a, b \rangle$. Notice that any functor from
-$\cat{C}\times{}\cat{C}$ is a bifunctor, so $\mathit{Product}$ is a bifunctor. In
-Haskell, the $\mathit{Product}$ bifunctor is written simply as
-\code{(,)}. You can apply it to two types and get their product type,
-for instance:
+Здесь $a\times{}b$ --- результат действия нашего правого сопряжённого
+функтора $\mathit{Product}$ на пару
+$\langle a, b \rangle$. Обратите внимание, что любой функтор из
+$\cat{C}\times{}\cat{C}$ --- это бифунктор, так что $\mathit{Product}$ --- бифунктор. В
+Haskell бифунктор $\mathit{Product}$ записывается просто как
+\code{(,)}. Вы можете применить его к двум типам и получить их тип произведения,
+например:
 
 \src{snippet09}
 
-\section{Exponential from Adjunction}
+\section{Экспоненциал из сопряжения}
 
-The exponential $b^a$, or the function object $a \Rightarrow b$, can be
-defined using a \hyperref[function-types]{universal
-  construction}. This construction, if it exists for all pairs of objects,
-can be seen as an adjunction. Again, the trick is to concentrate on the
-statement:
+Экспоненциал $b^a$, или объект-функция $a \Rightarrow b$, может быть
+определён, используя \hyperref[function-types]{универсальную
+  конструкцию}. Эта конструкция, если она существует для всех пар объектов,
+может рассматриваться как сопряжение. Опять, трюк в том, чтобы сконцентрироваться на
+утверждении:
 
 \begin{quote}
-  For any other object $z$ with a morphism $g \Colon z\times{}a \to b$
-  there is a unique morphism $h \Colon z \to (a \Rightarrow b)$
+  Для любого другого объекта $z$ с морфизмом $g \Colon z\times{}a \to b$
+  существует уникальный морфизм $h \Colon z \to (a \Rightarrow b)$
 \end{quote}
-This statement establishes a mapping between hom-sets.
+Это утверждение устанавливает отображение между hom-множествами.
 
-In this case, we are dealing with objects in the same category, so the
-two adjoint functors are endofunctors. The left (endo-)functor
-$L$, when acting on object $z$, produces $z\times{}a$.
-It's a functor that corresponds to taking a product with some fixed
+В этом случае мы имеем дело с объектами в одной и той же категории, так что
+два сопряжённых функтора --- эндофункторы. Левый (эндо-)функтор
+$L$, при действии на объект $z$, производит $z\times{}a$.
+Это функтор, который соответствует взятию произведения с некоторым фиксированным
 $a$.
 
-The right (endo-)functor $R$, when acting on $b$ produces
-the function object $a \Rightarrow b$ (or $b^a$). Again, $a$ is
-fixed. The adjunction between these two functors is often written as:
+Правый (эндо-)функтор $R$, при действии на $b$, производит
+объект-функцию $a \Rightarrow b$ (или $b^a$). Опять, $a$
+фиксирован. Сопряжение между этими двумя функторами часто записывается как:
 \[-\times{}a \dashv (-)^a\]
-The mapping of hom-sets that underlies this adjunction is best seen by
-redrawing the diagram that we used in the universal construction.
+Отображение hom-множеств, которое лежит в основе этого сопряжения, лучше всего видно,
+перерисовав диаграмму, которую мы использовали в универсальной конструкции.
 
 \begin{figure}[H]
   \centering
@@ -546,40 +546,40 @@ redrawing the diagram that we used in the universal construction.
 \end{figure}
 
 \noindent
-Notice that the $\mathit{eval}$ morphism\footnote{See ch.9 on \hyperref[function-types]{universal
-    construction}.} is nothing else but the counit of
-this adjunction:
+Обратите внимание, что морфизм $\mathit{eval}$\footnote{См. гл.9 об \hyperref[function-types]{универсальной
+    конструкции}.} --- не что иное, как коединица
+этого сопряжения:
 \[(a \Rightarrow b)\times{}a \to b\]
-where:
+где:
 \[(a \Rightarrow b)\times{}a = (L \circ R) b\]
-I have previously mentioned that a universal construction defines a
-unique object, up to isomorphism. That's why we have ``the'' product and
-``the'' exponential. This property translates to adjunctions as well: if
-a functor has an adjoint, this adjoint is unique up to isomorphism.
+Я ранее упоминал, что универсальная конструкция определяет
+уникальный объект с точностью до изоморфизма. Вот почему у нас есть ``то'' произведение и
+``тот'' экспоненциал. Это свойство переводится на сопряжения также: если
+функтор имеет сопряжённый, этот сопряжённый уникален с точностью до изоморфизма.
 
-\section{Challenges}
+\section{Задачи}
 
 \begin{enumerate}
   \tightlist
   \item
-        Derive the naturality square for $\psi$, the transformation
-        between the two (contravariant) functors:
+        Выведите квадрат естественности для $\psi$, преобразования
+        между двумя (контравариантными) функторами:
         \begin{gather*}
           a \to \cat{C}(L a, b) \\
           a \to \cat{D}(a, R b)
         \end{gather*}
   \item
-        Derive the counit $\varepsilon$ starting from the hom-sets isomorphism in
-        the second definition of the adjunction.
+        Выведите коединицу $\varepsilon$, начиная с изоморфизма hom-множеств во
+        втором определении сопряжения.
   \item
-        Complete the proof of equivalence of the two definitions of the
-        adjunction.
+        Завершите доказательство эквивалентности двух определений
+        сопряжения.
   \item
-        Show that the coproduct can be defined by an adjunction. Start with
-        the definition of the factorizer for a coproduct.
+        Покажите, что копроизведение может быть определено сопряжением. Начните с
+        определения факторизатора для копроизведения.
   \item
-        Show that the coproduct is the left adjoint of the diagonal functor.
+        Покажите, что копроизведение --- левый сопряжённый диагонального функтора.
   \item
-        Define the adjunction between a product and a function object in
+        Определите сопряжение между произведением и объектом-функцией в
         Haskell.
 \end{enumerate}

@@ -1,58 +1,58 @@
 % !TEX root = ../../ctfp-print.tex
 
-\lettrine[lhang=0.17]{A}{category} is an embarrassingly simple concept.
-A category consists of \newterm{objects} and \newterm{arrows} that go between them. That's
-why categories are so easy to represent pictorially. An object can be
-drawn as a circle or a point, and an arrow\ldots{} is an arrow. (Just
-for variety, I will occasionally draw objects as piggies and arrows as
-fireworks.) But the essence of a category is \emph{composition}. Or, if you
-prefer, the essence of composition is a category. Arrows compose, so
-if you have an arrow from object $A$ to object $B$, and another arrow from
-object $B$ to object $C$, then there must be an arrow --- their composition
---- that goes from $A$ to $C$.
+\lettrine[lhang=0.17]{К}{атегория} --- это смехотворно простая концепция.
+Категория состоит из \newterm{объектов} и \newterm{стрелок}, которые идут между ними. Вот
+почему категории так легко представить графически. Объект можно
+нарисовать как круг или точку, а стрелку\ldots{} как стрелку. (Просто
+для разнообразия я иногда буду рисовать объекты как поросят, а стрелки как
+фейерверки.) Но суть категории --- это \emph{композиция}. Или, если хотите,
+суть композиции --- это категория. Стрелки композируются, так что
+если у вас есть стрелка из объекта $A$ в объект $B$, и ещё одна стрелка из
+объекта $B$ в объект $C$, то должна существовать стрелка --- их композиция
+--- которая идёт из $A$ в $C$.
 
 \begin{figure}
   \centering
   \includegraphics[width=0.8\textwidth]{images/img_1330.jpg}
-  \caption{In a category, if there is an arrow going from $A$ to $B$ and an arrow going from $B$ to $C$
-    then there must also be a direct arrow from $A$ to $C$ that is their composition. This diagram is not a full
-    category because it’s missing identity morphisms (see later).}
+  \caption{В категории, если есть стрелка из $A$ в $B$ и стрелка из $B$ в $C$,
+    то должна также существовать прямая стрелка из $A$ в $C$, которая является их композицией. Эта диаграмма не является полной
+    категорией, потому что в ней отсутствуют тождественные морфизмы (см. далее).}
 \end{figure}
 
-\section{Arrows as Functions}
+\section{Стрелки как функции}
 
-Is this already too much abstract nonsense? Do not despair. Let's talk
-concretes. Think of arrows, which are also called \newterm{morphisms}, as
-functions. You have a function $f$ that takes an argument of type $A$ and
-returns a $B$. You have another function $g$ that takes a $B$ and returns a $C$.
-You can compose them by passing the result of $f$ to $g$. You have just
-defined a new function that takes an $A$ and returns a $C$.
+Это уже слишком много абстрактной чепухи? Не отчаивайтесь. Давайте поговорим
+о конкретике. Думайте о стрелках, которые также называются \newterm{морфизмами}, как о
+функциях. У вас есть функция $f$, которая принимает аргумент типа $A$ и
+возвращает $B$. У вас есть другая функция $g$, которая принимает $B$ и возвращает $C$.
+Вы можете скомпозировать их, передав результат $f$ в $g$. Вы только что
+определили новую функцию, которая принимает $A$ и возвращает $C$.
 
-In math, such composition is denoted by a small circle between
-functions: $g \circ f$. Notice the right to left order of composition. For some
-people this is confusing. You may be familiar with the pipe notation in
-Unix, as in:
+В математике такая композиция обозначается маленьким кружком между
+функциями: $g \circ f$. Обратите внимание на порядок композиции справа налево. Для некоторых
+людей это сбивает с толку. Вы можете быть знакомы с нотацией конвейера в
+Unix, как в:
 
 \begin{snip}{text}
 lsof | grep Chrome
 \end{snip}
-or the chevron \code{>>} in F\#, which both
-go from left to right. But in mathematics and in Haskell functions
-compose right to left. It helps if you read $g \circ f$ as ``g \emph{after} f.''
+или шеврон \code{>>} в F\#, которые оба
+идут слева направо. Но в математике и в Haskell функции
+композируются справа налево. Помогает, если вы читаете $g \circ f$ как ``g \emph{после} f.''
 
-Let's make this even more explicit by writing some C code. We have one
-function \code{f} that takes an argument of type \code{A} and
-returns a value of type \code{B}:
+Давайте сделаем это ещё более явным, написав немного кода на C. У нас есть одна
+функция \code{f}, которая принимает аргумент типа \code{A} и
+возвращает значение типа \code{B}:
 
 \begin{snip}{text}
 B f(A a);
 \end{snip}
-and another:
+и другая:
 
 \begin{snip}{text}
 C g(B b);
 \end{snip}
-Their composition is:
+Их композиция:
 
 \begin{snip}{text}
 C g_after_f(A a)
@@ -60,214 +60,214 @@ C g_after_f(A a)
     return g(f(a));
 }
 \end{snip}
-Here, again, you see right-to-left composition: \code{g(f(a))}; this
-time in C.
+Здесь, опять же, вы видите композицию справа налево: \code{g(f(a))}; на этот
+раз в C.
 
-I wish I could tell you that there is a template in the C++ Standard
-Library that takes two functions and returns their composition, but
-there isn't one. So let's try some Haskell for a change. Here's the
-declaration of a function from A to B:
+Хотел бы я сказать вам, что в стандартной библиотеке C++ есть шаблон,
+который принимает две функции и возвращает их композицию, но
+его нет. Так что давайте попробуем немного Haskell для разнообразия. Вот
+объявление функции из A в B:
 
 \src{snippet01}
-Similarly:
+Аналогично:
 
 \src{snippet02}
-Their composition is:
+Их композиция:
 
 \src{snippet03}
-Once you see how simple things are in Haskell, the inability to express
-straightforward functional concepts in C++ is a little embarrassing. In
-fact, Haskell will let you use Unicode characters so you can write
-composition as:
+Как только вы увидите, насколько просты вещи в Haskell, неспособность выразить
+прямолинейные функциональные концепции в C++ немного смущает. На самом
+деле, Haskell позволит вам использовать символы Unicode, поэтому вы можете написать
+композицию как:
 % don't 'mathify' this block
 \begin{snip}{text}
 g ◦ f
 \end{snip}
 
-You can even use Unicode double colons and arrows:
+Вы даже можете использовать Unicode двойные двоеточия и стрелки:
 % don't 'mathify' this block
 \begin{snipv}
 f \ensuremath{\Colon} A → B
 \end{snipv}
-So here's the first Haskell lesson: Double colon means ``has the type
-of\ldots{}'' A function type is created by inserting an arrow between
-two types. You compose two functions by inserting a period between them
-(or a Unicode circle).
+Итак, вот первый урок Haskell: двойное двоеточие означает ``имеет тип
+\ldots{}'' Тип функции создаётся вставкой стрелки между
+двумя типами. Вы композируете две функции, вставляя точку между ними
+(или круг Unicode).
 
-\section{Properties of Composition}
+\section{Свойства композиции}
 
-There are two extremely important properties that the composition in any
-category must satisfy.
+Есть два чрезвычайно важных свойства, которым должна удовлетворять композиция в любой
+категории.
 
 \begin{enumerate}
   \item
-        Composition is associative. If you have three morphisms, $f$, $g$, and $h$,
-        that can be composed (that is, their objects match end-to-end), you
-        don't need parentheses to compose them. In math notation this is
-        expressed as:
+        Композиция ассоциативна. Если у вас есть три морфизма, $f$, $g$ и $h$,
+        которые можно скомпозировать (то есть их объекты совпадают друг с другом), вам
+        не нужны скобки для их композиции. В математической нотации это
+        выражается как:
         \[h \circ (g \circ f) = (h \circ g) \circ f = h \circ g \circ f\]
-        In (pseudo) Haskell:
+        В (псевдо) Haskell:
 
         \src{snippet04}[b]
-        (I said ``pseudo,'' because equality is not defined for functions.)
+        (Я сказал ``псевдо'', потому что равенство не определено для функций.)
 
-        Associativity is pretty obvious when dealing with functions, but it may
-        be not as obvious in other categories.
+        Ассоциативность довольно очевидна при работе с функциями, но может
+        быть не так очевидна в других категориях.
 
   \item
-        For every object $A$ there is an arrow which is a unit of composition.
-        This arrow loops from the object to itself. Being a unit of composition
-        means that, when composed with any arrow that either starts at $A$ or ends
-        at $A$, respectively, it gives back the same arrow. The unit arrow for
-        object A is called $\idarrow[A]$ (\newterm{identity} on $A$). In math
-        notation, if $f$ goes from $A$ to $B$ then
+        Для каждого объекта $A$ существует стрелка, которая является единицей композиции.
+        Эта стрелка замыкается из объекта на себя. Быть единицей композиции
+        означает, что при композиции с любой стрелкой, которая либо начинается в $A$, либо заканчивается
+        в $A$, соответственно, она возвращает ту же стрелку. Единичная стрелка для
+        объекта A называется $\idarrow[A]$ (\newterm{тождество} на $A$). В математической
+        нотации, если $f$ идёт из $A$ в $B$, то
         \[f \circ \idarrow[A] = f\]
-        and
+        и
         \[\idarrow[B] \circ f = f\]
 \end{enumerate}
-When dealing with functions, the identity arrow is implemented as the
-identity function that just returns back its argument. The
-implementation is the same for every type, which means this function is
-universally polymorphic. In C++ we could define it as a template:
+При работе с функциями тождественная стрелка реализуется как
+тождественная функция, которая просто возвращает свой аргумент.
+Реализация одинакова для каждого типа, что означает, что эта функция
+универсально полиморфна. В C++ мы могли бы определить её как шаблон:
 
 \begin{snip}{cpp}
 template<class T> T id(T x) { return x; }
 \end{snip}
-Of course, in C++ nothing is that simple, because you have to take into
-account not only what you're passing but also how (that is, by value, by
-reference, by const reference, by move, and so on).
+Конечно, в C++ ничто не настолько просто, потому что вы должны учитывать
+не только то, что вы передаёте, но и как (то есть по значению, по
+ссылке, по константной ссылке, перемещением и так далее).
 
-In Haskell, the identity function is part of the standard library
-(called Prelude). Here's its declaration and definition:
+В Haskell тождественная функция является частью стандартной библиотеки
+(называемой Prelude). Вот её объявление и определение:
 
 \src{snippet05}
-As you can see, polymorphic functions in Haskell are a piece of cake. In
-the declaration, you just replace the type with a type variable. Here's
-the trick: names of concrete types always start with a capital letter,
-names of type variables start with a lowercase letter. So here
-\code{a} stands for all types.
+Как видите, полиморфные функции в Haskell --- это кусок пирога. В
+объявлении вы просто заменяете тип на типовую переменную. Вот
+хитрость: имена конкретных типов всегда начинаются с заглавной буквы,
+имена типовых переменных начинаются со строчной буквы. Так что здесь
+\code{a} обозначает все типы.
 
-Haskell function definitions consist of the name of the function
-followed by formal parameters --- here just one, \code{x}. The body of
-the function follows the equal sign. This terseness is often shocking to
-newcomers but you will quickly see that it makes perfect sense. Function
-definition and function call are the bread and butter of functional
-programming so their syntax is reduced to the bare minimum. Not only are
-there no parentheses around the argument list but there are no commas
-between arguments (you'll see that later, when we define functions of
-multiple arguments).
+Определения функций в Haskell состоят из имени функции,
+за которым следуют формальные параметры --- здесь только один, \code{x}. Тело
+функции следует за знаком равенства. Эта лаконичность часто шокирует
+новичков, но вы быстро увидите, что это имеет полный смысл. Определение функции
+и вызов функции --- это хлеб с маслом функционального
+программирования, поэтому их синтаксис сведён к минимуму. Не только нет
+скобок вокруг списка аргументов, но и нет запятых
+между аргументами (вы увидите это позже, когда мы определим функции с
+несколькими аргументами).
 
-The body of a function is always an expression --- there are no
-statements in functions. The result of a function is this expression ---
-here, just \code{x}.
+Тело функции всегда является выражением --- в функциях нет
+операторов. Результат функции --- это это выражение ---
+здесь просто \code{x}.
 
-This concludes our second Haskell lesson.
+Это завершает наш второй урок Haskell.
 
-The identity conditions can be written (again, in pseudo-Haskell) as:
+Условия тождественности можно записать (опять же, в псевдо-Haskell) как:
 
 \src{snippet06}
-You might be asking yourself the question: Why would anyone bother with
-the identity function --- a function that does nothing? Then again, why
-do we bother with the number zero? Zero is a symbol for nothing. Ancient
-Romans had a number system without a zero and they were able to build
-excellent roads and aqueducts, some of which survive to this day.
+Вы можете задаться вопросом: зачем кому-то беспокоиться о
+тождественной функции --- функции, которая ничего не делает? Тогда опять же, зачем
+нам беспокоиться о числе ноль? Ноль --- это символ ничего. Древние
+римляне имели систему счисления без нуля, и они смогли построить
+отличные дороги и акведуки, некоторые из которых сохранились до наших дней.
 
-Neutral values like zero or $\id$ are extremely useful when
-working with symbolic variables. That's why Romans were not very good at
-algebra, whereas the Arabs and the Persians, who were familiar with the
-concept of zero, were. So the identity function becomes very handy as an
-argument to, or a return from, a higher-order function. Higher order
-functions are what make symbolic manipulation of functions possible.
-They are the algebra of functions.
+Нейтральные значения, такие как ноль или $\id$, чрезвычайно полезны при
+работе с символьными переменными. Вот почему римляне не очень хорошо знали
+алгебру, тогда как арабы и персы, которые были знакомы с
+концепцией нуля, знали. Так что тождественная функция становится очень полезной как
+аргумент или возвращаемое значение функции высшего порядка. Функции высшего порядка
+--- это то, что делает возможным символьные манипуляции с функциями.
+Они являются алгеброй функций.
 
-To summarize: A category consists of objects and arrows (morphisms).
-Arrows can be composed, and the composition is associative. Every object
-has an identity arrow that serves as a unit under composition.
+Подводя итог: категория состоит из объектов и стрелок (морфизмов).
+Стрелки могут быть скомпозированы, и композиция ассоциативна. Каждый объект
+имеет тождественную стрелку, которая служит единицей при композиции.
 
-\section{Composition is the Essence of Programming}
+\section{Композиция --- суть программирования}
 
-Functional programmers have a peculiar way of approaching problems. They
-start by asking very Zen-like questions. For instance, when designing an
-interactive program, they would ask: What is interaction? When
-implementing Conway's Game of Life, they would probably ponder about the
-meaning of life. In this spirit, I'm going to ask: What is programming?
-At the most basic level, programming is about telling the computer what
-to do. ``Take the contents of memory address x and add it to the
-contents of the register EAX.'' But even when we program in assembly,
-the instructions we give the computer are an expression of something
-more meaningful. We are solving a non-trivial problem (if it were
-trivial, we wouldn't need the help of the computer). And how do we solve
-problems? We decompose bigger problems into smaller problems. If the
-smaller problems are still too big, we decompose them further, and so
-on. Finally, we write code that solves all the small problems. And then
-comes the essence of programming: we compose those pieces of code to
-create solutions to larger problems. Decomposition wouldn't make sense
-if we weren't able to put the pieces back together.
+Функциональные программисты имеют особый способ подхода к проблемам. Они
+начинают с вопросов очень в дзен-стиле. Например, при проектировании
+интерактивной программы они бы спросили: что такое взаимодействие? При
+реализации игры жизни Конвея они, вероятно, размышляли бы о
+смысле жизни. В этом духе я собираюсь спросить: что такое программирование?
+На самом базовом уровне программирование --- это о том, чтобы говорить компьютеру, что
+делать. ``Возьми содержимое адреса памяти x и добавь его к
+содержимому регистра EAX.'' Но даже когда мы программируем на ассемблере,
+инструкции, которые мы даём компьютеру, являются выражением чего-то
+более значимого. Мы решаем нетривиальную проблему (если бы она была
+тривиальной, нам не нужна была бы помощь компьютера). И как мы решаем
+проблемы? Мы разлагаем большие проблемы на меньшие проблемы. Если
+меньшие проблемы всё ещё слишком велики, мы разлагаем их дальше, и так
+далее. Наконец, мы пишем код, который решает все маленькие проблемы. А затем
+приходит суть программирования: мы композируем эти части кода, чтобы
+создать решения для больших проблем. Декомпозиция не имела бы смысла,
+если бы мы не могли собрать части обратно.
 
-This process of hierarchical decomposition and recomposition is not
-imposed on us by computers. It reflects the limitations of the human
-mind. Our brains can only deal with a small number of concepts at a
-time. One of the most cited papers in psychology,
-\urlref{http://en.wikipedia.org/wiki/The_Magical_Number_Seven,_Plus_or_Minus_Two}{The
-  Magical Number Seven, Plus or Minus Two}, postulated that we can only
-keep $7 \pm 2$ ``chunks'' of information in our minds. The details of our
-understanding of the human short-term memory might be changing, but we
-know for sure that it's limited. The bottom line is that we are unable
-to deal with the soup of objects or the spaghetti of code. We need
-structure not because well-structured programs are pleasant to look at,
-but because otherwise our brains can't process them efficiently. We
-often describe some piece of code as elegant or beautiful, but what we
-really mean is that it's easy to process by our limited human minds.
-Elegant code creates chunks that are just the right size and come in
-just the right number for our mental digestive system to assimilate
-them.
+Этот процесс иерархической декомпозиции и рекомпозиции не
+навязан нам компьютерами. Он отражает ограничения человеческого
+разума. Наш мозг может справиться только с небольшим количеством концепций одновременно.
+Одна из самых цитируемых работ в психологии,
+\urlref{http://en.wikipedia.org/wiki/The_Magical_Number_Seven,_Plus_or_Minus_Two}{Магическое
+  число семь плюс-минус два}, постулировала, что мы можем держать только
+$7 \pm 2$ ``кусков'' информации в наших умах. Детали нашего
+понимания человеческой краткосрочной памяти могут меняться, но мы
+знаем наверняка, что она ограничена. Суть в том, что мы не способны
+справиться с супом из объектов или спагетти из кода. Нам нужна
+структура не потому, что хорошо структурированные программы приятно смотреть,
+а потому, что иначе наш мозг не может их эффективно обработать. Мы
+часто описываем какой-то кусок кода как элегантный или красивый, но то, что мы
+на самом деле имеем в виду, это то, что его легко обработать нашим ограниченным человеческим разумом.
+Элегантный код создаёт куски правильного размера и в
+правильном количестве для нашей умственной пищеварительной системы, чтобы ассимилировать
+их.
 
-So what are the right chunks for the composition of programs? Their
-surface area has to increase slower than their volume. (I like this
-analogy because of the intuition that the surface area of a geometric
-object grows with the square of its size --- slower than the volume,
-which grows with the cube of its size.) The surface area is the
-information we need in order to compose chunks. The volume is the
-information we need in order to implement them. The idea is that, once a
-chunk is implemented, we can forget about the details of its
-implementation and concentrate on how it interacts with other chunks. In
-object-oriented programming, the surface is the class declaration of the
-object, or its abstract interface. In functional programming, it's the
-declaration of a function. (I'm simplifying things a bit, but that's the
-gist of it.)
+Так какие же правильные куски для композиции программ? Их
+площадь поверхности должна расти медленнее, чем их объём. (Мне нравится эта
+аналогия из-за интуиции, что площадь поверхности геометрического
+объекта растёт с квадратом его размера --- медленнее, чем объём,
+который растёт с кубом его размера.) Площадь поверхности --- это
+информация, которая нам нужна для композиции кусков. Объём --- это
+информация, которая нам нужна для их реализации. Идея в том, что, как только
+кусок реализован, мы можем забыть о деталях его
+реализации и сосредоточиться на том, как он взаимодействует с другими кусками. В
+объектно-ориентированном программировании поверхность --- это объявление класса
+объекта или его абстрактный интерфейс. В функциональном программировании это
+объявление функции. (Я немного упрощаю, но это
+суть.)
 
-Category theory is extreme in the sense that it actively discourages us
-from looking inside the objects. An object in category theory is an
-abstract nebulous entity. All you can ever know about it is how it
-relates to other objects --- how it connects with them using arrows. This
-is how internet search engines rank web sites by analyzing incoming and
-outgoing links (except when they cheat). In object-oriented programming,
-an idealized object is only visible through its abstract interface (pure
-surface, no volume), with methods playing the role of arrows. The moment
-you have to dig into the implementation of the object in order to
-understand how to compose it with other objects, you've lost the
-advantages of your programming paradigm.
+Теория категорий экстремальна в том смысле, что она активно отговаривает нас
+от заглядывания внутрь объектов. Объект в теории категорий --- это
+абстрактная туманная сущность. Всё, что вы когда-либо можете узнать о нём, это как он
+относится к другим объектам --- как он соединяется с ними стрелками. Так
+интернет-поисковые системы ранжируют веб-сайты, анализируя входящие и
+исходящие ссылки (за исключением случаев, когда они жульничают). В объектно-ориентированном программировании
+идеализированный объект виден только через его абстрактный интерфейс (чистая
+поверхность, без объёма), с методами, играющими роль стрелок. В момент,
+когда вам нужно копаться в реализации объекта, чтобы
+понять, как скомпозировать его с другими объектами, вы потеряли
+преимущества вашей парадигмы программирования.
 
-\section{Challenges}
+\section{Задачи}
 
 \begin{enumerate}
   \tightlist
   \item
-        Implement, as best as you can, the identity function in your favorite
-        language (or the second favorite, if your favorite language happens to
-        be Haskell).
+        Реализуйте, насколько сможете, тождественную функцию в вашем любимом
+        языке (или втором любимом, если ваш любимый язык ---
+        Haskell).
   \item
-        Implement the composition function in your favorite language. It takes
-        two functions as arguments and returns a function that is their
-        composition.
+        Реализуйте функцию композиции в вашем любимом языке. Она принимает
+        две функции в качестве аргументов и возвращает функцию, которая является их
+        композицией.
   \item
-        Write a program that tries to test that your composition function
-        respects identity.
+        Напишите программу, которая пытается проверить, что ваша функция композиции
+        уважает тождество.
   \item
-        Is the world-wide web a category in any sense? Are links morphisms?
+        Является ли всемирная паутина категорией в каком-либо смысле? Являются ли ссылки морфизмами?
   \item
-        Is Facebook a category, with people as objects and friendships as
-        morphisms?
+        Является ли Facebook категорией, с людьми как объектами и дружбами как
+        морфизмами?
   \item
-        When is a directed graph a category?
+        Когда ориентированный граф является категорией?
 \end{enumerate}

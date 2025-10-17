@@ -1,93 +1,93 @@
 % !TEX root = ../../ctfp-print.tex
 
-\lettrine[lhang=0.17]{A}{ category is small} if its objects form a set. But we know that
-there are things larger than sets. Famously, a set of all sets cannot be
-formed within the standard set theory (the Zermelo-Fraenkel theory,
-optionally augmented with the Axiom of Choice). So a category of all
-sets must be large. There are mathematical tricks like Grothendieck
-universes that can be used to define collections that go beyond sets.
-These tricks let us talk about large categories.
+\lettrine[lhang=0.17]{К}{атегория малá}, если её объекты образуют множество. Но мы знаем, что
+существуют вещи больше множеств. Известно, что множество всех множеств не может быть
+сформировано в рамках стандартной теории множеств (теория Цермело-Френкеля,
+опционально дополненная аксиомой выбора). Поэтому категория всех
+множеств должна быть большой. Существуют математические трюки, такие как универсумы Гротендика,
+которые можно использовать для определения коллекций, выходящих за пределы множеств.
+Эти трюки позволяют нам говорить о больших категориях.
 
-A category is \emph{locally small} if morphisms between any two objects
-form a set. If they don't form a set, we have to rethink a few
-definitions. In particular, what does it mean to compose morphisms if we
-can't even pick them from a set? The solution is to bootstrap ourselves
-by replacing hom-sets, which are objects in $\Set$, with
-\emph{objects} from some other category $\cat{V}$. The difference is
-that, in general, objects don't have elements, so we are no longer
-allowed to talk about individual morphisms. We have to define all
-properties of an \emph{enriched} category in terms of operations that
-can be performed on hom-objects as a whole. In order to do that, the
-category that provides hom-objects must have additional structure --- it
-must be a monoidal category. If we call this monoidal category $\cat{V}$,
-we can talk about a category $\cat{C}$ enriched over $\cat{V}$.
+Категория является \emph{локально малой}, если морфизмы между любыми двумя объектами
+образуют множество. Если они не образуют множество, нам придётся переосмыслить несколько
+определений. В частности, что означает композиция морфизмов, если мы
+даже не можем выбрать их из множества? Решение заключается в том, чтобы поднять себя за волосы,
+заменив hom-множества, которые являются объектами в $\Set$,
+\emph{объектами} из некоторой другой категории $\cat{V}$. Разница в том,
+что, в общем случае, объекты не имеют элементов, поэтому нам больше не
+разрешается говорить об отдельных морфизмах. Мы должны определить все
+свойства \emph{обогащённой} категории в терминах операций, которые
+могут быть выполнены на hom-объектах в целом. Чтобы сделать это,
+категория, которая предоставляет hom-объекты, должна иметь дополнительную структуру --- она
+должна быть моноидальной категорией. Если назвать эту моноидальную категорию $\cat{V}$,
+мы можем говорить о категории $\cat{C}$, обогащённой над $\cat{V}$.
 
-Beside size reasons, we might be interested in generalizing hom-sets to
-something that has more structure than mere sets. For instance, a
-traditional category doesn't have the notion of a distance between
-objects. Two objects are either connected by morphisms or not. All
-objects that are connected to a given object are its neighbors. Unlike
-in real life; in a category, a friend of a friend of a friend is as
-close to me as my bosom buddy. In a suitably enriched category, we can
-define distances between objects.
+Помимо соображений размера, нам может быть интересно обобщить hom-множества до
+чего-то, что имеет больше структуры, чем просто множества. Например,
+традиционная категория не имеет понятия расстояния между
+объектами. Два объекта либо соединены морфизмами, либо нет. Все
+объекты, соединённые с данным объектом, являются его соседями. В отличие
+от реальной жизни, в категории друг друга друга друга так же
+близок ко мне, как мой закадычный друг. В подходящей обогащённой категории мы можем
+определить расстояния между объектами.
 
-There is one more very practical reason to get some experience with
-enriched categories, and that's because a very useful online source of
-categorical knowledge, the \urlref{https://ncatlab.org/}{nLab}, is written
-mostly in terms of enriched categories.
+Есть ещё одна очень практическая причина получить некоторый опыт с
+обогащёнными категориями — это то, что очень полезный онлайн-источник
+категориальных знаний, \urlref{https://ncatlab.org/}{nLab}, написан
+в основном в терминах обогащённых категорий.
 
-\section{Why Monoidal Category?}
+\section{Почему моноидальная категория?}
 
-When constructing an enriched category we have to keep in mind that we
-should be able to recover the usual definitions when we replace the
-monoidal category with $\Set$ and hom-objects with hom-sets. The
-best way to accomplish this is to start with the usual definitions and
-keep reformulating them in a point-free manner --- that is, without
-naming elements of sets.
+При построении обогащённой категории мы должны помнить, что
+нужно иметь возможность восстановить обычные определения, когда заменим
+моноидальную категорию на $\Set$, а hom-объекты на hom-множества.
+Лучший способ достичь этого — начать с обычных определений и
+продолжать переформулировать их бесточечным способом --- то есть, не
+называя элементы множеств.
 
-Let's start with the definition of composition. Normally, it takes a
-pair of morphisms, one from $\cat{C}(b, c)$ and one from
-$\cat{C}(a, b)$ and maps it to a morphism from $\cat{C}(a, c)$. In
-other words it's a mapping:
+Начнём с определения композиции. Обычно она берёт
+пару морфизмов, один из $\cat{C}(b, c)$ и один из
+$\cat{C}(a, b)$, и отображает их в морфизм из $\cat{C}(a, c)$. Другими
+словами, это отображение:
 \[\cat{C}(b, c)\times{}\cat{C}(a, b) \to \cat{C}(a, c)\]
-This is a function between sets --- one of them being the Cartesian
-product of two hom-sets. This formula can be easily generalized by
-replacing Cartesian product with something more general. A categorical
-product would work, but we can go even further and use a completely
-general tensor product.
+Это функция между множествами --- одно из них является декартовым
+произведением двух hom-множеств. Эту формулу можно легко обобщить,
+заменив декартово произведение чем-то более общим. Категориальное
+произведение подойдёт, но можем пойти ещё дальше и использовать совершенно
+общее тензорное произведение.
 
-Next come the identity morphisms. Instead of picking individual elements
-from hom-sets, we can define them using functions from the singleton set
+Далее идут тождественные морфизмы. Вместо выбора отдельных элементов
+из hom-множеств, можем определить их, используя функции из синглтонного множества
 $\cat{1}$:
 \[j_a \Colon \cat{1} \to \cat{C}(a, a)\]
-Again, we could replace the singleton set with the terminal object, but
-we can go even further by replacing it with the unit $i$ of the
-tensor product.
+Опять же, можем заменить синглтонное множество терминальным объектом, но
+можем пойти ещё дальше, заменив его единицей $i$ тензорного
+произведения.
 
-As you can see, objects taken from some monoidal category $\cat{V}$ are
-good candidates for hom-set replacement.
+Как видите, объекты, взятые из некоторой моноидальной категории $\cat{V}$, являются
+хорошими кандидатами на замену hom-множеств.
 
-\section{Monoidal Category}
+\section{Моноидальная категория}
 
-We've talked about monoidal categories before, but it's worth restating
-the definition. A monoidal category defines a tensor product that is a
-bifunctor:
+Мы уже говорили о моноидальных категориях раньше, но стоит повторить
+определение. Моноидальная категория определяет тензорное произведение, которое является
+бифунктором:
 \[\otimes \Colon \cat{V}\times{}\cat{V} \to \cat{V}\]
-We want the tensor product to be associative, but it's enough to satisfy
-associativity up to natural isomorphism. This isomorphism is called the
-associator. Its components are:
+Мы хотим, чтобы тензорное произведение было ассоциативным, но достаточно выполнения
+ассоциативности с точностью до естественного изоморфизма. Этот изоморфизм называется
+ассоциатором. Его компоненты:
 \[\alpha_{a b c} \Colon (a \otimes b) \otimes c \to a \otimes (b \otimes c)\]
-It must be natural in all three arguments.
+Он должен быть естественным по всем трём аргументам.
 
-A monoidal category must also define a special unit object $i$
-that serves as the unit of the tensor product; again, up to natural
-isomorphism. The two isomorphisms are called, respectively, the left and
-the right unitor, and their components are:
+Моноидальная категория также должна определять специальный единичный объект $i$,
+который служит единицей тензорного произведения; опять же, с точностью до естественного
+изоморфизма. Два изоморфизма называются, соответственно, левым и
+правым унитором, и их компоненты:
 \begin{align*}
   \lambda_a & \Colon i \otimes a \to a \\
   \rho_a    & \Colon a \otimes i \to a
 \end{align*}
-The associator and the unitors must satisfy coherence conditions:
+Ассоциатор и униторы должны удовлетворять условиям когерентности:
 
 \begin{figure}[H]
   \centering
@@ -118,49 +118,49 @@ The associator and the unitors must satisfy coherence conditions:
 \end{figure}
 
 \noindent
-A monoidal category is called \newterm{symmetric} if there is a natural
-isomorphism with components:
+Моноидальная категория называется \newterm{симметричной}, если существует естественный
+изоморфизм с компонентами:
 \[\gamma_{a b} \Colon a \otimes b \to b \otimes a\]
-whose ``square is one'':
+чей ``квадрат равен единице'':
 \[\gamma_{b a} \circ \gamma_{a b} = \idarrow[a \otimes b]\]
-and which is consistent with the monoidal structure.
+и который согласован с моноидальной структурой.
 
-An interesting thing about monoidal categories is that you may be able
-to define the internal hom (the function object) as the right adjoint to
-the tensor product. You may recall that the standard definition of the
-function object, or the exponential, was through the right adjoint to
-the categorical product. A category in which such an object existed for
-any pair of objects was called Cartesian closed. Here is the adjunction
-that defines the internal hom in a monoidal category:
+Интересная вещь в моноидальных категориях — это то, что можно
+определить внутренний hom (объект функции) как правый сопряжённый к
+тензорному произведению. Вы можете вспомнить, что стандартное определение
+объекта функции, или экспоненты, было через правый сопряжённый к
+категориальному произведению. Категория, в которой такой объект существовал для
+любой пары объектов, называлась декартово замкнутой. Вот сопряжение,
+которое определяет внутренний hom в моноидальной категории:
 \[\cat{V}(a \otimes b, c) \sim \cat{V}(a, [b, c])\]
-Following
+Следуя
 \urlref{http://www.tac.mta.ca/tac/reprints/articles/10/tr10.pdf}{G. M.
-  Kelly}, I'm using the notation ${[}b, c{]}$ for the internal
-hom. The counit of this adjunction is the natural transformation whose
-components are called evaluation morphisms:
+  Kelly}, я использую обозначение ${[}b, c{]}$ для внутреннего
+hom. Коединица этого сопряжения — это естественное преобразование, чьи
+компоненты называются морфизмами вычисления:
 \[\varepsilon_{a b} \Colon ([a, b] \otimes a) \to b\]
-Notice that, if the tensor product is not symmetric, we may define
-another internal hom, denoted by ${[}{[}a, c{]}{]}$, using the
-following adjunction:
+Заметим, что если тензорное произведение не симметрично, можем определить
+другой внутренний hom, обозначаемый ${[}{[}a, c{]}{]}$, используя
+следующее сопряжение:
 \[\cat{V}(a \otimes b, c) \sim \cat{V}(b, [[a, c]])\]
-A monoidal category in which both are defined is called \newterm{biclosed}. An
-example of a category that is not biclosed is the category of
-endofunctors in $\Set$, with functor composition serving as tensor
-product. That's the category we used to define monads.
+Моноидальная категория, в которой оба определены, называется \newterm{бизамкнутой}. Пример
+категории, которая не бизамкнута, — это категория
+эндофункторов в $\Set$, где композиция функторов служит тензорным
+произведением. Это категория, которую мы использовали для определения монад.
 
-\section{Enriched Category}
+\section{Обогащённая категория}
 
-A category $\cat{C}$ enriched over a monoidal category $\cat{V}$ replaces
-hom-sets with hom-objects. To every pair of objects $a$ and
-$b$ in $\cat{C}$ we associate an object $\cat{C}(a, b)$ in
-$\cat{V}$. We use the same notation for hom-objects as we used for
-hom-sets, with the understanding that they don't contain morphisms. On
-the other hand, $\cat{V}$ is a regular (non-enriched) category with
-hom-sets and morphisms. So we are not entirely rid of sets --- we just
-swept them under the rug.
+Категория $\cat{C}$, обогащённая над моноидальной категорией $\cat{V}$, заменяет
+hom-множества hom-объектами. Каждой паре объектов $a$ и
+$b$ в $\cat{C}$ мы сопоставляем объект $\cat{C}(a, b)$ в
+$\cat{V}$. Мы используем то же обозначение для hom-объектов, что и для
+hom-множеств, с пониманием, что они не содержат морфизмов. С
+другой стороны, $\cat{V}$ — это обычная (необогащённая) категория с
+hom-множествами и морфизмами. Так что мы не полностью избавились от множеств --- мы просто
+спрятали их под ковёр.
 
-Since we cannot talk about individual morphisms in $\cat{C}$, composition
-of morphisms is replaced by a family of morphisms in $\cat{V}$:
+Поскольку мы не можем говорить об отдельных морфизмах в $\cat{C}$, композиция
+морфизмов заменяется семейством морфизмов в $\cat{V}$:
 \[\circ \Colon \cat{C}(b, c) \otimes \cat{C}(a, b) \to \cat{C}(a, c)\]
 
 \begin{figure}[H]
@@ -169,10 +169,10 @@ of morphisms is replaced by a family of morphisms in $\cat{V}$:
 \end{figure}
 
 \noindent
-Similarly, identity morphisms are replaced by a family of morphisms in
+Аналогично, тождественные морфизмы заменяются семейством морфизмов в
 $\cat{V}$:
 \[j_a \Colon i \to \cat{C}(a, a)\]
-where $i$ is the tensor unit in $\cat{V}$.
+где $i$ — это единица тензорного произведения в $\cat{V}$.
 
 \begin{figure}[H]
   \centering
@@ -180,7 +180,7 @@ where $i$ is the tensor unit in $\cat{V}$.
 \end{figure}
 
 \noindent
-Associativity of composition is defined in terms of the associator in
+Ассоциативность композиции определяется в терминах ассоциатора в
 $\cat{V}$:
 
 \begin{figure}[H]
@@ -229,119 +229,119 @@ Unit laws are likewise expressed in terms of unitors:
   \end{subfigure}
 \end{figure}
 
-\section{Preorders}
+\section{Предпорядки}
 
-A preorder is defined as a thin category, one in which every hom-set is
-either empty or a singleton. We interpret a non-empty set
-$\cat{C}(a, b)$ as the proof that $a$ is less than or equal to
-$b$. Such a category can be interpreted as enriched over a very
-simple monoidal category that contains just two objects, $0$ and $1$
-(sometimes called $\mathit{False}$ and $\mathit{True}$). Besides the mandatory identity
-morphisms, this category has a single morphism going from $0$ to $1$, let's
-call it $0 \to 1$. A simple monoidal structure can be
-established in it, with the tensor product modeling the simple
-arithmetic of $0$ and $1$ (i.e., the only non-zero product is $1 \otimes 1$).
-The identity object in this category is $1$. This is a strict monoidal
-category, that is, the associator and the unitors are identity
-morphisms.
+Предпорядок определяется как тонкая категория, в которой каждое hom-множество
+либо пусто, либо является синглтоном. Мы интерпретируем непустое множество
+$\cat{C}(a, b)$ как доказательство того, что $a$ меньше или равно
+$b$. Такая категория может интерпретироваться как обогащённая над очень
+простой моноидальной категорией, содержащей всего два объекта, $0$ и $1$
+(иногда называемые $\mathit{False}$ и $\mathit{True}$). Помимо обязательных тождественных
+морфизмов, эта категория имеет единственный морфизм, идущий из $0$ в $1$, назовём
+его $0 \to 1$. В ней может быть установлена простая моноидальная структура
+с тензорным произведением, моделирующим простую
+арифметику $0$ и $1$ (т.е., единственное ненулевое произведение — это $1 \otimes 1$).
+Единичный объект в этой категории — $1$. Это строгая моноидальная
+категория, то есть ассоциатор и униторы являются тождественными
+морфизмами.
 
-Since in a preorder the-hom set is either empty or a singleton, we can
-easily replace it with a hom-object from our tiny category. The enriched
-preorder $\cat{C}$ has a hom-object $\cat{C}(a, b)$ for any pair of
-objects $a$ and $b$. If $a$ is less than or equal
-to $b$, this object is $1$; otherwise it's $0$.
+Поскольку в предпорядке hom-множество либо пусто, либо является синглтоном, мы можем
+легко заменить его hom-объектом из нашей крошечной категории. Обогащённый
+предпорядок $\cat{C}$ имеет hom-объект $\cat{C}(a, b)$ для любой пары
+объектов $a$ и $b$. Если $a$ меньше или равно
+$b$, этот объект равен $1$; иначе он равен $0$.
 
-Let's have a look at composition. The tensor product of any two objects
-is $0$, unless both of them are $1$, in which case it's $1$. If it's $0$, then
-we have two options for the composition morphism: it could be either
-$\idarrow[0]$ or $0 \to 1$. But if it's $1$, then the only
-option is $\idarrow[1]$. Translating this back to relations, this says
-that if $a \leqslant b$ and $b \leqslant c$ then
-$a \leqslant c$, which is exactly the transitivity law we
-need.
+Давайте рассмотрим композицию. Тензорное произведение любых двух объектов
+равно $0$, если только оба из них не равны $1$, в этом случае оно равно $1$. Если это $0$, то
+у нас есть два варианта для морфизма композиции: это может быть либо
+$\idarrow[0]$, либо $0 \to 1$. Но если это $1$, то единственный
+вариант — $\idarrow[1]$. Переводя это обратно к отношениям, это говорит,
+что если $a \leqslant b$ и $b \leqslant c$, то
+$a \leqslant c$, что в точности является законом транзитивности, который нам
+нужен.
 
-What about the identity? It's a morphism from $1$ to $\cat{C}(a, a)$.
-There is only one morphism going from $1$, and that's the identity
-$\idarrow[1]$, so $\cat{C}(a, a)$ must be $1$. It means that
-$a \leqslant a$, which is the reflexivity law for a
-preorder. So both transitivity and reflexivity are automatically
-enforced, if we implement a preorder as an enriched category.
+Как насчёт тождества? Это морфизм из $1$ в $\cat{C}(a, a)$.
+Есть только один морфизм, идущий из $1$, и это тождественный морфизм
+$\idarrow[1]$, поэтому $\cat{C}(a, a)$ должен быть $1$. Это означает, что
+$a \leqslant a$, что является законом рефлексивности для
+предпорядка. Таким образом, и транзитивность, и рефлексивность автоматически
+выполняются, если реализовать предпорядок как обогащённую категорию.
 
-\section{Metric Spaces}
+\section{Метрические пространства}
 
-An interesting example is due to
-\urlref{http://www.tac.mta.ca/tac/reprints/articles/1/tr1.pdf}{William
-  Lawvere}. He noticed that metric spaces can be defined using enriched
-categories. A metric space defines a distance between any two objects.
-This distance is a non-negative real number. It's convenient to include
-infinity as a possible value. If the distance is infinite, there is no
-way of getting from the starting object to the target object.
+Интересный пример принадлежит
+\urlref{http://www.tac.mta.ca/tac/reprints/articles/1/tr1.pdf}{Уильяму
+  Ловеру}. Он заметил, что метрические пространства можно определить с помощью обогащённых
+категорий. Метрическое пространство определяет расстояние между любыми двумя объектами.
+Это расстояние — неотрицательное действительное число. Удобно включить
+бесконечность как возможное значение. Если расстояние бесконечно, нет
+способа добраться от начального объекта до целевого объекта.
 
-There are some obvious properties that have to be satisfied by
-distances. One of them is that the distance from an object to itself
-must be zero. The other is the triangle inequality: the direct distance
-is no larger than the sum of distances with intermediate stops. We don't
-require the distance to be symmetric, which might seem weird at first
-but, as Lawvere explained, you can imagine that in one direction you're
-walking uphill, while in the other you're going downhill. In any case,
-symmetry may be imposed later as an additional constraint.
+Есть некоторые очевидные свойства, которые должны удовлетворяться
+расстояниями. Одно из них — то, что расстояние от объекта до себя
+должно быть нулём. Другое — неравенство треугольника: прямое расстояние
+не больше суммы расстояний с промежуточными остановками. Мы не
+требуем, чтобы расстояние было симметричным, что может показаться странным сначала,
+но, как объяснил Ловере, вы можете представить, что в одном направлении вы
+идёте в гору, а в другом спускаетесь вниз. В любом случае,
+симметрия может быть наложена позже как дополнительное ограничение.
 
-So how can a metric space be cast into a categorical language? We have
-to construct a category in which hom-objects are distances. Mind you,
-distances are not morphisms but hom-objects. How can a hom-object be a
-number? Only if we can construct a monoidal category $\cat{V}$ in which
-these numbers are objects. Non-negative real numbers (plus infinity)
-form a total order, so they can be treated as a thin category. A
-morphism between two such numbers $x$ and $y$ exists if
-and only if $x \geqslant y$ (note: this is the opposite
-direction to the one traditionally used in the definition of a
-preorder). The monoidal structure is given by addition, with zero
-serving as the unit object. In other words, the tensor product of two
-numbers is their sum.
+Итак, как метрическое пространство можно представить в категориальном языке? Мы должны
+построить категорию, в которой hom-объектами являются расстояния. Учтите,
+расстояния — это не морфизмы, а hom-объекты. Как hom-объект может быть
+числом? Только если мы можем построить моноидальную категорию $\cat{V}$, в которой
+эти числа являются объектами. Неотрицательные действительные числа (плюс бесконечность)
+образуют полный порядок, поэтому их можно рассматривать как тонкую категорию.
+Морфизм между двумя такими числами $x$ и $y$ существует тогда и
+только тогда, когда $x \geqslant y$ (примечание: это противоположное
+направление тому, которое традиционно используется в определении
+предпорядка). Моноидальная структура задаётся сложением, причём ноль
+служит единичным объектом. Другими словами, тензорное произведение двух
+чисел — это их сумма.
 
-A metric space is a category enriched over such a monoidal category. A
-hom-object $\cat{C}(a, b)$ from object $a$ to $b$ is a
-non-negative (possibly infinite) number that we will call the distance
-from $a$ to $b$. Let's see what we get for identity and
-composition in such a category.
+Метрическое пространство — это категория, обогащённая над такой моноидальной категорией.
+hom-объект $\cat{C}(a, b)$ из объекта $a$ в $b$ — это
+неотрицательное (возможно, бесконечное) число, которое мы будем называть расстоянием
+от $a$ до $b$. Посмотрим, что мы получаем для тождества и
+композиции в такой категории.
 
-By our definitions, a morphism from the tensorial unit, which is the
-number zero, to a hom-object $\cat{C}(a, a)$ is the relation:
+По нашим определениям, морфизм из тензорной единицы, которая является
+числом ноль, в hom-объект $\cat{C}(a, a)$ — это отношение:
 \[0 \geqslant \cat{C}(a, a)\]
-Since $\cat{C}(a, a)$ is a non-negative number, this condition tells
-us that the distance from $a$ to $a$ is always zero.
-Check!
+Поскольку $\cat{C}(a, a)$ — неотрицательное число, это условие говорит
+нам, что расстояние от $a$ до $a$ всегда равно нулю.
+Проверено!
 
-Now let's talk about composition. We start with the tensor product of
-two abutting hom-objects, $\cat{C}(b, c) \otimes \cat{C}(a, b)$. We have defined
-the tensor product as the sum of the two distances. Composition is a
-morphism in $\cat{V}$ from this product to $\cat{C}(a, c)$. A morphism
-in $\cat{V}$ is defined as the greater-or-equal relation. In other words,
-the sum of distances from $a$ to $b$ and from $b$
-to $c$ is greater than or equal to the distance from $a$
-to $c$. But that's just the standard triangle inequality. Check!
+Теперь поговорим о композиции. Начнём с тензорного произведения
+двух смежных hom-объектов, $\cat{C}(b, c) \otimes \cat{C}(a, b)$. Мы определили
+тензорное произведение как сумму двух расстояний. Композиция — это
+морфизм в $\cat{V}$ из этого произведения в $\cat{C}(a, c)$. Морфизм
+в $\cat{V}$ определяется как отношение больше-или-равно. Другими словами,
+сумма расстояний от $a$ до $b$ и от $b$
+до $c$ больше или равна расстоянию от $a$
+до $c$. Но это просто стандартное неравенство треугольника. Проверено!
 
-By re-casting the metric space in terms of an enriched category, we get
-the triangle inequality and the zero self-distance ``for free.''
+Переформулировав метрическое пространство в терминах обогащённой категории, мы получаем
+неравенство треугольника и нулевое расстояние до себя ``бесплатно''.
 
-\section{Enriched Functors}
+\section{Обогащённые функторы}
 
-The definition of a functor involves the mapping of morphisms. In the
-enriched setting, we don't have the notion of individual morphisms, so
-we have to deal with hom-objects in bulk. Hom-objects are objects in a
-monoidal category $\cat{V}$, and we have morphisms between them at our
-disposal. It therefore makes sense to define enriched functors between
-categories when they are enriched over the same monoidal category
-$\cat{V}$. We can then use morphisms in $\cat{V}$ to map the hom-objects
-between two enriched categories.
+Определение функтора включает отображение морфизмов. В
+обогащённом контексте у нас нет понятия отдельных морфизмов, поэтому
+мы должны иметь дело с hom-объектами целиком. Hom-объекты — это объекты в
+моноидальной категории $\cat{V}$, и у нас есть морфизмы между ними в нашем
+распоряжении. Поэтому имеет смысл определить обогащённые функторы между
+категориями, когда они обогащены над одной и той же моноидальной категорией
+$\cat{V}$. Тогда мы можем использовать морфизмы в $\cat{V}$ для отображения hom-объектов
+между двумя обогащёнными категориями.
 
-An \newterm{enriched functor} $F$ between two categories $\cat{C}$
-and $\cat{D}$, besides mapping objects to objects, also assigns, to every
-pair of objects in $\cat{C}$, a morphism in $\cat{V}$:
+\newterm{Обогащённый функтор} $F$ между двумя категориями $\cat{C}$
+и $\cat{D}$, помимо отображения объектов в объекты, также приписывает каждой
+паре объектов в $\cat{C}$ морфизм в $\cat{V}$:
 \[F_{a b} \Colon \cat{C}(a, b) \to \cat{D}(F a, F b)\]
-A functor is a structure-preserving mapping. For regular functors it
-meant preserving composition and identity. In the enriched setting, the
-preservation of composition means that the following diagram commute:
+Функтор — это структуросохраняющее отображение. Для обычных функторов это
+означало сохранение композиции и тождества. В обогащённом контексте
+сохранение композиции означает, что следующая диаграмма коммутирует:
 
 \begin{figure}[H]
   \centering
@@ -358,8 +358,8 @@ preservation of composition means that the following diagram commute:
 \end{figure}
 
 \noindent
-The preservation of identity is replaced by the preservation of the
-morphisms in $\cat{V}$ that ``select'' the identity:
+Сохранение тождества заменяется сохранением
+морфизмов в $\cat{V}$, которые ``выбирают'' тождество:
 
 \begin{figure}[H]
   \centering
@@ -371,70 +371,70 @@ morphisms in $\cat{V}$ that ``select'' the identity:
   \end{tikzcd}
 \end{figure}
 
-\section{Self Enrichment}
+\section{Самообогащение}
 
-A closed symmetric monoidal category may be self-enriched by replacing
-hom-sets with internal homs (see the definition above). To make this
-work, we have to define the composition law for internal homs. In other
-words, we have to implement a morphism with the following signature:
+Замкнутая симметричная моноидальная категория может быть самообогащена путём замены
+hom-множеств внутренними hom (см. определение выше). Чтобы это
+работало, мы должны определить закон композиции для внутренних hom. Другими
+словами, мы должны реализовать морфизм со следующей сигнатурой:
 \[[b, c] \otimes [a, b] \to [a, c]\]
-This is not much different from any other programming task, except that,
-in category theory, we usually use point free implementations. We start
-by specifying the set whose element it's supposed to be. In this case,
-it's a member of the hom-set:
+Это не сильно отличается от любой другой задачи программирования, за исключением того, что
+в теории категорий мы обычно используем бесточечные реализации. Начнём
+с указания множества, элементом которого это должно быть. В данном случае
+это элемент hom-множества:
 \[\cat{V}([b, c] \otimes [a, b], [a, c])\]
-This hom-set is isomorphic to:
+Это hom-множество изоморфно:
 \[\cat{V}(([b, c] \otimes [a, b]) \otimes a, c)\]
-I just used the adjunction that defined the internal hom
-${[}a, c{]}$. If we can build a morphism in this new set, the
-adjunction will point us at the morphism in the original set, which we
-can then use as composition. We construct this morphism by composing
-several morphisms that are at our disposal. To begin with, we can use
-the associator $\alpha_{{[}b, c{]}\ {[}a, b{]}\ a}$ to reassociate the
-expression on the left:
+Я только что использовал сопряжение, которое определяло внутренний hom
+${[}a, c{]}$. Если мы можем построить морфизм в этом новом множестве,
+сопряжение укажет нам на морфизм в исходном множестве, который мы
+затем можем использовать как композицию. Мы строим этот морфизм, композируя
+несколько морфизмов, которые есть в нашем распоряжении. Для начала можем использовать
+ассоциатор $\alpha_{{[}b, c{]}\ {[}a, b{]}\ a}$, чтобы переассоциировать
+выражение слева:
 \[([b, c] \otimes [a, b]) \otimes a \to [b, c] \otimes ([a, b] \otimes a)\]
-We can follow it with the counit of the adjunction $\varepsilon_{a b}$:
+Можем следовать за ним с коединицей сопряжения $\varepsilon_{a b}$:
 \[[b, c] \otimes ([a, b] \otimes a) \to [b, c] \otimes b\]
-And use the counit $\varepsilon_{b c}$ again to get to $c$. We have
-thus constructed a morphism:
+И использовать коединицу $\varepsilon_{b c}$ снова, чтобы добраться до $c$. Мы, таким образом,
+построили морфизм:
 \[\varepsilon_{b c} \circ (\idarrow[{[b, c]}] \otimes \varepsilon_{a b}) \circ \alpha_{[b, c] [a, b] a}\]
-that is an element of the hom-set:
+который является элементом hom-множества:
 \[\cat{V}(([b, c] \otimes [a, b]) \otimes a, c)\]
-The adjunction will give us the composition law we were looking for.
+Сопряжение даст нам закон композиции, который мы искали.
 
-Similarly, the identity:
+Аналогично, тождество:
 \[j_a \Colon i \to [a, a]\]
-is a member of the following hom-set:
+является элементом следующего hom-множества:
 \[\cat{V}(i, [a, a])\]
-which is isomorphic, through adjunction, to:
+которое изоморфно, через сопряжение, к:
 \[\cat{V}(i \otimes a, a)\]
-We know that this hom-set contains the left identity $\lambda_a$. We can
-define $j_a$ as its image under the adjunction.
+Мы знаем, что это hom-множество содержит левую единицу $\lambda_a$. Можем
+определить $j_a$ как её образ при сопряжении.
 
-A practical example of self-enrichment is the category $\Set$ that
-serves as the prototype for types in programming languages. We've seen
-before that it's a closed monoidal category with respect to Cartesian
-product. In $\Set$, the hom-set between any two sets is itself a
-set, so it's an object in $\Set$. We know that it's isomorphic to
-the exponential set, so the external and the internal homs are
-equivalent. Now we also know that, through self-enrichment, we can use
-the exponential set as the hom-object and express composition in terms
-of Cartesian products of exponential objects.
+Практический пример самообогащения — категория $\Set$, которая
+служит прототипом для типов в языках программирования. Мы видели
+раньше, что это замкнутая моноидальная категория относительно декартова
+произведения. В $\Set$ hom-множество между любыми двумя множествами само является
+множеством, поэтому это объект в $\Set$. Мы знаем, что оно изоморфно
+экспоненциальному множеству, поэтому внешние и внутренние hom
+эквивалентны. Теперь мы также знаем, что через самообогащение можно использовать
+экспоненциальное множество как hom-объект и выразить композицию в терминах
+декартовых произведений экспоненциальных объектов.
 
-\section{Relation to $\cat{2}$-Categories}
+\section{Связь с $\cat{2}$-категориями}
 
-I talked about $\cat{2}$-categories in the context of $\Cat$, the category
-of (small) categories. The morphisms between categories are functors,
-but there is an additional structure: natural transformations between
-functors. In a $\cat{2}$-category, the objects are often called zero-cells;
-morphisms, $1$-cells; and morphisms between morphisms, $2$-cells. In
-$\Cat$ the $0$-cells are categories, $1$-cells are functors, and
-$2$-cells are natural transformations.
+Я говорил о $\cat{2}$-категориях в контексте $\Cat$, категории
+(малых) категорий. Морфизмы между категориями — это функторы,
+но есть дополнительная структура: естественные преобразования между
+функторами. В $\cat{2}$-категории объекты часто называются нульмерными ячейками;
+морфизмы — $1$-ячейками; а морфизмы между морфизмами — $2$-ячейками. В
+$\Cat$ $0$-ячейки — это категории, $1$-ячейки — функторы, а
+$2$-ячейки — естественные преобразования.
 
-But notice that functors between two categories form a category too; so,
-in $\Cat$, we really have a \emph{hom-category} rather than a
-hom-set. It turns out that, just like $\Set$ can be treated as a
-category enriched over $\Set$, $\Cat$ can be treated as a
-category enriched over $\Cat$. Even more generally, just like
-every category can be treated as enriched over $\Set$, every
-$\cat{2}$-category can be considered enriched over $\Cat$.
+Но заметим, что функторы между двумя категориями также образуют категорию; поэтому
+в $\Cat$ у нас действительно есть \emph{hom-категория}, а не
+hom-множество. Оказывается, что так же, как $\Set$ можно рассматривать как
+категорию, обогащённую над $\Set$, $\Cat$ можно рассматривать как
+категорию, обогащённую над $\Cat$. Ещё более общо, так же, как
+каждая категория может рассматриваться как обогащённая над $\Set$, каждая
+$\cat{2}$-категория может считаться обогащённой над $\Cat$.

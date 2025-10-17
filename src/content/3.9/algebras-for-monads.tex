@@ -1,16 +1,16 @@
 % !TEX root = ../../ctfp-print.tex
 
-\lettrine[lhang=0.17]{I}{f we interpret} endofunctors as ways of defining expressions, algebras
-let us evaluate them and monads let us form and manipulate them. By
-combining algebras with monads we not only gain a lot of functionality
-but we can also answer a few interesting questions.
+\lettrine[lhang=0.17]{Е}{сли мы интерпретируем} эндофункторы как способы определения выражений, алгебры
+позволяют нам вычислять их, а монады позволяют нам формировать и манипулировать ими.
+Комбинируя алгебры с монадами, мы не только получаем много функциональности,
+но также можем ответить на несколько интересных вопросов.
 
-One such question concerns the relation between monads and adjunctions.
-As we've seen, every adjunction \hyperref[monads-categorically]{defines
-  a monad} (and a comonad). The question is: Can every monad (comonad) be
-derived from an adjunction? The answer is positive. There is a whole
-family of adjunctions that generate a given monad. I'll show you two
-such adjunctions.
+Один такой вопрос касается отношения между монадами и сопряжениями.
+Как мы видели, каждое сопряжение \hyperref[monads-categorically]{определяет
+  монаду} (и комонаду). Вопрос в том: может ли каждая монада (комонада) быть
+выведена из сопряжения? Ответ положительный. Существует целое
+семейство сопряжений, которые генерируют данную монаду. Я покажу вам два
+таких сопряжения.
 
 \begin{figure}[H]
   \centering
@@ -18,34 +18,34 @@ such adjunctions.
 \end{figure}
 
 \noindent
-Let's review the definitions. A monad is an endofunctor $m$
-equipped with two natural transformations that satisfy some coherence
-conditions. The components of these transformations at $a$ are:
+Давайте пересмотрим определения. Монада --- эндофунктор $m$,
+оснащённый двумя естественными преобразованиями, которые удовлетворяют некоторым условиям
+когерентности. Компоненты этих преобразований в $a$:
 \begin{align*}
   \eta_a & \Colon a \to m\ a         \\
   \mu_a  & \Colon m\ (m\ a) \to m\ a
 \end{align*}
-An algebra for the same endofunctor is a selection of a particular
-object --- the carrier $a$ --- together with the morphism:
+Алгебра для того же эндофунктора --- выбор конкретного
+объекта --- носителя $a$ --- вместе с морфизмом:
 \[\mathit{alg} \Colon m\ a \to a\]
-The first thing to notice is that the algebra goes in the opposite
-direction to $\eta_a$. The intuition is that $\eta_a$ creates a
-trivial expression from a value of type $a$. The first coherence
-condition that makes the algebra compatible with the monad ensures that
-evaluating this expression using the algebra whose carrier is $a$
-gives us back the original value:
+Первая вещь, которую нужно заметить, --- что алгебра идёт в противоположном
+направлении к $\eta_a$. Интуиция в том, что $\eta_a$ создаёт
+тривиальное выражение из значения типа $a$. Первое условие когерентности,
+которое делает алгебру совместимой с монадой, гарантирует, что
+вычисление этого выражения, используя алгебру, чей носитель --- $a$,
+даёт нам обратно исходное значение:
 \[\mathit{alg} \circ \eta_a = \id_a\]
-The second condition arises from the fact that there are two ways of
-evaluating the doubly nested expression $m\ (m\ a)$. We can first
-apply $\mu_a$ to flatten the expression, and then use the evaluator
-of the algebra; or we can apply the lifted evaluator to evaluate the
-inner expressions, and then apply the evaluator to the result. We'd like
-the two strategies to be equivalent:
+Второе условие возникает из факта, что есть два способа
+вычисления дважды вложенного выражения $m\ (m\ a)$. Мы можем сначала
+применить $\mu_a$, чтобы выровнять выражение, а затем использовать вычислитель
+алгебры; или мы можем применить поднятый вычислитель, чтобы вычислить
+внутренние выражения, а затем применить вычислитель к результату. Мы хотели бы,
+чтобы две стратегии были эквивалентны:
 \[\mathit{alg} \circ \mu_a = \mathit{alg} \circ m\ \mathit{alg}\]
-Here, $m\ \mathit{alg}$ is the morphism resulting from lifting
-$\mathit{alg}$ using the functor $m$. The following commuting
-diagrams describe the two conditions (I replaced $m$ with
-$T$ in anticipation of what follows):
+Здесь $m\ \mathit{alg}$ --- морфизм, результирующий из подъёма
+$\mathit{alg}$, используя функтор $m$. Следующие коммутирующие
+диаграммы описывают два условия (я заменил $m$ на
+$T$ в ожидании того, что следует):
 
 \begin{figure}[H]
   \centering
@@ -70,108 +70,108 @@ $T$ in anticipation of what follows):
 \end{figure}
 
 \noindent
-We can also express these conditions in Haskell:
+Мы также можем выразить эти условия в Haskell:
 
 \src{snippet01}
-Let's look at a small example. An algebra for a list endofunctor
-consists of some type \code{a} and a function that produces an
-\code{a} from a list of \code{a}. We can express this function using
-\code{foldr} by choosing both the element type and the accumulator
-type to be equal to \code{a}:
+Давайте посмотрим на небольшой пример. Алгебра для эндофунктора списка
+состоит из некоторого типа \code{a} и функции, которая производит
+\code{a} из списка \code{a}. Мы можем выразить эту функцию, используя
+\code{foldr}, выбирая как тип элемента, так и тип аккумулятора
+равными \code{a}:
 
 \src{snippet02}
-This particular algebra is specified by a two-argument function, let's
-call it \code{f}, and a value \code{z}. The list functor happens to
-also be a monad, with \code{return} turning a value into a singleton
-list. The composition of the algebra, here \code{foldr f z}, after
-\code{return} takes \code{x} to:
+Эта конкретная алгебра специфицируется функцией с двумя аргументами, давайте
+назовём её \code{f}, и значением \code{z}. Функтор списка случается
+также быть монадой, с \code{return}, превращающим значение в одноэлементный
+список. Композиция алгебры, здесь \code{foldr f z}, после
+\code{return} принимает \code{x} в:
 
 \src{snippet03}
-where the action of \code{f} is written in the infix notation. The
-algebra is compatible with the monad if the following coherence
-condition is satisfied for every \code{x}:
+где действие \code{f} записано в инфиксной нотации.
+Алгебра совместима с монадой, если следующее условие
+когерентности удовлетворено для каждого \code{x}:
 
 \src{snippet04}
-If we look at \code{f} as a binary operator, this condition tells us
-that \code{z} is the right unit.
+Если мы смотрим на \code{f} как на бинарный оператор, это условие говорит нам,
+что \code{z} --- правая единица.
 
-The second coherence condition operates on a list of lists. The action
-of \code{join} concatenates the individual lists. We can then fold the
-resulting list. On the other hand, we can first fold the individual
-lists, and then fold the resulting list. Again, if we interpret
-\code{f} as a binary operator, this condition tells us that this
-binary operation is associative. These conditions are certainly
-fulfilled when \code{(a, f, z)} is a monoid.
+Второе условие когерентности действует на список списков. Действие
+\code{join} конкатенирует индивидуальные списки. Затем мы можем свернуть
+результирующий список. С другой стороны, мы можем сначала свернуть индивидуальные
+списки, а затем свернуть результирующий список. Опять, если мы интерпретируем
+\code{f} как бинарный оператор, это условие говорит нам, что эта
+бинарная операция ассоциативна. Эти условия определённо
+выполнены, когда \code{(a, f, z)} --- моноид.
 
-\section{$T$-algebras}
+\section{$T$-алгебры}
 
-Since mathematicians prefer to call their monads $T$, they call
-algebras compatible with them $T$-algebras. $T$-algebras for a given monad $T$
-in a category $\cat{C}$ form a category called the Eilenberg-Moore
-category, often denoted by $\cat{C}^T$. Morphisms in that
-category are homomorphisms of algebras. These are the same homomorphisms
-we've seen defined for $F$-algebras.
+Поскольку математики предпочитают называть свои монады $T$, они называют
+алгебры, совместимые с ними, $T$-алгебрами. $T$-алгебры для данной монады $T$
+в категории $\cat{C}$ образуют категорию, называемую категорией Эйленберга-Мура,
+часто обозначаемую $\cat{C}^T$. Морфизмы в этой
+категории --- гомоморфизмы алгебр. Это те же гомоморфизмы,
+которые мы видели определёнными для $F$-алгебр.
 
-A $T$-algebra is a pair consisting of a carrier object and an evaluator,
-$(a, f)$. There is an obvious forgetful functor $U^T$ from
-$\cat{C}^T$ to $\cat{C}$, which maps $(a, f)$ to $a$. It
-also maps a homomorphism of $T$-algebras to a corresponding morphism
-between carrier objects in $\cat{C}$. You may remember from our discussion of
-adjunctions that the left adjoint to a forgetful functor is called a
-free functor.
+$T$-алгебра --- пара, состоящая из объекта-носителя и вычислителя,
+$(a, f)$. Есть очевидный забывающий функтор $U^T$ из
+$\cat{C}^T$ в $\cat{C}$, который отображает $(a, f)$ в $a$. Он
+также отображает гомоморфизм $T$-алгебр в соответствующий морфизм
+между объектами-носителями в $\cat{C}$. Вы можете вспомнить из нашего обсуждения
+сопряжений, что левый сопряжённый к забывающему функтору называется
+свободным функтором.
 
-The left adjoint to $U^T$ is called $F^T$. It maps an object
-$a$ in $\cat{C}$ to a free algebra in $\cat{C}^T$. The carrier
-of this free algebra is $T a$. Its evaluator is a morphism from
-$T (T a)$ back to $T a$. Since $T$ is a monad,
-we can use the monadic $\mu_a$ (\code{join} in Haskell) as the
-evaluator.
+Левый сопряжённый к $U^T$ называется $F^T$. Он отображает объект
+$a$ в $\cat{C}$ в свободную алгебру в $\cat{C}^T$. Носитель
+этой свободной алгебры --- $T a$. Её вычислитель --- морфизм из
+$T (T a)$ обратно в $T a$. Поскольку $T$ --- монада,
+мы можем использовать монадическое $\mu_a$ (\code{join} в Haskell) как
+вычислитель.
 
-We still have to show that this is a $T$-algebra. For that, two coherence
-conditions must be satisfied:
+Мы всё ещё должны показать, что это $T$-алгебра. Для этого два условия
+когерентности должны быть удовлетворены:
 \begin{align*}
   \mathit{alg} & \circ \eta_{Ta} = \id_{Ta}     \\
   \mathit{alg} & \circ \mu_a = \mathit{alg} \circ T\ \mathit{alg}
 \end{align*}
-But these are just monadic laws, if you plug in $\mu$ for the
-algebra.
+Но это просто монадические законы, если вы подставите $\mu$ для
+алгебры.
 
-As you may recall, every adjunction defines a monad. It turns out that
-the adjunction between $F^T$ and $U^T$
-defines the very monad $T$ that was used in the construction of
-the Eilenberg-Moore category. Since we can perform this construction for
-every monad, we conclude that every monad can be generated from an
-adjunction. Later I'll show you that there is another adjunction that
-generates the same monad.
+Как вы можете вспомнить, каждое сопряжение определяет монаду. Оказывается, что
+сопряжение между $F^T$ и $U^T$
+определяет именно ту монаду $T$, которая была использована в конструкции
+категории Эйленберга-Мура. Поскольку мы можем выполнить эту конструкцию для
+каждой монады, мы заключаем, что каждая монада может быть сгенерирована из
+сопряжения. Позже я покажу вам, что есть другое сопряжение, которое
+генерирует ту же монаду.
 
-Here's the plan: First I'll show you that $F^T$ is indeed the left
-adjoint of $U^T$. I'll do it by defining the unit and the counit
-of this adjunction and proving that the corresponding triangular
-identities are satisfied. Then I'll show you that the monad generated by
-this adjunction is indeed our original monad.
+Вот план: сначала я покажу вам, что $F^T$ действительно левый
+сопряжённый $U^T$. Я сделаю это, определив единицу и коединицу
+этого сопряжения и доказав, что соответствующие треугольные
+тождества удовлетворены. Затем я покажу вам, что монада, порождённая
+этим сопряжением, действительно наша исходная монада.
 
-The unit of the adjunction is the natural transformation:
+Единица сопряжения --- естественное преобразование:
 \[\eta \Colon I \to U^T \circ F^T\]
-Let's calculate the $a$ component of this transformation. The
-identity functor gives us $a$. The free functor produces the free
-algebra $(T a, \mu_a)$, and the forgetful functor reduces it to
-$T a$. Altogether we get a mapping from $a$ to
-$T a$. We'll simply use the unit of the monad $T$ as the
-unit of this adjunction.
+Давайте вычислим компоненту $a$ этого преобразования.
+Тождественный функтор даёт нам $a$. Свободный функтор производит свободную
+алгебру $(T a, \mu_a)$, а забывающий функтор редуцирует её к
+$T a$. Всего мы получаем отображение из $a$ в
+$T a$. Мы просто используем единицу монады $T$ как
+единицу этого сопряжения.
 
-Let's look at the counit:
+Давайте посмотрим на коединицу:
 \[\varepsilon \Colon F^T \circ U^T \to I\]
-Let's calculate its component at some $T$-algebra $(a, f)$. The
-forgetful functor forgets the $f$, and the free functor produces
-the pair $(T a, \mu_a)$. So in order to define the component of
-the counit $\varepsilon$ at $(a, f)$, we need the right morphism in
-the Eilenberg-Moore category, or a homomorphism of $T$-algebras:
+Давайте вычислим её компоненту в некоторой $T$-алгебре $(a, f)$.
+Забывающий функтор забывает $f$, а свободный функтор производит
+пару $(T a, \mu_a)$. Так что чтобы определить компоненту
+коединицы $\varepsilon$ в $(a, f)$, нам нужен правильный морфизм в
+категории Эйленберга-Мура, или гомоморфизм $T$-алгебр:
 \[(T a, \mu_a) \to (a, f)\]
-Such a homomorphism should map the carrier $T a$ to $a$.
-Let's just resurrect the forgotten evaluator $f$. This time we'll
-use it as a homomorphism of $T$-algebras. Indeed, the same commuting
-diagram that makes $f$ a $T$-algebra may be re-interpreted to show
-that it's a homomorphism of $T$-algebras:
+Такой гомоморфизм должен отображать носитель $T a$ в $a$.
+Давайте просто воскресим забытый вычислитель $f$. На этот раз мы
+используем его как гомоморфизм $T$-алгебр. Действительно, та же коммутирующая
+диаграмма, которая делает $f$ $T$-алгеброй, может быть переинтерпретирована, чтобы показать,
+что это гомоморфизм $T$-алгебр:
 
 \begin{figure}[H]
   \centering
@@ -184,12 +184,12 @@ that it's a homomorphism of $T$-algebras:
 \end{figure}
 
 \noindent
-We have thus defined the component of the counit natural transformation
-$\varepsilon$ at $(a, f)$ (an object in the category of $T$-algebras)
-to be $f$.
+Таким образом, мы определили компоненту естественного преобразования коединицы
+$\varepsilon$ в $(a, f)$ (объекте в категории $T$-алгебр)
+как $f$.
 
-To complete the adjunction we also need to show that the unit and the
-counit satisfy triangular identities. These are:
+Чтобы завершить сопряжение, нам также нужно показать, что единица и
+коединица удовлетворяют треугольным тождествам. Это:
 
 \begin{figure}[H]
   \centering
@@ -213,116 +213,116 @@ counit satisfy triangular identities. These are:
 \end{figure}
 
 \noindent
-The first one holds because of the unit law for the monad $T$.
-The second is just the law of the $T$-algebra $(a, f)$.
+Первое выполняется из-за закона единицы для монады $T$.
+Второе --- просто закон $T$-алгебры $(a, f)$.
 
-We have established that the two functors form an adjunction:
+Мы установили, что два функтора образуют сопряжение:
 \[F^T \dashv U^T\]
-Every adjunction gives rise to a monad. The round trip
+Каждое сопряжение порождает монаду. Круговое путешествие
 \[U^T \circ F^T\]
-is the endofunctor in $\cat{C}$ that gives rise to the corresponding monad.
-Let's see what its action on an object $a$ is. The free algebra
-created by $F^T$ is $(T a, \mu_a)$. The forgetful functor
-$U^T$ drops the evaluator. So, indeed, we have:
+--- эндофунктор в $\cat{C}$, который порождает соответствующую монаду.
+Давайте посмотрим, каково его действие на объект $a$. Свободная алгебра,
+созданная $F^T$, --- $(T a, \mu_a)$. Забывающий функтор
+$U^T$ отбрасывает вычислитель. Так что действительно, у нас есть:
 \[U^T \circ F^T = T\]
-As expected, the unit of the adjunction is the unit of the monad $T$.
+Как ожидалось, единица сопряжения --- единица монады $T$.
 
-You may remember that the counit of the adjunction produces monadic
-multiplication through the following formula:
+Вы можете вспомнить, что коединица сопряжения производит монадическое
+умножение через следующую формулу:
 \[\mu = R \circ \varepsilon \circ L\]
-This is a horizontal composition of three natural transformations, two
-of them being identity natural transformations mapping, respectively,
-$L$ to $L$ and $R$ to $R$. The one in the
-middle, the counit, is a natural transformation whose component at an
-algebra $(a, f)$ is $f$.
+Это горизонтальная композиция трёх естественных преобразований, два
+из них --- тождественные естественные преобразования, отображающие, соответственно,
+$L$ в $L$, а $R$ в $R$. То, что
+посередине, коединица, --- естественное преобразование, чья компонента в
+алгебре $(a, f)$ --- это $f$.
 
-Let's calculate the component $\mu_a$. We first horizontally compose
-$\varepsilon$ after $F^T$, which results in the component of
-$\varepsilon$ at $F^T a$. Since $F^T$ takes $a$ to the
-algebra $(T a, \mu_a)$, and $\varepsilon$ picks the evaluator, we end
-up with $\mu_a$. Horizontal composition on the left with $U^T$
-doesn't change anything, since the action of $U^T$ on morphisms is
-trivial. So, indeed, the $\mu$ obtained from the adjunction is the
-same as the $\mu$ of the original monad $T$.
+Давайте вычислим компоненту $\mu_a$. Мы сначала горизонтально композируем
+$\varepsilon$ после $F^T$, что приводит к компоненте
+$\varepsilon$ в $F^T a$. Поскольку $F^T$ принимает $a$ в
+алгебру $(T a, \mu_a)$, а $\varepsilon$ выбирает вычислитель, мы заканчиваем
+с $\mu_a$. Горизонтальная композиция слева с $U^T$
+ничего не меняет, поскольку действие $U^T$ на морфизмы
+тривиально. Так что действительно, $\mu$, полученная из сопряжения, --- та же
+самая, что и $\mu$ исходной монады $T$.
 
-\section{The Kleisli Category}
+\section{Категория Клейсли}
 
-We've seen the Kleisli category before. It's a category constructed from
-another category $\cat{C}$ and a monad $T$. We'll call this
-category $\cat{C}_T$. The objects in the Kleisli category
-$\cat{C}_T$ are the objects of $\cat{C}$, but the morphisms
-are different. A morphism $f_{\cat{K}}$ from $a$ to $b$ in
-the Kleisli category corresponds to a morphism $f$ from
-$a$ to $T b$ in the original category. We call this
-morphism a Kleisli arrow from $a$ to $b$.
+Мы видели категорию Клейсли раньше. Это категория, сконструированная из
+другой категории $\cat{C}$ и монады $T$. Мы назовём эту
+категорию $\cat{C}_T$. Объекты в категории Клейсли
+$\cat{C}_T$ --- объекты $\cat{C}$, но морфизмы
+различны. Морфизм $f_{\cat{K}}$ из $a$ в $b$ в
+категории Клейсли соответствует морфизму $f$ из
+$a$ в $T b$ в исходной категории. Мы называем этот
+морфизм стрелкой Клейсли из $a$ в $b$.
 
-Composition of morphisms in the Kleisli category is defined in terms of
-monadic composition of Kleisli arrows. For instance, let's compose
-$g_{\cat{K}}$ after $f_{\cat{K}}$. In the Kleisli category we have:
+Композиция морфизмов в категории Клейсли определяется в терминах
+монадической композиции стрелок Клейсли. Например, давайте скомпозируем
+$g_{\cat{K}}$ после $f_{\cat{K}}$. В категории Клейсли у нас есть:
 \begin{gather*}
   f_{\cat{K}} \Colon a \to b \\
   g_{\cat{K}} \Colon b \to c
 \end{gather*}
-which, in the category $\cat{C}$, corresponds to:
+что в категории $\cat{C}$ соответствует:
 \begin{gather*}
   f \Colon a \to T b \\
   g \Colon b \to T c
 \end{gather*}
-We define the composition:
+Мы определяем композицию:
 \[h_{\cat{K}} = g_{\cat{K}} \circ f_{\cat{K}}\]
-as a Kleisli arrow in $\cat{C}$
+как стрелку Клейсли в $\cat{C}$
 \begin{align*}
   h & \Colon a \to T c          \\
   h & = \mu \circ (T g) \circ f
 \end{align*}
-In Haskell we would write it as:
+В Haskell мы бы написали это как:
 
 \src{snippet05}
-There is a functor $F$ from $\cat{C}$ to $\cat{C}_T$
-which acts trivially on objects. On morphisms, it maps $f$ in
-$\cat{C}$ to a morphism in $\cat{C}_T$ by creating a
-Kleisli arrow that embellishes the return value of $f$. Given a
-morphism:
+Есть функтор $F$ из $\cat{C}$ в $\cat{C}_T$,
+который действует тривиально на объекты. На морфизмах он отображает $f$ в
+$\cat{C}$ в морфизм в $\cat{C}_T$, создавая
+стрелку Клейсли, которая приукрашивает возвращаемое значение $f$. Для данного
+морфизма:
 \[f \Colon a \to b\]
-it creates a morphism in $\cat{C}_T$ with the
-corresponding Kleisli arrow:
+он создаёт морфизм в $\cat{C}_T$ с
+соответствующей стрелкой Клейсли:
 \[\eta \circ f\]
-In Haskell we'd write it as:
+В Haskell мы бы написали это как:
 
 \src{snippet06}
-We can also define a functor $G$ from $\cat{C}_T$
-back to $\cat{C}$. It takes an object $a$ from the Kleisli
-category and maps it to an object $T a$ in $\cat{C}$. Its action
-on a morphism $f_{\cat{K}}$ corresponding to a Kleisli arrow:
+Мы также можем определить функтор $G$ из $\cat{C}_T$
+обратно в $\cat{C}$. Он принимает объект $a$ из категории
+Клейсли и отображает его в объект $T a$ в $\cat{C}$. Его действие
+на морфизм $f_{\cat{K}}$, соответствующий стрелке Клейсли:
 \[f \Colon a \to T b\]
-is a morphism in $\cat{C}$:
+--- это морфизм в $\cat{C}$:
 \[T a \to T b\]
-given by first lifting $f$ and then applying $\mu$:
+заданный сначала подъёмом $f$, а затем применением $\mu$:
 \[\mu_{T b} \circ T f\]
-In Haskell notation this would read:
+В нотации Haskell это читалось бы:
 
 \begin{snipv}
 G f\textsubscript{T} = join . fmap f
 \end{snipv}
-You may recognize this as the definition of monadic bind in terms of
+Вы можете узнать это как определение монадического bind в терминах
 \code{join}.
 
-It's easy to see that the two functors form an adjunction:
+Легко увидеть, что два функтора образуют сопряжение:
 \[F \dashv G\]
-and their composition $G \circ F$ reproduces the original monad $T$.
+и их композиция $G \circ F$ воспроизводит исходную монаду $T$.
 
-So this is the second adjunction that produces the same monad. In fact
-there is a whole category of adjunctions $\cat{Adj}(\cat{C}, T)$ that result
-in the same monad $T$ on $\cat{C}$. The Kleisli adjunction we've
-just seen is the initial object in this category, and the
-Eilenberg-Moore adjunction is the terminal object.
+Так что это второе сопряжение, которое производит ту же монаду. На самом деле
+есть целая категория сопряжений $\cat{Adj}(\cat{C}, T)$, которые приводят
+к той же монаде $T$ на $\cat{C}$. Сопряжение Клейсли, которое мы только что
+видели, --- начальный объект в этой категории, а
+сопряжение Эйленберга-Мура --- терминальный объект.
 
-\section{Coalgebras for Comonads}
+\section{Коалгебры для комонад}
 
-Analogous constructions can be done for any
-\hyperref[comonads]{comonad}
-$W$. We can define a category of coalgebras that are compatible
-with a comonad. They make the following diagrams commute:
+Аналогичные конструкции могут быть сделаны для любой
+\hyperref[comonads]{комонады}
+$W$. Мы можем определить категорию коалгебр, которые совместимы
+с комонадой. Они заставляют следующие диаграммы коммутировать:
 
 \begin{figure}[H]
   \centering
@@ -347,104 +347,104 @@ with a comonad. They make the following diagrams commute:
 \end{figure}
 
 \noindent
-where $\mathit{coa}$ is the coevaluation morphism of the coalgebra whose
-carrier is $a$:
+где $\mathit{coa}$ --- морфизм ковычисления коалгебры, чей
+носитель --- $a$:
 \[\mathit{coa} \Colon a \to W a\]
-and $\varepsilon$ and $\delta$ are the two natural transformations
-defining the comonad (in Haskell, their components are called
-\code{extract} and \code{duplicate}).
+а $\varepsilon$ и $\delta$ --- два естественных преобразования,
+определяющие комонаду (в Haskell их компоненты называются
+\code{extract} и \code{duplicate}).
 
-There is an obvious forgetful functor $U^W$ from the category of
-these coalgebras to $\cat{C}$. It just forgets the coevaluation. We'll
-consider its right adjoint $F^W$.
+Есть очевидный забывающий функтор $U^W$ из категории
+этих коалгебр в $\cat{C}$. Он просто забывает ковычисление. Мы
+рассмотрим его правый сопряжённый $F^W$.
 \[U^W \dashv F^W\]
-The right adjoint to a forgetful functor is called a cofree functor.
-$F^W$ generates cofree coalgebras. It assigns, to an object
-$a$ in $\cat{C}$, the coalgebra $(W a, \delta_a)$. The
-adjunction reproduces the original comonad as the composite
+Правый сопряжённый к забывающему функтору называется косвободным функтором.
+$F^W$ генерирует косвободные коалгебры. Он назначает объекту
+$a$ в $\cat{C}$ коалгебру $(W a, \delta_a)$.
+Сопряжение воспроизводит исходную комонаду как композит
 $U^W \circ F^W$.
 
-Similarly, we can construct a co-Kleisli category with co-Kleisli arrows
-and regenerate the comonad from the corresponding adjunction.
+Аналогично, мы можем сконструировать ко-категорию Клейсли с ко-стрелками Клейсли
+и регенерировать комонаду из соответствующего сопряжения.
 
-\section{Lenses}
+\section{Линзы}
 
-Let's go back to our discussion of lenses. A lens can be written as a
-coalgebra:
+Давайте вернёмся к нашему обсуждению линз. Линза может быть написана как
+коалгебра:
 \[\mathit{coalg}_s \Colon a \to \mathit{Store}\ s\ a\]
-for the functor $\mathit{Store}\ s$:
+для функтора $\mathit{Store}\ s$:
 
 \src{snippet07}
-This coalgebra can be also expressed as a pair of functions:
+Эта коалгебра также может быть выражена как пара функций:
 \begin{align*}
   \mathit{set} & \Colon a \to s \to a \\
   \mathit{get} & \Colon a \to s
 \end{align*}
-(Think of $a$ as standing for ``all,'' and $s$ as a
-``small'' part of it.) In terms of this pair, we have:
+(Думайте об $a$ как означающем ``всё'', а $s$ как
+``малую'' часть этого.) В терминах этой пары у нас есть:
 \[\mathit{coalg}_s\ a = \mathit{Store}\ (\mathit{set}\ a)\ (\mathit{get}\ a)\]
-Here, $a$ is a value of type $a$. Notice that partially
-applied \code{set} is a function $s \to a$.
+Здесь $a$ --- значение типа $a$. Обратите внимание, что частично
+применённый \code{set} --- функция $s \to a$.
 
-We also know that $\mathit{Store}\ s$ is a comonad:
+Мы также знаем, что $\mathit{Store}\ s$ --- комонада:
 
 \src{snippet08}
-The question is: Under what conditions is a lens a coalgebra for this
-comonad? The first coherence condition:
+Вопрос в том: при каких условиях линза является коалгеброй для этой
+комонады? Первое условие когерентности:
 \[\varepsilon_a \circ \mathit{coalg} = \idarrow[a]\]
-translates to:
+переводится в:
 
 \src{snippet16}
-This is the lens law that expresses the fact that if you set a field of
-the structure $a$ to its previous value, nothing changes.
-This law is also known as GETPUT.
+Это закон линзы, который выражает факт, что если вы устанавливаете поле
+структуры $a$ в его предыдущее значение, ничего не меняется.
+Этот закон также известен как GETPUT.
 
-The second condition:
+Второе условие:
 \[\mathit{fmap}\ \mathit{coalg} \circ \mathit{coalg} = \delta_a \circ \mathit{coalg}\]
-requires a little more work. First, recall the definition of
-\code{fmap} for the \code{Store} functor:
+требует немного больше работы. Сначала вспомните определение
+\code{fmap} для функтора \code{Store}:
 
 \src{snippet09}
-Applying \code{fmap coalg} to the result of \code{coalg} gives us:
+Применение \code{fmap coalg} к результату \code{coalg} даёт нам:
 
 \src{snippet10}
-On the other hand, applying \code{duplicate} to the result of
-\code{coalg} produces:
+С другой стороны, применение \code{duplicate} к результату
+\code{coalg} производит:
 
 \src{snippet11}
-For these two expressions to be equal, the two functions under
-\code{Store} must be equal when acting on an arbitrary \code{s}:
+Чтобы эти два выражения были равны, две функции под
+\code{Store} должны быть равны при действии на произвольное \code{s}:
 
 \src{snippet12}
-Expanding \code{coalg}, we get:
+Раскрывая \code{coalg}, мы получаем:
 
 \src{snippet13}
-This is equivalent to two remaining lens laws. The first one:
+Это эквивалентно двум оставшимся законам линзы. Первый:
 
 \src{snippet14}
-tells us that setting the value of a field twice is the same as setting
-it once. This law is also known as PUTPUT. The second law:
+говорит нам, что установка значения поля дважды --- то же самое, что установка
+его один раз. Этот закон также известен как PUTPUT. Второй закон:
 
 \src{snippet15}
-tells us that getting a value of a field that was set to $s$
-gives $s$ back. This law is also known as PUTGET.
+говорит нам, что получение значения поля, которое было установлено в $s$,
+даёт $s$ обратно. Этот закон также известен как PUTGET.
 
-A lens that satisfies GETPUT and PUTGET is called a well-behaved lens.
-If the lens also satisfies PUTPUT, it is called a very well behaved lens.
-So, in other words, a very well behaved lens is indeed a comonad coalgebra for
-the \code{Store} functor.
+Линза, которая удовлетворяет GETPUT и PUTGET, называется хорошо ведущей себя линзой.
+Если линза также удовлетворяет PUTPUT, она называется очень хорошо ведущей себя линзой.
+Так что, другими словами, очень хорошо ведущая себя линза действительно коалгебра комонады для
+функтора \code{Store}.
 
-\section{Challenges}
+\section{Задачи}
 
 \begin{enumerate}
   \tightlist
   \item
-        What is the action of the free functor
-        $F^T \Colon C \to C^T$ on morphisms. Hint: use the
-        naturality condition for monadic $\mu$.
+        Каково действие свободного функтора
+        $F^T \Colon C \to C^T$ на морфизмы. Подсказка: используйте
+        условие естественности для монадического $\mu$.
   \item
-        Define the adjunction:
+        Определите сопряжение:
         \[U^W \dashv F^W\]
   \item
-        Prove that the above adjunction reproduces the original comonad.
+        Докажите, что вышеуказанное сопряжение воспроизводит исходную комонаду.
 \end{enumerate}

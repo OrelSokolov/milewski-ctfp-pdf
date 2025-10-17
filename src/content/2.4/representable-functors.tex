@@ -1,61 +1,61 @@
 % !TEX root = ../../ctfp-print.tex
 
-\lettrine[lhang=0.17]{I}{t's about time} we had a little talk about sets.
-Mathematicians have a love/hate relationship with set theory. It's the
-assembly language of mathematics --- at least it used to be. Category
-theory tries to step away from set theory, to some extent. For instance,
-it's a known fact that the set of all sets doesn't exist, but the category
-of all sets, $\Set$, does. So that's good. On the other hand, we assume that
-morphisms between any two objects in a category form a set. We even
-called it a hom-set. To be fair, there is a branch of category theory
-where morphisms don't form sets. Instead they are objects in another
-category. Those categories that use hom-objects rather than hom-sets,
-are called \newterm{enriched} categories. In what follows, though, we'll
-stick to categories with good old-fashioned hom-sets.
+\lettrine[lhang=0.17]{П}{ришло время} нам немного поговорить о множествах.
+Математики имеют отношения любви-ненависти с теорией множеств. Это
+ассемблер математики --- по крайней мере, так было. Теория
+категорий пытается отойти от теории множеств в какой-то степени. Например,
+известный факт, что множество всех множеств не существует, но категория
+всех множеств, $\Set$, существует. Так что это хорошо. С другой стороны, мы предполагаем, что
+морфизмы между любыми двумя объектами в категории образуют множество. Мы даже
+назвали его hom-множеством. Чтобы быть справедливым, есть ветвь теории категорий,
+где морфизмы не образуют множества. Вместо этого они являются объектами в другой
+категории. Эти категории, которые используют hom-объекты, а не hom-множества,
+называются \newterm{обогащёнными} категориями. В том, что следует, однако, мы будем
+придерживаться категорий с добрыми старомодными hom-множествами.
 
-A set is the closest thing to a featureless blob you can get outside of
-categorical objects. A set has elements, but you can't say much about
-these elements. If you have a finite set, you can count the elements.
-You can kind of count the elements of an infinite set using cardinal
-numbers. The set of natural numbers, for instance, is smaller than the
-set of real numbers, even though both are infinite. But, maybe
-surprisingly, a set of rational numbers is the same size as the set of
-natural numbers.
+Множество --- это ближайшая вещь к безликой капле, которую вы можете получить вне
+категорных объектов. Множество имеет элементы, но вы не можете сказать много об
+этих элементах. Если у вас конечное множество, вы можете посчитать элементы.
+Вы можете как бы посчитать элементы бесконечного множества, используя кардинальные
+числа. Множество натуральных чисел, например, меньше, чем
+множество вещественных чисел, даже если оба бесконечны. Но, может быть,
+удивительно, множество рациональных чисел того же размера, что и множество
+натуральных чисел.
 
-Other than that, all the information about sets can be encoded in
-functions between them --- especially the invertible ones called
-isomorphisms. For all intents and purposes isomorphic sets are
-identical. Before I summon the wrath of foundational mathematicians, let
-me explain that the distinction between equality and isomorphism is of
-fundamental importance. In fact it is one of the main concerns of the
-latest branch of mathematics, the Homotopy Type Theory (HoTT). I'm
-mentioning HoTT because it's a pure mathematical theory that takes
-inspiration from computation, and one of its main proponents, Vladimir
-Voevodsky, had a major epiphany while studying the Coq theorem prover.
-The interaction between mathematics and programming goes both ways.
+Кроме этого, вся информация о множествах может быть закодирована в
+функциях между ними --- особенно обратимых, называемых
+изоморфизмами. Для всех практических целей изоморфные множества
+идентичны. Прежде чем я призову гнев фундаментальных математиков, позвольте
+мне объяснить, что различие между равенством и изоморфизмом имеет
+фундаментальное значение. На самом деле это одна из главных забот
+последней ветви математики, гомотопической теории типов (HoTT). Я
+упоминаю HoTT, потому что это чистая математическая теория, которая берёт
+вдохновение из вычислений, и один из её главных сторонников, Владимир
+Воеводский, имел крупное прозрение, изучая доказатель теорем Coq.
+Взаимодействие между математикой и программированием идёт в обоих направлениях.
 
-The important lesson about sets is that it's okay to compare sets of
-unlike elements. For instance, we can say that a given set of natural
-transformations is isomorphic to some set of morphisms, because a set is
-just a set. Isomorphism in this case just means that for every natural
-transformation from one set there is a unique morphism from the other
-set and vice versa. They can be paired against each other. You can't
-compare apples with oranges, if they are objects from different
-categories, but you can compare sets of apples against sets of oranges.
-Often transforming a categorical problem into a set-theoretical problem
-gives us the necessary insight or even lets us prove valuable theorems.
+Важный урок о множествах в том, что нормально сравнивать множества
+непохожих элементов. Например, мы можем сказать, что данное множество естественных
+преобразований изоморфно некоторому множеству морфизмов, потому что множество ---
+это просто множество. Изоморфизм в этом случае просто означает, что для каждого естественного
+преобразования из одного множества существует уникальный морфизм из другого
+множества и наоборот. Они могут быть спарены друг с другом. Вы не можете
+сравнивать яблоки с апельсинами, если они объекты из разных
+категорий, но вы можете сравнивать множества яблок с множествами апельсинов.
+Часто преобразование категорной проблемы в теоретико-множественную проблему
+даёт нам необходимое понимание или даже позволяет нам доказать ценные теоремы.
 
-\section{The Hom Functor}
+\section{Hom-функтор}
 
-Every category comes equipped with a canonical family of mappings to
-$\Set$. Those mappings are in fact functors, so they preserve the
-structure of the category. Let's build one such mapping.
+Каждая категория поставляется с каноническим семейством отображений в
+$\Set$. Эти отображения на самом деле функторы, поэтому они сохраняют
+структуру категории. Давайте построим одно такое отображение.
 
-Let's fix one object $a$ in $\cat{C}$ and pick another object
-$x$ also in $\cat{C}$. The hom-set $\cat{C}(a, x)$ is a set, an
-object in $\Set$. When we vary $x$, keeping $a$
-fixed, $\cat{C}(a, x)$ will also vary in $\Set$. Thus we have a
-mapping from $x$ to $\Set$.
+Давайте зафиксируем один объект $a$ в $\cat{C}$ и выберем другой объект
+$x$ также в $\cat{C}$. Hom-множество $\cat{C}(a, x)$ --- это множество,
+объект в $\Set$. Когда мы варьируем $x$, сохраняя $a$
+фиксированным, $\cat{C}(a, x)$ также будет варьироваться в $\Set$. Таким образом, у нас есть
+отображение из $x$ в $\Set$.
 
 \begin{figure}[H]
   \centering
@@ -63,26 +63,26 @@ mapping from $x$ to $\Set$.
 \end{figure}
 
 \noindent
-If we want to stress the fact that we are considering the hom-set as a
-mapping in its second argument, we use the notation $\cat{C}(a, -)$
-with the dash serving as the placeholder for the argument.
+Если мы хотим подчеркнуть факт, что мы рассматриваем hom-множество как
+отображение в его втором аргументе, мы используем нотацию $\cat{C}(a, -)$
+с тире, служащим как заполнитель для аргумента.
 
-This mapping of objects is easily extended to the mapping of morphisms.
-Let's take a morphism $f$ in $\cat{C}$ between two arbitrary
-objects $x$ and $y$. The object $x$ is mapped to
-the set $\cat{C}(a, x)$, and the object $y$ is mapped to
-$\cat{C}(a, y)$, under the mapping we have just defined. If this
-mapping is to be a functor, $f$ must be mapped to a function
-between the two sets: $\cat{C}(a, x) \to \cat{C}(a, y)$
+Это отображение объектов легко расширяется на отображение морфизмов.
+Давайте возьмём морфизм $f$ в $\cat{C}$ между двумя произвольными
+объектами $x$ и $y$. Объект $x$ отображается в
+множество $\cat{C}(a, x)$, а объект $y$ отображается в
+$\cat{C}(a, y)$ под отображением, которое мы только что определили. Если это
+отображение должно быть функтором, $f$ должен быть отображён в функцию
+между двумя множествами: $\cat{C}(a, x) \to \cat{C}(a, y)$
 
-Let's define this function point-wise, that is for each argument
-separately. For the argument we should pick an arbitrary element of
-$\cat{C}(a, x)$ --- let's call it $h$. Morphisms are
-composable, if they match end to end. It so happens that the target of
-$h$ matches the source of $f$, so their composition:
+Давайте определим эту функцию поточечно, то есть для каждого аргумента
+отдельно. Для аргумента мы должны выбрать произвольный элемент
+$\cat{C}(a, x)$ --- давайте назовём его $h$. Морфизмы
+композиционны, если они совпадают конец к концу. Так случается, что цель
+$h$ совпадает с источником $f$, так что их композиция:
 \[f \circ h \Colon a \to y\]
-is a morphism going from $a$ to $y$. It is therefore a
-member of $\cat{C}(a, y)$.
+--- это морфизм, идущий из $a$ в $y$. Следовательно, он
+член $\cat{C}(a, y)$.
 
 \begin{figure}[H]
   \centering
@@ -90,243 +90,242 @@ member of $\cat{C}(a, y)$.
 \end{figure}
 
 \noindent
-We have just found our function from $\cat{C}(a, x)$ to
-$\cat{C}(a, y)$, which can serve as the image of $f$. If there
-is no danger of confusion, we'll write this lifted function as: $\cat{C}(a, f)$
-and its action on a morphism $h$ as:
+Мы только что нашли нашу функцию из $\cat{C}(a, x)$ в
+$\cat{C}(a, y)$, которая может служить образом $f$. Если нет
+опасности путаницы, мы запишем эту поднятую функцию как: $\cat{C}(a, f)$,
+а её действие на морфизм $h$ как:
 \[\cat{C}(a, f) h = f \circ h\]
-Since this construction works in any category, it must also work in the
-category of Haskell types. In Haskell, the hom-functor is better known
-as the \code{Reader} functor:
+Поскольку эта конструкция работает в любой категории, она также должна работать в
+категории типов Haskell. В Haskell hom-функтор лучше известен
+как функтор \code{Reader}:
 
 \src{snippet01}
 
 \src{snippet02}
-Now let's consider what happens if, instead of fixing the source of the
-hom-set, we fix the target. In other words, we're asking the question if
-the mapping $\cat{C}(-, a)$ is also a functor. It is, but instead of being covariant, it's
-contravariant. That's because the same kind of matching of morphisms end
-to end results in postcomposition by $f$; rather than
-precomposition, as was the case with $\cat{C}(a, -)$.
+Теперь давайте рассмотрим, что происходит, если вместо фиксации источника
+hom-множества мы фиксируем цель. Другими словами, мы задаём вопрос, является ли
+отображение $\cat{C}(-, a)$ также функтором. Да, но вместо того, чтобы быть ковариантным, оно
+контравариантно. Это потому, что тот же вид совпадения морфизмов конец
+к концу приводит к посткомпозиции с $f$; а не к
+предкомпозиции, как было в случае с $\cat{C}(a, -)$.
 
-We have already seen this contravariant functor in Haskell. We called it
+Мы уже видели этот контравариантный функтор в Haskell. Мы назвали его
 \code{Op}:
 
 \src{snippet03}
 
 \src{snippet04}
-Finally, if we let both objects vary, we get a profunctor
-$\cat{C}(-, =)$, which is contravariant in the first argument and
-covariant in the second (to underline the fact that the two arguments
-may vary independently, we use a double dash as the second placeholder).
-We have seen this profunctor before, when we talked about functoriality:
+Наконец, если мы позволим обоим объектам варьироваться, мы получим профунктор
+$\cat{C}(-, =)$, который контравариантен в первом аргументе и
+ковариантен во втором (чтобы подчеркнуть факт, что два аргумента
+могут варьироваться независимо, мы используем двойное тире как второй заполнитель).
+Мы видели этот профунктор раньше, когда говорили о функториальности:
 
 \src{snippet05}
-The important lesson is that this observation holds in any category: the
-mapping of objects to hom-sets is functorial. Since contravariance is
-equivalent to a mapping from the opposite category, we can state this
-fact succinctly as:
+Важный урок в том, что это наблюдение выполняется в любой категории:
+отображение объектов в hom-множества функториально. Поскольку контравариантность
+эквивалентна отображению из противоположной категории, мы можем утверждать этот
+факт лаконично как:
 \[C(-, =) \Colon \cat{C}^\mathit{op} \times \cat{C} \to \Set\]
 
-\section{Representable Functors}
+\section{Представимые функторы}
 
-We've seen that, for every choice of an object $a$ in $\cat{C}$,
-we get a functor from $\cat{C}$ to $\Set$. This kind of
-structure-preserving mapping to $\Set$ is often called a
-\newterm{representation}. We are representing objects and morphisms of
-$\cat{C}$ as sets and functions in $\Set$.
+Мы видели, что для каждого выбора объекта $a$ в $\cat{C}$
+мы получаем функтор из $\cat{C}$ в $\Set$. Этот вид
+структуро-сохраняющего отображения в $\Set$ часто называется
+\newterm{представлением}. Мы представляем объекты и морфизмы
+$\cat{C}$ как множества и функции в $\Set$.
 
-The functor $\cat{C}(a, -)$ itself is sometimes called representable.
-More generally, any functor $F$ that is naturally isomorphic to
-the hom-functor, for some choice of $a$, is called
-\newterm{representable}. Such a functor must necessarily be
-$\Set$-valued, since $\cat{C}(a, -)$ is.
+Функтор $\cat{C}(a, -)$ сам иногда называется представимым.
+Более обобщённо, любой функтор $F$, который естественно изоморфен
+hom-функтору для некоторого выбора $a$, называется
+\newterm{представимым}. Такой функтор обязательно должен быть
+со значениями в $\Set$, поскольку $\cat{C}(a, -)$ таков.
 
-I said before that we often think of isomorphic sets as identical. More
-generally, we think of isomorphic \emph{objects} in a category as
-identical. That's because objects have no structure other than their
-relation to other objects (and themselves) through morphisms.
+Я сказал раньше, что мы часто думаем об изоморфных множествах как об идентичных. Более
+обобщённо, мы думаем об изоморфных \emph{объектах} в категории как об
+идентичных. Это потому, что объекты не имеют структуры, кроме их
+отношения к другим объектам (и себе) через морфизмы.
 
-For instance, we've previously talked about the category of monoids,
-$\cat{Mon}$, that was initially modeled with sets. But we were careful
-to pick as morphisms only those functions that preserved the monoidal
-structure of those sets. So if two objects in $\cat{Mon}$ are
-isomorphic, meaning there is an invertible morphism between them, they
-have exactly the same structure. If we peeked at the sets and functions
-that they were based upon, we'd see that the unit element of one monoid
-was mapped to the unit element of another, and that a product of two
-elements was mapped to the product of their mappings.
+Например, мы ранее говорили о категории моноидов,
+$\cat{Mon}$, которая была изначально смоделирована множествами. Но мы были осторожны,
+чтобы выбрать как морфизмы только те функции, которые сохраняли моноидальную
+структуру этих множеств. Так что если два объекта в $\cat{Mon}$
+изоморфны, что означает, что между ними есть обратимый морфизм, они
+имеют точно такую же структуру. Если бы мы заглянули в множества и функции,
+на которых они основаны, мы бы увидели, что единичный элемент одного моноида
+был отображён в единичный элемент другого, и что произведение двух
+элементов было отображено в произведение их отображений.
 
-The same reasoning can be applied to functors. Functors between two
-categories form a category in which natural transformations play the
-role of morphisms. So two functors are isomorphic, and can be thought of
-as identical, if there is an invertible natural transformation between
-them.
+То же рассуждение может быть применено к функторам. Функторы между двумя
+категориями образуют категорию, в которой естественные преобразования играют
+роль морфизмов. Так что два функтора изоморфны и могут рассматриваться как
+идентичные, если между ними есть обратимое естественное преобразование.
 
-Let's analyze the definition of the representable functor from this
-perspective. For $F$ to be representable we require that: There
-be an object $a$ in $\cat{C}$; one natural transformation $\alpha$ from
-$\cat{C}(a, -)$ to $F$; another natural transformation, $\beta$, in
-the opposite direction; and that their composition be the identity
-natural transformation.
+Давайте проанализируем определение представимого функтора с этой
+перспективы. Для того чтобы $F$ был представимым, мы требуем: должен
+быть объект $a$ в $\cat{C}$; одно естественное преобразование $\alpha$ из
+$\cat{C}(a, -)$ в $F$; другое естественное преобразование, $\beta$, в
+противоположном направлении; и чтобы их композиция была тождественным
+естественным преобразованием.
 
-Let's look at the component of $\alpha$ at some object $x$. It's a
-function in $\Set$:
+Давайте посмотрим на компоненту $\alpha$ в некотором объекте $x$. Это
+функция в $\Set$:
 \[\alpha_x \Colon \cat{C}(a, x) \to F x\]
-The naturality condition for this transformation tells us that, for any
-morphism $f$ from $x$ to $y$, the following diagram
-commutes:
+Условие естественности для этого преобразования говорит нам, что для любого
+морфизма $f$ из $x$ в $y$ следующая диаграмма
+коммутирует:
 \[F f \circ \alpha_x = \alpha_y \circ \cat{C}(a, f)\]
-In Haskell, we would replace natural transformations with polymorphic
-functions:
+В Haskell мы бы заменили естественные преобразования полиморфными
+функциями:
 
 \src{snippet06}
-with the optional \code{forall} quantifier. The naturality condition
+с опциональным квантификатором \code{forall}. Условие естественности
 
 \src{snippet07}
-is automatically satisfied due to parametricity (it's one of those
-theorems for free I mentioned earlier), with the understanding that
-\code{fmap} on the left is defined by the functor $F$, whereas
-the one on the right is defined by the reader functor. Since
-\code{fmap} for reader is just function precomposition, we can be even
-more explicit. Acting on $h$, an element of $\cat{C}(a, x)$,
-the naturality condition simplifies to:
+автоматически удовлетворено из-за параметричности (это одна из тех
+теорем бесплатно, которые я упоминал ранее), с пониманием, что
+\code{fmap} слева определён функтором $F$, тогда как
+тот справа определён функтором reader. Поскольку
+\code{fmap} для reader --- это просто предкомпозиция функций, мы можем быть ещё
+более явными. Действуя на $h$, элемент $\cat{C}(a, x)$,
+условие естественности упрощается до:
 
 \src{snippet08}
-The other transformation, \code{beta}, goes the opposite way:
+Другое преобразование, \code{beta}, идёт в противоположном направлении:
 
 \src{snippet09}
-It must respect naturality conditions, and it must be the inverse of \code{alpha}:
+Оно должно уважать условия естественности, и оно должно быть обратным \code{alpha}:
 
 \begin{snip}{text}
 alpha . beta = id = beta . alpha
 \end{snip}
-We will see later that a natural transformation from $\cat{C}(a, -)$
-to any $\Set$-valued functor always exists as long as $F a$ is
-non-empty (Yoneda's lemma) but it is not necessarily invertible.
+Мы увидим позже, что естественное преобразование из $\cat{C}(a, -)$
+в любой функтор со значениями в $\Set$ всегда существует, пока $F a$
+непусто (лемма Ёнеды), но оно не обязательно обратимо.
 
-Let me give you an example in Haskell with the list functor and
-\code{Int} as \code{a}. Here's a natural transformation that does
-the job:
+Позвольте мне дать вам пример в Haskell с функтором списка и
+\code{Int} как \code{a}. Вот естественное преобразование, которое делает
+работу:
 
 \src{snippet10}
-I have arbitrarily picked the number 12 and created a singleton list
-with it. I can then \code{fmap} the function \code{h} over this list
-and get a list of the type returned by \code{h}. (There are actually
-as many such transformations as there are list of integers.)
+Я произвольно выбрал число 12 и создал одноэлементный список
+с ним. Затем я могу \code{fmap}ить функцию \code{h} над этим списком
+и получить список типа, возвращаемого \code{h}. (На самом деле
+есть столько таких преобразований, сколько есть списков целых чисел.)
 
-The naturality condition is equivalent to the composability of
-\code{map} (the list version of \code{fmap}):
+Условие естественности эквивалентно композиционности
+\code{map} (списочной версии \code{fmap}):
 
 \src{snippet11}
-But if we tried to find the inverse transformation, we would have to go
-from a list of arbitrary type \code{x} to a function returning
+Но если бы мы попытались найти обратное преобразование, нам пришлось бы идти
+из списка произвольного типа \code{x} в функцию, возвращающую
 \code{x}:
 
 \src{snippet12}
-You might think of retrieving an \code{x} from the list, e.g., using
-\code{head}, but that won't work for an empty list. Notice that there
-is no choice for the type \code{a} (in place of \code{Int}) that
-would work here. So the list functor is not representable.
+Вы могли бы подумать об извлечении \code{x} из списка, например, используя
+\code{head}, но это не сработает для пустого списка. Заметьте, что нет
+выбора для типа \code{a} (вместо \code{Int}), который
+сработал бы здесь. Так что функтор списка не представим.
 
-Remember when we talked about Haskell (endo-) functors being a little
-like containers? In the same vein we can think of representable functors
-as containers for storing memoized results of function calls (the
-members of hom-sets in Haskell are just functions). The representing
-object, the type $a$ in $\cat{C}(a, -)$, is thought of as the
-key type, with which we can access the tabulated values of a function.
-The transformation we called \code{alpha} is called \code{tabulate}, and its
-inverse, \code{beta}, is called \code{index}. Here's a (slightly simplified)
-\code{Representable} class definition:
+Помните, когда мы говорили о Haskell (эндо-) функторах, похожих на
+контейнеры? В том же духе мы можем думать о представимых функторах
+как о контейнерах для хранения мемоизированных результатов вызовов функций (члены
+hom-множеств в Haskell --- это просто функции). Представляющий
+объект, тип $a$ в $\cat{C}(a, -)$, рассматривается как
+тип ключа, с которым мы можем получить доступ к табулированным значениям функции.
+Преобразование, которое мы назвали \code{alpha}, называется \code{tabulate}, а его
+обратное, \code{beta}, называется \code{index}. Вот (немного упрощённое)
+определение класса \code{Representable}:
 
 \src{snippet13}
-Notice that the representing type, our $a$, which is called
-\code{Rep f} here, is part of the definition of
-\code{Representable}. The star just means that \code{Rep f} is a
-type (as opposed to a type constructor, or other more exotic kinds).
+Обратите внимание, что представляющий тип, наш $a$, который называется
+\code{Rep f} здесь, является частью определения
+\code{Representable}. Звёздочка просто означает, что \code{Rep f} --- это
+тип (в отличие от конструктора типа или других более экзотических видов).
 
-Infinite lists, or streams, which cannot be empty, are representable.
+Бесконечные списки, или потоки, которые не могут быть пустыми, представимы.
 
 \src{snippet14}
-You can think of them as memoized values of a function taking an
-\code{Integer} as an argument. (Strictly speaking, I should be using
-non-negative natural numbers, but I didn't want to complicate the code.)
+Вы можете думать о них как о мемоизированных значениях функции, принимающей
+\code{Integer} как аргумент. (Строго говоря, я должен был использовать
+неотрицательные натуральные числа, но я не хотел усложнять код.)
 
-To \code{tabulate} such a function, you create an infinite stream of
-values. Of course, this is only possible because Haskell is lazy. The
-values are evaluated on demand. You access the memoized values using
+Чтобы \code{tabulate} такую функцию, вы создаёте бесконечный поток
+значений. Конечно, это возможно только потому, что Haskell ленив.
+Значения вычисляются по требованию. Вы получаете доступ к мемоизированным значениям, используя
 \code{index}:
 
 \src{snippet15}
-It's interesting that you can implement a single memoization scheme to
-cover a whole family of functions with arbitrary return types.
+Интересно, что вы можете реализовать единую схему мемоизации для
+покрытия целого семейства функций с произвольными типами возврата.
 
-Representability for contravariant functors is similarly defined, except
-that we keep the second argument of $\cat{C}(-, a)$ fixed. Or,
-equivalently, we may consider functors from $\cat{C}^\mathit{op}$
-to $\Set$, because $\cat{C}^\mathit{op}(a, -)$ is the same as
+Представимость для контравариантных функторов аналогично определяется, за исключением
+того, что мы сохраняем второй аргумент $\cat{C}(-, a)$ фиксированным. Или,
+эквивалентно, мы можем рассматривать функторы из $\cat{C}^\mathit{op}$
+в $\Set$, потому что $\cat{C}^\mathit{op}(a, -)$ --- то же самое, что
 $\cat{C}(-, a)$.
 
-There is an interesting twist to representability. Remember that
-hom-sets can internally be treated as exponential objects, in Cartesian
-closed categories. The hom-set $\cat{C}(a, x)$ is equivalent to
-$x^a$, and for a representable functor $F$ we can write: $-^a = F$.
+Есть интересный поворот к представимости. Помните, что
+hom-множества могут внутренне рассматриваться как экспоненциальные объекты в декартово
+замкнутых категориях. Hom-множество $\cat{C}(a, x)$ эквивалентно
+$x^a$, и для представимого функтора $F$ мы можем написать: $-^a = F$.
 
-Let's take the logarithm of both sides, just for kicks: $a = \mathbf{log}F$
+Давайте возьмём логарифм обеих сторон, просто ради удовольствия: $a = \mathbf{log}F$
 
-Of course, this is a purely formal transformation, but if you know some
-of the properties of logarithms, it is quite helpful. In particular, it
-turns out that functors that are based on product types can be
-represented with sum types, and that sum-type functors are not in
-general representable (example: the list functor).
+Конечно, это чисто формальное преобразование, но если вы знаете некоторые
+свойства логарифмов, это довольно полезно. В частности,
+оказывается, что функторы, которые основаны на типах произведения, могут быть
+представлены типами суммы, и что функторы типа суммы, в общем случае, не
+представимы (пример: функтор списка).
 
-Finally, notice that a representable functor gives us two different
-implementations of the same thing --- one a function, one a data
-structure. They have exactly the same content --- the same values are
-retrieved using the same keys. That's the sense of ``sameness'' I was
-talking about. Two naturally isomorphic functors are identical as far as
-their contents are involved. On the other hand, the two representations
-are often implemented differently and may have different performance
-characteristics. Memoization is used as a performance enhancement and
-may lead to substantially reduced run times. Being able to generate
-different representations of the same underlying computation is very
-valuable in practice. So, surprisingly, even though it's not concerned
-with performance at all, category theory provides ample opportunities to
-explore alternative implementations that have practical value.
+Наконец, заметьте, что представимый функтор даёт нам две разные
+реализации одной и той же вещи --- одна функция, одна структура
+данных. Они имеют точно такое же содержимое --- те же значения
+извлекаются с использованием тех же ключей. Это тот смысл ``одинаковости'', о котором я
+говорил. Два естественно изоморфных функтора идентичны, насколько
+их содержимое вовлечено. С другой стороны, два представления
+часто реализуются по-разному и могут иметь разные характеристики производительности.
+Мемоизация используется как улучшение производительности и
+может привести к существенно сниженному времени выполнения. Возможность генерировать
+разные представления одного и того же лежащего в основе вычисления очень
+ценна на практике. Так что, удивительно, даже если она не заботится
+о производительности вообще, теория категорий предоставляет множество возможностей для
+исследования альтернативных реализаций, которые имеют практическую ценность.
 
-\section{Challenges}
+\section{Задачи}
 
 \begin{enumerate}
   \tightlist
   \item
-        Show that the hom-functors map identity morphisms in \emph{C} to
-        corresponding identity functions in $\Set$.
+        Покажите, что hom-функторы отображают тождественные морфизмы в \emph{C} в
+        соответствующие тождественные функции в $\Set$.
   \item
-        Show that \code{Maybe} is not representable.
+        Покажите, что \code{Maybe} не представим.
   \item
-        Is the \code{Reader} functor representable?
+        Является ли функтор \code{Reader} представимым?
   \item
-        Using \code{Stream} representation, memoize a function that squares
-        its argument.
+        Используя представление \code{Stream}, мемоизируйте функцию, которая возводит в квадрат
+        свой аргумент.
   \item
-        Show that \code{tabulate} and \code{index} for \code{Stream} are
-        indeed the inverse of each other. (Hint: use induction.)
+        Покажите, что \code{tabulate} и \code{index} для \code{Stream}
+        действительно являются обратными друг другу. (Подсказка: используйте индукцию.)
   \item
-        The functor:
+        Функтор:
 
         \begin{snip}{haskell}
 Pair a = Pair a a
 \end{snip}
-        is representable. Can you guess the type that represents it? Implement
-        \code{tabulate} and \code{index}.
+        представим. Можете ли вы угадать тип, который его представляет? Реализуйте
+        \code{tabulate} и \code{index}.
 \end{enumerate}
 
-\section{Bibliography}
+\section{Библиография}
 
 \begin{enumerate}
   \tightlist
   \item
-        The Catsters video about
-        \urlref{https://www.youtube.com/watch?v=4QgjKUzyrhM}{representable
-          functors}.
+        Видео Catsters о
+        \urlref{https://www.youtube.com/watch?v=4QgjKUzyrhM}{представимых
+          функторах}.
 \end{enumerate}

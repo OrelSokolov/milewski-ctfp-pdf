@@ -247,9 +247,9 @@ This is illustrated in the following diagram:
 \end{figure}
 
 \noindent
-Replacing the singleton category $\cat{1}$ with $\cat{A}$, this
-definition naturally generalized to the definition of the left Kan
-extension, denoted by $\Lan_{K}D$.
+Заменяя синглтонную категорию $\cat{1}$ на $\cat{A}$, это
+определение естественно обобщается до определения левого расширения Кана,
+обозначаемого $\Lan_{K}D$.
 
 \begin{figure}[H]
   \centering
@@ -257,46 +257,46 @@ extension, denoted by $\Lan_{K}D$.
 \end{figure}
 
 \noindent
-The natural transformation:
+Естественное преобразование:
 \[\eta \Colon D \to \Lan_{K}D \circ K\]
-is called the unit of the left Kan extension.
+называется единицей левого расширения Кана.
 
-As before, we can recast the one-to-one correspondence between natural
-transformations:
+Как и раньше, мы можем переформулировать взаимно однозначное соответствие между естественными
+преобразованиями:
 \[\eta' = (\sigma \circ K) \cdot \eta\]
-in terms of the adjunction:
+в терминах сопряжения:
 \[[\cat{A}, \cat{C}](\Lan_{K}D, F') \cong [\cat{I}, \cat{C}](D, F' \circ K)\]
-In other words, the left Kan extension is the left adjoint, and the
-right Kan extension is the right adjoint of the precomposition with
+Другими словами, левое расширение Кана — это левый сопряжённый функтор, а
+правое расширение Кана — это правый сопряжённый функтор предкомпозиции с
 $K$.
 
-Just like the right Kan extension of the identity functor could be used
-to calculate the left adjoint of $K$, the left Kan extension of
-the identity functor turns out to be the right adjoint of $K$
-(with $\eta$ being the unit of the adjunction):
+Точно так же, как правое расширение Кана тождественного функтора могло использоваться
+для вычисления левого сопряжённого к $K$, левое расширение Кана
+тождественного функтора оказывается правым сопряжённым к $K$
+(где $\eta$ является единицей сопряжения):
 \[K \dashv \Lan_{K}I_{\cat{C}}\]
-Combining the two results, we get:
+Объединяя два результата, получаем:
 \[\Ran_{K}I_{\cat{C}} \dashv K \dashv \Lan_{K}I_{\cat{C}}\]
 
-\section{Kan Extensions as Ends}
+\section{Расширения Кана как энды}
 
-The real power of Kan extensions comes from the fact that they can be
-calculated using ends (and coends). For simplicity, we'll restrict our
-attention to the case where the target category $\cat{C}$ is
-$\Set$, but the formulas can be extended to any category.
+Настоящая мощь расширений Кана происходит из того факта, что они могут быть
+вычислены с использованием энд (и коэнд). Для простоты мы ограничим наше
+внимание случаем, когда целевая категория $\cat{C}$ — это
+$\Set$, но формулы можно распространить на любую категорию.
 
-Let's revisit the idea that a Kan extension can be used to extend the
-action of a functor outside of its original domain. Suppose that
-$K$ embeds $\cat{I}$ inside $\cat{A}$. Functor $D$ maps
-$\cat{I}$ to $\Set$. We could just say that for any object
-$a$ in the image of $K$, that is $a = K i$, the
-extended functor maps $a$ to $D i$. The problem is, what
-to do with those objects in $\cat{A}$ that are outside of the image of
-$K$? The idea is that every such object is potentially connected
-through lots of morphisms to every object in the image of $K$. A
-functor must preserve these morphisms. The totality of morphisms from an
-object $a$ to the image of $K$ is characterized by the
-hom-functor:
+Давайте вернёмся к идее, что расширение Кана может использоваться для расширения
+действия функтора за пределы его исходной области определения. Предположим, что
+$K$ вкладывает $\cat{I}$ в $\cat{A}$. Функтор $D$ отображает
+$\cat{I}$ в $\Set$. Мы могли бы просто сказать, что для любого объекта
+$a$ в образе $K$, то есть $a = K i$,
+расширенный функтор отображает $a$ в $D i$. Проблема в том, что
+делать с теми объектами в $\cat{A}$, которые находятся вне образа
+$K$? Идея в том, что каждый такой объект потенциально связан
+через множество морфизмов с каждым объектом в образе $K$. Функтор
+должен сохранять эти морфизмы. Совокупность морфизмов из
+объекта $a$ в образ $K$ характеризуется
+hom-функтором:
 \[\cat{A}(a, K -)\]
 
 \begin{figure}[H]
@@ -305,175 +305,172 @@ hom-functor:
 \end{figure}
 
 \noindent
-Notice that this hom-functor is a composition of two functors:
+Заметим, что этот hom-функтор — это композиция двух функторов:
 \[\cat{A}(a, K -) = \cat{A}(a, -) \circ K\]
-The right Kan extension is the right adjoint of functor composition:
+Правое расширение Кана — это правый сопряжённый функтор композиции:
 \[[\cat{I}, \Set](F' \circ K, D) \cong [\cat{A}, \Set](F', \Ran_{K}D)\]
-Let's see what happens when we replace $F'$ with the hom
-functor:
+Посмотрим, что произойдёт, если заменить $F'$ на hom-функтор:
 \[[\cat{I}, \Set](\cat{A}(a, -) \circ K, D) \cong [\cat{A}, \Set](\cat{A}(a, -), \Ran_{K}D)\]
-and then inline the composition:
+а затем подставить композицию:
 \[[\cat{I}, \Set](\cat{A}(a, K -), D) \cong [\cat{A}, \Set](\cat{A}(a, -), \Ran_{K}D)\]
-The right hand side can be reduced using the Yoneda lemma:
+Правую часть можно упростить с помощью леммы Йонеды:
 \[[\cat{I}, \Set](\cat{A}(a, K -), D) \cong \Ran_{K}D a\]
-We can now rewrite the set of natural transformations as the end to get
-this very convenient formula for the right Kan extension:
+Теперь мы можем переписать множество естественных преобразований как энду, чтобы получить
+эту очень удобную формулу для правого расширения Кана:
 \[\Ran_{K}D a \cong \int_i \Set(\cat{A}(a, K i), D i)\]
-There is an analogous formula for the left Kan extension in terms of a
-coend:
+Существует аналогичная формула для левого расширения Кана в терминах
+коэнды:
 \[\Lan_{K}D a = \int^i \cat{A}(K i, a)\times{}D i\]
-To see that this is the case, we'll show that this is indeed the left
-adjoint to functor composition:
+Чтобы убедиться, что это так, мы покажем, что это действительно левый
+сопряжённый функтор к композиции:
 \[[\cat{A}, \Set](\Lan_{K}D, F') \cong [\cat{I}, \Set](D, F' \circ K)\]
-Let's substitute our formula in the left hand side:
+Подставим нашу формулу в левую часть:
 \[[\cat{A}, \Set](\int^i \cat{A}(K i, -)\times{}D i, F')\]
-This is a set of natural transformations, so it can be rewritten as an
-end:
+Это множество естественных преобразований, поэтому его можно переписать как
+энду:
 \[\int_a \Set(\int^i \cat{A}(K i, a)\times{}D i, F' a)\]
-Using the continuity of the hom-functor, we can replace the coend with
-the end:
+Используя непрерывность hom-функтора, можем заменить коэнду
+эндой:
 \[\int_a \int_i \Set(\cat{A}(K i, a)\times{}D i, F' a)\]
-We can use the product-exponential adjunction:
+Можем использовать сопряжение произведение-экспонента:
 \[\int_a \int_i \Set(\cat{A}(K i, a),\ (F' a)^{D i})\]
-The exponential is isomorphic to the corresponding hom-set:
+Экспонента изоморфна соответствующему hom-множеству:
 \[\int_a \int_i \Set(\cat{A}(K i, a),\ \Set(D i, F' a))\]
-There is a theorem called the Fubini theorem that allows us to swap the
-two ends:
+Существует теорема, называемая теоремой Фубини, которая позволяет поменять местами
+две энды:
 \[\int_i \int_a \Set(\cat{A}(K i, a),\ \Set(D i, F' a))\]
-The inner end represents the set of natural transformations between two
-functors, so we can use the Yoneda lemma:
+Внутренняя энда представляет множество естественных преобразований между двумя
+функторами, поэтому можем использовать лемму Йонеды:
 \[\int_i \Set(D i, F' (K i))\]
-This is indeed the set of natural transformations that forms the right
-hand side of the adjunction we set out to prove:
+Это действительно множество естественных преобразований, которое образует правую
+часть сопряжения, которое мы хотели доказать:
 \[[\cat{I}, \Set](D, F' \circ K)\]
-These kinds of calculations using ends, coends, and the Yoneda lemma are
-pretty typical for the ``calculus'' of ends.
+Такие вычисления с использованием энд, коэнд и леммы Йонеды
+достаточно типичны для ``исчисления'' энд.
 
-\section{Kan Extensions in Haskell}
+\section{Расширения Кана в Haskell}
 
-The end/coend formulas for Kan extensions can be easily translated to
-Haskell. Let's start with the right extension:
+Формулы энд/коэнд для расширений Кана легко переводятся на
+Haskell. Начнём с правого расширения:
 \[\Ran_{K}D a \cong \int_i \Set(\cat{A}(a, K i), D i)\]
-We replace the end with the universal quantifier, and hom-sets with
-function types:
+Заменим энду универсальным квантором, а hom-множества —
+типами функций:
 
 \src{snippet01}
-Looking at this definition, it's clear that \code{Ran} must contain a
-value of type \code{a} to which the function can be applied, and a
-natural transformation between the two functors \code{k} and
-\code{d}. For instance, suppose that \code{k} is the tree functor,
-and \code{d} is the list functor, and you were given a
-\code{Ran Tree {[}{]} String}. If you pass it a function:
+Глядя на это определение, ясно, что \code{Ran} должен содержать
+значение типа \code{a}, к которому можно применить функцию, и
+естественное преобразование между двумя функторами \code{k} и
+\code{d}. Например, предположим, что \code{k} — это функтор дерева,
+а \code{d} — функтор списка, и вам дан
+\code{Ran Tree {[}{]} String}. Если передать ему функцию:
 
 \src{snippet02}
-you'll get back a list of \code{Int}, and so on. The right Kan
-extension will use your function to produce a tree and then repackage it
-into a list. For instance, you may pass it a parser that generates a
-parsing tree from a string, and you'll get a list that corresponds to
-the depth-first traversal of this tree.
+вы получите обратно список \code{Int}, и так далее. Правое расширение
+Кана использует вашу функцию для создания дерева, а затем упаковывает его
+в список. Например, вы можете передать ему парсер, который генерирует
+дерево разбора из строки, и получите список, соответствующий
+обходу этого дерева в глубину.
 
-The right Kan extension can be used to calculate the left adjoint of a
-given functor by replacing the functor \code{d} with the identity
-functor. This leads to the left adjoint of a functor \code{k} being
-represented by the set of polymorphic functions of the type:
+Правое расширение Кана можно использовать для вычисления левого сопряжённого
+данного функтора, заменив функтор \code{d} тождественным
+функтором. Это приводит к тому, что левый сопряжённый функтора \code{k} представляется
+множеством полиморфных функций типа:
 
 \src{snippet03}
-Suppose that \code{k} is the forgetful functor from the category of
-monoids. The universal quantifier then goes over all monoids. Of course,
-in Haskell we cannot express monoidal laws, but the following is a
-decent approximation of the resulting free functor (the forgetful
-functor \code{k} is an identity on objects):
+Предположим, что \code{k} — это забывающий функтор из категории
+моноидов. Тогда универсальный квантор проходит по всем моноидам. Конечно,
+в Haskell мы не можем выразить законы моноидов, но следующее является
+приличным приближением результирующего свободного функтора (забывающий
+функтор \code{k} тождественен на объектах):
 
 \src{snippet04}
-As expected, it generates free monoids, or Haskell lists:
+Как и ожидалось, это генерирует свободные моноиды, или списки Haskell:
 
 \src{snippet05}
-The left Kan extension is a coend:
+Левое расширение Кана — это коэнда:
 \[\Lan_{K}D a = \int^i \cat{A}(K i, a)\times{}D i\]
-so it translates to an existential quantifier. Symbolically:
+поэтому оно переводится в экзистенциальный квантор. Символически:
 
 \begin{snip}{haskell}
 Lan k d a = exists i. (k i -> a, d i)
 \end{snip}
-This can be encoded in Haskell using \acronym{GADT}s, or using a universally
-quantified data constructor:
+Это можно закодировать в Haskell с помощью \acronym{GADT}ов или используя универсально
+квантифицированный конструктор данных:
 
 \src{snippet06}
-The interpretation of this data structure is that it contains a function
-that takes a container of some unspecified \code{i}s and produces an
-\code{a}. It also has a container of those \code{i}s. Since you have
-no idea what \code{i}s are, the only thing you can do with this data
-structure is to retrieve the container of \code{i}s, repack it into
-the container defined by the functor \code{k} using a natural
-transformation, and call the function to obtain the \code{a}. For
-instance, if \code{d} is a tree, and \code{k} is a list, you can
-serialize the tree, call the function with the resulting list, and
-obtain an \code{a}.
+Интерпретация этой структуры данных заключается в том, что она содержит функцию,
+которая берёт контейнер каких-то неуказанных \code{i} и производит
+\code{a}. Она также имеет контейнер этих \code{i}. Поскольку вы
+не имеете представления, что такое \code{i}, единственное, что можно сделать с этой структурой данных, — это извлечь контейнер \code{i}, упаковать его в
+контейнер, определённый функтором \code{k}, используя естественное
+преобразование, и вызвать функцию для получения \code{a}. Например,
+если \code{d} — дерево, а \code{k} — список, можно
+сериализовать дерево, вызвать функцию с результирующим списком и
+получить \code{a}.
 
-The left Kan extension can be used to calculate the right adjoint of a
-functor. We know that the right adjoint of the product functor is the
-exponential, so let's try to implement it using the Kan extension:
+Левое расширение Кана можно использовать для вычисления правого сопряжённого
+функтора. Мы знаем, что правый сопряжённый функтора произведения — это
+экспонента, поэтому попробуем реализовать её с помощью расширения Кана:
 
 \src{snippet07}
-This is indeed isomorphic to the function type, as witnessed by the
-following pair of functions:
+Это действительно изоморфно типу функции, что подтверждается
+следующей парой функций:
 
 \src{snippet08}
-Notice that, as described earlier in the general case, we performed the
-following steps:
+Заметим, что, как описано ранее в общем случае, мы выполнили
+следующие шаги:
 
 \begin{enumerate}
   \tightlist
   \item
-        Retrieved the container of \code{x} (here, it's
-        just a trivial identity container), and the function \code{f}.
+        Извлекли контейнер \code{x} (здесь это
+        просто тривиальный тождественный контейнер) и функцию \code{f}.
   \item
-        Repackaged the container using the natural transformation between the
-        identity functor and the pair functor.
+        Переупаковали контейнер, используя естественное преобразование между
+        тождественным функтором и функтором пары.
   \item
-        Called the function \code{f}.
+        Вызвали функцию \code{f}.
 \end{enumerate}
 
-\section{Free Functor}
+\section{Свободный функтор}
 
-An interesting application of Kan extensions is the construction of a
-free functor. It's the solution to the following practical problem:
-suppose you have a type constructor --- that is a mapping of objects. Is
-it possible to define a functor based on this type constructor? In other
-words, can we define a mapping of morphisms that would extend this type
-constructor to a full-blown endofunctor?
+Интересное приложение расширений Кана — построение
+свободного функтора. Это решение следующей практической проблемы:
+предположим, у вас есть конструктор типов --- то есть отображение объектов. Возможно ли
+определить функтор на основе этого конструктора типов? Другими
+словами, можем ли мы определить отображение морфизмов, которое расширит этот конструктор типов до полноценного эндофунктора?
 
-The key observation is that a type constructor can be described as a
-functor whose domain is a discrete category. A discrete category has no
-morphisms other than the identity morphisms. Given a category $\cat{C}$,
-we can always construct a discrete category $\cat{|C|}$
-by simply discarding all non-identity morphisms. A functor $F$
-from $\cat{|C|}$ to $\cat{C}$ is then a simple mapping
-of objects, or what we call a type constructor in Haskell. There is also
-a canonical functor $J$ that injects $\cat{|C|}$
-into $\cat{C}$: it's an identity on objects (and on identity morphisms).
-The left Kan extension of $F$ along $J$, if it exists, is
-then a functor for $\cat{C}$ to $\cat{C}$:
+Ключевое наблюдение состоит в том, что конструктор типов можно описать как
+функтор, область определения которого — дискретная категория. Дискретная категория не имеет
+морфизмов, кроме тождественных морфизмов. Для данной категории $\cat{C}$
+мы всегда можем построить дискретную категорию $\cat{|C|}$,
+просто отбросив все нетождественные морфизмы. Функтор $F$
+из $\cat{|C|}$ в $\cat{C}$ тогда является простым отображением
+объектов, или тем, что мы называем конструктором типов в Haskell. Также существует
+канонический функтор $J$, который вкладывает $\cat{|C|}$
+в $\cat{C}$: он тождественен на объектах (и на тождественных морфизмах).
+Левое расширение Кана $F$ вдоль $J$, если оно существует,
+тогда является функтором из $\cat{C}$ в $\cat{C}$:
 \[\Lan_{J}F a = \int^i \cat{C}(J i, a)\times{}F i\]
-It's called a free functor based on $F$.
+Это называется свободным функтором, основанным на $F$.
 
-In Haskell, we would write it as:
+В Haskell мы бы написали это так:
 
 \src{snippet09}
-Indeed, for any type constructor \code{f}, \code{FreeF f} is a
-functor:
+Действительно, для любого конструктора типов \code{f}, \code{FreeF f} является
+функтором:
 
 \src{snippet10}
-As you can see, the free functor fakes the lifting of a function by
-recording both the function and its argument. It accumulates the lifted
-functions by recording their composition. Functor rules are
-automatically satisfied. This construction was used in a paper
+Как видите, свободный функтор имитирует поднятие функции,
+записывая и саму функцию, и её аргумент. Он накапливает поднятые
+функции, записывая их композицию. Законы функтора
+автоматически выполняются. Это построение использовалось в статье
 \urlref{http://okmij.org/ftp/Haskell/extensible/more.pdf}{Freer Monads,
   More Extensible Effects}.
 
-Alternatively, we can use the right Kan extension for the same purpose:
+Альтернативно, мы можем использовать правое расширение Кана для той же цели:
 
 \src{snippet11}
-It's easy to check that this is indeed a functor:
+Легко проверить, что это действительно функтор:
 
 \src{snippet12}

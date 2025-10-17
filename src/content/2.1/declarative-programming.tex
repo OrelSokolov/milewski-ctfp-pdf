@@ -1,102 +1,102 @@
 % !TEX root = ../../ctfp-print.tex
 
-\lettrine[lhang=0.17]{I}{n the first part} of the book I argued that both category theory and
-programming are about composability. In programming, you keep
-decomposing a problem until you reach the level of detail that you can
-deal with, solve each subproblem in turn, and re-compose the solutions
-bottom-up. There are, roughly speaking, two ways of doing it: by telling
-the computer what to do, or by telling it how to do it. One is called
-declarative and the other imperative.
+\lettrine[lhang=0.17]{В}{первой части} книги я утверждал, что и теория категорий, и
+программирование о композиционности. В программировании вы продолжаете
+разлагать проблему, пока не достигнете уровня детализации, с которым вы можете
+справиться, решите каждую подпроблему по очереди и рекомпозируете решения
+снизу вверх. Есть, грубо говоря, два способа сделать это: сказав
+компьютеру, что делать, или сказав ему, как это делать. Один называется
+декларативным, а другой императивным.
 
-You can see this even at the most basic level. Composition itself may be
-defined declaratively; as in, \code{h} is a composite of \code{g}
-after \code{f}:
+Вы можете увидеть это даже на самом базовом уровне. Сама композиция может быть
+определена декларативно; как в, \code{h} --- это композит \code{g}
+после \code{f}:
 
 \src{snippet01}
-or imperatively; as in, call \code{f} first, remember the result of
-that call, then call \code{g} with the result:
+или императивно; как в, вызвать \code{f} сначала, запомнить результат
+этого вызова, затем вызвать \code{g} с результатом:
 
 \src{snippet02}
-The imperative version of a program is usually described as a sequence
-of actions ordered in time. In particular, the call to \code{g} cannot
-happen before the execution of \code{f} completes. At least, that's
-the conceptual picture --- in a lazy language, with \emph{call-by-need}
-argument passing, the actual execution may proceed differently.
+Императивная версия программы обычно описывается как последовательность
+действий, упорядоченных во времени. В частности, вызов \code{g} не может
+произойти до завершения выполнения \code{f}. По крайней мере, такова
+концептуальная картина --- в ленивом языке с передачей аргументов
+\emph{по необходимости}, фактическое выполнение может протекать по-другому.
 
-In fact, depending on the cleverness of the compiler, there may be
-little or no difference between how declarative and imperative code is
-executed. But the two methodologies differ, sometimes drastically, in
-the way we approach problem solving and in the maintainability and
-testability of the resulting code.
+На самом деле, в зависимости от сообразительности компилятора, может быть
+мало или вообще нет разницы между тем, как выполняется декларативный и императивный код.
+Но две методологии различаются, иногда резко, в
+способе, которым мы подходим к решению проблем, и в поддерживаемости и
+тестируемости результирующего кода.
 
-The main question is: when faced with a problem, do we always have the
-choice between a declarative and imperative approaches to solving it?
-And, if there is a declarative solution, can it always be translated
-into computer code? The answer to this question is far from obvious and,
-if we could find it, we would probably revolutionize our understanding
-of the universe.
+Главный вопрос: когда мы сталкиваемся с проблемой, всегда ли у нас есть
+выбор между декларативным и императивным подходами к её решению?
+И, если есть декларативное решение, может ли оно всегда быть переведено
+в компьютерный код? Ответ на этот вопрос далёк от очевидного, и,
+если бы мы могли его найти, мы, вероятно, революционизировали бы наше понимание
+вселенной.
 
 \begin{wrapfigure}{R}{0pt}
   \includegraphics[width=0.5\textwidth]{images/asteroids.png}
 \end{wrapfigure}
 
-Let me elaborate. There is a similar duality in physics, which either
-points at some deep underlying principle, or tells us something about
-how our minds work. Richard Feynman mentions this duality as an
-inspiration in his own work on quantum electrodynamics.
+Позвольте мне разработать. В физике есть похожая двойственность, которая либо
+указывает на некоторый глубокий лежащий в основе принцип, либо говорит нам что-то о
+том, как работают наши умы. Ричард Фейнман упоминает эту двойственность как
+вдохновение в своей собственной работе по квантовой электродинамике.
 
-There are two forms of expressing most laws of physics. One uses local,
-or infinitesimal, considerations. We look at the state of a system
-around a small neighborhood, and predict how it will evolve within the
-next instant of time. This is usually expressed using differential
-equations that have to be integrated, or summed up, over a period of
-time.
+Есть две формы выражения большинства законов физики. Одна использует локальные,
+или инфинитезимальные, рассмотрения. Мы смотрим на состояние системы
+в малой окрестности и предсказываем, как она будет эволюционировать в течение
+следующего мгновения времени. Это обычно выражается с использованием дифференциальных
+уравнений, которые должны быть проинтегрированы, или просуммированы, за период
+времени.
 
-Notice how this approach resembles imperative thinking: we reach the
-final solution by following a sequence of small steps, each depending on
-the result of the previous one. In fact, computer simulations of
-physical systems are routinely implemented by turning differential
-equations into difference equations and iterating them. This is how
-spaceships are animated in the asteroids game. At each time step, the
-position of a spaceship is changed by adding a small increment, which is
-calculated by multiplying its velocity by the time delta. The velocity,
-in turn, is changed by a small increment proportional to acceleration,
-which is given by force divided by mass.
+Обратите внимание, как этот подход напоминает императивное мышление: мы достигаем
+финального решения, следуя последовательности малых шагов, каждый из которых зависит от
+результата предыдущего. На самом деле, компьютерные симуляции
+физических систем обычно реализуются превращением дифференциальных
+уравнений в разностные уравнения и их итерированием. Так
+анимируются космические корабли в игре asteroids. На каждом временном шаге
+позиция космического корабля изменяется добавлением малого приращения, которое
+вычисляется умножением его скорости на временную дельту. Скорость,
+в свою очередь, изменяется малым приращением, пропорциональным ускорению,
+которое задаётся силой, делённой на массу.
 
-These are the direct encodings of the differential equations
-corresponding to Newton's laws of motion:
+Это прямые кодировки дифференциальных уравнений,
+соответствующих законам движения Ньютона:
 \begin{align*}
   F & = m \frac{dv}{dt} \\
   v & = \frac{dx}{dt}
 \end{align*}
-Similar methods may be applied to more complex problems, like the
-propagation of electromagnetic fields using Maxwell's equations, or even
-the behavior of quarks and gluons inside a proton using lattice \acronym{QCD}
-(quantum chromodynamics).
+Похожие методы могут быть применены к более сложным проблемам, таким как
+распространение электромагнитных полей с использованием уравнений Максвелла, или даже
+поведение кварков и глюонов внутри протона с использованием решёточной \acronym{QCD}
+(квантовой хромодинамики).
 
-This local thinking combined with discretization of space and time that
-is encouraged by the use of digital computers found its extreme
-expression in the heroic attempt by Stephen Wolfram to reduce the
-complexity of the whole universe to a system of cellular automata.
+Это локальное мышление в сочетании с дискретизацией пространства и времени,
+которое поощряется использованием цифровых компьютеров, нашло своё крайнее
+выражение в героической попытке Стивена Вольфрама свести
+сложность всей вселенной к системе клеточных автоматов.
 
-The other approach is global. We look at the initial and the final state
-of the system, and calculate a trajectory that connects them by
-minimizing a certain functional. The simplest example is the Fermat's
-principle of least time. It states that light rays propagate along paths
-that minimize their flight time. In particular, in the absence of
-reflecting or refracting objects, a light ray from point $A$ to point $B$
-will take the shortest path, which is a straight line. But light
-propagates slower in dense (transparent) materials, like water or glass.
-So if you pick the starting point in the air, and the ending point under
-water, it's more advantageous for light to travel longer in the air and
-then take a shortcut through water. The path of minimum time makes the
-ray refract at the boundary of air and water, resulting in Snell's law
-of refraction:
+Другой подход глобальный. Мы смотрим на начальное и конечное состояние
+системы и вычисляем траекторию, которая их соединяет,
+минимизируя определённый функционал. Простейший пример --- принцип
+наименьшего времени Ферма. Он утверждает, что световые лучи распространяются вдоль путей,
+которые минимизируют их время полёта. В частности, в отсутствие
+отражающих или преломляющих объектов световой луч из точки $A$ в точку $B$
+возьмёт кратчайший путь, который является прямой линией. Но свет
+распространяется медленнее в плотных (прозрачных) материалах, таких как вода или стекло.
+Так что если вы выберете начальную точку в воздухе, а конечную точку под
+водой, для света более выгодно путешествовать дольше в воздухе, а
+затем взять кратчайший путь через воду. Путь минимального времени заставляет
+луч преломиться на границе воздуха и воды, приводя к закону преломления
+Снелла:
 \begin{equation*}
   \frac{sin(\theta_1)}{sin(\theta_2)} = \frac{v_1}{v_2}
 \end{equation*}
-where $v_1$ is the speed of light in the air and $v_2$ is
-the speed of light in the water.
+где $v_1$ --- скорость света в воздухе, а $v_2$ ---
+скорость света в воде.
 
 \begin{figure}[H]
   \centering
@@ -104,16 +104,16 @@ the speed of light in the water.
 \end{figure}
 
 \noindent
-All of classical mechanics can be derived from the principle of least
-action. The action can be calculated for any trajectory by integrating
-the Lagrangian, which is the difference between kinetic and potential
-energy (notice: it's the difference, not the sum --- the sum would be
-the total energy). When you fire a mortar to hit a given target, the
-projectile will first go up, where the potential energy due to gravity
-is higher, and spend some time there racking up negative contribution to
-the action. It will also slow down at the top of the parabola, to
-minimize kinetic energy. Then it will speed up to go quickly through the
-area of low potential energy.
+Вся классическая механика может быть выведена из принципа наименьшего
+действия. Действие может быть вычислено для любой траектории интегрированием
+лагранжиана, который является разностью между кинетической и потенциальной
+энергией (заметьте: это разность, не сумма --- сумма была бы
+полной энергией). Когда вы стреляете из миномёта, чтобы поразить данную цель,
+снаряд сначала пойдёт вверх, где потенциальная энергия из-за гравитации
+выше, и проведёт там некоторое время, накапливая отрицательный вклад в
+действие. Он также замедлится на вершине параболы, чтобы
+минимизировать кинетическую энергию. Затем он ускорится, чтобы быстро пройти через
+область низкой потенциальной энергии.
 
 \begin{figure}[H]
   \centering
@@ -121,11 +121,11 @@ area of low potential energy.
 \end{figure}
 
 \noindent
-Feynman's greatest contribution was to realize that the principle of
-least action can be generalized to quantum mechanics. There, again, the
-problem is formulated in terms of initial state and final state. The
-Feynman path integral between those states is used to calculate the
-probability of transition.
+Величайший вклад Фейнмана состоял в том, чтобы понять, что принцип
+наименьшего действия может быть обобщён на квантовую механику. Там снова
+проблема формулируется в терминах начального состояния и конечного состояния.
+Интеграл по путям Фейнмана между этими состояниями используется для вычисления
+вероятности перехода.
 
 \begin{figure}[H]
   \centering
@@ -133,51 +133,51 @@ probability of transition.
 \end{figure}
 
 \noindent
-The point is that there is a curious unexplained duality in the way we
-can describe the laws of physics. We can use the local picture, in which
-things happen sequentially and in small increments. Or we can use the
-global picture, where we declare the initial and final conditions, and
-everything in between just follows.
+Суть в том, что есть любопытная необъяснённая двойственность в способе, которым мы
+можем описывать законы физики. Мы можем использовать локальную картину, в которой
+вещи происходят последовательно и малыми приращениями. Или мы можем использовать
+глобальную картину, где мы объявляем начальные и конечные условия, а
+всё между ними просто следует.
 
-The global approach can be also used in programming, for instance when
-implementing ray tracing. We declare the position of the eye and the
-positions of light sources, and figure out the paths that the light rays
-may take to connect them. We don't explicitly minimize the time of
-flight for each ray, but we do use Snell's law and the geometry of
-reflection to the same effect.
+Глобальный подход также может быть использован в программировании, например, при
+реализации трассировки лучей. Мы объявляем позицию глаза и
+позиции источников света и выясняем пути, которые световые лучи
+могут взять, чтобы соединить их. Мы не минимизируем явно время
+полёта для каждого луча, но мы используем закон Снелла и геометрию
+отражения с тем же эффектом.
 
-The biggest difference between the local and the global approach is in
-their treatment of space and, more importantly, time. The local approach
-embraces the immediate gratification of here and now, whereas the global
-approach takes a long-term static view, as if the future had been
-preordained, and we were only analyzing the properties of some eternal
-universe.
+Самая большая разница между локальным и глобальным подходом --- в
+их трактовке пространства и, что более важно, времени. Локальный подход
+принимает немедленное удовлетворение здесь и сейчас, тогда как глобальный
+подход принимает долгосрочный статический взгляд, как если бы будущее было
+предопределено, и мы только анализировали свойства некоторой вечной
+вселенной.
 
-Nowhere is it better illustrated than in the Functional Reactive
-Programming (\acronym{FRP}) approach to user interaction. Instead of writing separate
-handlers for every possible user action, all having access to some
-shared mutable state, \acronym{FRP} treats external events as an infinite list,
-and applies a series of transformations to it. Conceptually, the list of
-all our future actions is there, available as the input data to our
-program. From a program's perspective there's no difference between the
-list of digits of $\pi$, a list of pseudo-random numbers, or a list of mouse
-positions coming through computer hardware. In each case, if you want to
-get the $n^\text{th}$ item, you have to first go through the first $n-1$ items. When
-applied to temporal events, we call this property \emph{causality}.
+Нигде это не иллюстрируется лучше, чем в подходе функционального реактивного
+программирования (\acronym{FRP}) к взаимодействию с пользователем. Вместо написания отдельных
+обработчиков для каждого возможного действия пользователя, все имеющие доступ к некоторому
+общему изменяемому состоянию, \acronym{FRP} рассматривает внешние события как бесконечный список
+и применяет серию преобразований к нему. Концептуально список
+всех наших будущих действий там, доступен как входные данные для нашей
+программы. С перспективы программы нет разницы между
+списком цифр $\pi$, списком псевдослучайных чисел или списком позиций мыши,
+приходящих через компьютерное оборудование. В каждом случае, если вы хотите
+получить $n^\text{й}$ элемент, вы должны сначала пройти через первые $n-1$ элементов. Когда
+применяется к временным событиям, мы называем это свойство \emph{причинностью}.
 
-So what does it have to do with category theory? I will argue that
-category theory encourages a global approach and therefore supports
-declarative programming. First of all, unlike calculus, it has no
-built-in notion of distance, or neighborhood, or time. All we have is
-abstract objects and abstract connections between them. If you can get
-from $A$ to $B$ through a series of steps, you can also get there in one
-leap. Moreover, the major tool of category theory is the universal
-construction, which is the epitome of a global approach. We've seen it
-in action, for instance, in the definition of the categorical product.
-It was done by specifying its properties --- a very declarative
-approach. It's an object equipped with two projections, and it's the
-best such object --- it optimizes a certain property: the property of
-factorizing the projections of other such objects.
+Так какое это имеет отношение к теории категорий? Я буду утверждать, что
+теория категорий поощряет глобальный подход и, следовательно, поддерживает
+декларативное программирование. Прежде всего, в отличие от математического анализа, она не имеет
+встроенного понятия расстояния, или окрестности, или времени. Всё, что у нас есть, ---
+это абстрактные объекты и абстрактные связи между ними. Если вы можете попасть
+из $A$ в $B$ через серию шагов, вы также можете попасть туда одним
+прыжком. Более того, главный инструмент теории категорий --- универсальная
+конструкция, которая является воплощением глобального подхода. Мы видели её
+в действии, например, в определении категорного произведения.
+Оно было сделано спецификацией его свойств --- очень декларативный
+подход. Это объект, оснащённый двумя проекциями, и это
+лучший такой объект --- он оптимизирует определённое свойство: свойство
+факторизации проекций других таких объектов.
 
 \begin{figure}[H]
   \centering
@@ -185,25 +185,25 @@ factorizing the projections of other such objects.
 \end{figure}
 
 \noindent
-Compare this with Fermat's principle of minimum time, or the principle
-of least action.
+Сравните это с принципом минимального времени Ферма или принципом
+наименьшего действия.
 
-Conversely, contrast this with the traditional definition of a Cartesian
-product, which is much more imperative. You describe how to create an
-element of the product by picking one element from one set and another
-element from another set. It's a recipe for creating a pair. And there's
-another for disassembling a pair.
+И наоборот, сравните это с традиционным определением декартова
+произведения, которое гораздо более императивно. Вы описываете, как создать
+элемент произведения, выбрав один элемент из одного множества и другой
+элемент из другого множества. Это рецепт создания пары. И есть
+другой для разборки пары.
 
-In almost every programming language, including functional languages
-like Haskell, product types, coproduct types, and function types are
-built in, rather than being defined by universal constructions; although
-there have been attempts at creating categorical programming languages
-(see, e.g.,
-\urlref{http://web.sfc.keio.ac.jp/~hagino/thesis.pdf}{Tatsuya
-  Hagino's thesis}).
+Почти в каждом языке программирования, включая функциональные языки,
+такие как Haskell, типы произведения, типы копроизведения и типы функций
+встроены, а не определяются универсальными конструкциями; хотя
+были попытки создания категорных языков программирования
+(см., например,
+\urlref{http://web.sfc.keio.ac.jp/~hagino/thesis.pdf}{диссертацию Татсуи
+  Хагино}).
 
-Whether used directly or not, categorical definitions justify
-pre-existing programming constructs, and give rise to new ones. Most
-importantly, category theory provides a meta-language for reasoning
-about computer programs at a declarative level. It also encourages
-reasoning about problem specification before it is cast into code.
+Используются ли напрямую или нет, категорные определения обосновывают
+существующие программные конструкции и порождают новые. Что наиболее
+важно, теория категорий предоставляет мета-язык для рассуждений
+о компьютерных программах на декларативном уровне. Она также поощряет
+рассуждения о спецификации проблемы до того, как она будет отлита в код.

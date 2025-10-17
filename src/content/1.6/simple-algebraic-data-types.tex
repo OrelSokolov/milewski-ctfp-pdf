@@ -1,25 +1,13 @@
+
 % !TEX root = ../../ctfp-print.tex
 
-\lettrine[lhang=0.17]{W}{e've seen two basic} ways of combining types: using a product and a
-coproduct. It turns out that a lot of data structures in everyday
-programming can be built using just these two mechanisms. This fact has
-important practical consequences. Many properties of data structures are
-composable. For instance, if you know how to compare values of basic
-types for equality, and you know how to generalize these comparisons to
-product and coproduct types, you can automate the derivation of equality
-operators for composite types. In Haskell you can automatically derive
-equality, comparison, conversion to and from string, and more, for a
-large subset of composite types.
+\lettrine[lhang=0.17]{М}{ы уже видели два основных} способа комбинирования типов: с помощью продукта и копродукта. Оказывается, что много данных структур в повседневном программировании можно построить, используя только эти два механизма. Это имеет важные практические последствия. Многие свойства данных структур являются композируемыми. Например, если вы знаете, как сравнивать значения базовых типов на равенство, и знаете, как обобщить эти сравнения для продуктовых и копродуктовых типов, вы можете автоматизировать вывод операторов равенства для составных типов. В Haskell можно автоматически выводить равенство, сравнение, преобразование в и из строк и многое другое для большей части составных типов.
 
-Let's have a closer look at product and sum types as they appear in
-programming.
+Давайте подробнее рассмотрим продукт и сумма типов, как они проявляются в программировании.
 
-\section{Product Types}
+\section{Произведение типов}
 
-The canonical implementation of a product of two types in a programming
-language is a pair. In Haskell, a pair is a primitive type constructor;
-in C++ it's a relatively complex template defined in the Standard
-Library.
+Каноническая реализация произведения двух типов в языке программирования — это пара. В Haskell пара является первичным типом-конструктором; в C++ это относительно сложный шаблон, определённый в стандартной библиотеке.
 
 \begin{figure}[H]
   \centering
@@ -27,230 +15,132 @@ Library.
 \end{figure}
 
 \noindent
-Pairs are not strictly commutative: a pair \code{(Int, Bool)} cannot
-be substituted for a pair \code{(Bool, Int)}, even though they carry
-the same information. They are, however, commutative up to isomorphism
---- the isomorphism being given by the \code{swap} function (which is
-its own inverse):
+Пары не являются строго коммутативными: пара \code{(Int, Bool)} не может быть заменена на пару \code{(Bool, Int)}, даже если они несут одинаковую информацию. Однако они коммутативны до изоморфизма — изоморфизм задаётся функцией \code{swap} (которая является своей собственной обратной функцией):
 
 \src{snippet01}
-You can think of the two pairs as simply using a different format for
-storing the same data. It's just like big endian vs. little endian.
+Вы можете рассматривать две пары как просто использование другого формата для хранения одной и той же информации. Это похоже на big endian vs. little endian.
 
-You can combine an arbitrary number of types into a product by nesting
-pairs inside pairs, but there is an easier way: nested pairs are
-equivalent to tuples. It's the consequence of the fact that different
-ways of nesting pairs are isomorphic. If you want to combine three types
-in a product, \code{a}, \code{b}, and \code{c}, in this order, you
-can do it in two ways:
+Вы можете объединить произвольное количество типов в продукт, вкладывая пары в пары, но есть более простой способ: вложенные пары эквивалентны кортежам. Это следствие того, что разные способы вложения пар изоморфны. Если вы хотите объединить три типа в продукт, \code{a}, \code{b} и \code{c}, в этом порядке, вы можете сделать это двумя способами:
 
 \src{snippet02}
 
-or
+или
 \src{snippet03}
-These types are different --- you can't pass one to a function that
-expects the other --- but their elements are in one-to-one
-correspondence. There is a function that maps one to another:
+Эти типы различны — вы не можете передать один в функцию, которая ожидает другой — но их элементы находятся в взаимно однозначном соответствии. Существует функция, которая отображает один в другой:
 
 \src{snippet04}
-and this function is invertible:
+и эта функция обратима:
 
 \src{snippet05}
-so it's an isomorphism. These are just different ways of repackaging the
-same data.
+поэтому это изоморфизм. Это просто разные способы упаковки одной и той же информации.
 
-You can interpret the creation of a product type as a binary operation
-on types. From that perspective, the above isomorphism looks very much
-like the associativity law we've seen in monoids:
+Вы можете интерпретировать создание типа-продукта как бинарную операцию над типами. С этой точки зрения приведённый выше изоморфизм выглядит очень похоже на закон ассоциативности, который мы видели в моноидах:
 \[(a * b) * c = a * (b * c)\]
-Except that, in the monoid case, the two ways of composing products were
-equal, whereas here they are only equal ``up to isomorphism.''
+За исключением того, что в случае моноида два способа композиции продуктов были равны, здесь они равны только «до изоморфизма».
 
-If we can live with isomorphisms, and don't insist on strict equality,
-we can go even further and show that the unit type, \code{()}, is the
-unit of the product the same way 1 is the unit of multiplication.
-Indeed, the pairing of a value of some type \code{a} with a unit
-doesn't add any information. The type:
+Если мы можем мириться с изоморфизмами и не настаиваем на строгом равенстве, мы можем пойти ещё дальше и показать, что тип-единица, \code{()}, является единицей продукта таким же образом, как 1 является единицей умножения. Действительно, парирование значения какого-либо типа \code{a} с единицей не добавляет никакой информации. Тип:
 
 \src{snippet06}
-is isomorphic to \code{a}. Here's the isomorphism:
+изоморфен \code{a}. Вот изоморфизм:
 
 \src{snippet07}
 
 \src{snippet08}
-These observations can be formalized by saying that $\Set$ (the
-category of sets) is a \newterm{monoidal category}. It's a category that's
-also a monoid, in the sense that you can multiply objects (here, take
-their Cartesian product). I'll talk more about monoidal categories, and
-give the full definition in the future.
+Эти наблюдения можно формализовать, сказав, что $\Set$ (категория множеств) является \newterm{моноидальной категорией}. Это категория, которая также является моноидом, в том смысле, что вы можете умножать объекты (здесь, брать их декартово произведение). Я расскажу больше о моноидальных категориях и дам полное определение в будущем.
 
-There is a more general way of defining product types in Haskell ---
-especially, as we'll see soon, when they are combined with sum types. It
-uses named constructors with multiple arguments. A pair, for instance,
-can be defined alternatively as:
+Существует более общий способ определения типов-продуктов в Haskell — особенно, как мы увидим скоро, когда они комбинируются со суммами типов. Он использует именованные конструкторы с множеством аргументов. Например, пара может быть определена альтернативно как:
 
 \src{snippet09}
-Here, \code{Pair a b} is the name of the type parameterized by two
-other types, \code{a} and \code{b}; and \code{P} is the name of
-the data constructor. You define a pair type by passing two types to the
-\code{Pair} type constructor. You construct a pair value by passing
-two values of appropriate types to the constructor \code{P}. For
-instance, let's define a value \code{stmt} as a pair of
-\code{String} and \code{Bool}:
+Здесь \code{Pair a b} — это имя типа, параметризованного двумя другими типами, \code{a} и \code{b}; и \code{P} — это имя данных-конструктора. Вы определяете тип пары, передавая два типа в конструктор-тип \code{Pair}. Вы создаёте значение пары, передавая два значения соответствующих типов в конструктор \code{P}. Например, определим значение \code{stmt} как пару \code{String} и \code{Bool}:
 
 \src{snippet10}
-The first line is the type signature. It uses the type constructor
-\code{Pair}, with \code{String} and \code{Bool} replacing
-\code{a} and the \code{b} in the generic definition of
-\code{Pair}. The second line defines the actual value by passing a
-concrete string and a concrete Boolean to the data constructor
-\code{P}. Type constructors are used to construct types; data
-constructors, to construct values.
+Первая строка — это сигнатура типа. Она использует конструктор-тип \code{Pair}, с \code{String} и \code{Bool}, заменяющими \code{a} и \code{b} в общем определении \code{Pair}. Вторая строка определяет фактическое значение, передавая конкретную строку и конкретный булево значение в конструктор данных \code{P}. Конструкторы-типы используются для построения типов; конструкторы-данные — для построения значений.
 
-Since the name spaces for type and data constructors are separate in
-Haskell, you will often see the same name used for both, as in:
+Поскольку пространства имён для конструкторов-типов и данных в Haskell разделены, вы часто видите одно и то же имя, используемое для обоих, как в:
 
 \src{snippet11}
-And if you squint hard enough, you may even view the built-in pair type
-as a variation on this kind of declaration, where the name \code{Pair}
-is replaced with the binary operator \code{(,)}. In fact you can use
-\code{(,)} just like any other named constructor and create pairs
-using prefix notation:
+И если вы постараетесь достаточно сильно, вы можете даже рассмотреть встроенный тип пар как вариант этого вида объявления, где имя \code{Pair} заменяется бинарным оператором \code{(,)}. Фактически вы можете использовать \code{(,)} как любую другую именованную конструктор и создавать пары с помощью префиксной нотации:
 
 \src{snippet12}
-Similarly, you can use \code{(,,)} to create triples, and so on.
+Аналогично, вы можете использовать \code{(,,)} для создания троек и так далее.
 
-Instead of using generic pairs or tuples, you can also define specific
-named product types, as in:
+Вместо использования общих пар или кортежей, вы также можете определить конкретные именованные типы-продукты, как в:
 
 \src{snippet13}
-which is just a product of \code{String} and \code{Bool}, but it's
-given its own name and constructor. The advantage of this style of
-declaration is that you may define many types that have the same content
-but different meaning and functionality, and which cannot be substituted
-for each other.
+это просто продукт \code{String} и \code{Bool}, но он имеет собственное имя и конструктор. Преимущество этого стиля объявления заключается в том, что вы можете определить много типов, которые имеют одинаковое содержание, но разное значение и функциональность, и которые не могут заменять друг друга.
 
-Programming with tuples and multi-argument constructors can get messy
-and error prone --- keeping track of which component represents what.
-It's often preferable to give names to components. A product type with
-named fields is called a \newterm{record} in Haskell, and a \code{struct} in C.
+Программирование с использованием кортежей и конструкторов с несколькими аргументами может быть запутанным и склонным к ошибкам — отслеживание того, какой компонент представляет что. Часто предпочтительнее давать имена компонентам. Тип-продукт с именованными полями называется \newterm{записью} (record) в Haskell, и \code{struct} в C.
 
-\section{Records}
+\section{Записи}
 
-Let's have a look at a simple example. We want to describe chemical
-elements by combining two strings, name and symbol; and an integer, the
-atomic number; into one data structure. We can use a tuple
-\code{(String, String, Int)} and remember which component represents
-what. We would extract components by pattern matching, as in this
-function that checks if the symbol of the element is the prefix of its
-name (as in \textbf{He} being the prefix of \textbf{Helium}):
+Давайте рассмотрим простой пример. Мы хотим описать химические элементы, объединяя две строки, имя и символ; и целое число, атомный номер; в один объект данных. Мы можем использовать кортеж \code{(String, String, Int)} и помнить, что компонент представляет, что. Мы извлекали бы компоненты с помощью сопоставления с образцом, как в этой функции, которая проверяет, является ли символ элемента префиксом его имени (как \textbf{He} является префиксом \textbf{Helium}):
 
 \src{snippet14}
-This code is error prone, and is hard to read and maintain. It's much
-better to define a record:
+Этот код склонен к ошибкам, и его трудно читать и поддерживать. Гораздо лучше определить запись:
 
 \src{snippet15}
-The two representations are isomorphic, as witnessed by these two
-conversion functions, which are the inverse of each other:
+Два представления изоморфны, как подтверждают эти две функции преобразования, которые являются обратными друг другу:
 
 \src{snippet16}
 
 \src{snippet17}
-Notice that the names of record fields also serve as functions to access
-these fields. For instance, \code{atomicNumber e} retrieves the
-\code{atomicNumber} field from \code{e}. We use
-\code{atomicNumber} as a function of the type:
+Обратите внимание, что имена полей записи также служат функциями для доступа к этим полям. Например, \code{atomicNumber e} извлекает поле \code{atomicNumber} из \code{e}. Мы используем \code{atomicNumber} как функцию типа:
 
 \src{snippet18}
-With the record syntax for \code{Element}, our function
-\code{startsWithSymbol} becomes more readable:
+С использованием синтаксиса записи для \code{Element}, наша функция \code{startsWithSymbol} становится более читаемой:
 
 \src{snippet19}
-We could even use the Haskell trick of turning the function
-\code{isPrefixOf} into an infix operator by surrounding it with
-backquotes, and make it read almost like a sentence:
+Мы даже могли бы использовать трюк Haskell, превращающий функцию \code{isPrefixOf} в инфиксный оператор, окружив его обратными кавычками, и сделать её почти как предложение:
 
 \src{snippet20}
-The parentheses could be omitted in this case, because an infix operator
-has lower precedence than a function call.
+Скобки можно опустить в этом случае, потому что инфиксный оператор имеет меньший приоритет, чем вызов функции.
 
-\section{Sum Types}
+\section{Сумма типов}
 
-Just as the product in the category of sets gives rise to product types,
-the coproduct gives rise to sum types. The canonical implementation of a
-sum type in Haskell is:
+Так же, как произведение в категории множеств порождает типы-продукты, копроизведение порождает типы-суммы. Каноническая реализация типа-суммы в Haskell:
 
 \src{snippet21}
-And like pairs, \code{Either}s are commutative (up to isomorphism),
-can be nested, and the nesting order is irrelevant (up to isomorphism).
-So we can, for instance, define a sum equivalent of a triple:
+И как пары, \code{Either}s коммутативны (до изоморфизма), могут быть вложены, и порядок вложения несущественен (до изоморфизма). Таким образом, мы можем, например, определить сумму, эквивалентную тройке:
 
 \src{snippet22}
-and so on.
+и так далее.
 
-It turns out that $\Set$ is also a (symmetric) monoidal category
-with respect to coproduct. The role of the binary operation is played by
-the disjoint sum, and the role of the unit element is played by the
-initial object. In terms of types, we have \code{Either} as the
-monoidal operator and \code{Void}, the uninhabited type, as its
-neutral element. You can think of \code{Either} as plus, and
-\code{Void} as zero. Indeed, adding \code{Void} to a sum type
-doesn't change its content. For instance:
+Оказывается, что $\Set$ также является (симметричной) моноидальной категорией относительно копроизведения. Роль бинарной операции играет несвязное сумма, а роль единичного элемента — начальный объект. В терминах типов у нас есть \code{Either} как моноидальный оператор и \code{Void}, необитаемый тип, как его нейтральный элемент. Вы можете рассматривать \code{Either} как плюс, а \code{Void} как ноль. Действительно, добавление \code{Void} к типу-сумме не меняет его содержание. Например:
 
 \src{snippet23}
-is isomorphic to \code{a}. That's because there is no way to construct
-a \code{Right} version of this type --- there isn't a value of type
-\code{Void}. The only inhabitants of \code{Either a Void} are
-constructed using the \code{Left} constructors and they simply
-encapsulate a value of type \code{a}. So, symbolically, $a + 0 = a$.
+изоморфен \code{a}. Это потому, что нет способа создать версию \code{Right} этого типа — нет значения типа \code{Void}. Единственные обитатели \code{Either a Void} создаются с помощью конструктора \code{Left} и просто инкапсулируют значение типа \code{a}. Таким образом, символически, $a + 0 = a$.
 
-Sum types are pretty common in Haskell, but their C++ equivalents,
-unions or variants, are much less common. There are several reasons for
-that.
+Сумма типов довольно распространена в Haskell, но их аналоги в C++, объединения или варианты, гораздо менее распространены. Есть несколько причин для этого.
 
-First of all, the simplest sum types are just enumerations and are
-implemented using \code{enum} in C++. The equivalent of the Haskell
-sum type:
+Во-первых, самые простые сумма-типы — это перечисления и реализуются с помощью \code{enum} в C++. Эквивалент сумма-типа Haskell:
 
 \src{snippet24}
-is the C++:
+это C++:
 
 \begin{snip}{cpp}
 enum { Red, Green, Blue };
 \end{snip}
-An even simpler sum type:
+Даже более простой сумма-тип:
 
 \src{snippet25}
-is the primitive \code{bool} in C++.
+это примитивный \code{bool} в C++.
 
-Simple sum types that encode the presence or absence of a value are
-variously implemented in C++ using special tricks and ``impossible''
-values, like empty strings, negative numbers, null pointers, etc. This
-kind of optionality, if deliberate, is expressed in Haskell using the
-\code{Maybe} type:
+Простые сумма-типы, кодирующие наличие или отсутствие значения, реализуются в C++ различными хитростями и «невозможными» значениями, такими как пустые строки, отрицательные числа, нулевые указатели и т.д. Этот вид опциональности, если он предназначен, выражается в Haskell с помощью типа \code{Maybe}:
 
 \src{snippet26}
-The \code{Maybe} type is a sum of two types. You can see this if you
-separate the two constructors into individual types. The first one would
-look like this:
+Тип \code{Maybe} — это сумма двух типов. Вы можете увидеть это, если разделите два конструктора на отдельные типы. Первый будет выглядеть так:
 
 \src{snippet27}
-It's an enumeration with one value called \code{Nothing}. In other
-words, it's a singleton, which is equivalent to the unit type
-\code{()}. The second part:
+Это перечисление с одним значением, называемым \code{Nothing}. Другими словами, это одиночный, который эквивалентен типу \code{()}. Вторая часть:
 
 \src{snippet28}
-is just an encapsulation of the type \code{a}. We could have encoded
-\code{Maybe} as:
+это просто инкапсуляция типа \code{a}. Мы могли бы закодировать \code{Maybe} как:
 
 \src{snippet29}
-More complex sum types are often faked in C++ using pointers. A pointer
-can be either null, or point to a value of specific type. For instance,
-a Haskell list type, which can be defined as a (recursive) sum type:
+Более сложные сумма-типы часто подделываются в C++ с использованием указателей. Указатель может быть либо нулевым, либо указывать на значение определённого типа. Например, тип списка Haskell, который может быть определён как (рекурсивный) сумма-тип:
 
 \src{snippet30}
-can be translated to C++ using the null pointer trick to implement the
-empty list:
+можно перевести в C++ с использованием трюка с нулевым указателем для реализации пустого списка:
 
 \begin{snip}{cpp}
 template<class A>
@@ -263,157 +153,78 @@ public:
     {}
 };
 \end{snip}
-Notice that the two Haskell constructors \code{Nil} and \code{Cons}
-are translated into two overloaded \code{List} constructors with
-analogous arguments (none, for \code{Nil}; and a value and a list for
-\code{Cons}). The \code{List} class doesn't need a tag to
-distinguish between the two components of the sum type. Instead it uses
-the special \code{nullptr} value for \code{\_head} to encode
-\code{Nil}.
+Обратите внимание, что два конструктора Haskell \code{Nil} и \code{Cons} переводятся в два перегруженных конструктора \code{List} с аналогичными аргументами (ни одного для \code{Nil}; и значение и список для \code{Cons}). Класс \code{List} не нуждается в метке для различения двух компонентов сумма-типа. Вместо этого он использует специальное значение \code{nullptr} для \code{\_head}, чтобы закодировать \code{Nil}.
 
-The main difference, though, between Haskell and C++ types is that
-Haskell data structures are immutable. If you create an object using one
-particular constructor, the object will forever remember which
-constructor was used and what arguments were passed to it. So a
-\code{Maybe} object that was created as \code{Just "energy"} will
-never turn into \code{Nothing}. Similarly, an empty list will forever
-be empty, and a list of three elements will always have the same three
-elements.
+Основное различие между типами Haskell и C++ заключается в том, что структуры данных Haskell неизменяемы. Если вы создадите объект с использованием одного определённого конструктора, объект будет всегда помнить, какой конструктор был использован и какие аргументы были переданы. Таким образом, объект \code{Maybe}, созданный как \code{Just "energy"}, никогда не станет \code{Nothing}. Аналогично, пустой список будет всегда пустым, а список из трёх элементов всегда будет иметь те же три элемента.
 
-It's this immutability that makes construction reversible. Given an
-object, you can always disassemble it down to parts that were used in
-its construction. This deconstruction is done with pattern matching and
-it reuses constructors as patterns. Constructor arguments, if any, are
-replaced with variables (or other patterns).
+Именно эта неизменяемость делает создание обратимым. Зная объект, вы всегда можете разобрать его на части, использованные в его создании. Это разбор осуществляется с помощью сопоставления с образцом и повторно использует конструкторы как образцы. Аргументы конструктора, если они есть, заменяются переменными (или другими образцами).
 
-The \code{List} data type has two constructors, so the deconstruction
-of an arbitrary \code{List} uses two patterns corresponding to those
-constructors. One matches the empty \code{Nil} list, and the other a
-\code{Cons}-constructed list. For instance, here's the definition of a
-simple function on \code{List}s:
+Тип данных \code{List} имеет два конструктора, поэтому разбор произвольного \code{List} использует два образца, соответствующих этим конструкторам. Один соответствует пустому списку \code{Nil}, другой — списку, построенному с помощью \code{Cons}. Например, вот определение простой функции на \code{List}:
 
 \src{snippet31}
-The first part of the definition of \code{maybeTail} uses the
-\code{Nil} constructor as pattern and returns \code{Nothing}. The
-second part uses the \code{Cons} constructor as pattern. It replaces
-the first constructor argument with a wildcard, because we are not
-interested in it. The second argument to \code{Cons} is bound to the
-variable \code{t} (I will call these things variables even though,
-strictly speaking, they never vary: once bound to an expression, a
-variable never changes). The return value is \code{Just t}. Now,
-depending on how your \code{List} was created, it will match one of
-the clauses. If it was created using \code{Cons}, the two arguments
-that were passed to it will be retrieved (and the first discarded).
+Первая часть определения \code{maybeTail} использует конструктор \code{Nil} как образец и возвращает \code{Nothing}. Вторая часть использует конструктор \code{Cons} как образец. Она заменяет первый аргумент конструктора дикой картой, потому что мы не заинтересованы в нём. Второй аргумент \code{Cons} привязывается к переменной \code{t} (я буду называть эти вещи переменными, даже если строго говоря, они никогда не меняются: после привязки к выражению, переменная никогда не меняется). Возвращаемое значение — \code{Just t}. Теперь, в зависимости от того, как был создан ваш \code{List}, он будет соответствовать одному из предложений. Если он был создан с использованием \code{Cons}, то два аргумента, переданные ему, будут извлечены (и первый отброшен).
 
-Even more elaborate sum types are implemented in C++ using polymorphic
-class hierarchies. A family of classes with a common ancestor may be
-understood as one variant type, in which the vtable serves as a hidden
-tag. What in Haskell would be done by pattern matching on the
-constructor, and by calling specialized code, in C++ is accomplished by
-dispatching a call to a virtual function based on the vtable pointer.
+Даже более сложные сумма-типы реализуются в C++ с использованием полиморфных классовых иерархий. Семейство классов с общим предком может быть понято как один вариантный тип, в котором таблица виртуальных функций служит скрытой меткой. Что в Haskell делается сопоставлением с образцом и вызовом специализированного кода, в C++ достигается с помощью диспетчеризации вызова виртуальной функции на основе указателя таблицы виртуальных функций.
 
-You will rarely see \code{union} used as a sum type in C++ because of
-severe limitations on what can go into a union. You can't even put a
-\code{std::string} into a union because it has a copy constructor.
+Вы редко видите \code{union} используемым как сумма-тип в C++ из-за серьёзных ограничений на то, что может быть помещено в объединение. Даже нельзя поместить \code{std::string} в объединение, потому что у него есть конструктор копирования.
 
-\section{Algebra of Types}
+\section{Алгебра типов}
 
-Taken separately, product and sum types can be used to define a variety
-of useful data structures, but the real strength comes from combining
-the two. Once again we are invoking the power of composition.
+Рассмотренные отдельно, типы-продукты и типы-суммы могут быть использованы для определения различных полезных структур данных, но настоящая сила проявляется при их комбинировании. Опять мы обращаемся к силе композиции.
 
-Let's summarize what we've discovered so far. We've seen two commutative
-monoidal structures underlying the type system: We have the sum types
-with \code{Void} as the neutral element, and the product types with
-the unit type, \code{()}, as the neutral element. We'd like to think
-of them as analogous to addition and multiplication. In this analogy,
-\code{Void} would correspond to zero, and unit, \code{()}, to one.
+Подведём итог того, что мы до сих пор узнали. Мы увидели две коммутативные моноидальные структуры, лежащие в основе системы типов: у нас есть типы-суммы с \code{Void} как нейтральным элементом, и типы-продукты с единичным типом, \code{()}, как нейтральным элементом. Мы хотим рассматривать их как аналоги сложения и умножения. В этой аналогии \code{Void} соответствовал бы нулю, а единица, \code{()}, — единице.
 
-Let's see how far we can stretch this analogy. For instance, does
-multiplication by zero give zero? In other words, is a product type with
-one component being \code{Void} isomorphic to \code{Void}? For
-example, is it possible to create a pair of, say \code{Int} and
-\code{Void}?
+Давайте посмотрим, насколько далеко мы можем продлить эту аналогию. Например, дает ли умножение на ноль ноль? Иными словами, является ли тип-продукт с одной компонентой \code{Void} изоморфным \code{Void}? Например, возможно ли создать пару, скажем, \code{Int} и \code{Void}?
 
-To create a pair you need two values. Although you can easily come up
-with an integer, there is no value of type \code{Void}. Therefore, for
-any type \code{a}, the type \code{(a, Void)} is uninhabited --- has
-no values --- and is therefore equivalent to \code{Void}. In other
-words, $a \times 0 = 0$.
+Для создания пары вам нужны два значения. Хотя вы легко можете придумать целое число, нет значения типа \code{Void}. Поэтому, для любого типа \code{a}, тип \code{(a, Void)} необитаем — не имеет значений — и, следовательно, эквивалентен \code{Void}. Другими словами, $a \times 0 = 0$.
 
-Another thing that links addition and multiplication is the distributive
-property:
-\[a \times (b + c) = a \times b + a \times c\]
-Does it also hold for product and sum types? Yes, it does --- up to
-isomorphisms, as usual. The left hand side corresponds to the type:
+Ещё одно, связывающее сложение и умножение, это свойство дистрибутивности:
+$$a \times (b + c) = a \times b + a \times c$$
+Действует ли это также для типов-продуктов и типов-сумм? Да, действует — до изоморфизмов, как обычно. Левая часть соответствует типу:
 
 \src{snippet32}
-and the right hand side corresponds to the type:
+а правая часть соответствует типу:
 
 \src{snippet33}
-Here's the function that converts them one way:
+Вот функция, которая преобразует их в одном направлении:
 
 \src{snippet34}
-and here's one that goes the other way:
+а вот функция, которая идёт в обратном направлении:
 
 \src{snippet35}
-The \code{case of} clause is used for pattern matching inside
-functions. Each pattern is followed by an arrow and the expression to be
-evaluated when the pattern matches. For instance, if you call
-\code{prodToSum} with the value:
+Клауза \code{case of} используется для сопоставления с образцом внутри функций. Каждый образец следует за стрелкой и выражением, которое оценивается, когда образец совпадает. Например, если вы вызовете \code{prodToSum} со значением:
 
 \src{snippet36}
-the \code{e} in \code{case e of} will be equal to
-\code{Left "Hi!"}. It will match the pattern \code{Left y},
-substituting \code{"Hi!"} for \code{y}. Since the \code{x} has
-already been matched to \code{2}, the result of the \code{case of}
-clause, and the whole function, will be \code{Left (2, "Hi!")}, as
-expected.
+\code{e} в \code{case e of} будет равен \code{Left "Hi!"}. Он будет совпадать с образцом \code{Left y}, подставляя \code{"Hi!"} вместо \code{y}. Поскольку \code{x} уже был совпадён с \code{2}, результат клаузы \code{case of} и всей функции будет \code{Left (2, "Hi!")}, как ожидалось.
 
-I'm not going to prove that these two functions are the inverse of each
-other, but if you think about it, they must be! They are just trivially
-re-packing the contents of the two data structures. It's the same data,
-only different format.
+Я не буду доказывать, что эти две функции являются обратными друг другу, но если подумать, они должны быть! Они просто тривиально переупаковывают содержимое двух структур данных. Это та же самая информация, только другой формат.
 
-Mathematicians have a name for two such intertwined monoids: it's called
-a \newterm{semiring}. It's not a full \newterm{ring}, because we can't define
-subtraction of types. That's why a semiring is sometimes called a
-\newterm{rig}, which is a pun on ``ring without an \emph{n}'' (negative).
-But barring that, we can get a lot of mileage from translating
-statements about, say, natural numbers, which form a rig, to statements
-about types. Here's a translation table with some entries of interest:
+Математики имеют название для двух таких переплетённых моноидов: это называется \newterm{полурingом}. Это не полный \newterm{ring}, потому что мы не можем определить вычитание типов. Поэтому полурing иногда называют \newterm{rig}, что является игрушкой на «ring без \emph{n}» (отрицательного). Но, несмотря на это, мы можем получить много пользы, переводя утверждения о, скажем, натуральных числах, которые образуют rig, в утверждения о типах. Вот таблица перевода с интересными пунктами:
 
 \begin{longtable}[]{@{}ll@{}}
   \toprule
-  Numbers      & Types\tabularnewline
+  Числа      & Типы\tabularnewline
   \midrule
   \endhead
   $0$          & \code{Void}\tabularnewline
   $1$          & \code{()}\tabularnewline
   $a + b$      & \code{data Either a b = Left a | Right b}\tabularnewline
-  $a \times b$ & \code{(a, b)} or \code{data Pair a b = Pair a b}\tabularnewline
+  $a \times b$ & \code{(a, b)} или \code{data Pair a b = Pair a b}\tabularnewline
   $2 = 1 + 1$  & \code{data Bool = True | False}\tabularnewline
   $1 + a$      & \code{data Maybe a = Nothing | Just a}\tabularnewline
   \bottomrule
 \end{longtable}
 
 \noindent
-The list type is quite interesting, because it's defined as a solution
-to an equation. The type we are defining appears on both sides of the
-equation:
+Тип списка очень интересен, потому что он определяется как решение уравнения. Тип, который мы определяем, появляется с обеих сторон уравнения:
 
 \src{snippet37}
-If we do our usual substitutions, and also replace \code{List a} with
-\code{x}, we get the equation:
+Если мы выполним наши обычные подстановки, и также заменим \code{List a} на \code{x}, мы получим уравнение:
 
 \begin{Verbatim}
   x = 1 + a * x
 \end{Verbatim}
-We can't solve it using traditional algebraic methods because we can't
-subtract or divide types. But we can try a series of substitutions,
-where we keep replacing \code{x} on the right hand side with
-\code{(1 + a*x)}, and use the distributive property. This leads to
-the following series:
+Мы не можем решить его с помощью традиционных алгебраических методов, потому что не можем вычитать или делить типы. Но мы можем попробовать серию подстановок, где мы продолжаем заменять \code{x} на правой стороне на \code{(1 + a*x)}, и использовать свойство дистрибутивности. Это приводит к следующей серии:
 
 \begin{Verbatim}
   x = 1 + a*x
@@ -422,31 +233,17 @@ the following series:
   ...
   x = 1 + a + a*a + a*a*a + a*a*a*a...
 \end{Verbatim}
-We end up with an infinite sum of products (tuples), which can be
-interpreted as: A list is either empty, \code{1}; or a singleton,
-\code{a}; or a pair, \code{a*a}; or a triple, \code{a*a*a};
-etc\ldots{} Well, that's exactly what a list is --- a string of
-\code{a}s!
+Мы заканчиваемся с бесконечной суммой продуктов (кортежей), которая может быть интерпретирована как: Список — это либо пустой, \code{1}; либо одиночный, \code{a}; либо пара, \code{a*a}; либо тройка, \code{a*a*a}; и так далее. Ну, это именно то, что такое список — строка из \code{a}s!
 
-There's much more to lists than that, and we'll come back to them and
-other recursive data structures after we learn about functors and fixed
-points.
+Спискам есть ещё многое, и мы вернёмся к ним и другим рекурсивным структурам данных после того, как узнаем о функторах и фиксированных точках.
 
-Solving equations with symbolic variables --- that's algebra! It's what
-gives these types their name: algebraic data types.
+Решение уравнений с символическими переменными — это алгебра! Это то, что даёт этим типам их имя: алгебраические типы данных.
 
-Finally, I should mention one very important interpretation of the
-algebra of types. Notice that a product of two types \code{a} and
-\code{b} must contain both a value of type \code{a} \emph{and} a
-value of type \code{b}, which means both types must be inhabited. A
-sum of two types, on the other hand, contains either a value of type
-\code{a} \emph{or} a value of type \code{b}, so it's enough if one
-of them is inhabited. Logical \emph{and} and \emph{or} also form a
-semiring, and it too can be mapped into type theory:
+Наконец, я должен упомянуть одну очень важную интерпретацию алгебры типов. Обратите внимание, что продукт двух типов \code{a} и \code{b} должен содержать и значение типа \code{a} и значение типа \code{b}, что означает, что оба типа должны быть обитаемы. Сумма двух типов, с другой стороны, содержит либо значение типа \code{a}, либо значение типа \code{b}, поэтому достаточно, чтобы один из них был обитаем. Логическое \emph{и} и \emph{или} также образуют полурing, и его также можно отобразить в теорию типов:
 
 \begin{longtable}[]{@{}ll@{}}
   \toprule
-  Logic                & Types\tabularnewline
+  Логика                & Типы\tabularnewline
   \midrule
   \endhead
   $\mathit{false}$     & \code{Void}\tabularnewline
@@ -457,54 +254,41 @@ semiring, and it too can be mapped into type theory:
 \end{longtable}
 
 \noindent
-This analogy goes deeper, and is the basis of the Curry-Howard
-isomorphism between logic and type theory. We'll come back to it when we
-talk about function types.
+Эта аналогия глубже и является основой изоморфизма Кёрри-Хоуара между логикой и теорией типов. Мы вернёмся к этому, когда поговорим о типах функций.
 
-\section{Challenges}
+\section{Задачи}
 
 \begin{enumerate}
   \tightlist
   \item
-        Show the isomorphism between \code{Maybe a} and
+        Показать изоморфизм между \code{Maybe a} и
         \code{Either () a}.
   \item
-        Here's a sum type defined in Haskell:
+        Вот сумма-тип, определённый в Haskell:
 
         \begin{snip}{haskell}
 data Shape = Circle Float
            | Rect Float Float
 \end{snip}
-        When we want to define a function like \code{area} that acts on a
-        \code{Shape}, we do it by pattern matching on the two constructors:
+        Когда мы хотим определить функцию, например, \code{area}, которая действует на \code{Shape}, мы делаем это с помощью сопоставления с образцом на двух конструкторах:
 
         \begin{snip}{haskell}
 area :: Shape -> Float
 area (Circle r) = pi * r * r
 area (Rect d h) = d * h
 \end{snip}
-        Implement \code{Shape} in C++ or Java as an interface and create two
-        classes: \code{Circle} and \code{Rect}. Implement \code{area} as
-        a virtual function.
+        Реализуйте \code{Shape} в C++ или Java как интерфейс и создайте два класса: \code{Circle} и \code{Rect}. Реализуйте \code{area} как виртуальную функцию.
   \item
-        Continuing with the previous example: We can easily add a new function
-        \code{circ} that calculates the circumference of a \code{Shape}.
-        We can do it without touching the definition of \code{Shape}:
+        Продолжая предыдущий пример: Мы можем легко добавить новую функцию \code{circ}, которая вычисляет длину окружности \code{Shape}. Мы можем сделать это без изменения определения \code{Shape}:
 
         \begin{snip}{haskell}
 circ :: Shape -> Float
 circ (Circle r) = 2.0 * pi * r
 circ (Rect d h) = 2.0 * (d + h)
 \end{snip}
-        Add \code{circ} to your C++ or Java implementation. What parts of
-        the original code did you have to touch?
+        Добавьте \code{circ} в вашу реализацию на C++ или Java. Какие части исходного кода пришлось изменить?
   \item
-        Continuing further: Add a new shape, \code{Square}, to
-        \code{Shape} and make all the necessary updates. What code did you
-        have to touch in Haskell vs. C++ or Java? (Even if you're not a
-        Haskell programmer, the modifications should be pretty obvious.)
+        Продолжая дальше: Добавьте новый тип фигуры, \code{Square}, в \code{Shape} и сделайте все необходимые обновления. Какой код пришлось изменить в Haskell по сравнению с C++ или Java? (Даже если вы не программист на Haskell, изменения должны быть довольно очевидны.)
   \item
-        Show that $a + a = 2 \times a$ holds for types (up to
-        isomorphism). Remember that $2$ corresponds to \code{Bool},
-        according to our translation table.
+        Показать, что $a + a = 2 \times a$ выполняется для типов (до изоморфизма). Помните, что $2$ соответствует \code{Bool}, согласно нашей таблице перевода.
 \end{enumerate}

@@ -105,6 +105,8 @@
   urlcolor=LinkRed,
 }
 \usepackage{afterpage}
+\usepackage{atbegshi}
+\AtBeginDocument{\AtBeginShipoutNext{\AtBeginShipoutDiscard}}
 \newcommand\blankpage{%
     \null
     \thispagestyle{empty}%

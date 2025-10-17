@@ -1,38 +1,20 @@
 % !TEX root = ../../ctfp-print.tex
 
-\lettrine[lhang=0.17]{A}{t the risk of sounding} like a broken record, I will say this about
-functors: A functor is a very simple but powerful idea. Category theory
-is just full of those simple but powerful ideas. A functor is a mapping
-between categories. Given two categories, $\cat{C}$ and $\cat{D}$, a functor $F$ maps
-objects in $\cat{C}$ to objects in $\cat{D}$ --- it's a function on objects. If $a$
-is an object in $\cat{C}$, we'll write its image in $\cat{D}$ as $F a$ (no
-parentheses). But a category is not just objects --- it's objects and
-morphisms that connect them. A functor also maps morphisms --- it's a
-function on morphisms. But it doesn't map morphisms willy-nilly --- it
-preserves connections. So if a morphism $f$ in $\cat{C}$ connects object
-$a$ to object $b$,
+\lettrine[lhang=0.17]{Р}{искуя прозвучать} как заезженная пластинка, я скажу о функторах следующее: функтор — это очень простая, но мощная идея. Теория категорий просто полна такими простыми, но мощными идеями. Функтор — это отображение между категориями. Для двух категорий $\cat{C}$ и $\cat{D}$ функтор $F$ отображает объекты в $\cat{C}$ в объекты в $\cat{D}$ — это функция на объектах. Если $a$ — объект в $\cat{C}$, мы запишем его образ в $\cat{D}$ как $F a$ (без скобок). Но категория — это не только объекты — это объекты и морфизмы, которые их связывают. Функтор также отображает морфизмы — это функция на морфизмах. Но он отображает морфизмы не как попало — он сохраняет связи. Так что если морфизм $f$ в $\cat{C}$ связывает объект $a$ с объектом $b$,
 \[f \Colon a \to b\]
-the image of $f$ in $\cat{D}$, $F f$, will connect the image of
-$a$ to the image of $b$:
+образ $f$ в $\cat{D}$, $F f$, будет связывать образ $a$ с образом $b$:
 \[F f \Colon F a \to F b\]
 
-(This is a mixture of mathematical and Haskell notation that hopefully
-makes sense by now. I won't use parentheses when applying functors to
-objects or morphisms.)
+(Это смесь математических и Haskell-ных обозначений, которая, надеюсь, уже имеет смысл. Я не буду использовать скобки при применении функторов к объектам или морфизмам.)
 
 \begin{figure}[H]
   \centering\includegraphics[width=0.3\textwidth]{images/functor.jpg}
 \end{figure}
 
 \noindent
-As you can see, a
-functor preserves the structure of a category: what's connected in one
-category will be connected in the other category. But there's something
-more to the structure of a category: there's also the composition of
-morphisms. If $h$ is a composition of $f$ and $g$:
+Как видите, функтор сохраняет структуру категории: то, что связано в одной категории, будет связано и в другой. Но в структуре категории есть нечто большее: есть также композиция морфизмов. Если $h$ — это композиция $f$ и $g$:
 \[h = g \circ f\]
-we want its image under $F$ to be a composition of the images of $f$
-and $g$:
+мы хотим, чтобы его образ под действием $F$ был композицией образов $f$ и $g$:
 \[F h = F g \circ F f\]
 
 \begin{figure}[H]
@@ -41,13 +23,11 @@ and $g$:
 \end{figure}
 
 \noindent
-Finally, we want all identity morphisms in $\cat{C}$ to be mapped to identity morphisms in
-$\cat{D}$:
+Наконец, мы хотим, чтобы все тождественные морфизмы в $\cat{C}$ отображались в тождественные морфизмы в $\cat{D}$:
 \[F \idarrow[a] = \idarrow[F a]\]
 
 \noindent
-Here, $\idarrow[a]$ is the identity at the object $a$,
-and $\idarrow[F a]$ the identity at $F a$.
+Здесь $\idarrow[a]$ — тождественный морфизм на объекте $a$, а $\idarrow[F a]$ — тождественный морфизм на $F a$.
 
 \begin{figure}[H]
   \centering
@@ -55,71 +35,24 @@ and $\idarrow[F a]$ the identity at $F a$.
 \end{figure}
 
 \noindent
-Note that these conditions make functors much more restrictive than regular functions.
-Functors must preserve the structure of a category. If you picture a
-category as a collection of objects held together by a network of
-morphisms, a functor is not allowed to introduce any tears into this
-fabric. It may smash objects together, it may glue multiple morphisms
-into one, but it may never break things apart. This no-tearing
-constraint is similar to the continuity condition you might know from
-calculus. In this sense functors are ``continuous'' (although there
-exists an even more restrictive notion of continuity for functors). Just
-like functions, functors may do both collapsing and embedding. The
-embedding aspect is more prominent when the source category is much
-smaller than the target category. In the extreme, the source can be the
-trivial singleton category --- a category with one object and one
-morphism (the identity). A functor from the singleton category to any
-other category simply selects an object in that category. This is fully
-analogous to the property of morphisms from singleton sets selecting
-elements in target sets. The maximally collapsing functor is called the
-constant functor $\Delta_c$. It maps every object in the source
-category to one selected object $c$ in the target category. It also
-maps every morphism in the source category to the identity morphism
-$\idarrow[c]$. It acts like a black hole, compacting
-everything into one singularity. We'll see more of this functor when we
-discuss limits and colimits.
+Заметьте, что эти условия делают функторы гораздо более ограниченными, чем обычные функции. Функторы должны сохранять структуру категории. Если представить категорию как коллекцию объектов, соединённых сетью морфизмов, то функтору не позволено разрывать эту ткань. Он может склеивать объекты, может склеивать несколько морфизмов в один, но он никогда не может разрывать вещи на части. Это ограничение «без разрывов» похоже на условие непрерывности, которое вы можете знать из математического анализа. В этом смысле функторы «непрерывны» (хотя существует ещё более ограничительное понятие непрерывности для функторов). Так же, как и функции, функторы могут делать и схлопывание, и вложение. Аспект вложения более заметен, когда исходная категория намного меньше целевой. В крайнем случае, исходной может быть тривиальная синглтонная категория — категория с одним объектом и одним морфизмом (тождественным). Функтор из синглтонной категории в любую другую категорию просто выбирает объект в этой категории. Это полностью аналогично свойству морфизмов из синглтонных множеств выбирать элементы в целевых множествах. Максимально схлопывающий функтор называется постоянным функтором $\Delta_c$. Он отображает каждый объект исходной категории в один выбранный объект $c$ в целевой категории. Он также отображает каждый морфизм исходной категории в тождественный морфизм $\idarrow[c]$. Он ведёт себя как чёрная дыра, уплотняя всё в одну сингулярность. Мы увидим больше этого функтора, когда будем обсуждать пределы и копределы.
 
-\section{Functors in Programming}
+\section{Функторы в программировании}
 
-Let's get down to earth and talk about programming. We have our category
-of types and functions. We can talk about functors that map this
-category into itself --- such functors are called endofunctors. So
-what's an endofunctor in the category of types? First of all, it maps
-types to types. We've seen examples of such mappings, maybe without
-realizing that they were just that. I'm talking about definitions of
-types that were parameterized by other types. Let's see a few examples.
+Давайте спустимся на землю и поговорим о программировании. У нас есть наша категория типов и функций. Мы можем говорить о функторах, которые отображают эту категорию в себя — такие функторы называются эндофункторами. Так что же такое эндофунктор в категории типов? Прежде всего, он отображает типы в типы. Мы видели примеры таких отображений, возможно, не осознавая, что это именно они. Я говорю об определениях типов, которые были параметризованы другими типами. Давайте рассмотрим несколько примеров.
 
-\subsection{The Maybe Functor}
+\subsection{Функтор Maybe}
 
-The definition of \code{Maybe} is a mapping from type \code{a} to
-type \code{Maybe a}:
+Определение \code{Maybe} — это отображение из типа \code{a} в тип \code{Maybe a}:
 
 \src{snippet01}
-Here's an important subtlety: \code{Maybe} itself is not a type, it's
-a \emph{type constructor}. You have to give it a type argument, like
-\code{Int} or \code{Bool}, in order to turn it into a type.
-\code{Maybe} without any argument represents a function on types. But
-can we turn \code{Maybe} into a functor? (From now on, when I speak of
-functors in the context of programming, I will almost always mean
-endofunctors.) A functor is not only a mapping of objects (here, types)
-but also a mapping of morphisms (here, functions). For any function from
-\code{a} to \code{b}:
+Вот важная тонкость: \code{Maybe} сам по себе не тип, это \emph{конструктор типа}. Вы должны дать ему аргумент типа, например \code{Int} или \code{Bool}, чтобы превратить его в тип. \code{Maybe} без какого-либо аргумента представляет функцию на типах. Но можем ли мы превратить \code{Maybe} в функтор? (Отныне, когда я говорю о функторах в контексте программирования, я почти всегда буду иметь в виду эндофункторы.) Функтор — это не только отображение объектов (здесь, типов), но и отображение морфизмов (здесь, функций). Для любой функции из \code{a} в \code{b}:
 
 \src{snippet02}
-we would like to produce a function from \code{Maybe a} to
-\code{Maybe b}. To define such a function, we'll have two cases to
-consider, corresponding to the two constructors of \code{Maybe}. The
-\code{Nothing} case is simple: we'll just return \code{Nothing}
-back. And if the argument is \code{Just}, we'll apply the function
-\code{f} to its contents. So the image of \code{f} under
-\code{Maybe} is the function:
+мы хотели бы получить функцию из \code{Maybe a} в \code{Maybe b}. Чтобы определить такую функцию, у нас будет два случая для рассмотрения, соответствующих двум конструкторам \code{Maybe}. Случай \code{Nothing} прост: мы просто вернём \code{Nothing} обратно. И если аргумент — это \code{Just}, мы применим функцию \code{f} к его содержимому. Так что образ \code{f} под действием \code{Maybe} — это функция:
 
 \src{snippet03}
-(By the way, in Haskell you can use apostrophes in variables names,
-which is very handy in cases like these.) In Haskell, we implement the
-morphism-mapping part of a functor as a higher order function called
-\code{fmap}. In the case of \code{Maybe}, it has the following
-signature:
+(Кстати, в Haskell вы можете использовать апострофы в именах переменных, что очень удобно в таких случаях.) В Haskell мы реализуем часть функтора, отображающую морфизмы, как функцию высшего порядка под названием \code{fmap}. В случае \code{Maybe} она имеет следующую сигнатуру:
 
 \src{snippet04}
 
@@ -129,108 +62,72 @@ signature:
 \end{figure}
 
 \noindent
-We often say
-that \code{fmap} \emph{lifts} a function. The lifted function acts on
-\code{Maybe} values. As usual, because of currying, this signature may
-be interpreted in two ways: as a function of one argument --- which
-itself is a function \code{(a -> b)} --- returning a
-function \code{(Maybe a -> Maybe b)}; or as a
-function of two arguments returning \code{Maybe b}:
+Мы часто говорим, что \code{fmap} \emph{поднимает} функцию. Поднятая функция действует на значения \code{Maybe}. Как обычно, из-за каррирования эту сигнатуру можно интерпретировать двумя способами: как функцию одного аргумента — которая сама является функцией \code{(a -> b)} — возвращающую функцию \code{(Maybe a -> Maybe b)}; или как функцию двух аргументов, возвращающую \code{Maybe b}:
 
 \src{snippet05}
-Based on our previous discussion, this is how we implement \code{fmap}
-for \code{Maybe}:
+Основываясь на нашем предыдущем обсуждении, вот как мы реализуем \code{fmap} для \code{Maybe}:
 
 \src{snippet06}
-To show that the type constructor \code{Maybe} together with the
-function \code{fmap} form a functor, we have to prove that
-\code{fmap} preserves identity and composition. These are called ``the
-functor laws,'' but they simply ensure the preservation of the structure
-of the category.
+Чтобы показать, что конструктор типа \code{Maybe} вместе с функцией \code{fmap} образуют функтор, мы должны доказать, что \code{fmap} сохраняет тождество и композицию. Это называется «законами функтора», но они просто обеспечивают сохранение структуры категории.
 
-\subsection{Equational Reasoning}
+\subsection{Уравнительные рассуждения}
 
-To prove the functor laws, I will use \newterm{equational reasoning}, which
-is a common proof technique in Haskell. It takes advantage of the fact
-that Haskell functions are defined as equalities: the left hand side
-equals the right hand side. You can always substitute one for another,
-possibly renaming variables to avoid name conflicts. Think of this as
-either inlining a function, or the other way around, refactoring an
-expression into a function. Let's take the identity function as an
-example:
+Чтобы доказать законы функтора, я буду использовать \newterm{уравнительные рассуждения}, что является распространённой техникой доказательства в Haskell. Она использует тот факт, что функции в Haskell определены как равенства: левая часть равна правой части. Вы всегда можете подставить одну вместо другой, возможно, переименовывая переменные, чтобы избежать конфликтов имён. Думайте об этом как о встраивании функции или, наоборот, рефакторинге выражения в функцию. Возьмём в качестве примера тождественную функцию:
 
 \src{snippet07}
-If you see, for instance, \code{id y} in some expression, you can
-replace it with \code{y} (inlining). Further, if you see \code{id}
-applied to an expression, say \code{id (y + 2)}, you can replace it
-with the expression itself \code{(y + 2)}. And this substitution
-works both ways: you can replace any expression \code{e} with
-\code{id e} (refactoring). If a function is defined by pattern
-matching, you can use each sub-definition independently. For instance,
-given the above definition of \code{fmap} you can replace
-\code{fmap f Nothing} with \code{Nothing}, or the other way
-around. Let's see how this works in practice. Let's start with the
-preservation of identity:
+Если вы видите, например, \code{id y} в каком-то выражении, вы можете заменить его на \code{y} (встраивание). Далее, если вы видите \code{id}, применённую к выражению, скажем \code{id (y + 2)}, вы можете заменить её на само выражение \code{(y + 2)}. И эта подстановка работает в обе стороны: вы можете заменить любое выражение \code{e} на \code{id e} (рефакторинг). Если функция определена через сопоставление с образцом, вы можете использовать каждое подопределение независимо. Например, учитывая приведённое выше определение \code{fmap}, вы можете заменить \code{fmap f Nothing} на \code{Nothing}, или наоборот. Давайте посмотрим, как это работает на практике. Начнём с сохранения тождества:
 
 \src{snippet08}
-There are two cases to consider: \code{Nothing} and \code{Just}.
-Here's the first case (I'm using Haskell pseudo-code to transform the
-left hand side to the right hand side):
+Есть два случая для рассмотрения: \code{Nothing} и \code{Just}. Вот первый случай (я использую Haskell-псевдокод для преобразования левой части в правую):
 
 \begin{snip}{haskell}
   fmap id Nothing
-= { definition of fmap }
+= { определение fmap }
   Nothing
-= { definition of id }
+= { определение id }
   id Nothing
 \end{snip}
-Notice that in the last step I used the definition of \code{id}
-backwards. I replaced the expression \code{Nothing} with
-\code{id\ Nothing}. In practice, you carry out such proofs by
-``burning the candle at both ends,'' until you hit the same expression
-in the middle --- here it was \code{Nothing}. The second case is also
-easy:
+Заметьте, что на последнем шаге я использовал определение \code{id} в обратную сторону. Я заменил выражение \code{Nothing} на \code{id\ Nothing}. На практике вы проводите такие доказательства, «сжигая свечу с обоих концов», пока не получите одно и то же выражение посередине — здесь это было \code{Nothing}. Второй случай тоже прост:
 
 \begin{snip}{haskell}
   fmap id (Just x)
-= { definition of fmap }
+= { определение fmap }
   Just (id x)
-= { definition of id }
+= { определение id }
   Just x
-= { definition of id }
+= { определение id }
   id (Just x)
 \end{snip}
-Now, let's show that \code{fmap} preserves composition:
+Теперь покажем, что \code{fmap} сохраняет композицию:
 
 \src{snippet09}
-First the \code{Nothing} case:
+Сначала случай \code{Nothing}:
 
 \begin{snip}{haskell}
   fmap (g . f) Nothing
-= { definition of fmap }
+= { определение fmap }
   Nothing
-= { definition of fmap }
+= { определение fmap }
   fmap g Nothing
-= { definition of fmap }
+= { определение fmap }
   fmap g (fmap f Nothing)
 \end{snip}
-And then the \code{Just} case:
+А затем случай \code{Just}:
 
 \begin{snip}{haskell}
   fmap (g . f) (Just x)
-= { definition of fmap }
+= { определение fmap }
   Just ((g . f) x)
-= { definition of composition }
+= { определение композиции }
   Just (g (f x))
-= { definition of fmap }
+= { определение fmap }
   fmap g (Just (f x))
-= { definition of fmap }
+= { определение fmap }
   fmap g (fmap f (Just x))
-= { definition of composition }
+= { определение композиции }
   (fmap g . fmap f) (Just x)
 \end{snip}
-It's worth stressing that equational reasoning doesn't work for C++
-style ``functions'' with side effects. Consider this code:
+Стоит подчеркнуть, что уравнительные рассуждения не работают для «функций» в стиле C++ с побочными эффектами. Рассмотрим этот код:
 
 \begin{snip}{cpp}
 int square(int x) {
@@ -244,31 +141,21 @@ int counter() {
 
 double y = square(counter());
 \end{snip}
-Using equational reasoning, you would be able to inline \code{square}
-to get:
+Используя уравнительные рассуждения, вы могли бы встроить \code{square} и получить:
 
 \begin{snip}{cpp}
 double y = counter() * counter();
 \end{snip}
-This is definitely not a valid transformation, and it will not produce
-the same result. Despite that, the C++ compiler will try to use
-equational reasoning if you implement \code{square} as a macro, with
-disastrous results.
+Это определенно не является допустимым преобразованием и не даст тот же результат. Несмотря на это, компилятор C++ попытается использовать уравнительные рассуждения, если вы реализуете \code{square} как макрос, с катастрофическими последствиями.
 
 \subsection{Optional}
 
-Functors are easily expressed in Haskell, but they can be defined in any
-language that supports generic programming and higher-order functions.
-Let's consider the C++ analog of \code{Maybe}, the template type
-\code{optional}. Here's a sketch of the implementation (the actual
-implementation is much more complex, dealing with various ways the
-argument may be passed, with copy semantics, and with the resource
-management issues characteristic of C++):
+Функторы легко выражаются в Haskell, но они могут быть определены в любом языке, который поддерживает обобщённое программирование и функции высшего порядка. Рассмотрим аналог \code{Maybe} в C++, шаблонный тип \code{optional}. Вот набросок реализации (реальная реализация намного сложнее, dealing с различными способами передачи аргумента, с семантикой копирования и с проблемами управления ресурсами, характерными для C++):
 
 \begin{snip}{cpp}
 template<class T>
 class optional {
-    bool _isValid; // the tag
+    bool _isValid; // тег
     T _v;
 public:
     optional()    : _isValid(false) {}        // Nothing
@@ -276,10 +163,7 @@ public:
     bool isValid() const { return _isValid; }
     T val() const { return _v; } };
 \end{snip}
-This template provides one part of the definition of a functor: the
-mapping of types. It maps any type \code{T} to a new type
-\code{optional<T>}. Let's define its action on
-functions:
+Этот шаблон предоставляет одну часть определения функтора: отображение типов. Он отображает любой тип \code{T} в новый тип \code{optional<T>}. Давайте определим его действие на функции:
 
 \begin{snip}{cpp}
 template<class A, class B>
@@ -293,8 +177,7 @@ fmap(std::function<B(A)> f) {
     };
 }
 \end{snip}
-This is a higher order function, taking a function as an argument and
-returning a function. Here's the uncurried version of it:
+Это функция высшего порядка, принимающая функцию как аргумент и возвращающая функцию. Вот неукарренная версия:
 
 \begin{snip}{cpp}
 template<class A, class B>
@@ -305,94 +188,47 @@ optional<B> fmap(std::function<B(A)> f, optional<A> opt) {
         return optional<B>{ f(opt.val()) };
 }
 \end{snip}
-There is also an option of making \code{fmap} a template method of
-\code{optional}. This embarrassment of choices makes abstracting the
-functor pattern in C++ a problem. Should functor be an interface to
-inherit from (unfortunately, you can't have template virtual functions)?
-Should it be a curried or an uncurried free template function? Can the
-C++ compiler correctly infer the missing types, or should they be
-specified explicitly? Consider a situation where the input function
-\code{f} takes an \code{int} to a \code{bool}. How will the
-compiler figure out the type of \code{g}:
+Также есть вариант сделать \code{fmap} шаблонным методом \code{optional}. Это изобилие выбора делает абстрагирование паттерна функтора в C++ проблемой. Должен ли функтор быть интерфейсом для наследования (к сожалению, вы не можете иметь шаблонные виртуальные функции)? Должен ли это быть каррированный или неукарренный свободный шаблон функции? Может ли компилятор C++ правильно вывести отсутствующие типы, или они должны быть указаны явно? Рассмотрим ситуацию, когда входная функция \code{f} принимает \code{int} и возвращает \code{bool}. Как компилятор определит тип \code{g}:
 
 \begin{snip}{cpp}
 auto g = fmap(f);
 \end{snip}
-especially if, in the future, there are multiple functors overloading
-\code{fmap}? (We'll see more functors soon.)
+особенно если в будущем будет несколько функторов, перегружающих \code{fmap}? (Мы скоро увидим больше функторов.)
 
-\subsection{Typeclasses}
+\subsection{Классы типов}
 
-So how does Haskell deal with abstracting the functor? It uses the
-typeclass mechanism. A typeclass defines a family of types that support
-a common interface. For instance, the class of objects that support
-equality is defined as follows:
+Так как же Haskell справляется с абстрагированием функтора? Он использует механизм классов типов. Класс типов определяет семейство типов, которые поддерживают общий интерфейс. Например, класс объектов, поддерживающих равенство, определяется следующим образом:
 
 \src{snippet10}
-This definition states that type \code{a} is of the class \code{Eq}
-if it supports the operator \code{(==)} that takes two arguments of
-type \code{a} and returns a \code{Bool}. If you want to tell Haskell
-that a particular type is \code{Eq}, you have to declare it an
-\newterm{instance} of this class and provide the implementation of
-\code{(==)}. For example, given the definition of a 2D \code{Point}
-(a product type of two \code{Float}s):
+Это определение утверждает, что тип \code{a} принадлежит классу \code{Eq}, если он поддерживает оператор \code{(==)}, который принимает два аргумента типа \code{a} и возвращает \code{Bool}. Если вы хотите сказать Haskell, что конкретный тип является \code{Eq}, вы должны объявить его \newterm{экземпляром} этого класса и предоставить реализацию \code{(==)}. Например, учитывая определение 2D \code{Point} (тип-произведение двух \code{Float}):
 
 \src{snippet11}
-you can define the equality of points:
+вы можете определить равенство точек:
 
 \src{snippet12}
-Here I used the operator \code{(==)} (the one I'm defining) in the
-infix position between the two patterns \code{(Pt x y)} and
-\code{(Pt x' y')}. The body of the function follows the
-single equal sign. Once \code{Point} is declared an instance of
-\code{Eq}, you can directly compare points for equality. Notice that,
-unlike in C++ or Java, you don't have to specify the \code{Eq} class
-(or interface) when defining \code{Point} --- you can do it later in
-client code. Typeclasses are also Haskell's only mechanism for
-overloading functions (and operators). We will need that for overloading
-\code{fmap} for different functors. There is one complication, though:
-a functor is not defined as a type but as a mapping of types, a type
-constructor. We need a typeclass that's not a family of types, as was
-the case with \code{Eq}, but a family of type constructors.
-Fortunately a Haskell typeclass works with type constructors as well as
-with types. So here's the definition of the \code{Functor} class:
+Здесь я использовал оператор \code{(==)} (тот, который я определяю) в инфиксной позиции между двумя образцами \code{(Pt x y)} и \code{(Pt x' y')}. Тело функции следует после единственного знака равенства. Как только \code{Point} объявлен экземпляром \code{Eq}, вы можете напрямую сравнивать точки на равенство. Заметьте, что, в отличие от C++ или Java, вам не нужно указывать класс \code{Eq} (или интерфейс) при определении \code{Point} — вы можете сделать это позже в клиентском коде. Классы типов также являются единственным механизмом Haskell для перегрузки функций (и операторов). Нам это понадобится для перегрузки \code{fmap} для разных функторов. Однако есть одно осложнение: функтор определяется не как тип, а как отображение типов, конструктор типа. Нам нужен класс типов, который является не семейством типов, как в случае с \code{Eq}, а семейством конструкторов типов. К счастью, класс типов Haskell работает как с конструкторами типов, так и с типами. Так что вот определение класса \code{Functor}:
 
 \src{snippet13}
-It stipulates that \code{f} is a \code{Functor} if there exists a
-function \code{fmap} with the specified type signature. The lowercase
-\code{f} is a type variable, similar to type variables \code{a} and
-\code{b}. The compiler, however, is able to deduce that it represents
-a type constructor rather than a type by looking at its usage: acting on
-other types, as in \code{f a} and \code{f b}. Accordingly, when
-declaring an instance of \code{Functor}, you have to give it a type
-constructor, as is the case with \code{Maybe}:
+Оно требует, чтобы \code{f} был \code{Functor}, если существует функция \code{fmap} с указанной сигнатурой типов. Строчная \code{f} — это переменная типа, похожая на переменные типа \code{a} и \code{b}. Однако компилятор способен вывести, что она представляет конструктор типа, а не тип, посмотрев на её использование: действие на другие типы, как в \code{f a} и \code{f b}. Соответственно, при объявлении экземпляра \code{Functor} вы должны указать конструктор типа, как в случае с \code{Maybe}:
 
 \src{snippet14}
-By the way, the \code{Functor} class, as well as its instance
-definitions for a lot of simple data types, including \code{Maybe},
-are part of the standard Prelude library.
+Кстати, класс \code{Functor}, а также определения его экземпляров для множества простых типов данных, включая \code{Maybe}, являются частью стандартной библиотеки Prelude.
 
-\subsection{Functor in C++}
+\subsection{Функтор в C++}
 
-Can we try the same approach in C++? A type constructor corresponds to a
-template class, like \code{optional}, so by analogy, we would
-parameterize \code{fmap} with a \newterm{template template parameter}
-\code{F}. This is the syntax for it:
+Можем ли мы попробовать тот же подход в C++? Конструктор типа соответствует шаблонному классу, like \code{optional}, так что по аналогии мы параметризуем \code{fmap} \newterm{шаблонным шаблонным параметром} \code{F}. Вот синтаксис для этого:
 
 \begin{snip}{cpp}
 template<template<class> F, class A, class B>
 F<B> fmap(std::function<B(A)>, F<A>);
 \end{snip}
-We would like to be able to specialize this template for different
-functors. Unfortunately, there is a prohibition against partial
-specialization of template functions in C++. You can't write:
+Мы хотели бы иметь возможность специализировать этот шаблон для разных функторов. К сожалению, в C++ есть запрет на частичную специализацию шаблонов функций. Вы не можете написать:
 
 \begin{snip}{cpp}
 template<class A, class B>
 optional<B> fmap<optional>(std::function<B(A)> f, optional<A> opt)
 \end{snip}
-Instead, we have to fall back on function overloading, which brings us
-back to the original definition of the uncurried \code{fmap}:
+Вместо этого мы вынуждены полагаться на перегрузку функций, что возвращает нас к исходному определению неукарренного \code{fmap}:
 
 \begin{snip}{cpp}
 template<class A, class B>
@@ -403,57 +239,23 @@ optional<B> fmap(std::function<B(A)> f, optional<A> opt) {
         return optional<B>{ f(opt.val()) };
 }
 \end{snip}
-This definition works, but only because the second argument of
-\code{fmap} selects the overload. It totally ignores the more generic
-definition of \code{fmap}.
+Это определение работает, но только потому, что второй аргумент \code{fmap} выбирает перегрузку. Оно полностью игнорирует более общее определение \code{fmap}.
 
-\subsection{The List Functor}
+\subsection{Функтор List}
 
-To get some intuition as to the role of functors in programming, we need
-to look at more examples. Any type that is parameterized by another type
-is a candidate for a functor. Generic containers are parameterized by
-the type of the elements they store, so let's look at a very simple
-container, the list:
+Чтобы получить некоторую интуицию о роли функторов в программировании, нам нужно посмотреть больше примеров. Любой тип, параметризованный другим типом, является кандидатом в функторы. Обобщённые контейнеры параметризованы типом элементов, которые они хранят, так что давайте посмотрим на очень простой контейнер, список:
 
 \src{snippet15}
-We have the type constructor \code{List}, which is a mapping from any
-type \code{a} to the type \code{List a}. To show that \code{List}
-is a functor we have to define the lifting of functions: Given a
-function \code{a -> b} define a function
-\code{List a -> List b}:
+У нас есть конструктор типа \code{List}, который является отображением из любого типа \code{a} в тип \code{List a}. Чтобы показать, что \code{List} является функтором, мы должны определить поднятие функций: Для функции \code{a -> b} определить функцию \code{List a -> List b}:
 
 \src{snippet16}
-A function acting on \code{List a} must consider two cases
-corresponding to the two list constructors. The \code{Nil} case is
-trivial --- just return \code{Nil} --- there isn't much you can do
-with an empty list. The \code{Cons} case is a bit tricky, because it
-involves recursion. So let's step back for a moment and consider what we
-are trying to do. We have a list of \code{a}, a function \code{f}
-that turns \code{a} to \code{b}, and we want to generate a list of
-\code{b}. The obvious thing is to use \code{f} to turn each element
-of the list from \code{a} to \code{b}. How do we do this in
-practice, given that a (non-empty) list is defined as the \code{Cons}
-of a head and a tail? We apply \code{f} to the head and apply the
-lifted (\code{fmap}ped) \code{f} to the tail. This is a recursive
-definition, because we are defining lifted \code{f} in terms of lifted
-\code{f}:
+Функция, действующая на \code{List a}, должна рассматривать два случая, соответствующих двум конструкторам списка. Случай \code{Nil} тривиален — просто вернуть \code{Nil} — с пустым списком нельзя сделать много чего. Случай \code{Cons} немного хитрее, потому что включает рекурсию. Так что давайте сделаем шаг назад и подумаем, что мы пытаемся сделать. У нас есть список из \code{a}, функция \code{f}, которая превращает \code{a} в \code{b}, и мы хотим сгенерировать список из \code{b}. Очевидная вещь — использовать \code{f} для превращения каждого элемента списка из \code{a} в \code{b}. Как мы делаем это на практике, учитывая, что (непустой) список определяется как \code{Cons} головы и хвоста? Мы применяем \code{f} к голове и применяем поднятый (\code{fmap}нутый) \code{f} к хвосту. Это рекурсивное определение, потому что мы определяем поднятый \code{f} через поднятый \code{f}:
 
 \src{snippet17}
-Notice that, on the right hand side, \code{fmap f} is applied to a
-list that's shorter than the list for which we are defining it --- it's
-applied to its tail. We recurse towards shorter and shorter lists, so we
-are bound to eventually reach the empty list, or \code{Nil}. But as
-we've decided earlier, \code{fmap f} acting on \code{Nil} returns
-\code{Nil}, thus terminating the recursion. To get the final result,
-we combine the new head \code{(f x)} with the new tail
-\code{(fmap f t)} using the \code{Cons} constructor. Putting it
-all together, here's the instance declaration for the list functor:
+Заметьте, что в правой части \code{fmap f} применяется к списку, который короче списка, для которого мы его определяем — он применяется к его хвосту. Мы рекурсируем к более и более коротким спискам, так что мы обязательно достигнем пустого списка, или \code{Nil}. Но как мы решили ранее, \code{fmap f}, действующий на \code{Nil}, возвращает \code{Nil}, таким образом завершая рекурсию. Чтобы получить окончательный результат, мы объединяем новую голову \code{(f x)} с новым хвостом \code{(fmap f t)} с помощью конструктора \code{Cons}. Собирая всё вместе, вот объявление экземпляра для функтора списка:
 
 \src{snippet18}
-If you are more comfortable with C++, consider the case of a
-\code{std::vector}, which could be considered the most generic C++
-container. The implementation of \code{fmap} for \code{std::vector}
-is just a thin encapsulation of \code{std::transform}:
+Если вам удобнее с C++, рассмотрите случай \code{std::vector}, который можно считать наиболее обобщённым контейнером C++. Реализация \code{fmap} для \code{std::vector} — это просто тонкая обёртка над \code{std::transform}:
 
 \begin{snip}{cpp}
 template<class A, class B>
@@ -466,8 +268,7 @@ std::vector<B> fmap(std::function<B(A)> f, std::vector<A> v) {
     return w;
 }
 \end{snip}
-We can use it, for instance, to square the elements of a sequence of
-numbers:
+Мы можем использовать её, например, чтобы возвести в квадрат элементы последовательности чисел:
 
 \begin{snip}{cpp}
 std::vector<int> v{ 1, 2, 3, 4 };
@@ -476,139 +277,45 @@ std::copy( std::begin(w)
          , std::end(w)
          , std::ostream_iterator(std::cout, ", "));
 \end{snip}
-Most C++ containers are functors by virtue of implementing iterators
-that can be passed to \code{std::transform}, which is the more
-primitive cousin of \code{fmap}. Unfortunately, the simplicity of a
-functor is lost under the usual clutter of iterators and temporaries
-(see the implementation of \code{fmap} above). I'm happy to say that
-the new proposed C++ range library makes the functorial nature of ranges
-much more pronounced.
+Большинство контейнеров C++ являются функторами в силу реализации итераторов, которые могут быть переданы в \code{std::transform}, более примитивному собрату \code{fmap}. К сожалению, простота функтора теряется под обычным хламом итераторов и временных объектов (см. реализацию \code{fmap} выше). Я с радостью говорю, что новая предлагаемая библиотека диапазонов C++ делает функториальную природу диапазонов гораздо более выраженной.
 
-\subsection{The Reader Functor}
+\subsection{Функтор Reader}
 
-Now that you might have developed some intuitions --- for instance,
-functors being some kind of containers --- let me show you an example
-which at first sight looks very different. Consider a mapping of type
-\code{a} to the type of a function returning \code{a}. We haven't
-really talked about function types in depth --- the full categorical
-treatment is coming --- but we have some understanding of those as
-programmers. In Haskell, a function type is constructed using the arrow
-type constructor \code{(->)} which takes two types: the
-argument type and the result type. You've already seen it in infix form,
-\code{a -> b}, but it can equally well be used in prefix
-form, when parenthesized:
+Теперь, когда у вас, возможно, развилась некоторая интуиция — например, функторы как своего рода контейнеры — позвольте мне показать вам пример, который на первый взгляд выглядит совсем иначе. Рассмотрим отображение типа \code{a} в тип функции, возвращающей \code{a}. Мы ещё не говорили глубоко о функциональных типах — полное категориальное рассмотрение впереди — но у нас есть некоторое понимание их как программистов. В Haskell функциональный тип конструируется с использованием конструктора типа \code{(->)}, который принимает два типа: тип аргумента и тип результата. Вы уже видели его в инфиксной форме, \code{a -> b}, но он может так же хорошо использоваться в префиксной форме, когда заключён в скобки:
 
 \src{snippet19}
-Just like with regular functions, type functions of more than one
-argument can be partially applied. So when we provide just one type
-argument to the arrow, it still expects another one. That's why:
+Так же, как с обычными функциями, типовые функции более чем одного аргумента могут быть частично применены. Так что когда мы предоставляем всего один аргумент типа стрелке, она всё ещё ожидает другой. Вот почему:
 
 \src{snippet20}
-is a type constructor. It needs one more type \code{b} to produce a
-complete type \code{a -> b}. As it stands, it defines a
-whole family of type constructors parameterized by \code{a}. Let's see
-if this is also a family of functors. Dealing with two type parameters
-can get a bit confusing, so let's do some renaming. Let's call the
-argument type \code{r} and the result type \code{a}, in line with
-our previous functor definitions. So our type constructor takes any type
-\code{a} and maps it into the type \code{r -> a}. To show
-that it's a functor, we want to lift a function
-\code{a -> b} to a function that takes
-\code{r -> a} and returns \code{r -> b}. These
-are the types that are formed using the type constructor
-\code{(->) r} acting on, respectively, \code{a} and
-\code{b}. Here's the type signature of \code{fmap} applied to this
-case:
+является конструктором типа. Ему нужен ещё один тип \code{b}, чтобы произвести полный тип \code{a -> b}. В данном виде он определяет целое семейство конструкторов типов, параметризованных \code{a}. Давайте посмотрим, является ли это также семейством функторов. Работа с двумя параметрами типов может быть немного запутанной, так что давайте сделаем некоторое переименование. Назовём тип аргумента \code{r} и тип результата \code{a}, в соответствии с нашими предыдущими определениями функторов. Так что наш конструктор типа берёт любой тип \code{a} и отображает его в тип \code{r -> a}. Чтобы показать, что это функтор, мы хотим поднять функцию \code{a -> b} в функцию, которая принимает \code{r -> a} и возвращает \code{r -> b}. Это типы, которые образованы с помощью конструктора типа \code{(->) r}, действующего на \code{a} и \code{b} соответственно. Вот сигнатура типа \code{fmap}, применённого к этому случаю:
 
 \src{snippet21}
-We have to solve the following puzzle: given a function
-\code{f :: a -> b} and a function
-\code{g :: r -> a}, create a function
-\code{r -> b}. There is only one way we can compose the two
-functions, and the result is exactly what we need. So here's the
-implementation of our \code{fmap}:
+Мы должны решить следующую головоломку: имея функцию \code{f :: a -> b} и функцию \code{g :: r -> a}, создать функцию \code{r -> b}. Есть только один способ скомпоновать две функции, и результат — именно то, что нам нужно. Так что вот реализация нашего \code{fmap}:
 
 \src{snippet22}
-It just works! If you like terse notation, this definition can be
-reduced further by noticing that composition can be rewritten in prefix
-form:
+Это просто работает! Если вам нравится краткая нотация, это определение может быть далее сокращено, заметив, что композиция может быть переписана в префиксной форме:
 
 \src{snippet23}
-and the arguments can be omitted to yield a direct equality of two
-functions:
+и аргументы могут быть опущены, чтобы получить прямое равенство двух функций:
 
 \src{snippet24}
-This combination of the type constructor \code{(->) r}
-with the above implementation of \code{fmap} is called the reader
-functor.
+Эта комбинация конструктора типа \code{(->) r} с приведённой выше реализацией \code{fmap} называется функтором reader.
 
-\section{Functors as Containers}
+\section{Функторы как контейнеры}
 
-We've seen some examples of functors in programming languages that
-define general-purpose containers, or at least objects that contain some
-value of the type they are parameterized over. The reader functor seems
-to be an outlier, because we don't think of functions as data. But we've
-seen that pure functions can be memoized, and function execution can be
-turned into table lookup. Tables are data. Conversely, because of
-Haskell's laziness, a traditional container, like a list, may actually
-be implemented as a function. Consider, for instance, an infinite list
-of natural numbers, which can be compactly defined as:
+Мы видели несколько примеров функторов в языках программирования, которые определяют контейнеры общего назначения, или по крайней мере объекты, которые содержат некоторое значение типа, которым они параметризованы. Функтор reader кажется исключением, потому что мы не думаем о функциях как о данных. Но мы видели, что чистые функции могут быть мемоизированы, и выполнение функции может быть превращено в поиск по таблице. Таблицы — это данные. Обратно, из-за ленивости Haskell традиционный контейнер, like список, может фактически быть реализован как функция. Рассмотрим, например, бесконечный список натуральных чисел, который может быть компактно определён как:
 
 \src{snippet25}
-In the first line, a pair of square brackets is Haskell's built-in
-type constructor for lists. In the second line, square brackets are used
-to create a list literal. Obviously, an infinite list like this cannot
-be stored in memory. The compiler implements it as a function that
-generates \code{Integer}s on demand. Haskell effectively blurs the
-distinction between data and code. A list could be considered a
-function, and a function could be considered a table that maps arguments
-to results. The latter can even be practical if the domain of the
-function is finite and not too large. It would not be practical,
-however, to implement \code{strlen} as table lookup, because there are
-infinitely many different strings. As programmers, we don't like
-infinities, but in category theory you learn to eat infinities for
-breakfast. Whether it's a set of all strings or a collection of all
-possible states of the Universe, past, present, and future --- we can
-deal with it! So I like to think of the functor object (an object of the
-type generated by an endofunctor) as containing a value or values of the
-type over which it is parameterized, even if these values are not
-physically present there. One example of a functor is a C++
-\code{std::future}, which may at some point contain a value, but it's
-not guaranteed it will; and if you want to access it, you may block
-waiting for another thread to finish execution. Another example is a
-Haskell \code{IO} object, which may contain user input, or the future
-versions of our Universe with ``Hello World!'' displayed on the monitor.
-According to this interpretation, a functor object is something that may
-contain a value or values of the type it's parameterized upon. Or it may
-contain a recipe for generating those values. We are not at all
-concerned about being able to access the values --- that's totally
-optional, and outside of the scope of the functor. All we are interested
-in is to be able to manipulate those values using functions. If the
-values can be accessed, then we should be able to see the results of
-this manipulation. If they can't, then all we care about is that the
-manipulations compose correctly and that the manipulation with an
-identity function doesn't change anything. Just to show you how much we
-don't care about being able to access the values inside a functor
-object, here's a type constructor that ignores completely its argument
-\code{a}:
+В первой строке пара квадратных скобок — это встроенный конструктор типа Haskell для списков. Во второй строке квадратные скобки используются для создания литерала списка. Очевидно, бесконечный список like этот не может быть сохранён в памяти. Компилятор реализует его как функцию, которая генерирует \code{Integer} по требованию. Haskell эффективно размывает различие между данными и кодом. Список может считаться функцией, а функция может считаться таблицей, которая отображает аргументы в результаты. Последнее может даже быть практичным, если область определения функции конечна и не слишком велика. Однако было бы непрактично реализовывать \code{strlen} как поиск по таблице, потому что есть бесконечно много разных строк. Как программисты, мы не любим бесконечностей, но в теории категорий вы учитесь поглощать бесконечности на завтрак. Будь то множество всех строк или коллекция всех возможных состояний Вселенной, прошлых, настоящих и будущих — мы можем справиться с этим! Так что я люблю думать о функторном объекте (объекте типа, порождённого эндофунктором) как о содержащем значение или значения типа, которым он параметризован, даже если эти значения физически не присутствуют там. Один пример функтора — это C++ \code{std::future}, который может в некоторый момент содержать значение, но нет гарантии, что будет; и если вы хотите получить к нему доступ, вы можете заблокироваться, ожидая завершения выполнения другим потоком. Другой пример — Haskell \code{IO} объект, который может содержать пользовательский ввод или будущие версии нашей Вселенной с «Hello World!», отображённым на мониторе. Согласно этой интерпретации, функторный объект — это нечто, что может содержать значение или значения типа, которым он параметризован. Или он может содержать рецепт для генерации этих значений. Мы совсем не озабочены возможностью доступа к значениям — это полностью опционально и вне scope функтора. Всё, что нас интересует, — это возможность манипулировать этими значениями с помощью функций. Если значения доступны, то мы должны быть able видеть результаты этой манипуляции. Если нет, то всё, что нас заботит, — это то, что манипуляции композируются правильно и что манипуляция с тождественной функцией ничего не меняет. Просто чтобы показать вам, насколько нам неважна возможность доступа к значениям внутри функторного объекта, вот конструктор типа, который полностью игнорирует свой аргумент \code{a}:
 
 \src{snippet26}
-The \code{Const} type constructor takes two types, \code{c} and
-\code{a}. Just like we did with the arrow constructor, we are going to
-partially apply it to create a functor. The data constructor (also
-called \code{Const}) takes just one value of type \code{c}. It has
-no dependence on \code{a}. The type of \code{fmap} for this type
-constructor is:
+Конструктор типа \code{Const} принимает два типа, \code{c} и \code{a}. Так же, как мы делали с конструктором стрелки, мы собираемся частично применить его, чтобы создать функтор. Конструктор данных (также called \code{Const}) принимает всего одно значение типа \code{c}. Оно не зависит от \code{a}. Тип \code{fmap} для этого конструктора типа:
 
 \src{snippet27}
-Because the functor ignores its type argument, the implementation of
-\code{fmap} is free to ignore its function argument --- the function
-has nothing to act upon:
+Поскольку функтор игнорирует свой аргумент типа, реализация \code{fmap} свободна игнорировать свой аргумент-функцию — функции не на что действовать:
 
 \src{snippet28}
-This might be a little clearer in C++ (I never thought I would utter
-those words!), where there is a stronger distinction between type
-arguments --- which are compile-time --- and values, which are run-time:
+Это может быть немного понятнее в C++ (я никогда не думал, что произнесу эти слова!), где есть более сильное различие между аргументами типов — которые являются времени компиляции — и значениями, которые являются времени выполнения:
 
 \begin{snip}{cpp}
 template<class C, class A>
@@ -617,9 +324,7 @@ struct Const {
     C _v;
 };
 \end{snip}
-The C++ implementation of \code{fmap} also ignores the function
-argument and essentially re-casts the \code{Const} argument without
-changing its value:
+C++ реализация \code{fmap} также игнорирует аргумент-функцию и, по существу, переприводит тип аргумента \code{Const} без изменения его значения:
 
 \begin{snip}{cpp}
 template<class C, class A, class B>
@@ -627,103 +332,49 @@ Const<C, B> fmap(std::function<B(A)> f, Const<C, A> c) {
     return Const<C, B>{c._v};
 }
 \end{snip}
-Despite its weirdness, the \code{Const} functor plays an important
-role in many constructions. In category theory, it's a special case of
-the $\Delta_c$ functor I mentioned earlier --- the endo-functor
-case of a black hole. We'll be seeing more of it in the future.
+Несмотря на свою странность, функтор \code{Const} играет важную роль во многих конструкциях. В теории категорий это специальный случай функтора $\Delta_c$, о котором я упоминал ранее — случай эндофунктора чёрной дыры. Мы увидим больше его в будущем.
 
-\section{Functor Composition}
+\section{Композиция функторов}
 
-It's not hard to convince yourself that functors between categories
-compose, just like functions between sets compose. A composition of two
-functors, when acting on objects, is just the composition of their
-respective object mappings; and similarly when acting on morphisms.
-After jumping through two functors, identity morphisms end up as
-identity morphisms, and compositions of morphisms finish up as
-compositions of morphisms. There's really nothing much to it. In
-particular, it's easy to compose endofunctors. Remember the function
-\code{maybeTail}? I'll rewrite it using Haskell's built in
-implementation of lists:
+Нетрудно убедить себя, что функторы между категориями композируются, так же как функции между множествами композируются. Композиция двух функторов, когда действует на объекты, — это просто композиция их соответствующих отображений объектов; и аналогично при действии на морфизмы. После прохождения через два функтора тождественные морфизмы оказываются тождественными морфизмами, а композиции морфизмов заканчиваются как композиции морфизмов. Тут действительно не много чего. В частности, легко композировать эндофункторы. Вспомните функцию \code{maybeTail}? Я перепишу её, используя встроенную реализацию списков в Haskell:
 
 \src{snippet29}
-(The empty list constructor that we used to call \code{Nil} is
-replaced with the empty pair of square brackets \code{{[}{]}}. The
-\code{Cons} constructor is replaced with the infix operator \code{:}
-(colon).) The result of \code{maybeTail} is of a type that's a
-composition of two functors, \code{Maybe} and \code{{[}{]}}, acting
-on \code{a}. Each of these functors is equipped with its own version
-of \code{fmap}, but what if we want to apply some function \code{f}
-to the contents of the composite: a \code{Maybe} list? We have to
-break through two layers of functors. We can use \code{fmap} to break
-through the outer \code{Maybe}. But we can't just send \code{f}
-inside \code{Maybe} because \code{f} doesn't work on lists. We have
-to send \code{(fmap f)} to operate on the inner list. For instance,
-let's see how we can square the elements of a \code{Maybe} list of
-integers:
+(Конструктор пустого списка, который мы называли \code{Nil}, заменён на пустую пару квадратных скобок \code{{[}{]}}. Конструктор \code{Cons} заменён на инфиксный оператор \code{:} (двоеточие).) Результат \code{maybeTail} имеет тип, который является композицией двух функторов, \code{Maybe} и \code{{[}{]}}, действующих на \code{a}. Каждый из этих функторов снабжён своей собственной версией \code{fmap}, но что, если мы хотим применить некоторую функцию \code{f} к содержимому композита: \code{Maybe} списка? Мы должны пробиться через два слоя функторов. Мы можем использовать \code{fmap}, чтобы пробиться через внешний \code{Maybe}. Но мы не можем просто послать \code{f} внутрь \code{Maybe}, потому что \code{f} не работает со списками. Мы должны послать \code{(fmap f)}, чтобы действовать на внутренний список. Например, давайте посмотрим, как мы можем возвести в квадрат элементы \code{Maybe} списка целых чисел:
 
 \src{snippet30}
-The compiler, after analyzing the types, will figure out that, for the
-outer \code{fmap}, it should use the implementation from the
-\code{Maybe} instance, and for the inner one, the list functor
-implementation. It may not be immediately obvious that the above code
-may be rewritten as:
+Компилятор, проанализировав типы, поймёт, что для внешнего \code{fmap} он должен использовать реализацию из экземпляра \code{Maybe}, а для внутреннего — реализацию функтора списка. Может быть не сразу очевидно, что приведённый код может быть переписан как:
 
 \src{snippet31}
-But remember that \code{fmap} may be considered a function of just one
-argument:
+Но помните, что \code{fmap} может рассматриваться как функция всего одного аргумента:
 
 \src{snippet32}
-In our case, the second \code{fmap} in \code{(fmap . fmap)} takes
-as its argument:
+В нашем случае второй \code{fmap} в \code{(fmap . fmap)} принимает как свой аргумент:
 
 \src{snippet33}
-and returns a function of the type:
+и возвращает функцию типа:
 
 \src{snippet34}
-The first \code{fmap} then takes that function and returns a function:
+Первый \code{fmap} затем берёт эту функцию и возвращает функцию:
 
 \src{snippet35}
-Finally, that function is applied to \code{mis}. So the composition of
-two functors is a functor whose \code{fmap} is the composition of the
-corresponding \code{fmap}s. Going back to category theory: It's pretty
-obvious that functor composition is associative (the mapping of objects
-is associative, and the mapping of morphisms is associative). And there
-is also a trivial identity functor in every category: it maps every
-object to itself, and every morphism to itself. So functors have all the
-same properties as morphisms in some category. But what category would
-that be? It would have to be a category in which objects are categories
-and morphisms are functors. It's a category of categories. But a
-category of \emph{all} categories would have to include itself, and we
-would get into the same kinds of paradoxes that made the set of all sets
-impossible. There is, however, a category of all \emph{small} categories
-called $\Cat$ (which is big, so it can't be a member of itself). A
-small category is one in which objects form a set, as opposed to
-something larger than a set. Mind you, in category theory, even an
-infinite uncountable set is considered ``small.'' I thought I'd mention
-these things because I find it pretty amazing that we can recognize the
-same structures repeating themselves at many levels of abstraction.
-We'll see later that functors form categories as well.
+Наконец, эта функция применяется к \code{mis}. Так что композиция двух функторов — это функтор, чей \code{fmap} является композицией соответствующих \code{fmap}. Возвращаясь к теории категорий: довольно очевидно, что композиция функторов ассоциативна (отображение объектов ассоциативно, и отображение морфизмов ассоциативно). И также есть тривиальный тождественный функтор в каждой категории: он отображает каждый объект в себя и каждый морфизм в себя. Так что функторы имеют все те же свойства, что и морфизмы в некоторой категории. Но что это за категория? Это должна быть категория, в которой объекты — это категории, а морфизмы — функторы. Это категория категорий. Но категория \emph{всех} категорий должна была бы включать себя, и мы попали бы в те же парадоксы, которые сделали множество всех множеств невозможным. Однако существует категория всех \emph{малых} категорий, называемая $\Cat$ (которая большая, так что не может быть членом себя). Малая категория — это та, в которой объекты образуют множество, в противоположность чему-то большему, чем множество. Заметьте, в теории категорий даже бесконечное несчётное множество считается «малым». Я thought упомянуть эти вещи, потому что нахожу удивительным, что мы можем узнавать те же структуры, повторяющиеся на многих уровнях абстракции. Мы увидим позже, что функторы также образуют категории.
 
-\section{Challenges}
+\section{Задачи}
 
 \begin{enumerate}
   \tightlist
   \item
-        Can we turn the \code{Maybe} type constructor into a functor by
-        defining:
+        Можем ли мы превратить конструктор типа \code{Maybe} в функтор, определив:
 
         \begin{snip}{haskell}
 fmap _ _ = Nothing
 \end{snip}
 
-        which ignores both of its arguments? (Hint: Check the functor laws.)
+        который игнорирует оба своих аргумента? (Подсказка: Проверьте законы функторов.)
   \item
-        Prove functor laws for the reader functor. Hint: it's really simple.
+        Докажите законы функторов для функтора reader. Подсказка: это действительно просто.
   \item
-        Implement the reader functor in your second favorite language (the
-        first being Haskell, of course).
+        Реализуйте функтор reader на вашем втором любимом языке (первый, конечно, Haskell).
   \item
-        Prove the functor laws for the list functor. Assume that the laws are
-        true for the tail part of the list you're applying it to (in other
-        words, use \emph{induction}).
+        Докажите законы функторов для функтора списка. Предположите, что законы верны для хвостовой части списка, к которой вы его применяете (другими словами, используйте \emph{индукцию}).
 \end{enumerate}

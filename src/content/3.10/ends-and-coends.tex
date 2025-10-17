@@ -1,80 +1,80 @@
 % !TEX root = ../../ctfp-print.tex
 
-\lettrine[lhang=0.17]{T}{here are many intuitions} that we may attach to morphisms in a category,
-but we can all agree that if there is a morphism from the object
-$a$ to the object $b$ then the two objects are in some way
-``related.'' A morphism is, in a sense, the proof of this relation. This
-is clearly visible in any poset category, where a morphism \emph{is} a
-relation. In general, there may be many ``proofs'' of the same relation
-between two objects. These proofs form a set that we call the hom-set.
-When we vary the objects, we get a mapping from pairs of objects to sets
-of ``proofs.'' This mapping is functorial --- contravariant in the first
-argument and covariant in the second. We can look at it as establishing
-a global relationship between objects in the category. This relationship
-is described by the hom-functor:
+\lettrine[lhang=0.17]{Е}{сть много интуиций}, которые мы можем приложить к морфизмам в категории,
+но мы все можем согласиться, что если есть морфизм из объекта
+$a$ в объект $b$, то два объекта каким-то образом
+``связаны.'' Морфизм --- в каком-то смысле, доказательство этого отношения. Это
+чётко видно в любой категории предпорядка, где морфизм \emph{является}
+отношением. В общем случае может быть много ``доказательств'' одного и того же отношения
+между двумя объектами. Эти доказательства образуют множество, которое мы называем hom-множеством.
+Когда мы варьируем объекты, мы получаем отображение из пар объектов в множества
+``доказательств.'' Это отображение функториально --- контравариантно в первом
+аргументе и ковариантно во втором. Мы можем смотреть на него как на установление
+глобального отношения между объектами в категории. Это отношение
+описывается hom-функтором:
 \[\cat{C}(-, =) \Colon \cat{C}^\mathit{op}\times{}\cat{C} \to \Set\]
-In general, any functor like this may be interpreted as establishing a
-relation between objects in a category. A relation may also involve two
-different categories $\cat{C}$ and $\cat{D}$. A functor, which describes
-such a relation, has the following signature and is called a profunctor:
+В общем случае любой функтор типа этого может быть интерпретирован как установление
+отношения между объектами в категории. Отношение может также включать две
+разные категории $\cat{C}$ и $\cat{D}$. Функтор, который описывает
+такое отношение, имеет следующую сигнатуру и называется профунктором:
 \[p \Colon \cat{D}^\mathit{op}\times{}\cat{C} \to \Set\]
-Mathematicians say that it's a profunctor from $\cat{C}$ to $\cat{D}$
-(notice the inversion), and use a slashed arrow as a symbol for it:
+Математики говорят, что это профунктор из $\cat{C}$ в $\cat{D}$
+(обратите внимание на инверсию) и используют зачёркнутую стрелку как символ для него:
 \[\cat{C} \nrightarrow \cat{D}\]
-You may think of a profunctor as a \newterm{proof-relevant relation}
-between objects of $\cat{C}$ and objects of $\cat{D}$, where the elements
-of the set symbolize proofs of the relation. Whenever $p\ a\ b$
-is empty, there is no relation between $a$ and $b$. Keep
-in mind that relations don't have to be symmetric.
+Вы можете думать о профункторе как о \newterm{доказательно-релевантном отношении}
+между объектами $\cat{C}$ и объектами $\cat{D}$, где элементы
+множества символизируют доказательства отношения. Когда $p\ a\ b$
+пусто, нет отношения между $a$ и $b$. Имейте
+в виду, что отношения не должны быть симметричными.
 
-Another useful intuition is the generalization of the idea that an
-endofunctor is a container. A profunctor value of the type
-$p\ a\ b$ could then be considered a container of $b$s
-that are keyed by elements of type $a$. In particular, an element
-of the hom-profunctor is a function from $a$ to $b$.
+Другая полезная интуиция --- обобщение идеи, что
+эндофунктор --- контейнер. Значение профунктора типа
+$p\ a\ b$ могло бы тогда рассматриваться как контейнер $b$,
+которые проиндексированы элементами типа $a$. В частности, элемент
+hom-профунктора --- функция из $a$ в $b$.
 
-In Haskell, a profunctor is defined as a two-argument type constructor
-\code{p} equipped with the method called \code{dimap}, which lifts a
-pair of functions, the first going in the ``wrong'' direction:
+В Haskell профунктор определяется как конструктор типа с двумя аргументами
+\code{p}, оснащённый методом, называемым \code{dimap}, который поднимает
+пару функций, первая идёт в ``неправильном'' направлении:
 
 \src{snippet01}
-The functoriality of the profunctor tells us that if we have a proof
-that \code{a} is related to \code{b}, then we get the proof that
-\code{c} is related to \code{d}, as long as there is a morphism from
-\code{c} to \code{a} and another from \code{b} to \code{d}. Or,
-we can think of the first function as translating new keys to the old
-keys, and the second function as modifying the contents of the
-container.
+Функториальность профунктора говорит нам, что если у нас есть доказательство,
+что \code{a} связано с \code{b}, то мы получаем доказательство, что
+\code{c} связано с \code{d}, пока есть морфизм из
+\code{c} в \code{a} и другой из \code{b} в \code{d}. Или
+мы можем думать о первой функции как переводящей новые ключи в старые
+ключи, а о второй функции как модифицирующей содержимое
+контейнера.
 
-For profunctors acting within one category, we can extract quite a lot
-of information from diagonal elements of the type $p\ a\ a$. We
-can prove that $b$ is related to $c$ as long as we have a
-pair of morphisms $b \to a$ and
-$a \to c$. Even better, we can use a single morphism to
-reach off-diagonal values. For instance, if we have a morphism
-$f \Colon a \to b$, we can lift the pair
-$\langle f, \idarrow[b] \rangle$ to go from $p\ b\ b$ to
+Для профункторов, действующих внутри одной категории, мы можем извлечь довольно много
+информации из диагональных элементов типа $p\ a\ a$. Мы
+можем доказать, что $b$ связано с $c$, пока у нас есть
+пара морфизмов $b \to a$ и
+$a \to c$. Ещё лучше, мы можем использовать единственный морфизм, чтобы
+достичь недиагональных значений. Например, если у нас есть морфизм
+$f \Colon a \to b$, мы можем поднять пару
+$\langle f, \idarrow[b] \rangle$, чтобы пойти из $p\ b\ b$ в
 $p\ a\ b$:
 
 \src{snippet02}
-Or we can lift the pair $\langle \idarrow[a], f \rangle$ to go
-from $p\ a\ a$ to $p\ a\ b$:
+Или мы можем поднять пару $\langle \idarrow[a], f \rangle$, чтобы пойти
+из $p\ a\ a$ в $p\ a\ b$:
 
 \src{snippet03}
 
-\section{Dinatural Transformations}
+\section{Динатуральные преобразования}
 
-Since profunctors are functors, we can define natural transformations
-between them in the standard way. In many cases, though, it's enough to
-define the mapping between diagonal elements of two profunctors. Such a
-transformation is called a dinatural transformation, provided it
-satisfies the commuting conditions that reflect the two ways we can
-connect diagonal elements to non-diagonal ones. A dinatural
-transformation between two profunctors $p$ and $q$, which
-are members of the functor category ${[}\cat{C}^\mathit{op}\times{}\cat{C}, \Set{]}$, is a
-family of morphisms:
+Поскольку профункторы --- функторы, мы можем определить естественные преобразования
+между ними стандартным способом. Во многих случаях, однако, достаточно
+определить отображение между диагональными элементами двух профункторов. Такое
+преобразование называется динатуральным преобразованием, при условии, что оно
+удовлетворяет коммутирующим условиям, которые отражают два способа, которыми мы можем
+соединить диагональные элементы с недиагональными. Динатуральное
+преобразование между двумя профункторами $p$ и $q$, которые
+являются членами категории функторов ${[}\cat{C}^\mathit{op}\times{}\cat{C}, \Set{]}$, --- это
+семейство морфизмов:
 \[\alpha_a \Colon p\ a\ a \to q\ a\ a\]
-for which the following diagram commutes, for any $f \Colon a \to b$:
+для которого следующая диаграмма коммутирует для любого $f \Colon a \to b$:
 
 \begin{figure}[H]
   \centering
@@ -82,11 +82,11 @@ for which the following diagram commutes, for any $f \Colon a \to b$:
 \end{figure}
 
 \noindent
-Notice that this is strictly weaker than the naturality condition. If
-$\alpha$ were a natural transformation in
-${[}\cat{C}^\mathit{op}\times{}\cat{C}, \Set{]}$, the above diagram could be constructed
-from two naturality squares and one functoriality condition (profunctor
-$q$ preserving composition):
+Обратите внимание, что это строго слабее, чем условие естественности. Если
+$\alpha$ были естественным преобразованием в
+${[}\cat{C}^\mathit{op}\times{}\cat{C}, \Set{]}$, вышеуказанная диаграмма могла бы быть сконструирована
+из двух квадратов естественности и одного условия функториальности (профунктор
+$q$ сохраняющий композицию):
 
 \begin{figure}[H]
   \centering
@@ -94,36 +94,36 @@ $q$ preserving composition):
 \end{figure}
 
 \noindent
-Notice that a component of a natural transformation $\alpha$ in
-${[}\cat{C}^\mathit{op}\times{}\cat{C}, \Set{]}$ is indexed by a pair of objects
-$\alpha_{a b}$. A dinatural transformation, on the other hand, is
-indexed by one object, since it only maps diagonal elements of the
-respective profunctors.
+Обратите внимание, что компонента естественного преобразования $\alpha$ в
+${[}\cat{C}^\mathit{op}\times{}\cat{C}, \Set{]}$ индексируется парой объектов
+$\alpha_{a b}$. Динатуральное преобразование, с другой стороны,
+индексируется одним объектом, поскольку оно только отображает диагональные элементы
+соответствующих профункторов.
 
-\section{Ends}
+\section{Концы}
 
-We are now ready to advance from ``algebra'' to what could be considered
-the ``calculus'' of category theory. The calculus of ends (and coends)
-borrows ideas and even some notation from traditional calculus. In
-particular, the coend may be understood as an infinite sum or an
-integral, whereas the end is similar to an infinite product. There is
-even something that resembles the Dirac delta function.
+Теперь мы готовы продвинуться от ``алгебры'' к тому, что можно было бы считать
+``исчислением'' теории категорий. Исчисление концов (и коконцов)
+заимствует идеи и даже некоторую нотацию из традиционного исчисления. В
+частности, коконец может пониматься как бесконечная сумма или
+интеграл, тогда как конец похож на бесконечное произведение. Есть
+даже что-то, напоминающее дельта-функцию Дирака.
 
-An end is a generalization of a limit, with the functor replaced by a
-profunctor. Instead of a cone, we have a wedge. The base of a wedge is
-formed by diagonal elements of a profunctor $p$. The apex of the
-wedge is an object (here, a set, since we are considering
-$\Set$-valued profunctors), and the sides are a family of
-functions mapping the apex to the sets in the base. You may think of
-this family as one polymorphic function --- a function that's
-polymorphic in its return type:
+Конец --- обобщение предела, с функтором, заменённым
+профунктором. Вместо конуса у нас есть клин. Основание клина
+образовано диагональными элементами профунктора $p$. Вершина
+клина --- объект (здесь множество, поскольку мы рассматриваем
+профункторы со значениями в $\Set$), а стороны --- семейство
+функций, отображающих вершину в множества в основании. Вы можете думать об
+этом семействе как об одной полиморфной функции --- функции, которая
+полиморфна в своём типе возврата:
 \[\alpha \Colon \forall a\ .\ \mathit{apex} \to p\ a\ a\]
-Unlike in cones, within a wedge we don't have any functions that would
-connect vertices of the base. However, as we've seen earlier, given any
-morphism $f \Colon a \to b$ in $\cat{C}$, we can connect both
-$p\ a\ a$ and $p\ b\ b$ to the common set
-$p\ a\ b$. We therefore insist that the following diagram
-commute:
+В отличие от конусов, внутри клина у нас нет никаких функций, которые бы
+соединяли вершины основания. Однако, как мы видели ранее, для данного любого
+морфизма $f \Colon a \to b$ в $\cat{C}$ мы можем соединить и
+$p\ a\ a$, и $p\ b\ b$ с общим множеством
+$p\ a\ b$. Поэтому мы настаиваем, чтобы следующая диаграмма
+коммутировала:
 
 \begin{figure}[H]
   \centering
@@ -131,16 +131,16 @@ commute:
 \end{figure}
 
 \noindent
-This is called the \newterm{wedge condition}. It can be written as:
+Это называется \newterm{условием клина}. Оно может быть записано как:
 \[p\ \idarrow[a]\ f \circ \alpha_a = p\ f\ \idarrow[b] \circ \alpha_b\]
-Or, using Haskell notation:
+Или, используя нотацию Haskell:
 
 \src{snippet04}
-We can now proceed with the universal construction and define the end of
-$p$ as the universal wedge --- a set $e$ together with a
-family of functions $\pi$ such that for any other wedge with the
-apex $e'$ and a family $\alpha$ there is a unique function
-$h \Colon e' \to e$ that makes all triangles commute:
+Теперь мы можем продолжить с универсальной конструкцией и определить конец
+$p$ как универсальный клин --- множество $e$ вместе с
+семейством функций $\pi$ таким, что для любого другого клина с
+вершиной $e'$ и семейством $\alpha$ существует уникальная функция
+$h \Colon e' \to e$, которая заставляет все треугольники коммутировать:
 \[\pi_a \circ h = \alpha_a\]
 
 \begin{figure}[H]
@@ -149,100 +149,100 @@ $h \Colon e' \to e$ that makes all triangles commute:
 \end{figure}
 
 \noindent
-The symbol for the end is the integral sign, with the ``integration
-variable'' in the subscript position:
+Символ для конца --- знак интеграла, с ``интегрируемой
+переменной'' в позиции индекса:
 \[\int_c p\ c\ c\]
-Components of $\pi$ are called projection maps for the end:
+Компоненты $\pi$ называются проекционными отображениями для конца:
 \[\pi_a \Colon \int_c p\ c\ c \to p\ a\ a\]
-Note that if $\cat{C}$ is a discrete category (no morphisms other than
-the identities) the end is just a global product of all diagonal entries
-of $p$ across the whole category $\cat{C}$. Later I'll show you
-that, in the more general case, there is a relationship between the end
-and this product through an equalizer.
+Заметьте, что если $\cat{C}$ --- дискретная категория (никаких морфизмов, кроме
+тождеств), конец --- просто глобальное произведение всех диагональных входов
+$p$ по всей категории $\cat{C}$. Позже я покажу вам,
+что в более общем случае есть отношение между концом
+и этим произведением через эквалайзер.
 
-In Haskell, the end formula translates directly to the universal
-quantifier:
+В Haskell формула конца переводится напрямую в универсальный
+квантификатор:
 
 \src{snippet05}
-Strictly speaking, this is just a product of all diagonal elements of
-$p$, but the wedge condition is satisfied automatically due to
-\urlref{https://bartoszmilewski.com/2017/04/11/profunctor-parametricity/}{parametricity}. For any function
-$f \Colon a \to b$, the wedge condition reads:
+Строго говоря, это просто произведение всех диагональных элементов
+$p$, но условие клина удовлетворено автоматически из-за
+\urlref{https://bartoszmilewski.com/2017/04/11/profunctor-parametricity/}{параметричности}. Для любой функции
+$f \Colon a \to b$ условие клина читается:
 
 \src{snippet06}
-or, with type annotations:
+или с аннотациями типов:
 
 \begin{snipv}
 dimap f id\textsubscript{b} . pi\textsubscript{b} = dimap id\textsubscript{a} f . pi\textsubscript{a}
 \end{snipv}
-where both sides of the equation have the type:
+где обе стороны уравнения имеют тип:
 
 \src{snippet07}
-and \code{pi} is the polymorphic projection:
+а \code{pi} --- полиморфная проекция:
 
 \src{snippet08}
-Here, type inference automatically picks the right component of
+Здесь вывод типов автоматически выбирает правильную компоненту
 \code{e}.
 
-Just as we were able to express the whole set of commutation conditions
-for a cone as one natural transformation, likewise we can group all the
-wedge conditions into one dinatural transformation. For that we need the
-generalization of the constant functor $\Delta_c$ to a constant
-profunctor that maps all pairs of objects to a single object $c$,
-and all pairs of morphisms to the identity morphism for this object. A
-wedge is a dinatural transformation from that functor to the profunctor
-$p$. Indeed, the dinaturality hexagon shrinks down to the wedge
-diamond when we realize that $\Delta_c$ lifts all morphisms to one
-identity function.
+Так же, как мы смогли выразить весь набор условий коммутации
+для конуса как одно естественное преобразование, аналогично мы можем сгруппировать все
+условия клина в одно динатуральное преобразование. Для этого нам нужно
+обобщение постоянного функтора $\Delta_c$ на постоянный
+профунктор, который отображает все пары объектов в единственный объект $c$,
+а все пары морфизмов в тождественный морфизм для этого объекта.
+Клин --- динатуральное преобразование из этого функтора в профунктор
+$p$. Действительно, шестиугольник динатуральности сжимается до ромба
+клина, когда мы осознаём, что $\Delta_c$ поднимает все морфизмы в одну
+тождественную функцию.
 
-Ends can also be defined for target categories other than $\Set$,
-but here we'll only consider $\Set$-valued profunctors and their
-ends.
+Концы также могут быть определены для целевых категорий, отличных от $\Set$,
+но здесь мы будем рассматривать только профункторы со значениями в $\Set$ и их
+концы.
 
-\section{Ends as Equalizers}
+\section{Концы как эквалайзеры}
 
-The commutation condition in the definition of the end can be written
-using an equalizer. First, let's define two functions (I'm using Haskell
-notation, because mathematical notation seems to be less user-friendly
-in this case). These functions correspond to the two converging branches
-of the wedge condition:
+Условие коммутации в определении конца может быть записано,
+используя эквалайзер. Сначала давайте определим две функции (я использую нотацию
+Haskell, потому что математическая нотация кажется менее дружественной к пользователю
+в этом случае). Эти функции соответствуют двум сходящимся ветвям
+условия клина:
 
 \src{snippet09}[b]
-Both functions map diagonal elements of the profunctor \code{p} to
-polymorphic functions of the type:
+Обе функции отображают диагональные элементы профунктора \code{p} в
+полиморфные функции типа:
 
 \src{snippet10}
-These functions have different types. However, we can unify their types,
-if we form one big product type, gathering together all diagonal
-elements of \code{p}:
+Эти функции имеют разные типы. Однако мы можем унифицировать их типы,
+если сформируем один большой тип произведения, собирая вместе все диагональные
+элементы \code{p}:
 
 \src{snippet11}
-The functions \code{lambda} and \code{rho} induce two mappings from
-this product type:
+Функции \code{lambda} и \code{rho} индуцируют два отображения из
+этого типа произведения:
 
 \src{snippet12}
-The end of \code{p} is the equalizer of these two functions. Remember
-that the equalizer picks the largest subset on which two functions are
-equal. In this case it picks the subset of the product of all diagonal
-elements for which the wedge diagrams commute.
+Конец \code{p} --- эквалайзер этих двух функций. Помните,
+что эквалайзер выбирает наибольшее подмножество, на котором две функции
+равны. В этом случае он выбирает подмножество произведения всех диагональных
+элементов, для которых диаграммы клина коммутируют.
 
-\section{Natural Transformations as Ends}
+\section{Естественные преобразования как концы}
 
-The most important example of an end is the set of natural
-transformations. A natural transformation between two functors
-$F$ and $G$ is a family of morphisms picked from hom-sets
-of the form $\cat{C}(F a, G a)$. If it weren't for the naturality
-condition, the set of natural transformations would be just the product
-of all these hom-sets. In fact, in Haskell, it is:
+Самый важный пример конца --- множество естественных
+преобразований. Естественное преобразование между двумя функторами
+$F$ и $G$ --- семейство морфизмов, выбранных из hom-множеств
+формы $\cat{C}(F a, G a)$. Если бы не условие естественности,
+множество естественных преобразований было бы просто произведением
+всех этих hom-множеств. На самом деле, в Haskell оно и есть:
 
 \src{snippet13}
-The reason it works in Haskell is because naturality follows from
-parametricity. Outside of Haskell, though, not all diagonal sections
-across such hom-sets will yield natural transformations. But notice that
-the mapping:
+Причина, по которой это работает в Haskell, в том, что естественность следует из
+параметричности. За пределами Haskell, однако, не все диагональные сечения
+по таким hom-множествам дадут естественные преобразования. Но заметьте, что
+отображение:
 \[\langle a, b \rangle \to \cat{C}(F a, G b)\]
-is a profunctor, so it makes sense to study its end. This is the wedge
-condition:
+--- профунктор, так что имеет смысл изучить его конец. Это условие
+клина:
 
 \begin{figure}[H]
   \centering
@@ -250,210 +250,209 @@ condition:
 \end{figure}
 
 \noindent
-Let's just pick one element from the set $\int_c \cat{C}(F c, G c)$.
-The two projections will map this element to two components of a
-particular transformation, let's call them:
+Давайте просто выберем один элемент из множества $\int_c \cat{C}(F c, G c)$.
+Две проекции отобразят этот элемент в две компоненты
+конкретного преобразования, назовём их:
 \begin{align*}
   \tau_a & \Colon F a \to G a \\
   \tau_b & \Colon F b \to G b
 \end{align*}
-In the left branch, we lift a pair of morphisms
-$\langle \idarrow[a], G f \rangle$ using the hom-functor. You
-may recall that such lifting is implemented as simultaneous pre- and
-post-composition. When acting on $\tau_a$ the lifted pair gives us:
+В левой ветви мы поднимаем пару морфизмов
+$\langle \idarrow[a], G f \rangle$, используя hom-функтор. Вы
+можете вспомнить, что такой подъём реализуется как одновременная пред- и
+пост-композиция. При действии на $\tau_a$ поднятая пара даёт нам:
 \[G f \circ \tau_a \circ \idarrow[a]\]
-The other branch of the diagram gives us:
+Другая ветвь диаграммы даёт нам:
 \[\idarrow[b] \circ \tau_b \circ F f\]
-Their equality, demanded by the wedge condition, is nothing but the
-naturality condition for $\tau$.
+Их равенство, требуемое условием клина, --- не что иное, как
+условие естественности для $\tau$.
 
-\section{Coends}
-As expected, the dual to an end is called a coend. It is constructed
-from a dual to a wedge called a cowedge (pronounced co-wedge, not
-cow-edge).
+\section{Коконцы}
+Как ожидалось, двойственное концу называется коконцом. Он конструируется
+из двойственного клину, называемого коклином (произносится ко-клин, не
+корова-клин).
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.25\textwidth]{images/end-31.jpg}
-  \caption{An edgy cow?}
+  \caption{Угловатая корова?}
 \end{figure}
 
 \noindent
-The symbol for a coend is the integral sign with the ``integration
-variable'' in the superscript position:
+Символ для коконца --- знак интеграла с ``интегрируемой
+переменной'' в позиции надстрочного индекса:
 \[\int^c p\ c\ c\]
-Just like the end is related to a product, the coend is related to a
-coproduct, or a sum (in this respect, it resembles an integral, which is
-a limit of a sum). Rather than having projections, we have injections
-going from the diagonal elements of the profunctor down to the coend. If
-it weren't for the cowedge conditions, we could say that the coend of
-the profunctor $p$ is either $p\ a\ a$, or
-$p\ b\ b$, or $p\ c\ c$, and so on. Or we could say that
-there exists such an $a$ for which the coend is just the set
-$p\ a\ a$. The universal quantifier that we used in the
-definition of the end turns into an existential quantifier for the
-coend.
+Так же, как конец связан с произведением, коконец связан с
+копроизведением, или суммой (в этом отношении он напоминает интеграл, который
+является пределом суммы). Вместо того, чтобы иметь проекции, у нас есть инъекции,
+идущие из диагональных элементов профунктора вниз к коконцу. Если бы
+не условия коклина, мы могли бы сказать, что коконец
+профунктора $p$ --- либо $p\ a\ a$, либо
+$p\ b\ b$, либо $p\ c\ c$, и так далее. Или мы могли бы сказать, что
+существует такое $a$, для которого коконец --- просто множество
+$p\ a\ a$. Универсальный квантификатор, который мы использовали в
+определении конца, превращается в экзистенциальный квантификатор для
+коконца.
 
-This is why, in pseudo-Haskell, we would define the coend as:
+Вот почему в псевдо-Haskell мы бы определили коконец как:
 
 \begin{snip}{text}
 exists a. p a a
 \end{snip}
-The standard way of encoding existential quantifiers in Haskell is to
-use universally quantified data constructors. We can thus define:
+Стандартный способ кодирования экзистенциальных квантификаторов в Haskell ---
+использовать универсально квантифицированные конструкторы данных. Мы можем таким образом определить:
 
 \src{snippet14}
-The logic behind this is that it should be possible to construct a coend
-using a value of any of the family of types $p\ a\ a$, no matter
-what $a$ we chose.
+Логика за этим в том, что должно быть возможно сконструировать коконец,
+используя значение любого из семейства типов $p\ a\ a$, не важно,
+какое $a$ мы выбрали.
 
-Just like an end can be defined using an equalizer, a coend can be
-described using a \newterm{coequalizer}. All the cowedge conditions can be
-summarized by taking one gigantic coproduct of $p\ a\ b$ for all
-possible functions $b \to a$. In Haskell, that would be
-expressed as an existential type:
+Так же, как конец может быть определён, используя эквалайзер, коконец может быть
+описан, используя \newterm{коэквалайзер}. Все условия коклина могут быть
+суммированы взятием одного гигантского копроизведения $p\ a\ b$ для всех
+возможных функций $b \to a$. В Haskell это было бы
+выражено как экзистенциальный тип:
 
 \src{snippet15}
-There are two ways of evaluating this sum type, by lifting the function
-using \code{dimap} and applying it to the profunctor $p$:
+Есть два способа вычисления этого типа суммы, подняв функцию,
+используя \code{dimap} и применив её к профунктору $p$:
 
 \src{snippet16}
-where \code{DiagSum} is the sum of diagonal elements of $p$:
+где \code{DiagSum} --- сумма диагональных элементов $p$:
 
 \src{snippet17}
-The coequalizer of these two functions is the coend. A coequalizer is
-obtained from \code{DiagSum p} by identifying values that are
-obtained by applying \code{lambda} or \code{rho} to the same
-argument. Here, the argument is a pair consisting of a function
-$b \to a$ and an element of $p\ a\ b$. The
-application of \code{lambda} and \code{rho} produces two potentially
-different values of the type \code{DiagSum p}. In the coend, these
-two values are identified, making the cowedge condition automatically
-satisfied.
+Коэквалайзер этих двух функций --- коконец. Коэквалайзер
+получается из \code{DiagSum p} идентификацией значений, которые
+получаются применением \code{lambda} или \code{rho} к одному и тому же
+аргументу. Здесь аргумент --- пара, состоящая из функции
+$b \to a$ и элемента $p\ a\ b$.
+Применение \code{lambda} и \code{rho} производит два потенциально
+разных значения типа \code{DiagSum p}. В коконце эти
+два значения идентифицированы, заставляя условие коклина автоматически
+удовлетворяться.
 
-The process of identification of related elements in a set is formally
-known as taking a quotient. To define a quotient we need an
-\newterm{equivalence relation} $\sim$, a relation that
-is reflexive, symmetric, and transitive:
+Процесс идентификации связанных элементов в множестве формально
+известен как взятие частного. Чтобы определить частное, нам нужно
+\newterm{отношение эквивалентности} $\sim$, отношение, которое
+рефлексивно, симметрично и транзитивно:
 \begin{align*}
    & a \sim a                                                         \\
-   & \text{if}\ a \sim b\ \text{then}\ b \sim a                       \\
-   & \text{if}\ a \sim b\ \text{and}\ b \sim c\ \text{then}\ a \sim c
+   & \text{если}\ a \sim b\ \text{то}\ b \sim a                       \\
+   & \text{если}\ a \sim b\ \text{и}\ b \sim c\ \text{то}\ a \sim c
 \end{align*}
-Such a relation splits the set into equivalence classes. Each class
-consists of elements that are related to each other. We form a quotient
-set by picking one representative from each class. A classic example is
-the definition of rational numbers as pairs of whole numbers with the
-following equivalence relation:
-\[(a, b) \sim (c, d)\ \text{iff}\ a * d = b * c\]
-It's easy to check that this is an equivalence relation. A pair
-$(a, b)$ is interpreted as a fraction $\frac{a}{b}$, and
-fractions whose numerator and denominator have a common divisor are identified. A rational number
-is an equivalence class of such fractions.
+Такое отношение разделяет множество на классы эквивалентности. Каждый класс
+состоит из элементов, которые связаны друг с другом. Мы формируем частное
+множество, выбирая одного представителя из каждого класса. Классический пример ---
+определение рациональных чисел как пар целых чисел со следующим
+отношением эквивалентности:
+\[(a, b) \sim (c, d)\ \text{тогда и только тогда}\ a * d = b * c\]
+Легко проверить, что это отношение эквивалентности. Пара
+$(a, b)$ интерпретируется как дробь $\frac{a}{b}$, и
+дроби, чьи числитель и знаменатель имеют общий делитель, идентифицированы. Рациональное число
+--- класс эквивалентности таких дробей.
 
-You might recall from our earlier discussion of limits and colimits that
-the hom-functor is continuous, that is, it preserves limits. Dually, the
-contravariant hom-functor turns colimits into limits. These properties
-can be generalized to ends and coends, which are a generalization of
-limits and colimits, respectively. In particular, we get a very useful
-identity for converting coends to ends:
+Вы можете вспомнить из нашего раннего обсуждения пределов и копределов, что
+hom-функтор непрерывен, то есть он сохраняет пределы. Двойственно, контравариантный
+hom-функтор превращает копределы в пределы. Эти свойства
+могут быть обобщены на концы и коконцы, которые являются обобщением
+пределов и копределов, соответственно. В частности, мы получаем очень полезное
+тождество для конвертации коконцов в концы:
 \[\Set(\int^x p\ x\ x, c) \cong \int_x \Set(p\ x\ x, c)\]
-Let's have a look at it in pseudo-Haskell:
+Давайте посмотрим на него в псевдо-Haskell:
 
 \begin{snipv}
 (exists x. p x x) -> c \ensuremath{\cong} forall x. p x x -> c
 \end{snipv}
-It tells us that a function that takes an existential type is equivalent
-to a polymorphic function. This makes perfect sense, because such a
-function must be prepared to handle any one of the types that may be
-encoded in the existential type. It's the same principle that tells us
-that a function that accepts a sum type must be implemented as a case
-clause, with a tuple of handlers, one for every type present in the
-sum. Here, the sum type is replaced by a coend, and a family of handlers
-becomes an end, or a polymorphic function.
+Оно говорит нам, что функция, которая принимает экзистенциальный тип, эквивалентна
+полиморфной функции. Это имеет полный смысл, потому что такая
+функция должна быть подготовлена обработать любой из типов, который может быть
+закодирован в экзистенциальном типе. Это тот же принцип, который говорит нам,
+что функция, которая принимает тип суммы, должна быть реализована как клауза
+case, с кортежем обработчиков, по одному для каждого типа, присутствующего в
+сумме. Здесь тип суммы заменён коконцом, а семейство обработчиков
+становится концом, или полиморфной функцией.
 
-\section{Ninja Yoneda Lemma}
+\section{Ниндзя-лемма Ёнеды}
 
-The set of natural transformations that appears in the Yoneda lemma may
-be encoded using an end, resulting in the following formulation:
+Множество естественных преобразований, которое появляется в лемме Ёнеды, может
+быть закодировано, используя конец, приводя к следующей формулировке:
 \[\int_z \Set(\cat{C}(a, z), F z) \cong F a\]
-There is also a dual formula:
+Есть также двойственная формула:
 \[\int^z \cat{C}(z, a)\times{}F z \cong F a\]
-This identity is strongly reminiscent of the formula for the Dirac delta
-function (a function $\delta(a - z)$, or rather a distribution, that
-has an infinite peak at $a = z$). Here, the hom-functor plays
-the role of the delta function.
+Это тождество сильно напоминает формулу для дельта-функции
+Дирака (функция $\delta(a - z)$, или, скорее, распределение, которое
+имеет бесконечный пик в $a = z$). Здесь hom-функтор играет
+роль дельта-функции.
 
-Together these two identities are sometimes called the Ninja Yoneda
-lemma.
+Вместе эти два тождества иногда называются ниндзя-леммой Ёнеды.
 
-To prove the second formula, we will use the consequence of the Yoneda
-embedding, which states that two objects are isomorphic if and only if
-their hom-functors are isomorphic. In other words $a \cong b$ if
-and only if there is a natural transformation of the type:
+Чтобы доказать вторую формулу, мы будем использовать следствие
+вложения Ёнеды, которое утверждает, что два объекта изоморфны тогда и только тогда, когда
+их hom-функторы изоморфны. Другими словами, $a \cong b$ тогда и
+только тогда, когда существует естественное преобразование типа:
 \[[\cat{C}, \Set](\cat{C}(a, -), \cat{C}(b, =))\]
-that is an isomorphism.
+которое является изоморфизмом.
 
-We start by inserting the left-hand side of the identity we want to
-prove inside a hom-functor that's going to some arbitrary object
+Мы начинаем с вставки левой стороны тождества, которое мы хотим
+доказать, внутрь hom-функтора, который идёт в некоторый произвольный объект
 $c$:
 \[\Set(\int^z \cat{C}(z, a)\times{}F z, c)\]
-Using the continuity argument, we can replace the coend with the end:
+Используя аргумент непрерывности, мы можем заменить коконец концом:
 \[\int_z \Set(\cat{C}(z, a)\times{}F z, c)\]
-We can now take advantage of the adjunction between the product and the
-exponential:
+Теперь мы можем использовать сопряжение между произведением и
+экспоненциалом:
 \[\int_z \Set(\cat{C}(z, a), c^{(F z)})\]
-We can ``perform the integration'' by using the Yoneda lemma to get:
+Мы можем ``выполнить интегрирование'', используя лемму Ёнеды, чтобы получить:
 \[c^{(F a)}\]
-(Notice that we used the contravariant version of the Yoneda lemma,
-since the functor $c^{(F z)}$ is contravariant in $z$.)
-This exponential object is isomorphic to the hom-set:
+(Обратите внимание, что мы использовали контравариантную версию леммы Ёнеды,
+поскольку функтор $c^{(F z)}$ контравариантен в $z$.)
+Этот экспоненциальный объект изоморфен hom-множеству:
 \[\Set(F a, c)\]
-Finally, we take advantage of the Yoneda embedding to arrive at the
-isomorphism:
+Наконец, мы используем вложение Ёнеды, чтобы прийти к
+изоморфизму:
 \[\int^z \cat{C}(z, a)\times{}F z \cong F a\]
 
-\section{Profunctor Composition}
+\section{Композиция профункторов}
 
-Let's explore further the idea that a profunctor describes a relation
---- more precisely, a proof-relevant relation, meaning that the set
-$p\ a\ b$ represents the set of proofs that $a$ is related
-to $b$. If we have two relations $p$ and $q$ we can
-try to compose them. We'll say that $a$ is related to $b$
-through the composition of $q$ after $p$ if there exist an
-intermediary object $c$ such that both $q\ b\ c$ and
-$p\ c\ a$ are non-empty. The proofs of this new relation are all
-pairs of proofs of individual relations. Therefore, with the
-understanding that the existential quantifier corresponds to a coend,
-and the Cartesian product of two sets corresponds to ``pairs of
-proofs,'' we can define composition of profunctors using the following
-formula:
+Давайте исследуем далее идею, что профунктор описывает отношение
+--- более точно, доказательно-релевантное отношение, означающее, что множество
+$p\ a\ b$ представляет множество доказательств, что $a$ связано
+с $b$. Если у нас есть два отношения $p$ и $q$, мы можем
+попытаться скомпозировать их. Мы скажем, что $a$ связано с $b$
+через композицию $q$ после $p$, если существует
+промежуточный объект $c$ такой, что оба $q\ b\ c$ и
+$p\ c\ a$ непусты. Доказательства этого нового отношения --- все
+пары доказательств индивидуальных отношений. Следовательно, с
+пониманием, что экзистенциальный квантификатор соответствует коконцу,
+а декартово произведение двух множеств соответствует ``парам
+доказательств'', мы можем определить композицию профункторов, используя следующую
+формулу:
 \[(q \circ p)\ a\ b = \int^c p\ c\ a\times{}q\ b\ c\]
-Here's the equivalent Haskell definition from
-\code{Data.Profunctor.Composition}, after some renaming:
+Вот эквивалентное определение Haskell из
+\code{Data.Profunctor.Composition} после некоторого переименования:
 
 \src{snippet18}
-This is using generalized algebraic data type, or \acronym{GADT} syntax, in which
-a free type variable (here \code{c}) is automatically existentially
-quantified. The (uncurried) data constructor \code{Procompose} is
-thus equivalent to:
+Это использует синтаксис обобщённого алгебраического типа данных, или \acronym{GADT}, в котором
+свободная типовая переменная (здесь \code{c}) автоматически экзистенциально
+квантифицируется. (Раскаррированный) конструктор данных \code{Procompose}
+таким образом эквивалентен:
 
 \begin{snip}{text}
 exists c. (q a c, p c b)
 \end{snip}
-The unit of so defined composition is the hom-functor --- this
-immediately follows from the Ninja Yoneda lemma. It makes sense,
-therefore, to ask the question if there is a category in which
-profunctors serve as morphisms. The answer is positive, with the caveat
-that both associativity and identity laws for profunctor composition
-hold only up to natural isomorphism. Such a category, where laws are
-valid up to isomorphism, is called a bicategory (which is more general
-than a $\cat{2}$-category). So we have a bicategory $\cat{Prof}$, in which
-objects are categories, morphisms are profunctors, and morphisms between
-morphisms (a.k.a., two-cells) are natural transformations. In fact, one
-can go even further, because beside profunctors, we also have regular
-functors as morphisms between categories. A category which has two types
-of morphisms is called a double category.
+Единица так определённой композиции --- hom-функтор --- это
+немедленно следует из ниндзя-леммы Ёнеды. Имеет смысл,
+следовательно, задать вопрос, есть ли категория, в которой
+профункторы служат морфизмами. Ответ положительный, с оговоркой,
+что оба закона ассоциативности и тождества для композиции профункторов
+выполняются только с точностью до естественного изоморфизма. Такая категория, где законы
+верны с точностью до изоморфизма, называется бикатегорией (которая более общая,
+чем $\cat{2}$-категория). Так что у нас есть бикатегория $\cat{Prof}$, в которой
+объекты --- категории, морфизмы --- профункторы, а морфизмы между
+морфизмами (т.е., двуклетки) --- естественные преобразования. На самом деле можно
+пойти даже дальше, потому что кроме профункторов у нас также есть обычные
+функторы как морфизмы между категориями. Категория, которая имеет два типа
+морфизмов, называется двойной категорией.
 
-Profunctors play an important role in the Haskell lens library and in
-the arrow library.
+Профункторы играют важную роль в библиотеке линз Haskell и в
+библиотеке стрелок.

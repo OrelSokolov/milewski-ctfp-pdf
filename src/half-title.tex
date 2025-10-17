@@ -1,13 +1,38 @@
 % !TEX root = ctfp-print.tex
 \input{version}
 
+% Disable page numbering for cover pages
+\pagenumbering{gobble}
+
+% Cover page with piggie
+\thispagestyle{empty}
+\begin{center}
+\begin{minipage}{\textwidth}
+\centering
+\fontsize{28pt}{34pt}\selectfont
+\textbf{ТЕОРИЯ КАТЕГОРИЙ}\\[0.2cm]
+\fontsize{28pt}{34pt}\selectfont
+\textbf{ДЛЯ ПРОГРАММИСТОВ}\\[1.2cm]
+
+\includegraphics[width=0.45\textwidth]{cover/piggie.png}\\[1.2cm]
+
+\fontsize{18pt}{24pt}\selectfont
+\textbf{Bartosz Milewski}
+
+\end{minipage}
+\vspace*{\fill}
+\end{center}
+
+\clearpage
+
+% Original half-title page
 \thispagestyle{empty}
 
 \vspace*{80pt}
 
 \begin{raggedleft}
   \fontsize{24pt}{24pt}\selectfont
-  \textbf{Category Theory \\ for Programmers}\\
+  \textbf{Теория Категорий \\ для Программистов}\\
   \ifdefined\OPTCustomLanguage{%
     \vspace*{1cm}
     \small\selectfont{
@@ -32,7 +57,7 @@
 \begin{small}
   \begin{center}
 
-    \textsc{Category Theory for Programmers}\\
+    \textsc{Теория Категорий для Программистов}\\
 
     \vspace{1.0em}
     \noindent
@@ -64,3 +89,6 @@
     \LaTeX{} source code is available on GitHub: \href{https://github.com/hmemcpy/milewski-ctfp-pdf}{https://github.com/hmemcpy/milewski-ctfp-pdf}
   \end{center}
 \end{small}
+
+% Enable page numbering after cover pages
+\pagenumbering{arabic}

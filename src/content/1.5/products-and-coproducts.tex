@@ -1,52 +1,52 @@
 % !TEX root = ../../ctfp-print.tex
 
-\lettrine[lhang=0.17]{T}{he Ancient Greek} playwright Euripides once said: ``Every man is like
-the company he is wont to keep.'' We are defined by our relationships.
-Nowhere is this more true than in category theory. If we want to single
-out a particular object in a category, we can only do this by describing
-its pattern of relationships with other objects (and itself). These
-relationships are defined by morphisms.
+\lettrine[lhang=0.17]{Д}{ревнегреческий} драматург Еврипид однажды сказал: ``Каждый человек подобен
+компании, которую он обычно держит.'' Мы определяемся нашими отношениями.
+Нигде это не более верно, чем в теории категорий. Если мы хотим выделить
+конкретный объект в категории, мы можем сделать это только, описав
+его паттерн отношений с другими объектами (и самим собой). Эти
+отношения определяются морфизмами.
 
-There is a common construction in category theory called the
-\newterm{universal construction} for defining objects in terms of their
-relationships. One way of doing this is to pick a pattern, a particular
-shape constructed from objects and morphisms, and look for all its
-occurrences in the category. If it's a common enough pattern, and the
-category is large, chances are you'll have lots and lots of hits. The
-trick is to establish some kind of ranking among those hits, and pick
-what could be considered the best fit.
+Существует общая конструкция в теории категорий, называемая
+\newterm{универсальная конструкция}, для определения объектов в терминах их
+отношений. Один способ сделать это --- выбрать паттерн, конкретную
+форму, построенную из объектов и морфизмов, и искать все её
+вхождения в категории. Если это достаточно распространённый паттерн, и
+категория большая, шансы, что у вас будет много и много совпадений. 
+Хитрость в том, чтобы установить какой-то рейтинг среди этих совпадений и выбрать
+то, что можно считать лучшим соответствием.
 
-This process is reminiscent of the way we do web searches. A query is
-like a pattern. A very general query will give you large \emph{recall}:
-lots of hits. Some may be relevant, others not. To eliminate irrelevant
-hits, you refine your query. That increases its \emph{precision}.
-Finally, the search engine will rank the hits and, hopefully, the one
-result that you're interested in will be at the top of the list.
+Этот процесс напоминает способ, которым мы выполняем веб-поиски. Запрос ---
+это как паттерн. Очень общий запрос даст вам большую \emph{полноту}:
+много совпадений. Некоторые могут быть релевантны, другие нет. Чтобы исключить нерелевантные
+совпадения, вы уточняете свой запрос. Это увеличивает его \emph{точность}.
+Наконец, поисковая система ранжирует совпадения и, надеюсь, тот
+результат, который вас интересует, будет на вершине списка.
 
-\section{Initial Object}
+\section{Начальный объект}
 
-The simplest shape is a single object. Obviously, there are as many
-instances of this shape as there are objects in a given category. That's
-a lot to choose from. We need to establish some kind of ranking and try
-to find the object that tops this hierarchy. The only means at our
-disposal are morphisms. If you think of morphisms as arrows, then it's
-possible that there is an overall net flow of arrows from one end of the
-category to another. This is true in ordered categories, for instance in
-partial orders. We could generalize that notion of object precedence by
-saying that object $a$ is ``more initial'' than object $b$, if
-there is an arrow (a morphism) going from $a$ to $b$. We would
-then define \emph{the} initial object as one that has arrows going to
-all other objects. Obviously there is no guarantee that such an object
-exists, and that's okay. A bigger problem is that there may be too many
-such objects: The recall is good, but precision is lacking. The solution
-is to take a hint from ordered categories --- they allow at most one
-arrow between any two objects: there is only one way of being less-than
-or equal-to another object. Which leads us to this definition of the
-initial object:
+Простейшая форма --- это единственный объект. Очевидно, что существует столько же
+экземпляров этой формы, сколько объектов в данной категории. Это
+много для выбора. Нам нужно установить какой-то рейтинг и попытаться
+найти объект, который возглавляет эту иерархию. Единственное средство в нашем
+распоряжении --- это морфизмы. Если вы думаете о морфизмах как о стрелках, то возможно,
+что существует общий чистый поток стрелок от одного конца
+категории к другому. Это верно в упорядоченных категориях, например, в
+частичных порядках. Мы могли бы обобщить это понятие старшинства объекта,
+сказав, что объект $a$ ``более начальный'', чем объект $b$, если
+существует стрелка (морфизм), идущая из $a$ в $b$. Мы бы тогда
+определили \emph{начальный} объект как тот, который имеет стрелки, идущие ко
+всем другим объектам. Очевидно, нет гарантии, что такой объект
+существует, и это нормально. Большая проблема в том, что может быть слишком много
+таких объектов: полнота хорошая, но точность отсутствует. Решение ---
+взять подсказку из упорядоченных категорий --- они допускают не более одной
+стрелки между любыми двумя объектами: есть только один способ быть меньше, чем
+или равным другому объекту. Что приводит нас к этому определению
+начального объекта:
 
 \begin{quote}
-  The \textbf{initial object} is the object that has one and only one
-  morphism going to any object in the category.
+  \textbf{Начальный объект} --- это объект, который имеет один и только один
+  морфизм, идущий к любому объекту в категории.
 \end{quote}
 
 \begin{figure}[H]
@@ -55,40 +55,40 @@ initial object:
 \end{figure}
 
 \noindent
-However, even that doesn't guarantee the uniqueness of the initial
-object (if one exists). But it guarantees the next best thing:
-uniqueness \newterm{up to isomorphism}. Isomorphisms are very important in
-category theory, so I'll talk about them shortly. For now, let's just
-agree that uniqueness up to isomorphism justifies the use of ``the'' in
-the definition of the initial object.
+Однако даже это не гарантирует уникальность начального
+объекта (если он существует). Но это гарантирует следующую лучшую вещь:
+уникальность \newterm{с точностью до изоморфизма}. Изоморфизмы очень важны в
+теории категорий, поэтому я вскоре поговорю о них. Пока давайте просто
+согласимся, что уникальность с точностью до изоморфизма оправдывает использование ``начальный'' в
+определении начального объекта.
 
-Here are some examples: The initial object in a partially ordered set
-(often called a \newterm{poset}) is its least element. Some posets don't
-have an initial object --- like the set of all integers, positive and
-negative, with less-than-or-equal relation for morphisms.
+Вот некоторые примеры: начальный объект в частично упорядоченном множестве
+(часто называемом \newterm{poset}) --- это его наименьший элемент. Некоторые posets не
+имеют начального объекта --- как множество всех целых чисел, положительных и
+отрицательных, с отношением меньше-или-равно для морфизмов.
 
-In the category of sets and functions, the initial object is the empty
-set. Remember, an empty set corresponds to the Haskell type
-\code{Void} (there is no corresponding type in C++) and the unique
-polymorphic function from \code{Void} to any other type is called
+В категории множеств и функций начальный объект --- это пустое
+множество. Помните, пустое множество соответствует типу Haskell
+\code{Void} (нет соответствующего типа в C++), а уникальная
+полиморфная функция из \code{Void} в любой другой тип называется
 \code{absurd}:
 
 \src{snippet01}
-It's this family of morphisms that makes \code{Void} the initial
-object in the category of types.
+Именно это семейство морфизмов делает \code{Void} начальным
+объектом в категории типов.
 
-\section{Terminal Object}
+\section{Терминальный объект}
 
-Let's continue with the single-object pattern, but let's change the way
-we rank the objects. We'll say that object $a$ is ``more terminal''
-than object $b$ if there is a morphism going from $b$ to
-$a$ (notice the reversal of direction). We'll be looking for an
-object that's more terminal than any other object in the category.
-Again, we will insist on uniqueness:
+Давайте продолжим с паттерном одного объекта, но давайте изменим способ,
+которым мы ранжируем объекты. Мы скажем, что объект $a$ ``более терминальный'',
+чем объект $b$, если существует морфизм, идущий из $b$ в
+$a$ (обратите внимание на обращение направления). Мы будем искать
+объект, который более терминальный, чем любой другой объект в категории.
+Снова мы будем настаивать на уникальности:
 
 \begin{quote}
-  The \textbf{terminal object} is the object with one and only one
-  morphism coming to it from any object in the category.
+  \textbf{Терминальный объект} --- это объект с одним и только одним
+  морфизмом, приходящим к нему из любого объекта в категории.
 \end{quote}
 
 \begin{figure}[H]
@@ -97,151 +97,151 @@ Again, we will insist on uniqueness:
 \end{figure}
 
 \noindent
-And again, the terminal object is unique, up to isomorphism, which I
-will show shortly. But first let's look at some examples. In a poset,
-the terminal object, if it exists, is the biggest object. In the
-category of sets, the terminal object is a singleton. We've already
-talked about singletons --- they correspond to the \code{void} type in
-C++ and the unit type \code{()} in Haskell. It's a type that has only
-one value --- implicit in C++ and explicit in Haskell, denoted by
-\code{()}. We've also established that there is one and only one pure
-function from any type to the unit type:
+И снова терминальный объект уникален с точностью до изоморфизма, что я
+покажу вскоре. Но сначала давайте посмотрим на некоторые примеры. В poset
+терминальный объект, если он существует, --- это самый большой объект. В
+категории множеств терминальный объект --- это синглетон. Мы уже
+говорили о синглетонах --- они соответствуют типу \code{void} в
+C++ и типу unit \code{()} в Haskell. Это тип, который имеет только
+одно значение --- неявное в C++ и явное в Haskell, обозначаемое как
+\code{()}. Мы также установили, что существует одна и только одна чистая
+функция из любого типа в тип unit:
 
 \src{snippet02}
-so all the conditions for the terminal object are satisfied.
+так что все условия для терминального объекта удовлетворены.
 
-Notice that in this example the uniqueness condition is crucial, because
-there are other sets (actually, all of them, except for the empty set)
-that have incoming morphisms from every set. For instance, there is a
-Boolean-valued function (a predicate) defined for every type:
+Обратите внимание, что в этом примере условие уникальности критично, потому что
+есть другие множества (на самом деле, все они, за исключением пустого множества),
+которые имеют входящие морфизмы из каждого множества. Например, есть
+функция, возвращающая Boolean (предикат), определённая для каждого типа:
 
 \src{snippet03}
-But \code{Bool} is not a terminal object. There is at least one more
-\code{Bool}-valued function from every type (except \code{Void}, for which both functions are equal to \code{absurd}):
+Но \code{Bool} не является терминальным объектом. Есть как минимум ещё одна
+функция, возвращающая \code{Bool}, из каждого типа (за исключением \code{Void}, для которого обе функции равны \code{absurd}):
 
 \src{snippet04}
-Insisting on uniqueness gives us just the right precision to narrow down
-the definition of the terminal object to just one type.
+Настаивание на уникальности даёт нам именно ту точность, чтобы сузить
+определение терминального объекта до одного типа.
 
-\section{Duality}
+\section{Двойственность}
 
-You can't help but to notice the symmetry between the way we defined the
-initial object and the terminal object. The only difference between the
-two was the direction of morphisms. It turns out that for any category $\cat{C}$
-we can define the \newterm{opposite category} $\cat{C}^\mathit{op}$ just by
-reversing all the arrows. The opposite category automatically satisfies
-all the requirements of a category, as long as we simultaneously
-redefine composition. If original morphisms
-$f \Colon a \to b$ and $g \Colon b \to c$ composed
-to $h \Colon a \to c$ with $h = g \circ f$, then the reversed
-morphisms $f^\mathit{op} \Colon b \to a$ and $g^\mathit{op} \Colon c \to b$ will compose to
-$h^\mathit{op} \Colon c \to a$ with $h^\mathit{op} = f^\mathit{op} \circ g^\mathit{op}$. And reversing
-the identity arrows is a (pun alert!) no-op.
+Вы не можете не заметить симметрию между тем, как мы определили
+начальный объект и терминальный объект. Единственная разница между
+ними была направление морфизмов. Оказывается, что для любой категории $\cat{C}$
+мы можем определить \newterm{противоположную категорию} $\cat{C}^\mathit{op}$ просто
+обратив все стрелки. Противоположная категория автоматически удовлетворяет
+всем требованиям категории, если мы одновременно
+переопределим композицию. Если исходные морфизмы
+$f \Colon a \to b$ и $g \Colon b \to c$ композировались
+в $h \Colon a \to c$ с $h = g \circ f$, то обращённые
+морфизмы $f^\mathit{op} \Colon b \to a$ и $g^\mathit{op} \Colon c \to b$ будут композироваться в
+$h^\mathit{op} \Colon c \to a$ с $h^\mathit{op} = f^\mathit{op} \circ g^\mathit{op}$. И обращение
+тождественных стрелок --- это (каламбур!) no-op.
 
-Duality is a very important property of categories because it doubles
-the productivity of every mathematician working in category theory. For
-every construction you come up with, there is its opposite; and for
-every theorem you prove, you get one for free. The constructions in the
-opposite category are often prefixed with ``co'', so you have products
-and coproducts, monads and comonads, cones and cocones, limits and
-colimits, and so on. There are no cocomonads though, because reversing
-the arrows twice gets us back to the original state.
+Двойственность --- это очень важное свойство категорий, потому что оно удваивает
+производительность каждого математика, работающего в теории категорий. Для
+каждой конструкции, которую вы придумываете, существует её противоположность; и для
+каждой теоремы, которую вы доказываете, вы получаете одну бесплатно. Конструкции в
+противоположной категории часто префиксированы ``ко'', так что у вас есть произведения
+и копроизведения, монады и комонады, конусы и коконусы, пределы и
+копределы и так далее. Нет кокомонад, однако, потому что обращение
+стрелок дважды возвращает нас в исходное состояние.
 
-It follows then that a terminal object is the initial object in the
-opposite category.
+Отсюда следует, что терминальный объект --- это начальный объект в
+противоположной категории.
 
-\section{Isomorphisms}
+\section{Изоморфизмы}
 
-As programmers, we are well aware that defining equality is a nontrivial
-task. What does it mean for two objects to be equal? Do they have to
-occupy the same location in memory (pointer equality)? Or is it enough
-that the values of all their components are equal? Are two complex
-numbers equal if one is expressed as the real and imaginary part, and
-the other as modulus and angle? You'd think that mathematicians would
-have figured out the meaning of equality, but they haven't. They have
-the same problem of multiple competing definitions for equality. There
-is the propositional equality, intensional equality, extensional
-equality, and equality as a path in homotopy type theory. And then there
-are the weaker notions of isomorphism, and even weaker of equivalence.
+Как программисты, мы хорошо знаем, что определение равенства --- это нетривиальная
+задача. Что означает для двух объектов быть равными? Должны ли они
+занимать одно и то же место в памяти (равенство указателей)? Или достаточно,
+чтобы значения всех их компонентов были равны? Равны ли два комплексных
+числа, если одно выражено как действительная и мнимая часть, а
+другое как модуль и угол? Вы бы подумали, что математики
+выяснили значение равенства, но они не выяснили. У них
+та же проблема множественных конкурирующих определений равенства. Есть
+пропозициональное равенство, интенсиональное равенство, экстенсиональное
+равенство и равенство как путь в гомотопической теории типов. А затем есть
+более слабые понятия изоморфизма и даже более слабые эквивалентности.
 
-The intuition is that isomorphic objects look the same --- they have the
-same shape. It means that every part of one object corresponds to some
-part of another object in a one-to-one mapping. As far as our
-instruments can tell, the two objects are a perfect copy of each other.
-Mathematically it means that there is a mapping from object $a$ to
-object $b$, and there is a mapping from object $b$ back to
-object $a$, and they are the inverse of each other. In category
-theory we replace mappings with morphisms. An isomorphism is an
-invertible morphism; or a pair of morphisms, one being the inverse of
-the other.
+Интуиция в том, что изоморфные объекты выглядят одинаково --- они имеют
+одинаковую форму. Это означает, что каждая часть одного объекта соответствует некоторой
+части другого объекта во взаимно однозначном отображении. Насколько могут сказать наши
+инструменты, два объекта --- это идеальная копия друг друга.
+Математически это означает, что существует отображение из объекта $a$ в
+объект $b$, и существует отображение из объекта $b$ обратно в
+объект $a$, и они являются обратными друг другу. В теории
+категорий мы заменяем отображения морфизмами. Изоморфизм --- это
+обратимый морфизм; или пара морфизмов, один из которых является обратным
+другого.
 
-We understand the inverse in terms of composition and identity: Morphism
-$g$ is the inverse of morphism $f$ if their composition is the
-identity morphism. These are actually two equations because there are
-two ways of composing two morphisms:
+Мы понимаем обратное в терминах композиции и тождества: Морфизм
+$g$ является обратным морфизма $f$, если их композиция --- это
+тождественный морфизм. Это фактически два уравнения, потому что есть
+два способа скомпозировать два морфизма:
 
 \src{snippet05}
-When I said that the initial (terminal) object was unique up to
-isomorphism, I meant that any two initial (terminal) objects are
-isomorphic. That's actually easy to see. Let's suppose that we have two
-initial objects $i_{1}$ and $i_{2}$. Since
-$i_{1}$ is initial, there is a unique morphism $f$ from
-$i_{1}$ to $i_{2}$. By the same token, since
-$i_{2}$ is initial, there is a unique morphism $g$ from
-$i_{2}$ to $i_{1}$. What's the composition of
-these two morphisms?
+Когда я сказал, что начальный (терминальный) объект уникален с точностью до
+изоморфизма, я имел в виду, что любые два начальных (терминальных) объекта
+изоморфны. Это фактически легко увидеть. Предположим, что у нас есть два
+начальных объекта $i_{1}$ и $i_{2}$. Поскольку
+$i_{1}$ начальный, существует уникальный морфизм $f$ из
+$i_{1}$ в $i_{2}$. По тому же токену, поскольку
+$i_{2}$ начальный, существует уникальный морфизм $g$ из
+$i_{2}$ в $i_{1}$. Какова композиция
+этих двух морфизмов?
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.4\textwidth]{images/uniqueness.jpg}
-  \caption{All morphisms in this diagram are unique.}
+  \caption{Все морфизмы на этой диаграмме уникальны.}
 \end{figure}
 
 \noindent
-The composition $g \circ f$ must be a morphism from $i_{1}$ to
-$i_{1}$. But $i_{1}$ is initial so there can only
-be one morphism going from $i_{1}$ to $i_{1}$.
-Since we are in a category, we know that there is an identity morphism
-from $i_{1}$ to $i_{1}$, and since there is room
-for only one, that must be it. Therefore $g \circ f$ is equal to
-identity. Similarly, $f \circ g$ must be equal to identity, because there
-can be only one morphism from $i_{2}$ back to
-$i_{2}$. This proves that $f$ and $g$ must be the
-inverse of each other. Therefore any two initial objects are isomorphic.
+Композиция $g \circ f$ должна быть морфизмом из $i_{1}$ в
+$i_{1}$. Но $i_{1}$ начальный, поэтому может быть только
+один морфизм, идущий из $i_{1}$ в $i_{1}$.
+Поскольку мы находимся в категории, мы знаем, что существует тождественный морфизм
+из $i_{1}$ в $i_{1}$, и поскольку есть место
+только для одного, это должен быть он. Следовательно, $g \circ f$ равно
+тождеству. Аналогично, $f \circ g$ должно быть равно тождеству, потому что может
+быть только один морфизм из $i_{2}$ обратно в
+$i_{2}$. Это доказывает, что $f$ и $g$ должны быть
+обратными друг другу. Следовательно, любые два начальных объекта изоморфны.
 
-Notice that in this proof we used the uniqueness of the morphism from
-the initial object to itself. Without that we couldn't prove the ``up to
-isomorphism'' part. But why do we need the uniqueness of $f$ and
-$g$? Because not only is the initial object unique up to
-isomorphism, it is unique up to \emph{unique} isomorphism. In principle,
-there could be more than one isomorphism between two objects, but that's
-not the case here. This ``uniqueness up to unique isomorphism'' is the
-important property of all universal constructions.
+Обратите внимание, что в этом доказательстве мы использовали уникальность морфизма из
+начального объекта в себя. Без этого мы не могли бы доказать часть ``с точностью до
+изоморфизма''. Но зачем нам нужна уникальность $f$ и
+$g$? Потому что не только начальный объект уникален с точностью до
+изоморфизма, он уникален с точностью до \emph{уникального} изоморфизма. В принципе
+может быть более одного изоморфизма между двумя объектами, но это не
+случай здесь. Эта ``уникальность с точностью до уникального изоморфизма'' ---
+важное свойство всех универсальных конструкций.
 
-\section{Products}
+\section{Произведения}
 
-The next universal construction is that of a product. We know what a
-Cartesian product of two sets is: it's a set of pairs. But what's the
-pattern that connects the product set with its constituent sets? If we
-can figure that out, we'll be able to generalize it to other categories.
+Следующая универсальная конструкция --- это произведение. Мы знаем, что такое
+декартово произведение двух множеств: это множество пар. Но каков
+паттерн, который соединяет множество-произведение с его составляющими множествами? Если мы
+можем это выяснить, мы сможем обобщить это на другие категории.
 
-All we can say is that there are two functions, the projections, from
-the product to each of the constituents. In Haskell, these two functions
-are called \code{fst} and \code{snd} and they pick, respectively,
-the first and the second component of a pair:
+Всё, что мы можем сказать, --- это что существуют две функции, проекции, из
+произведения в каждую из составляющих. В Haskell эти две функции
+называются \code{fst} и \code{snd}, и они выбирают, соответственно,
+первый и второй компонент пары:
 
 \src{snippet06}
 
 \src{snippet07}
-Here, the functions are defined by pattern matching their arguments: the
-pattern that matches any pair is \code{(x, y)}, and it extracts its
-components into variables \code{x} and \code{y}.
+Здесь функции определены путём сопоставления с образцом их аргументов:
+образец, который соответствует любой паре, --- это \code{(x, y)}, и он извлекает её
+компоненты в переменные \code{x} и \code{y}.
 
-These definitions can be simplified even further with the use of
-wildcards:
+Эти определения можно ещё больше упростить с использованием
+подстановочных знаков:
 
 \src{snippet08}
-In C++, we would use template functions, for instance:
+В C++ мы бы использовали шаблонные функции, например:
 
 \begin{snip}{cpp}
 template<class A, class B> A
@@ -249,12 +249,12 @@ fst(pair<A, B> const & p) {
     return p.first;
 }
 \end{snip}
-Equipped with this seemingly very limited knowledge, let's try to define
-a pattern of objects and morphisms in the category of sets that will
-lead us to the construction of a product of two sets, $a$ and
-$b$. This pattern consists of an object $c$ and two morphisms
-$p$ and $q$ connecting it to $a$ and $b$,
-respectively:
+Вооружившись этими, казалось бы, очень ограниченными знаниями, давайте попытаемся определить
+паттерн объектов и морфизмов в категории множеств, который
+приведёт нас к конструкции произведения двух множеств, $a$ и
+$b$. Этот паттерн состоит из объекта $c$ и двух морфизмов
+$p$ и $q$, соединяющих его с $a$ и $b$,
+соответственно:
 
 \src{snippet09}
 
@@ -264,8 +264,8 @@ respectively:
 \end{figure}
 
 \noindent
-All $c$s that fit this pattern will be considered candidates for
-the product. There may be lots of them.
+Все $c$, которые подходят под этот паттерн, будут считаться кандидатами для
+произведения. Их может быть много.
 
 \begin{figure}[H]
   \centering
@@ -273,36 +273,36 @@ the product. There may be lots of them.
 \end{figure}
 
 \noindent
-For instance, let's pick, as our constituents, two Haskell types,
-\code{Int} and \code{Bool}, and get a sampling of candidates for
-their product.
+Например, давайте выберем в качестве наших составляющих два типа Haskell,
+\code{Int} и \code{Bool}, и получим выборку кандидатов для
+их произведения.
 
-Here's one: \code{Int}. Can \code{Int} be considered a candidate for
-the product of \code{Int} and \code{Bool}? Yes, it can --- and here
-are its projections:
+Вот один: \code{Int}. Может ли \code{Int} считаться кандидатом для
+произведения \code{Int} и \code{Bool}? Да, может --- и вот
+его проекции:
 
 \src{snippet10}
-That's pretty lame, but it matches the criteria.
+Это довольно жалко, но оно соответствует критериям.
 
-Here's another one: \code{(Int, Int, Bool)}. It's a tuple of three
-elements, or a triple. Here are two morphisms that make it a legitimate
-candidate (we are using pattern matching on triples):
+Вот другой: \code{(Int, Int, Bool)}. Это кортеж из трёх
+элементов, или тройка. Вот два морфизма, которые делают его легитимным
+кандидатом (мы используем сопоставление с образцом на тройках):
 
 \src{snippet11}
-You may have noticed that while our first candidate was too small --- it
-only covered the \code{Int} dimension of the product; the second was
-too big --- it spuriously duplicated the \code{Int} dimension.
+Вы могли заметить, что в то время как наш первый кандидат был слишком мал --- он
+покрывал только измерение \code{Int} произведения; второй был
+слишком велик --- он ложно дублировал измерение \code{Int}.
 
-But we haven't explored yet the other part of the universal
-construction: the ranking. We want to be able to compare two instances
-of our pattern. We want to compare one candidate object $c$ and its
-two projections $p$ and $q$ with another candidate object
-$c'$ and its two projections $p'$ and $q'$. We would like
-to say that $c$ is ``better'' than $c'$ if there is a morphism
-$m$ from $c'$ to $c$ --- but that's too weak. We also
-want its projections to be ``better,'' or ``more universal,'' than the
-projections of $c'$. What it means is that the projections
-$p'$ and $q'$ can be reconstructed from $p$ and $q$ using $m$:
+Но мы ещё не исследовали другую часть универсальной
+конструкции: ранжирование. Мы хотим иметь возможность сравнивать два экземпляра
+нашего паттерна. Мы хотим сравнить один кандидат объект $c$ и его
+две проекции $p$ и $q$ с другим кандидатом объектом
+$c'$ и его двумя проекциями $p'$ и $q'$. Мы хотели бы
+сказать, что $c$ ``лучше'', чем $c'$, если существует морфизм
+$m$ из $c'$ в $c$ --- но это слишком слабо. Мы также
+хотим, чтобы его проекции были ``лучше'' или ``более универсальны'', чем
+проекции $c'$. Что это означает, так это то, что проекции
+$p'$ и $q'$ могут быть реконструированы из $p$ и $q$, используя $m$:
 
 \src{snippet12}
 
@@ -312,15 +312,15 @@ $p'$ and $q'$ can be reconstructed from $p$ and $q$ using $m$:
 \end{figure}
 
 \noindent
-Another way of looking at these equations is that $m$
-\emph{factorizes} $p'$ and $q'$. Just pretend that these
-equations are in natural numbers, and the dot is multiplication:
-$m$ is a common factor shared by $p'$ and $q'$.
+Другой способ взглянуть на эти уравнения --- это что $m$
+\emph{факторизует} $p'$ и $q'$. Просто представьте, что эти
+уравнения в натуральных числах, и точка --- это умножение:
+$m$ --- это общий фактор, разделяемый $p'$ и $q'$.
 
-Just to build some intuitions, let me show you that the pair
-\code{(Int, Bool)} with the two canonical projections, \code{fst}
-and \code{snd} is indeed \emph{better} than the two candidates I
-presented before.
+Просто для построения некоторой интуиции позвольте мне показать вам, что пара
+\code{(Int, Bool)} с двумя каноническими проекциями, \code{fst}
+и \code{snd}, действительно \emph{лучше}, чем два кандидата, которые я
+представил ранее.
 
 \begin{figure}[H]
   \centering
@@ -328,73 +328,73 @@ presented before.
 \end{figure}
 
 \noindent
-The mapping \code{m} for the first candidate is:
+Отображение \code{m} для первого кандидата:
 
 \src{snippet13}
-Indeed, the two projections, \code{p} and \code{q} can be
-reconstructed as:
+Действительно, две проекции, \code{p} и \code{q}, могут быть
+реконструированы как:
 
 \src{snippet14}
-The \code{m} for the second example is similarly uniquely determined:
+\code{m} для второго примера аналогично уникально определён:
 
 \src{snippet15}
-We were able to show that \code{(Int, Bool)} is better than either of
-the two candidates. Let's see why the opposite is not true. Could we
-find some \code{m'} that would help us reconstruct \code{fst}
-and \code{snd} from \code{p} and \code{q}?
+Мы смогли показать, что \code{(Int, Bool)} лучше, чем любой из
+двух кандидатов. Давайте посмотрим, почему обратное не верно. Могли бы мы
+найти некоторый \code{m'}, который помог бы нам реконструировать \code{fst}
+и \code{snd} из \code{p} и \code{q}?
 
 \src{snippet16}
-In our first example, \code{q} always returned \code{True} and we
-know that there are pairs whose second component is \code{False}. We
-can't reconstruct \code{snd} from \code{q}.
+В нашем первом примере \code{q} всегда возвращал \code{True}, и мы
+знаем, что есть пары, второй компонент которых \code{False}. Мы
+не можем реконструировать \code{snd} из \code{q}.
 
-The second example is different: we retain enough information after
-running either \code{p} or \code{q}, but there is more than one way
-to factorize \code{fst} and \code{snd}. Because both \code{p} and
-\code{q} ignore the second component of the triple, our \code{m'}
-can put anything in it. We can have:
+Второй пример другой: мы сохраняем достаточно информации после
+запуска либо \code{p}, либо \code{q}, но есть более одного способа
+факторизовать \code{fst} и \code{snd}. Поскольку и \code{p}, и
+\code{q} игнорируют второй компонент тройки, наш \code{m'}
+может поместить в него что угодно. Мы можем иметь:
 
 \src{snippet17}
 
-or
+или
 \src{snippet18}
-and so on.
+и так далее.
 
-Putting it all together, given any type \code{c} with two projections
-\code{p} and \code{q}, there is a unique \code{m} from \code{c}
-to the Cartesian product \code{(a, b)} that factorizes them. In fact,
-it just combines \code{p} and \code{q} into a pair.
+Собирая всё вместе, для любого типа \code{c} с двумя проекциями
+\code{p} и \code{q} существует уникальный \code{m} из \code{c}
+в декартово произведение \code{(a, b)}, которое факторизует их. На самом деле
+он просто комбинирует \code{p} и \code{q} в пару.
 
 \src{snippet19}
-That makes the Cartesian product \code{(a, b)} our best match, which
-means that this universal construction works in the category of sets. It
-picks the product of any two sets.
+Это делает декартово произведение \code{(a, b)} нашим лучшим соответствием, что
+означает, что эта универсальная конструкция работает в категории множеств. Она
+выбирает произведение любых двух множеств.
 
-Now let's forget about sets and define a product of two objects in any
-category using the same universal construction. Such a product doesn't
-always exist, but when it does, it is unique up to a unique isomorphism.
+Теперь давайте забудем о множествах и определим произведение двух объектов в любой
+категории, используя ту же универсальную конструкцию. Такое произведение не
+всегда существует, но когда существует, оно уникально с точностью до уникального изоморфизма.
 
 \begin{quote}
-  A \textbf{product} of two objects $a$ and $b$ is the object
-  $c$ equipped with two projections such that for any other object
-  $c'$ equipped with two projections there is a unique morphism
-  $m$ from $c'$ to $c$ that factorizes those projections.
+  \textbf{Произведение} двух объектов $a$ и $b$ --- это объект
+  $c$, оснащённый двумя проекциями, такой что для любого другого объекта
+  $c'$, оснащённого двумя проекциями, существует уникальный морфизм
+  $m$ из $c'$ в $c$, который факторизует эти проекции.
 \end{quote}
 
 \noindent
-A (higher order) function that produces the factorizing function
-\code{m} from two candidates is sometimes called the
-\newterm{factorizer}. In our case, it would be the function:
+Функция (высшего порядка), которая производит факторизующую функцию
+\code{m} из двух кандидатов, иногда называется
+\newterm{факторизатор}. В нашем случае это будет функция:
 
 \src{snippet20}
 
-\section{Coproduct}
+\section{Копроизведение}
 
-Like every construction in category theory, the product has a dual,
-which is called the coproduct. When we reverse the arrows in the product
-pattern, we end up with an object $c$ equipped with two
-\emph{injections}, \code{i} and \code{j}: morphisms from $a$
-and $b$ to $c$.
+Как и каждая конструкция в теории категорий, произведение имеет двойственное,
+которое называется копроизведение. Когда мы обращаем стрелки в паттерне произведения,
+мы получаем объект $c$, оснащённый двумя
+\emph{инъекциями}, \code{i} и \code{j}: морфизмами из $a$
+и $b$ в $c$.
 
 \src{snippet21}
 
@@ -404,10 +404,10 @@ and $b$ to $c$.
 \end{figure}
 
 \noindent
-The ranking is also inverted: object $c$ is ``better'' than object
-$c'$ that is equipped with the injections $i'$ and $j'$
-if there is a morphism $m$ from $c$ to $c'$ that
-factorizes the injections:
+Ранжирование также инвертировано: объект $c$ ``лучше'', чем объект
+$c'$, который оснащён инъекциями $i'$ и $j'$,
+если существует морфизм $m$ из $c$ в $c'$, который
+факторизует инъекции:
 
 \src{snippet22}
 
@@ -417,32 +417,32 @@ factorizes the injections:
 \end{figure}
 
 \noindent
-The ``best'' such object, one with a unique morphism connecting it to
-any other pattern, is called a coproduct and, if it exists, is unique up
-to unique isomorphism.
+``Лучший'' такой объект, тот, у которого есть уникальный морфизм, соединяющий его с
+любым другим паттерном, называется копроизведением, и, если он существует, уникален с точностью
+до уникального изоморфизма.
 
 \begin{quote}
-  A \textbf{coproduct} of two objects $a$ and $b$ is the object
-  $c$ equipped with two injections such that for any other object
-  $c'$ equipped with two injections there is a unique morphism
-  $m$ from $c$ to $c'$ that factorizes those injections.
+  \textbf{Копроизведение} двух объектов $a$ и $b$ --- это объект
+  $c$, оснащённый двумя инъекциями, такой что для любого другого объекта
+  $c'$, оснащённого двумя инъекциями, существует уникальный морфизм
+  $m$ из $c$ в $c'$, который факторизует эти инъекции.
 \end{quote}
 
 \noindent
-In the category of sets, the coproduct is the \emph{disjoint union} of
-two sets. An element of the disjoint union of $a$ and $b$ is
-either an element of $a$ or an element of $b$. If the two sets
-overlap, the disjoint union contains two copies of the common part. You
-can think of an element of a disjoint union as being tagged with an
-identifier that specifies its origin.
+В категории множеств копроизведение --- это \emph{дизъюнктное объединение}
+двух множеств. Элемент дизъюнктного объединения $a$ и $b$ ---
+это либо элемент $a$, либо элемент $b$. Если два множества
+перекрываются, дизъюнктное объединение содержит две копии общей части. Вы
+можете думать об элементе дизъюнктного объединения как о помеченном
+идентификатором, который указывает его происхождение.
 
-For a programmer, it's easier to understand a coproduct in terms of
-types: it's a tagged union of two types. C++ supports unions, but they
-are not tagged. It means that in your program you have to somehow keep
-track which member of the union is valid. To create a tagged union, you
-have to define a tag --- an enumeration --- and combine it with the
-union. For instance, a tagged union of an \code{int} and a
-\code{char const *} could be implemented as:
+Для программиста легче понять копроизведение в терминах
+типов: это помеченное объединение двух типов. C++ поддерживает объединения, но они
+не помечены. Это означает, что в вашей программе вы должны как-то отслеживать,
+какой член объединения действителен. Чтобы создать помеченное объединение, вы
+должны определить тег --- перечисление --- и объединить его с
+объединением. Например, помеченное объединение \code{int} и
+\code{char const *} может быть реализовано как:
 
 \begin{snip}{cpp}
 struct Contact {
@@ -450,8 +450,8 @@ struct Contact {
     union { int phoneNum; char const * emailAddr; };
 };
 \end{snip}
-The two injections can either be implemented as constructors or as
-functions. For instance, here's the first injection as a function
+Две инъекции могут быть реализованы либо как конструкторы, либо как
+функции. Например, вот первая инъекция как функция
 \code{PhoneNum}:
 
 \begin{snip}{cpp}
@@ -462,165 +462,165 @@ Contact PhoneNum(int n) {
     return c;
 }
 \end{snip}
-It injects an integer into \code{Contact}.
+Она инъецирует целое число в \code{Contact}.
 
-A tagged union is also called a \newterm{variant}, and there is a very
-general implementation of a variant in the boost library,
+Помеченное объединение также называется \newterm{вариант}, и есть очень
+общая реализация варианта в библиотеке boost,
 \code{boost::variant}.
 
-In Haskell, you can combine any data types into a tagged union by
-separating data constructors with a vertical bar. The \code{Contact}
-example translates into the declaration:
+В Haskell вы можете объединить любые типы данных в помеченное объединение,
+разделяя конструкторы данных вертикальной чертой. Пример \code{Contact}
+переводится в объявление:
 
 \src{snippet23}
-Here, \code{PhoneNum} and \code{EmailAddr} serve both as
-constructors (injections), and as tags for pattern matching (more about
-this later). For instance, this is how you would construct a contact
-using a phone number:
+Здесь \code{PhoneNum} и \code{EmailAddr} служат и как
+конструкторы (инъекции), и как теги для сопоставления с образцом (подробнее об
+этом позже). Например, вот как вы бы сконструировали контакт,
+используя номер телефона:
 
 \src{snippet24}
-Unlike the canonical implementation of the product that is built into
-Haskell as the primitive pair, the canonical implementation of the
-coproduct is a data type called \code{Either}, which is defined in the
-standard Prelude as:
+В отличие от канонической реализации произведения, которая встроена в
+Haskell как примитивная пара, каноническая реализация
+копроизведения --- это тип данных, называемый \code{Either}, который определён в
+стандартном Prelude как:
 
 \src{snippet25}
-It is parameterized by two types, \code{a} and \code{b} and has two
-constructors: \code{Left} that takes a value of type \code{a}, and
-\code{Right} that takes a value of type \code{b}.
+Он параметризован двумя типами, \code{a} и \code{b}, и имеет два
+конструктора: \code{Left}, который принимает значение типа \code{a}, и
+\code{Right}, который принимает значение типа \code{b}.
 
-Just as we've defined the factorizer for a product, we can define one
-for the coproduct. Given a candidate type \code{c} and two candidate
-injections \code{i} and \code{j}, the factorizer for \code{Either}
-produces the factoring function:
+Так же, как мы определили факторизатор для произведения, мы можем определить его
+для копроизведения. Для данного типа-кандидата \code{c} и двух инъекций-кандидатов
+\code{i} и \code{j} факторизатор для \code{Either}
+производит факторизующую функцию:
 
 \src{snippet26}
 
-\section{Asymmetry}
+\section{Асимметрия}
 
-We've seen two sets of dual definitions: The definition of a terminal
-object can be obtained from the definition of the initial object by
-reversing the direction of arrows; in a similar way, the definition of
-the coproduct can be obtained from that of the product. Yet in the
-category of sets the initial object is very different from the final
-object, and coproduct is very different from product. We'll see later
-that product behaves like multiplication, with the terminal object
-playing the role of one; whereas coproduct behaves more like the sum,
-with the initial object playing the role of zero. In particular, for
-finite sets, the size of the product is the product of the sizes of
-individual sets, and the size of the coproduct is the sum of the sizes.
+Мы видели два набора двойственных определений: определение терминального
+объекта может быть получено из определения начального объекта
+обращением направления стрелок; аналогичным образом, определение
+копроизведения может быть получено из определения произведения. Тем не менее в
+категории множеств начальный объект очень отличается от финального
+объекта, и копроизведение очень отличается от произведения. Мы увидим позже,
+что произведение ведёт себя как умножение, с терминальным объектом,
+играющим роль единицы; тогда как копроизведение ведёт себя больше как сумма,
+с начальным объектом, играющим роль нуля. В частности, для
+конечных множеств размер произведения --- это произведение размеров
+отдельных множеств, а размер копроизведения --- это сумма размеров.
 
-This shows that the category of sets is not symmetric with respect to
-the inversion of arrows.
+Это показывает, что категория множеств не симметрична относительно
+инверсии стрелок.
 
-Notice that while the empty set has a unique morphism to any set (the
-\code{absurd} function), it has no morphisms coming back. The
-singleton set has a unique morphism coming to it from any set, but it
-\emph{also} has outgoing morphisms to every set (except for the empty
-one). As we've seen before, these outgoing morphisms from the terminal
-object play a very important role of picking elements of other sets (the
-empty set has no elements, so there's nothing to pick).
+Обратите внимание, что в то время как пустое множество имеет уникальный морфизм в любое множество (функция
+\code{absurd}), у него нет морфизмов, возвращающихся. Одноэлементное
+множество имеет уникальный морфизм, приходящий к нему из любого множества, но оно
+\emph{также} имеет исходящие морфизмы в каждое множество (за исключением пустого).
+Как мы видели ранее, эти исходящие морфизмы из терминального
+объекта играют очень важную роль выбора элементов других множеств (пустое
+множество не имеет элементов, так что нечего выбирать).
 
-It's the relationship of the singleton set to the product that sets it
-apart from the coproduct. Consider using the singleton set, represented
-by the unit type \code{()}, as yet another --- vastly inferior ---
-candidate for the product pattern. Equip it with two projections
-\code{p} and \code{q}: functions from the singleton to each of the
-constituent sets. Each selects a concrete element from either set.
-Because the product is universal, there is also a (unique) morphism
-\code{m} from our candidate, the singleton, to the product. This
-morphism selects an element from the product set --- it selects a
-concrete pair. It also factorizes the two projections:
+Именно отношение одноэлементного множества к произведению выделяет его
+из копроизведения. Рассмотрим использование одноэлементного множества, представленного
+типом unit \code{()}, как ещё один --- значительно более слабый ---
+кандидат для паттерна произведения. Оснастим его двумя проекциями
+\code{p} и \code{q}: функциями из синглетона в каждое из
+составляющих множеств. Каждая выбирает конкретный элемент из любого множества.
+Поскольку произведение универсально, также есть (уникальный) морфизм
+\code{m} из нашего кандидата, синглетона, в произведение. Этот
+морфизм выбирает элемент из множества-произведения --- он выбирает
+конкретную пару. Он также факторизует две проекции:
 
 \src{snippet27}
-When acting on the singleton value \code{()}, the only element of the
-singleton set, these two equations become:
+Когда действуют на одноэлементном значении \code{()}, единственном элементе
+одноэлементного множества, эти два уравнения становятся:
 
 \src{snippet28}
-Since \code{m ()} is the element of the product picked by \code{m},
-these equations tell us that the element picked by \code{p} from the
-first set, \code{p ()}, is the first component of the pair picked by
-\code{m}. Similarly, \code{q ()} is equal to the second component.
-This is in total agreement with our understanding that elements of the
-product are pairs of elements from the constituent sets.
+Поскольку \code{m ()} --- это элемент произведения, выбранный \code{m},
+эти уравнения говорят нам, что элемент, выбранный \code{p} из
+первого множества, \code{p ()}, --- это первый компонент пары, выбранной
+\code{m}. Аналогично, \code{q ()} равно второму компоненту.
+Это полностью согласуется с нашим пониманием, что элементы
+произведения --- это пары элементов из составляющих множеств.
 
-There is no such simple interpretation of the coproduct. We could try
-the singleton set as a candidate for a coproduct, in an attempt to
-extract the elements from it, but there we would have two injections
-going into it rather than two projections coming out of it. They'd tell
-us nothing about their sources (in fact, we've seen that they ignore the
-input parameter). Neither would the unique morphism from the coproduct
-to our singleton. The category of sets just looks very different when
-seen from the direction of the initial object than it does when seen
-from the terminal end.
+Нет такой простой интерпретации копроизведения. Мы могли бы попробовать
+одноэлементное множество как кандидат для копроизведения в попытке
+извлечь элементы из него, но там у нас были бы две инъекции,
+идущие в него, а не две проекции, выходящие из него. Они бы
+ничего не сказали нам об их источниках (на самом деле, мы видели, что они игнорируют
+входной параметр). Ни уникальный морфизм из копроизведения
+в наш синглетон. Категория множеств просто выглядит очень по-разному, когда
+видна из направления начального объекта, чем когда видна
+с терминального конца.
 
-This is not an intrinsic property of sets, it's a property of functions,
-which we use as morphisms in $\Set$. Functions are, in general,
-asymmetric. Let me explain.
+Это не внутреннее свойство множеств, это свойство функций,
+которые мы используем как морфизмы в $\Set$. Функции, в общем,
+асимметричны. Позвольте мне объяснить.
 
-A function must be defined for every element of its domain set (in
-programming, we call it a \newterm{total} function), but it doesn't have to
-cover the whole codomain. We've seen some extreme cases of it: functions
-from a singleton set --- functions that select just a single element in
-the codomain. (Actually, functions from an empty set are the real
-extremes.) When the size of the domain is much smaller than the size of
-the codomain, we often think of such functions as embedding the domain
-in the codomain. For instance, we can think of a function from a
-singleton set as embedding its single element in the codomain. I call
-them \newterm{embedding} functions, but mathematicians prefer to give a
-name to the opposite: functions that tightly fill their codomains are
-called \newterm{surjective} or \newterm{onto}.
+Функция должна быть определена для каждого элемента своей области определения (в
+программировании мы называем это \newterm{тотальная} функция), но она не должна
+покрывать весь кодомен. Мы видели некоторые экстремальные случаи: функции
+из одноэлементного множества --- функции, которые выбирают только один элемент в
+кодомене. (На самом деле, функции из пустого множества --- настоящие
+экстремумы.) Когда размер домена намного меньше размера
+кодомена, мы часто думаем о таких функциях как о встраивании домена
+в кодомен. Например, мы можем думать о функции из
+одноэлементного множества как о встраивании его единственного элемента в кодомен. Я называю
+их \newterm{встраивающие} функции, но математики предпочитают давать
+имя противоположному: функции, которые плотно заполняют свои кодомены,
+называются \newterm{сюръективными} или \newterm{на}.
 
-The other source of asymmetry is that functions are allowed to map many
-elements of the domain set into one element of the codomain. They can
-collapse them. The extreme case are functions that map whole sets into a
-singleton. You've seen the polymorphic \code{unit} function that does
-just that. The collapsing can only be compounded by composition. A
-composition of two collapsing functions is even more collapsing than the
-individual functions. Mathematicians have a name for non-collapsing
-functions: they call them \newterm{injective} or \newterm{one-to-one}.
+Другой источник асимметрии --- то, что функциям разрешено отображать много
+элементов домена в один элемент кодомена. Они могут
+их схлопывать. Экстремальный случай --- это функции, которые отображают целые множества в
+синглетон. Вы видели полиморфную функцию \code{unit}, которая делает
+именно это. Схлопывание может только усиливаться композицией.
+Композиция двух схлопывающих функций ещё более схлопывающая, чем
+отдельные функции. Математики имеют название для несхлопывающих
+функций: они называют их \newterm{инъективными} или \newterm{один-к-одному}.
 
-Of course there are some functions that are neither embedding nor
-collapsing. They are called \newterm{bijections} and they are truly
-symmetric, because they are invertible. In the category of sets, an
-isomorphism is the same as a bijection.
+Конечно, есть некоторые функции, которые не являются ни встраивающими, ни
+схлопывающими. Они называются \newterm{биекции}, и они действительно
+симметричны, потому что они обратимы. В категории множеств
+изоморфизм --- это то же самое, что биекция.
 
-\section{Challenges}
+\section{Задачи}
 
 \begin{enumerate}
   \tightlist
   \item
-        Show that the terminal object is unique up to unique isomorphism.
+        Покажите, что терминальный объект уникален с точностью до уникального изоморфизма.
   \item
-        What is a product of two objects in a poset? Hint: Use the universal
-        construction.
+        Что является произведением двух объектов в poset? Подсказка: используйте универсальную
+        конструкцию.
   \item
-        What is a coproduct of two objects in a poset?
+        Что является копроизведением двух объектов в poset?
   \item
-        Implement the equivalent of Haskell \code{Either} as a generic type
-        in your favorite language (other than Haskell).
+        Реализуйте эквивалент Haskell \code{Either} как обобщённый тип
+        на вашем любимом языке (отличном от Haskell).
   \item
-        Show that \code{Either} is a ``better'' coproduct than \code{int}
-        equipped with two injections:
+        Покажите, что \code{Either} --- это ``лучшее'' копроизведение, чем \code{int},
+        оснащённый двумя инъекциями:
 
         \begin{snip}{cpp}
 int i(int n) { return n; }
 int j(bool b) { return b ? 0: 1; }
 \end{snip}
 
-        Hint: Define a function
+        Подсказка: Определите функцию
 
         \begin{snip}{cpp}
 int m(Either const & e);
 \end{snip}
 
-        that factorizes \code{i} and \code{j}.
+        которая факторизует \code{i} и \code{j}.
   \item
-        Continuing the previous problem: How would you argue that \code{int}
-        with the two injections \code{i} and \code{j} cannot be ``better''
-        than \code{Either}?
+        Продолжая предыдущую проблему: Как бы вы аргументировали, что \code{int}
+        с двумя инъекциями \code{i} и \code{j} не может быть ``лучше'',
+        чем \code{Either}?
   \item
-        Still continuing: What about these injections?
+        Всё ещё продолжая: А как насчёт этих инъекций?
 
         \begin{snip}{cpp}
 int i(int n) {
@@ -631,17 +631,17 @@ int i(int n) {
 int j(bool b) { return b ? 0: 1; }
 \end{snip}
   \item
-        Come up with an inferior candidate for a coproduct of \code{int} and
-        \code{bool} that cannot be better than \code{Either} because it
-        allows multiple acceptable morphisms from it to \code{Either}.
+        Придумайте более слабый кандидат для копроизведения \code{int} и
+        \code{bool}, который не может быть лучше, чем \code{Either}, потому что он
+        допускает несколько приемлемых морфизмов из него в \code{Either}.
 \end{enumerate}
 
-\section{Bibliography}
+\section{Библиография}
 
 \begin{enumerate}
   \tightlist
   \item
         The Catsters,
         \urlref{https://www.youtube.com/watch?v=upCSDIO9pjc}{Products and
-          Coproducts} video.
+          Coproducts} видео.
 \end{enumerate}

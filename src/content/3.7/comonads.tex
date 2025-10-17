@@ -1,400 +1,399 @@
 % !TEX root = ../../ctfp-print.tex
 
-\lettrine[lhang=0.17]{N}{ow that we have covered} monads, we can reap the benefits of duality and
-get comonads for free simply by reversing the arrows and working in the
-opposite category.
+\lettrine[lhang=0.17]{Т}{еперь, когда мы покрыли} монады, мы можем пожать плоды двойственности и
+получить комонады бесплатно, просто обратив стрелки и работая в
+противоположной категории.
 
-Recall that, at the most basic level, monads are about composing Kleisli
-arrows:
+Вспомните, что на самом базовом уровне монады о композиции стрелок
+Клейсли:
 
 \src{snippet01}
-where \code{m} is a functor that is a monad. If we use the letter
-\code{w} (upside down \code{m}) for the comonad, we can define
-co-Kleisli arrows as morphism of the type:
+где \code{m} --- функтор, который является монадой. Если мы используем букву
+\code{w} (перевёрнутая \code{m}) для комонады, мы можем определить
+ко-стрелки Клейсли как морфизмы типа:
 
 \src{snippet02}
-The analog of the fish operator for co-Kleisli arrows is defined as:
+Аналог оператора рыбы для ко-стрелок Клейсли определяется как:
 
 \src{snippet03}
-For co-Kleisli arrows to form a category we also have to have an
-identity co-Kleisli arrow, which is called \code{extract}:
+Чтобы ко-стрелки Клейсли образовали категорию, мы также должны иметь
+тождественную ко-стрелку Клейсли, которая называется \code{extract}:
 
 \src{snippet04}
-This is the dual of \code{return}. We also have to impose the laws of
-associativity as well as left- and right-identity. Putting it all
-together, we could define a comonad in Haskell as:
+Это двойственное \code{return}. Мы также должны наложить законы
+ассоциативности, а также левого и правого тождества. Собирая всё
+вместе, мы могли бы определить комонаду в Haskell как:
 
 \src{snippet05}
-In practice, we use slightly different primitives, as we'll see shortly.
+На практике мы используем немного другие примитивы, как мы скоро увидим.
 
-The question is, what's the use for comonads in programming?
+Вопрос в том, какое применение комонад в программировании?
 
-\section{Programming with Comonads}
+\section{Программирование с комонадами}
 
-Let's compare the monad with the comonad. A monad provides a way of
-putting a value in a container using \code{return}. It doesn't give
-you access to a value or values stored inside. Of course, data
-structures that implement monads might provide access to their contents,
-but that's considered a bonus. There is no common interface for
-extracting values from a monad. And we've seen the example of the
-\code{IO} monad that prides itself in never exposing its contents.
+Давайте сравним монаду с комонадой. Монада предоставляет способ
+помещения значения в контейнер, используя \code{return}. Она не даёт
+вам доступа к значению или значениям, хранящимся внутри. Конечно, структуры
+данных, которые реализуют монады, могут предоставить доступ к своему содержимому,
+но это считается бонусом. Нет общего интерфейса для
+извлечения значений из монады. И мы видели пример
+монады \code{IO}, которая гордится тем, что никогда не выставляет своё содержимое.
 
-A comonad, on the other hand, provides the means of extracting a single
-value from it. It does not give the means to insert values. So if you
-want to think of a comonad as a container, it always comes pre-filled
-with contents, and it lets you peek at it.
+Комонада, с другой стороны, предоставляет средства извлечения единственного
+значения из неё. Она не даёт средств для вставки значений. Так что если вы
+хотите думать о комонаде как о контейнере, она всегда идёт предзаполненной
+содержимым, и она позволяет вам заглянуть в неё.
 
-Just as a Kleisli arrow takes a value and produces some embellished
-result --- it embellishes it with context --- a co-Kleisli arrow takes a
-value together with a whole context and produces a result. It's an
-embodiment of \newterm{contextual computation}.
+Так же, как стрелка Клейсли принимает значение и производит некоторый приукрашенный
+результат --- она приукрашивает его контекстом --- ко-стрелка Клейсли принимает
+значение вместе с целым контекстом и производит результат. Это
+воплощение \newterm{контекстного вычисления}.
 
-\section{The Product Comonad}
+\section{Комонада произведения}
 
-Remember the reader monad? We introduced it to tackle the problem of
-implementing computations that need access to some read-only environment
-\code{e}. Such computations can be represented as pure functions of
-the form:
+Помните монаду reader? Мы ввели её для решения проблемы
+реализации вычислений, которые нуждаются в доступе к некоторому окружению только для чтения
+\code{e}. Такие вычисления могут быть представлены как чистые функции
+формы:
 
 \src{snippet06}
-We used currying to turn them into Kleisli arrows:
+Мы использовали каррирование, чтобы превратить их в стрелки Клейсли:
 
 \src{snippet07}
-But notice that these functions already have the form of co-Kleisli
-arrows. Let's massage their arguments into the more convenient functor
-form:
+Но заметьте, что эти функции уже имеют форму ко-стрелок
+Клейсли. Давайте помассируем их аргументы в более удобную форму функтора:
 
 \src{snippet08}
-We can easily define the composition operator by making the same
-environment available to the arrows that we are composing:
+Мы можем легко определить оператор композиции, делая то же
+окружение доступным для стрелок, которые мы композируем:
 
 \src{snippet09}
-The implementation of \code{extract} simply ignores the environment:
+Реализация \code{extract} просто игнорирует окружение:
 
 \src{snippet10}
-Not surprisingly, the product comonad can be used to perform exactly the
-same computations as the reader monad. In a way, the comonadic
-implementation of the environment is more natural --- it follows the
-spirit of ``computation in context.'' On the other hand, monads come
-with the convenient syntactic sugar of the \code{do} notation.
+Неудивительно, что комонада произведения может быть использована для выполнения точно тех же
+вычислений, что и монада reader. В каком-то смысле комонадическая
+реализация окружения более естественна --- она следует
+духу ``вычисления в контексте.'' С другой стороны, монады идут
+с удобным синтаксическим сахаром нотации \code{do}.
 
-The connection between the reader monad and the product comonad goes
-deeper, having to do with the fact that the reader functor is the right
-adjoint of the product functor. In general, though, comonads cover
-different notions of computation than monads. We'll see more examples
-later.
+Связь между монадой reader и комонадой произведения идёт
+глубже, имея дело с фактом, что функтор reader --- правый
+сопряжённый функтора произведения. В общем случае, однако, комонады покрывают
+разные понятия вычислений, чем монады. Мы увидим больше примеров
+позже.
 
-It's easy to generalize the \code{Product} comonad to arbitrary
-product types including tuples and records.
+Легко обобщить комонаду \code{Product} на произвольные
+типы произведения, включая кортежи и записи.
 
-\section{Dissecting the Composition}
+\section{Препарирование композиции}
 
-Continuing the process of dualization, we could go ahead and dualize
-monadic bind and join. Alternatively, we can repeat the process we used
-with monads, where we studied the anatomy of the fish operator. This
-approach seems more enlightening.
+Продолжая процесс дуализации, мы могли бы пойти вперёд и дуализовать
+монадический bind и join. Альтернативно, мы можем повторить процесс, который мы использовали
+с монадами, где мы изучали анатомию оператора рыбы. Этот
+подход кажется более просветляющим.
 
-The starting point is the realization that the composition operator must
-produce a co-Kleisli arrow that takes \code{w a} and produces a
-\code{c}. The only way to produce a \code{c} is to apply the second
-function to an argument of the type \code{w b}:
+Отправная точка --- осознание, что оператор композиции должен
+произвести ко-стрелку Клейсли, которая принимает \code{w a} и производит
+\code{c}. Единственный способ произвести \code{c} --- применить вторую
+функцию к аргументу типа \code{w b}:
 
 \src{snippet11}
-But how can we produce a value of type \code{w b} that could be fed
-to \code{g}? We have at our disposal the argument of type
-\code{w a} and the function \code{f :: w a -> b}.
-The solution is to define the dual of bind, which is called extend:
+Но как мы можем произвести значение типа \code{w b}, которое могло бы быть скормлено
+\code{g}? У нас в распоряжении аргумент типа
+\code{w a} и функция \code{f :: w a -> b}.
+Решение --- определить двойственное bind, которое называется extend:
 
 \src{snippet12}
-Using \code{extend} we can implement composition:
+Используя \code{extend}, мы можем реализовать композицию:
 
 \src{snippet13}
-Can we next dissect \code{extend}? You might be tempted to say, why
-not just apply the function \code{w a -> b} to the
-argument \code{w a}, but then you quickly realize that you'd have no
-way of converting the resulting \code{b} to \code{w b}. Remember,
-the comonad provides no means of lifting values. At this point, in the
-analogous construction for monads, we used \code{fmap}. The only way
-we could use \code{fmap} here would be if we had something of the type
-\code{w (w a)} at our disposal. If we could only turn \code{w a}
-into\\ \code{w (w a)}. And, conveniently, that would be exactly the
-dual of \code{join}. We call it \code{duplicate}:
+Можем ли мы далее препарировать \code{extend}? Вы можете быть соблазнены сказать, почему
+бы не просто применить функцию \code{w a -> b} к
+аргументу \code{w a}, но затем вы быстро осознаёте, что у вас не было бы
+способа конвертировать результирующий \code{b} в \code{w b}. Помните,
+комонада не предоставляет средств подъёма значений. На этом этапе в
+аналогичной конструкции для монад мы использовали \code{fmap}. Единственный способ,
+которым мы могли бы использовать \code{fmap} здесь, --- если бы у нас было что-то типа
+\code{w (w a)} в нашем распоряжении. Если бы мы могли только превратить \code{w a}
+в\\ \code{w (w a)}. И, удобно, это было бы в точности
+двойственное \code{join}. Мы называем это \code{duplicate}:
 
 \src{snippet14}
-So, just like with the definitions of the monad, we have three
-equivalent definitions of the comonad: using co-Kleisli arrows,
-\code{extend}, or \code{duplicate}. Here's the Haskell definition
-taken directly from\\ \code{Control.Comonad} library:
+Так что, как и с определениями монады, у нас есть три
+эквивалентных определения комонады: используя ко-стрелки Клейсли,
+\code{extend} или \code{duplicate}. Вот определение Haskell,
+взятое прямо из\\ библиотеки \code{Control.Comonad}:
 
 \src{snippet15}
-Provided are the default implementations of \code{extend} in terms of
-\code{duplicate} and vice versa, so you only need to override one of
-them.
+Предоставлены реализации по умолчанию \code{extend} в терминах
+\code{duplicate} и наоборот, так что вам нужно только переопределить одну из
+них.
 
-The intuition behind these functions is based on the idea that, in
-general, a comonad can be thought of as a container filled with values
-of type \code{a} (the product comonad was a special case of just one
-value). There is a notion of the ``current'' value, one that's easily
-accessible through \code{extract}. A co-Kleisli arrow performs some
-computation that is focused on the current value, but it has access to
-all the surrounding values. Think of the Conway's game of life. Each
-cell contains a value (usually just \code{True} or \code{False}). A
-comonad corresponding to the game of life would be a grid of cells
-focused on the ``current'' cell.
+Интуиция за этими функциями основана на идее, что в
+общем случае комонада может рассматриваться как контейнер, заполненный значениями
+типа \code{a} (комонада произведения была специальным случаем только одного
+значения). Есть понятие ``текущего'' значения, того, которое легко
+доступно через \code{extract}. Ко-стрелка Клейсли выполняет некоторое
+вычисление, которое сфокусировано на текущем значении, но она имеет доступ ко
+всем окружающим значениям. Думайте об игре жизнь Конуэя. Каждая
+клетка содержит значение (обычно просто \code{True} или \code{False}).
+Комонада, соответствующая игре жизнь, была бы сеткой клеток,
+сфокусированной на ``текущей'' клетке.
 
-So what does \code{duplicate} do? It takes a comonadic container
-\code{w a} and produces a container of containers \code{w (w a)}.
-The idea is that each of these containers is focused on a different
-\code{a} inside \code{w a}. In the game of life, you would get a
-grid of grids, each cell of the outer grid containing an inner grid
-that's focused on a different cell.
+Так что делает \code{duplicate}? Она принимает комонадический контейнер
+\code{w a} и производит контейнер контейнеров \code{w (w a)}.
+Идея в том, что каждый из этих контейнеров сфокусирован на разном
+\code{a} внутри \code{w a}. В игре жизнь вы бы получили
+сетку сеток, каждая клетка внешней сетки, содержащая внутреннюю сетку,
+которая сфокусирована на разной клетке.
 
-Now look at \code{extend}. It takes a co-Kleisli arrow and a comonadic
-container \code{w a} filled with \code{a}s. It applies the
-computation to all of these \code{a}s, replacing them with
-\code{b}s. The result is a comonadic container filled with
-\code{b}s. \code{extend} does it by shifting the focus from one
-\code{a} to another and applying the co-Kleisli arrow to each of them
-in turn. In the game of life, the co-Kleisli arrow would calculate the
-new state of the current cell. To do that, it would look at its context
---- presumably its nearest neighbors. The default implementation of
-\code{extend} illustrates this process. First we call
-\code{duplicate} to produce all possible foci and then we apply
-\code{f} to each of them.
+Теперь посмотрите на \code{extend}. Она принимает ко-стрелку Клейсли и комонадический
+контейнер \code{w a}, заполненный \code{a}. Она применяет
+вычисление ко всем этим \code{a}, заменяя их
+\code{b}. Результат --- комонадический контейнер, заполненный
+\code{b}. \code{extend} делает это, сдвигая фокус с одного
+\code{a} на другое и применяя ко-стрелку Клейсли к каждому из них
+по очереди. В игре жизнь ко-стрелка Клейсли вычислила бы
+новое состояние текущей клетки. Чтобы сделать это, она посмотрела бы на её контекст
+--- предположительно её ближайших соседей. Реализация по умолчанию
+\code{extend} иллюстрирует этот процесс. Сначала мы вызываем
+\code{duplicate}, чтобы произвести все возможные фокусы, а затем применяем
+\code{f} к каждому из них.
 
-\section{The Stream Comonad}
+\section{Комонада потока}
 
-This process of shifting the focus from one element of the container to
-another is best illustrated with the example of an infinite stream. Such
-a stream is just like a list, except that it doesn't have the empty
-constructor:
+Этот процесс сдвига фокуса с одного элемента контейнера на
+другой лучше всего иллюстрируется примером бесконечного потока. Такой
+поток --- как список, за исключением того, что он не имеет пустого
+конструктора:
 
 \src{snippet16}
-It's trivially a \code{Functor}:
+Он тривиально \code{Functor}:
 
 \src{snippet17}
-The focus of a stream is its first element, so here's the implementation
-of \code{extract}:
+Фокус потока --- его первый элемент, так что вот реализация
+\code{extract}:
 
 \src{snippet18}
-\code{duplicate} produces a stream of streams, each focused on a
-different element.
+\code{duplicate} производит поток потоков, каждый сфокусирован на
+разном элементе.
 
 \src{snippet19}
-The first element is the original stream, the second element is the tail
-of the original stream, the third element is its tail, and so on, ad
-infinitum.
+Первый элемент --- исходный поток, второй элемент --- хвост
+исходного потока, третий элемент --- его хвост, и так далее, до
+бесконечности.
 
-Here's the complete instance:
+Вот полный экземпляр:
 
 \src{snippet20}
-This is a very functional way of looking at streams. In an imperative
-language, we would probably start with a method \code{advance} that
-shifts the stream by one position. Here, \code{duplicate} produces all
-shifted streams in one fell swoop. Haskell's laziness makes this
-possible and even desirable. Of course, to make a \code{Stream}
-practical, we would also implement the analog of \code{advance}:
+Это очень функциональный способ взгляда на потоки. В императивном
+языке мы, вероятно, начали бы с метода \code{advance}, который
+сдвигает поток на одну позицию. Здесь \code{duplicate} производит все
+сдвинутые потоки одним махом. Ленивость Haskell делает это
+возможным и даже желательным. Конечно, чтобы сделать \code{Stream}
+практичным, мы также реализовали бы аналог \code{advance}:
 
 \src{snippet21}
-but it's never part of the comonadic interface.
+но это никогда не часть комонадического интерфейса.
 
-If you had any experience with digital signal processing, you'll see
-immediately that a co-Kleisli arrow for a stream is just a digital
-filter, and \code{extend} produces a filtered stream.
+Если у вас был какой-либо опыт с цифровой обработкой сигналов, вы увидите
+немедленно, что ко-стрелка Клейсли для потока --- это просто цифровой
+фильтр, а \code{extend} производит отфильтрованный поток.
 
-As a simple example, let's implement the moving average filter. Here's a
-function that sums \code{n} elements of a stream:
+Как простой пример, давайте реализуем фильтр скользящего среднего. Вот
+функция, которая суммирует \code{n} элементов потока:
 
 \src{snippet22}
-Here's the function that calculates the average of the first \code{n}
-elements of the stream:
+Вот функция, которая вычисляет среднее первых \code{n}
+элементов потока:
 
 \src{snippet23}
-Partially applied \code{average n} is a co-Kleisli arrow, so we can
-\code{extend} it over the whole stream:
+Частично применённая \code{average n} --- ко-стрелка Клейсли, так что мы можем
+\code{extend}ить её над всем потоком:
 
 \src{snippet24}
-The result is the stream of running averages.
+Результат --- поток текущих средних.
 
-A stream is an example of a unidirectional, one-dimensional comonad. It
-can be easily made bidirectional or extended to two or more dimensions.
+Поток --- пример однонаправленной, одномерной комонады. Она
+может быть легко сделана двунаправленной или расширена на два или более измерения.
 
-\section{Comonad Categorically}
+\section{Комонада категорно}
 
-Defining a comonad in category theory is a straightforward exercise in
-duality. As with the monad, we start with an endofunctor $T$. The
-two natural transformations, $\eta$ and $\mu$, that define the monad are simply
-reversed for the comonad:
+Определение комонады в теории категорий --- прямолинейное упражнение в
+двойственности. Как и с монадой, мы начинаем с эндофунктора $T$.
+Два естественных преобразования, $\eta$ и $\mu$, которые определяют монаду, просто
+обращены для комонады:
 \begin{align*}
   \varepsilon & \Colon T \to I   \\
   \delta      & \Colon T \to T^2
 \end{align*}
-The components of these transformations correspond to \code{extract}
-and \code{duplicate}. Comonad laws are the mirror image of monad laws.
-No big surprise here.
+Компоненты этих преобразований соответствуют \code{extract}
+и \code{duplicate}. Законы комонады --- зеркальное изображение законов монады.
+Никакого большого сюрприза здесь.
 
-Then there is the derivation of the monad from an adjunction. Duality
-reverses an adjunction: the left adjoint becomes the right adjoint and
-vice versa. And, since the composition $R \circ L$ defines a monad,
-$L \circ R$ must define a comonad. The counit of the adjunction:
+Затем есть вывод монады из сопряжения. Двойственность
+обращает сопряжение: левый сопряжённый становится правым сопряжённым и
+наоборот. И, поскольку композиция $R \circ L$ определяет монаду,
+$L \circ R$ должна определять комонаду. Коединица сопряжения:
 \[\varepsilon \Colon L \circ R \to I\]
-is indeed the same $\varepsilon$ that we see in the definition of the comonad ---
-or, in components, as Haskell's \code{extract}. We can also use the
-unit of the adjunction:
+действительно та же $\varepsilon$, которую мы видим в определении комонады ---
+или, в компонентах, как \code{extract} Haskell. Мы также можем использовать
+единицу сопряжения:
 \[\eta \Colon I \to R \circ L\]
-to insert an $R \circ L$ in the middle of $L \circ R$ and
-produce $L \circ R \circ L \circ R$. Making $T^2$ from $T$
-defines the $\delta$, and that completes the definition of the comonad.
+чтобы вставить $R \circ L$ в середину $L \circ R$ и
+произвести $L \circ R \circ L \circ R$. Создание $T^2$ из $T$
+определяет $\delta$, и это завершает определение комонады.
 
-We've also seen that the monad is a monoid. The dual of this statement
-would require the use of a comonoid, so what's a comonoid? The original
-definition of a monoid as a single-object category doesn't dualize to
-anything interesting. When you reverse the direction of all
-endomorphisms, you get another monoid. Recall, however, that in our
-approach to a monad, we used a more general definition of a monoid as an
-object in a monoidal category. The construction was based on two
-morphisms:
+Мы также видели, что монада --- моноид. Двойственное этого утверждения
+потребовало бы использования комоноида, так что такое комоноид? Исходное
+определение моноида как одно-объектной категории не дуализуется в
+что-либо интересное. Когда вы обращаете направление всех
+эндоморфизмов, вы получаете другой моноид. Однако вспомните, что в нашем
+подходе к монаде мы использовали более общее определение моноида как
+объекта в моноидальной категории. Конструкция была основана на двух
+морфизмах:
 \begin{align*}
   \mu  & \Colon m \otimes m \to m \\
   \eta & \Colon i \to m
 \end{align*}
-The reversal of these morphisms produces a comonoid in a monoidal
-category:
+Обращение этих морфизмов производит комоноид в моноидальной
+категории:
 \begin{align*}
   \delta      & \Colon m \to m \otimes m \\
   \varepsilon & \Colon m \to i
 \end{align*}
-One can write a definition of a comonoid in Haskell:
+Можно написать определение комоноида в Haskell:
 
 \src{snippet25}
-but it is rather trivial. Obviously \code{destroy} ignores its
-argument.
+но оно довольно тривиально. Очевидно, \code{destroy} игнорирует свой
+аргумент.
 
 \src{snippet26}
-\code{split} is just a pair of functions:
+\code{split} --- это просто пара функций:
 
 \src{snippet27}
-Now consider comonoid laws that are dual to the monoid unit laws.
+Теперь рассмотрите законы комоноида, которые двойственны законам единицы моноида.
 
 \src{snippet28}
-Here, \code{lambda} and \code{rho} are the left and right unitors,
-respectively (see the definition of
-\hyperref[monads-categorically]{monoidal
-  categories}). Plugging in the definitions, we get:
+Здесь \code{lambda} и \code{rho} --- левый и правый унитор,
+соответственно (см. определение
+\hyperref[monads-categorically]{моноидальных
+  категорий}). Подставляя определения, мы получаем:
 
 \src{snippet29}
-which proves that \code{g = id}. Similarly, the second law expands
-to \code{f = id}. In conclusion:
+что доказывает, что \code{g = id}. Аналогично, второй закон расширяется
+до \code{f = id}. В заключение:
 
 \src{snippet30}
-which shows that in Haskell (and, in general, in the category
-$\Set$) every object is a trivial comonoid.
+что показывает, что в Haskell (и, в общем случае, в категории
+$\Set$) каждый объект --- тривиальный комоноид.
 
-Fortunately there are other more interesting monoidal categories in
-which to define comonoids. One of them is the category of endofunctors.
-And it turns out that, just like the monad is a monoid in the category
-of endofunctors,
+К счастью, есть другие более интересные моноидальные категории, в
+которых можно определять комоноиды. Одна из них --- категория эндофункторов.
+И оказывается, что так же, как монада --- моноид в категории
+эндофункторов,
 
 \begin{quote}
-  The comonad is a comonoid in the category of endofunctors.
+  Комонада --- это комоноид в категории эндофункторов.
 \end{quote}
 
-\section{The Store Comonad}
+\section{Комонада Store}
 
-Another important example of a comonad is the dual of the state monad.
-It's called the costate comonad or, alternatively, the store comonad.
+Другой важный пример комонады --- двойственное монады состояния.
+Она называется комонадой costate или, альтернативно, комонадой store.
 
-We've seen before that the state monad is generated by the adjunction
-that defines the exponentials:
+Мы видели раньше, что монада состояния порождается сопряжением,
+которое определяет экспоненциалы:
 \begin{align*}
   L z & = z\times{}s      \\
   R a & = s \Rightarrow a
 \end{align*}
-We'll use the same adjunction to define the costate comonad. A comonad
-is defined by the composition $L \circ R$:
+Мы будем использовать то же сопряжение для определения комонады costate. Комонада
+определяется композицией $L \circ R$:
 \[L (R a) = (s \Rightarrow a)\times{}s\]
-Translating this to Haskell, we start with the adjunction between the
-\code{Product} functor on the left and the \code{Reader} functor or the
-right. Composing \code{Product} after \code{Reader} is equivalent to
-the following definition:
+Переводя это в Haskell, мы начинаем с сопряжения между
+функтором \code{Product} слева и функтором \code{Reader}
+справа. Композиция \code{Product} после \code{Reader} эквивалентна
+следующему определению:
 
 \src{snippet31}
-The counit of the adjunction taken at the object $a$ is the
-morphism:
+Коединица сопряжения, взятая в объекте $a$, --- это
+морфизм:
 \[\varepsilon_a \Colon ((s \Rightarrow a)\times{}s) \to a\]
-or, in Haskell notation:
+или в нотации Haskell:
 
 \src{snippet32}
-This becomes our \code{extract}:
+Это становится нашим \code{extract}:
 
 \src{snippet33}
-The unit of the adjunction:
+Единица сопряжения:
 
 \src{snippet34}
-can be rewritten as partially applied data constructor:
+может быть переписана как частично применённый конструктор данных:
 
 \src{snippet35}
-We construct $\delta$, or \code{duplicate}, as the horizontal composition:
+Мы конструируем $\delta$, или \code{duplicate}, как горизонтальную композицию:
 \begin{align*}
   \delta & \Colon L \circ R \to L \circ R \circ L \circ R \\
   \delta & = L \circ \eta \circ R
 \end{align*}
-We have to sneak $\eta$ through the leftmost $L$, which is the
-\code{Product} functor. It means acting with $\eta$, or \code{Store f}, on
-the left component of the pair (that's what \code{fmap} for
-\code{Product} would do). We get:
+Мы должны протащить $\eta$ через крайний левый $L$, который является
+функтором \code{Product}. Это означает действие $\eta$, или \code{Store f}, на
+левом компоненте пары (это то, что \code{fmap} для
+\code{Product} сделал бы). Мы получаем:
 
 \src{snippet36}
-(Remember that, in the formula for $\delta$, $L$ and $R$ stand
-for identity natural transformations whose components are identity
-morphisms.)
+(Помните, что в формуле для $\delta$ $L$ и $R$ означают
+тождественные естественные преобразования, чьи компоненты ---
+тождественные морфизмы.)
 
-Here's the complete definition of the \code{Store} comonad:
+Вот полное определение комонады \code{Store}:
 
 \src{snippet37}
-You may think of the \code{Reader} part of \code{Store} as a
-generalized container of \code{a}s that are keyed using elements of
-the type \code{s}. For instance, if \code{s} is \code{Int},
-\code{Reader Int a} is an infinite bidirectional stream of
-\code{a}s. \code{Store} pairs this container with a value of the key
-type. For instance, \code{Reader Int a} is paired with an
-\code{Int}. In this case, \code{extract} uses this integer to index
-into the infinite stream. You may think of the second component of
-\code{Store} as the current position.
+Вы можете думать о части \code{Reader} из \code{Store} как о
+обобщённом контейнере \code{a}, которые проиндексированы, используя элементы
+типа \code{s}. Например, если \code{s} --- \code{Int},
+\code{Reader Int a} --- бесконечный двунаправленный поток
+\code{a}. \code{Store} парит этот контейнер со значением типа ключа.
+Например, \code{Reader Int a} парится с
+\code{Int}. В этом случае \code{extract} использует это целое число для индексации
+в бесконечный поток. Вы можете думать о втором компоненте
+\code{Store} как о текущей позиции.
 
-Continuing with this example, \code{duplicate} creates a new infinite
-stream indexed by an \code{Int}. This stream contains streams as its
-elements. In particular, at the current position, it contains the
-original stream. But if you use some other \code{Int} (positive or
-negative) as the key, you'd obtain a shifted stream positioned at that
-new index.
+Продолжая с этим примером, \code{duplicate} создаёт новый бесконечный
+поток, проиндексированный \code{Int}. Этот поток содержит потоки как свои
+элементы. В частности, в текущей позиции он содержит
+исходный поток. Но если вы используете какой-то другой \code{Int} (положительный или
+отрицательный) как ключ, вы получили бы сдвинутый поток, позиционированный в этом
+новом индексе.
 
-In general, you can convince yourself that when \code{extract} acts on
-the \code{duplicate}d \code{Store} it produces the original
-\code{Store} (in fact, the identity law for the comonad states that
+В общем случае вы можете убедить себя, что когда \code{extract} действует на
+\code{duplicate}нный \code{Store}, он производит исходный
+\code{Store} (на самом деле, закон тождества для комонады утверждает, что
 \code{extract . duplicate = id}).
 
-The \code{Store} comonad plays an important role as the theoretical
-basis for the \code{lens} library. Conceptually, the
-\code{Store s a} comonad encapsulates the idea of ``focusing'' (like
-a lens) on a particular substructure of the data type \code{a} using
-the type \code{s} as an index. In particular, a function of the type:
+Комонада \code{Store} играет важную роль как теоретическая
+основа для библиотеки \code{lens}. Концептуально,
+комонада \code{Store s a} инкапсулирует идею ``фокусировки'' (как
+линза) на конкретной подструктуре типа данных \code{a}, используя
+тип \code{s} как индекс. В частности, функция типа:
 
 \src{snippet38}
-is equivalent to a pair of functions:
+эквивалентна паре функций:
 
 \src{snippet39}
-If \code{a} is a product type, \code{set} could be implemented as
-setting the field of type \code{s} inside of \code{a} while
-returning the modified version of \code{a}. Similarly, \code{get}
-could be implemented to read the value of the \code{s} field from
-\code{a}. We'll explore these ideas more in the next section.
+Если \code{a} --- тип произведения, \code{set} может быть реализована как
+установка поля типа \code{s} внутри \code{a} при
+возврате модифицированной версии \code{a}. Аналогично, \code{get}
+может быть реализована для чтения значения поля \code{s} из
+\code{a}. Мы исследуем эти идеи больше в следующей секции.
 
-\section{Challenges}
+\section{Задачи}
 
 \begin{enumerate}
   \tightlist
   \item
-        Implement the Conway's Game of Life using the \code{Store} comonad.
-        Hint: What type do you pick for \code{s}?
+        Реализуйте игру жизнь Конуэя, используя комонаду \code{Store}.
+        Подсказка: какой тип вы выбираете для \code{s}?
 \end{enumerate}

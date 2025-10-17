@@ -1,58 +1,58 @@
 % !TEX root = ../../ctfp-print.tex
 
-\lettrine[lhang=0.17]{P}{rogrammers have developed} a whole mythology around monads. It's
-supposed to be one of the most abstract and difficult concepts in
-programming. There are people who ``get it'' and those who don't. For
-many, the moment when they understand the concept of the monad is like a
-mystical experience. The monad abstracts the essence of so many diverse
-constructions that we simply don't have a good analogy for it in
-everyday life. We are reduced to groping in the dark, like those blind
-men touching different parts of the elephant end exclaiming
-triumphantly: ``It's a rope,'' ``It's a tree trunk,'' or ``It's a
-burrito!''
+\lettrine[lhang=0.17]{П}{рограммисты разработали} целую мифологию вокруг монад. Считается,
+что это одна из самых абстрактных и трудных концепций в
+программировании. Есть люди, которые ``понимают это'', и те, кто нет. Для
+многих момент, когда они понимают концепцию монады, подобен
+мистическому опыту. Монада абстрагирует суть столь многих разнообразных
+конструкций, что у нас просто нет хорошей аналогии для неё в
+повседневной жизни. Мы сведены к ощупыванию в темноте, как те слепые
+люди, трогающие разные части слона и восклицающие
+триумфально: ``Это верёвка,'' ``Это ствол дерева,'' или ``Это
+буррито!''
 
-Let me set the record straight: The whole mysticism around the monad is
-the result of a misunderstanding. The monad is a very simple concept.
-It's the diversity of applications of the monad that causes the
-confusion.
+Позвольте мне внести ясность: вся мистика вокруг монады ---
+результат недопонимания. Монада --- очень простая концепция.
+Это разнообразие применений монады вызывает
+путаницу.
 
-As part of research for this post I looked up duct tape (a.k.a., duck
-tape) and its applications. Here's a little sample of things that you
-can do with it:
+Как часть исследования для этого поста я посмотрел на клейкую ленту (она же
+утиная лента) и её применения. Вот небольшой образец вещей, которые вы
+можете с ней делать:
 
 \begin{itemize}
   \tightlist
   \item
-        sealing ducts
+        герметизация воздуховодов
   \item
-        fixing CO\textsubscript{2} scrubbers on board Apollo 13
+        починка скрубберов CO\textsubscript{2} на борту Аполлона-13
   \item
-        wart treatment
+        лечение бородавок
   \item
-        fixing Apple's iPhone 4 dropped call issue
+        починка проблемы упавших звонков iPhone 4 от Apple
   \item
-        making a prom dress
+        изготовление платья для выпускного
   \item
-        building a suspension bridge
+        постройка подвесного моста
 \end{itemize}
 
 \noindent
-Now imagine that you didn't know what duct tape was and you were trying
-to figure it out based on this list. Good luck!
+Теперь представьте, что вы не знали, что такое клейкая лента, и пытались
+выяснить это на основе этого списка. Удачи!
 
-So I'd like to add one more item to the collection of ``the monad is
-like\ldots{}'' clichés: The monad is like duct tape. Its applications
-are widely diverse, but its principle is very simple: it glues things
-together. More precisely, it composes things.
+Так что я хотел бы добавить ещё один пункт к коллекции клише ``монада
+похожа на\ldots{}'': монада похожа на клейкую ленту. Её применения
+широко разнообразны, но её принцип очень прост: она склеивает вещи
+вместе. Более точно, она композирует вещи.
 
-This partially explains the difficulties a lot of programmers,
-especially those coming from the imperative background, have with
-understanding the monad. The problem is that we are not used to thinking
-of programming in terms of function composition. This is understandable.
-We often give names to intermediate values rather than pass them
-directly from function to function. We also inline short segments of
-glue code rather than abstract them into helper functions. Here's an
-imperative-style implementation of the vector-length function in C:
+Это частично объясняет трудности, которые имеют многие программисты,
+особенно те, кто пришёл из императивного фона, с
+пониманием монады. Проблема в том, что мы не привыкли думать
+о программировании в терминах композиции функций. Это понятно.
+Мы часто даём имена промежуточным значениям, а не передаём их
+напрямую от функции к функции. Мы также встраиваем короткие сегменты
+клеевого кода, а не абстрагируем их в вспомогательные функции. Вот
+реализация функции длины вектора в императивном стиле на C:
 
 \begin{snip}{cpp}
 double vlen(double * v) {
@@ -63,264 +63,262 @@ double vlen(double * v) {
     return sqrt(d);
 }
 \end{snip}
-Compare this with the (stylized) Haskell version that makes function
-composition explicit:
+Сравните это со (стилизованной) версией Haskell, которая делает композицию функций
+явной:
 
 \src{snippet01}
-(Here, to make things even more cryptic, I partially applied the
-exponentiation operator \code{(\^{})} by setting its second argument
-to \code{2}.)
+(Здесь, чтобы сделать вещи ещё более загадочными, я частично применил
+оператор возведения в степень \code{(\^{})} , установив его второй аргумент
+в \code{2}.)
 
-I'm not arguing that Haskell's point-free style is always better, just
-that function composition is at the bottom of everything we do in
-programming. And even though we are effectively composing functions,
-Haskell does go to great lengths to provide imperative-style syntax
-called the \code{do} notation for monadic composition. We'll see its
-use later. But first, let me explain why we need monadic composition in
-the first place.
+Я не утверждаю, что бесточечный стиль Haskell всегда лучше, просто
+что композиция функций лежит в основе всего, что мы делаем в
+программировании. И даже хотя мы эффективно композируем функции,
+Haskell делает всё возможное, чтобы предоставить синтаксис в императивном стиле,
+называемый нотацией \code{do}, для монадической композиции. Мы увидим его
+использование позже. Но сначала позвольте мне объяснить, почему нам вообще нужна монадическая композиция.
 
-\section{The Kleisli Category}
+\section{Категория Клейсли}
 
-We have previously arrived at the
-\hyperref[kleisli-categories]{writer
-  monad} by embellishing regular functions. The particular embellishment
-was done by pairing their return values with strings or, more generally,
-with elements of a monoid. We can now recognize that such an embellishment
-is a functor:
+Мы ранее пришли к
+\hyperref[kleisli-categories]{монаде writer},
+приукрашивая обычные функции. Конкретное приукрашивание
+было сделано спариванием их возвращаемых значений со строками или, более обобщённо,
+с элементами моноида. Теперь мы можем распознать, что такое приукрашивание ---
+это функтор:
 
 \src{snippet02}
-We have subsequently found a way of composing embellished functions, or
-Kleisli arrows, which are functions of the form:
+Мы впоследствии нашли способ композиции приукрашенных функций, или
+стрелок Клейсли, которые являются функциями формы:
 
 \src{snippet03}
-It was inside the composition that we implemented the accumulation of
-the log.
+Именно внутри композиции мы реализовали накопление
+лога.
 
-We are now ready for a more general definition of the Kleisli category.
-We start with a category $\cat{C}$ and an endofunctor $m$. The
-corresponding Kleisli category $\cat{K}$ has the same objects as
-$\cat{C}$, but its morphisms are different. A morphism between two
-objects $a$ and $b$ in $\cat{K}$ is implemented as a
-morphism:
+Теперь мы готовы к более общему определению категории Клейсли.
+Мы начинаем с категории $\cat{C}$ и эндофунктора $m$.
+Соответствующая категория Клейсли $\cat{K}$ имеет те же объекты, что и
+$\cat{C}$, но её морфизмы различны. Морфизм между двумя
+объектами $a$ и $b$ в $\cat{K}$ реализуется как морфизм:
 \[a \to m\ b\]
-in the original category $\cat{C}$. It's important to keep in mind that
-we treat a Kleisli arrow in $\cat{K}$ as a morphism between $a$
-and $b$, and not between $a$ and $m\ b$.
+в исходной категории $\cat{C}$. Важно помнить, что
+мы рассматриваем стрелку Клейсли в $\cat{K}$ как морфизм между $a$
+и $b$, а не между $a$ и $m\ b$.
 
-In our example, $m$ was specialized to \code{Writer w}, for
-some fixed monoid \code{w}.
+В нашем примере $m$ был специализирован к \code{Writer w} для
+некоторого фиксированного моноида \code{w}.
 
-Kleisli arrows form a category only if we can define proper composition
-for them. If there is a composition, which is associative and has an
-identity arrow for every object, then the functor $m$ is called a
-\newterm{monad}, and the resulting category is called the Kleisli category.
+Стрелки Клейсли образуют категорию, только если мы можем определить правильную композицию
+для них. Если есть композиция, которая ассоциативна и имеет
+тождественную стрелку для каждого объекта, то функтор $m$ называется
+\newterm{монадой}, а результирующая категория называется категорией Клейсли.
 
-In Haskell, Kleisli composition is defined using the fish operator
-\code{>=>}, and the identity arrow is a
-polymorphic function called \code{return}. Here's the definition of a
-monad using Kleisli composition:
+В Haskell композиция Клейсли определяется с использованием оператора рыбы
+\code{>=>}, а тождественная стрелка --- это
+полиморфная функция, называемая \code{return}. Вот определение
+монады, используя композицию Клейсли:
 
 \src{snippet04}
-Keep in mind that there are many equivalent ways of defining a monad,
-and that this is not the primary one in the Haskell ecosystem. I like it
-for its conceptual simplicity and the intuition it provides, but there
-are other definitions that are more convenient when programming. We'll
-talk about them momentarily.
+Имейте в виду, что есть много эквивалентных способов определения монады,
+и что это не основной в экосистеме Haskell. Мне он нравится
+за его концептуальную простоту и интуицию, которую он предоставляет, но есть
+другие определения, которые более удобны при программировании. Мы
+поговорим о них скоро.
 
-In this formulation, monad laws are very easy to express. They cannot be
-enforced in Haskell, but they can be used for equational reasoning. They
-are simply the standard composition laws for the Kleisli category:
+В этой формулировке законы монады очень легко выразить. Они не могут быть
+принудительно применены в Haskell, но они могут быть использованы для уравнительного рассуждения. Они
+просто стандартные законы композиции для категории Клейсли:
 
 \begin{snip}{haskell}
-(f >=> g) >=> h = f >=> (g >=> h) -- associativity
-return >=> f = f                  -- left unit
-f >=> return = f                  -- right unit
+(f >=> g) >=> h = f >=> (g >=> h) -- ассоциативность
+return >=> f = f                  -- левая единица
+f >=> return = f                  -- правая единица
 \end{snip}
-This kind of a definition also expresses what a monad really is: it's a
-way of composing embellished functions. It's not about side effects or
-state. It's about composition. As we'll see later, embellished functions
-may be used to express a variety of effects or state, but that's not
-what the monad is for. The monad is the sticky duct tape that ties one
-end of an embellished function to the other end of an embellished
-function.
+Этот вид определения также выражает, чем монада на самом деле является: это способ
+композиции приукрашенных функций. Дело не в побочных эффектах или
+состоянии. Дело в композиции. Как мы увидим позже, приукрашенные функции
+могут быть использованы для выражения разнообразия эффектов или состояния, но не
+для этого монада. Монада --- это липкая клейкая лента, которая связывает один
+конец приукрашенной функции с другим концом приукрашенной
+функции.
 
-Going back to our \code{Writer} example: The logging functions (the
-Kleisli arrows for the \code{Writer} functor) form a category because
-\code{Writer} is a monad:
+Возвращаясь к нашему примеру с \code{Writer}: логирующие функции (стрелки
+Клейсли для функтора \code{Writer}) образуют категорию, потому что
+\code{Writer} --- монада:
 
 \src{snippet05}
-Monad laws for \code{Writer w} are satisfied as long as monoid laws
-for \code{w} are satisfied (they can't be enforced in Haskell either).
+Законы монады для \code{Writer w} удовлетворены, пока удовлетворены законы моноида
+для \code{w} (они также не могут быть принудительно применены в Haskell).
 
-There's a useful Kleisli arrow defined for the \code{Writer} monad
-called \code{tell}. It's sole purpose is to add its argument to the
-log:
+Есть полезная стрелка Клейсли, определённая для монады \code{Writer},
+называемая \code{tell}. Её единственная цель --- добавить свой аргумент в
+лог:
 
 \src{snippet06}
-We'll use it later as a building block for other monadic functions.
+Мы будем использовать её позже как строительный блок для других монадических функций.
 
-\section{Fish Anatomy}
+\section{Анатомия рыбы}
 
-When implementing the fish operator for different monads you quickly
-realize that a lot of code is repeated and can be easily factored out.
-To begin with, the Kleisli composition of two functions must return a
-function, so its implementation may as well start with a lambda taking
-an argument of type \code{a}:
+При реализации оператора рыбы для разных монад вы быстро
+осознаёте, что много кода повторяется и может быть легко вынесено за скобки.
+Начнём с того, что композиция Клейсли двух функций должна вернуть
+функцию, так что её реализация может также начаться с лямбды, принимающей
+аргумент типа \code{a}:
 
 \src{snippet07}
-The only thing we can do with this argument is to pass it to \code{f}:
+Единственное, что мы можем сделать с этим аргументом, --- передать его в \code{f}:
 
 \src{snippet08}
-At this point we have to produce the result of type \code{m c},
-having at our disposal an object of type \code{m b} and a function
-\code{g :: b -> m c}. Let's define a function that
-does that for us. This function is called \emph{bind} and is usually written in
-the form of an infix operator:
+На этом этапе мы должны произвести результат типа \code{m c},
+имея в нашем распоряжении объект типа \code{m b} и функцию
+\code{g :: b -> m c}. Давайте определим функцию, которая
+делает это для нас. Эта функция называется \emph{bind} и обычно записывается в
+форме инфиксного оператора:
 
 \src{snippet09}
-For every monad, instead of defining the fish operator, we may instead
-define bind. In fact the standard Haskell definition of a monad uses
+Для каждой монады вместо определения оператора рыбы мы можем вместо этого
+определить bind. На самом деле стандартное определение Haskell для монады использует
 bind:
 
 \src{snippet10}
-Here's the definition of bind for the \code{Writer} monad:
+Вот определение bind для монады \code{Writer}:
 
 \src{snippet11}
-It is indeed shorter than the definition of the fish operator.
+Оно действительно короче, чем определение оператора рыбы.
 
-It's possible to further dissect bind, taking advantage of the fact that
-\code{m} is a functor. We can use \code{fmap} to apply the function
-\code{a -> m b} to the contents of \code{m a}. This
-will turn \code{a} into \code{m b}. The result of the application
-is therefore of type \code{m (m b)}. This is not exactly what we
-want --- we need the result of type \code{m b} --- but we're close.
-All we need is a function that collapses or flattens the double
-application of \code{m}. Such a function is called \code{join}:
+Возможно далее препарировать bind, используя факт, что
+\code{m} --- функтор. Мы можем использовать \code{fmap}, чтобы применить функцию
+\code{a -> m b} к содержимому \code{m a}. Это
+превратит \code{a} в \code{m b}. Результат применения
+следовательно типа \code{m (m b)}. Это не в точности то, что нам
+нужно --- нам нужен результат типа \code{m b} --- но мы близко.
+Всё, что нам нужно, --- это функция, которая схлопывает или выравнивает двойное
+применение \code{m}. Такая функция называется \code{join}:
 
 \src{snippet12}
-Using \code{join}, we can rewrite bind as:
+Используя \code{join}, мы можем переписать bind как:
 
 \src{snippet13}
-That leads us to the third option for defining a monad:
+Это приводит нас к третьему варианту определения монады:
 
 \src{snippet14}
-Here we have explicitly requested that \code{m} be a \code{Functor}.
-We didn't have to do that in the previous two definitions of the monad.
-That's because any type constructor \code{m} that either supports the
-fish or bind operator is automatically a functor. For instance, it's
-possible to define \code{fmap} in terms of bind and \code{return}:
+Здесь мы явно запросили, чтобы \code{m} был \code{Functor}.
+Нам не нужно было делать это в предыдущих двух определениях монады.
+Это потому, что любой конструктор типа \code{m}, который либо поддерживает
+оператор рыбы, либо bind, автоматически является функтором. Например, возможно
+определить \code{fmap} в терминах bind и \code{return}:
 
 \src{snippet15}
-For completeness, here's \code{join} for the \code{Writer} monad:
+Для полноты, вот \code{join} для монады \code{Writer}:
 
 \src{snippet16}
 
-\section{The \texttt{do} Notation}
+\section{Нотация \texttt{do}}
 
-One way of writing code using monads is to work with Kleisli arrows ---
-composing them using the fish operator. This mode of programming is the
-generalization of the point-free style. Point-free code is compact and
-often quite elegant. In general, though, it can be hard to understand,
-bordering on cryptic. That's why most programmers prefer to give names
-to function arguments and intermediate values.
+Один способ написания кода с использованием монад --- работать со стрелками Клейсли ---
+композируя их с использованием оператора рыбы. Этот режим программирования ---
+обобщение бесточечного стиля. Бесточечный код компактен и
+часто довольно элегантен. В общем случае, однако, он может быть труден для понимания,
+граничащим с загадочностью. Вот почему большинство программистов предпочитают давать имена
+аргументам функций и промежуточным значениям.
 
-When dealing with monads it means favoring the bind operator over the
-fish operator. Bind takes a monadic value and returns a monadic value.
-The programmer may choose to give names to those values. But that's
-hardly an improvement. What we really want is to pretend that we are
-dealing with regular values, not the monadic containers that encapsulate
-them. That's how imperative code works --- side effects, such as
-updating a global log, are mostly hidden from view. And that's what the
-\code{do} notation emulates in Haskell.
+При работе с монадами это означает предпочтение оператора bind оператору
+рыбы. Bind принимает монадическое значение и возвращает монадическое значение.
+Программист может выбрать давать имена этим значениям. Но это
+вряд ли улучшение. То, что мы действительно хотим, --- притворяться, что мы
+имеем дело с обычными значениями, а не с монадическими контейнерами, которые их инкапсулируют.
+Так работает императивный код --- побочные эффекты, такие как
+обновление глобального лога, в основном скрыты из вида. И это то, что
+нотация \code{do} эмулирует в Haskell.
 
-You might be wondering then, why use monads at all? If we want to make
-side effects invisible, why not stick to an imperative language? The
-answer is that the monad gives us much better control over side effects.
-For instance, the log in the \code{Writer} monad is passed from
-function to function and is never exposed globally. There is no
-possibility of garbling the log or creating a data race. Also, monadic
-code is clearly demarcated and cordoned off from the rest of the
-program.
+Вы можете задаться вопросом тогда, зачем вообще использовать монады? Если мы хотим сделать
+побочные эффекты невидимыми, почему бы не придерживаться императивного языка?
+Ответ в том, что монада даёт нам намного лучший контроль над побочными эффектами.
+Например, лог в монаде \code{Writer} передаётся из
+функции в функцию и никогда не выставляется глобально. Нет
+возможности искажения лога или создания гонки данных. Также монадический
+код чётко размечен и отгорожен от остальной части
+программы.
 
-The \code{do} notation is just syntactic sugar for monadic
-composition. On the surface, it looks a lot like imperative code, but it
-translates directly to a sequence of binds and lambda expressions.
+Нотация \code{do} --- это просто синтаксический сахар для монадической
+композиции. На поверхности она выглядит очень похоже на императивный код, но она
+переводится напрямую в последовательность bind'ов и лямбда-выражений.
 
-For instance, take the example we used previously to illustrate the
-composition of Kleisli arrows in the \code{Writer} monad. Using our
-current definitions, it could be rewritten as:
+Например, возьмите пример, который мы использовали ранее для иллюстрации
+композиции стрелок Клейсли в монаде \code{Writer}. Используя наши
+текущие определения, он мог бы быть переписан как:
 
 \src{snippet17}
-This function turns all characters in the input string to upper case and
-splits it into words, all the while producing a log of its actions.
+Эта функция превращает все символы во входной строке в верхний регистр и
+разбивает её на слова, всё время производя лог своих действий.
 
-In the \code{do} notation it would look like this:
+В нотации \code{do} это выглядело бы так:
 
 \src{snippet18}
-Here, \code{upStr} is just a \code{String}, even though
-\code{upCase} produces a \code{Writer}:
+Здесь \code{upStr} --- это просто \code{String}, хотя
+\code{upCase} производит \code{Writer}:
 
 \src{snippet19}
-This is because the \code{do} block is desugared by the compiler to:
+Это потому, что блок \code{do} десахаризуется компилятором в:
 
 \src{snippet20}
-The monadic result of \code{upCase} is bound to a lambda that takes a
-\code{String}. It's the name of this string that shows up in the
-\code{do} block. When reading the line:
+Монадический результат \code{upCase} связывается с лямбдой, которая принимает
+\code{String}. Именно имя этой строки показывается в
+блоке \code{do}. Когда читаем строку:
 
 \src{snippet21}
-we say that \code{upStr} \emph{gets} the result of \code{upCase s}.
+мы говорим, что \code{upStr} \emph{получает} результат \code{upCase s}.
 
-The pseudo-imperative style is even more pronounced when we inline
-\code{toWords}. We replace it with the call to \code{tell}, which
-logs the string \code{"toWords "}, followed by the call to
-\code{return} with the result of splitting the string \code{upStr}
-using \code{words}. Notice that \code{words} is a regular function
-working on strings.
+Псевдо-императивный стиль ещё более выражен, когда мы встраиваем
+\code{toWords}. Мы заменяем её вызовом \code{tell}, который
+логирует строку \code{"toWords "}, за которым следует вызов
+\code{return} с результатом разбиения строки \code{upStr}
+с использованием \code{words}. Обратите внимание, что \code{words} --- обычная функция,
+работающая на строках.
 
 \src{snippet22}
-Here, each line in the do block introduces a new nested bind in the
-desugared code:
+Здесь каждая строка в блоке do вводит новый вложенный bind в
+десахаризованном коде:
 
 \src{snippet23}
-Notice that \code{tell} produces a unit value, so it doesn't have to
-be passed to the following lambda. Ignoring the contents of a monadic
-result (but not its effect --- here, the contribution to the log) is
-quite common, so there is a special operator to replace bind in that
-case:
+Обратите внимание, что \code{tell} производит значение unit, так что его не нужно
+передавать в следующую лямбду. Игнорирование содержимого монадического
+результата (но не его эффекта --- здесь вклада в лог) ---
+довольно обычное дело, так что есть специальный оператор для замены bind в этом
+случае:
 
 \src{snippet24}
-The actual desugaring of our code looks like this:
+Фактическая десахаризация нашего кода выглядит так:
 
 \src{snippet25}
-In general, \code{do} blocks consist of lines (or sub-blocks) that
-either use the left arrow to introduce new names that are then available
-in the rest of the code, or are executed purely for side-effects. Bind
-operators are implicit between the lines of code. Incidentally, it is
-possible, in Haskell, to replace the formatting in the \code{do}
-blocks with braces and semicolons. This provides the justification for
-describing the monad as a way of overloading the semicolon.
+В общем случае блоки \code{do} состоят из строк (или подблоков), которые
+либо используют левую стрелку для введения новых имён, которые затем доступны
+в остальной части кода, либо выполняются чисто для побочных эффектов. Операторы
+bind неявны между строками кода. Кстати, возможно
+в Haskell заменить форматирование в блоках \code{do}
+фигурными скобками и точками с запятой. Это предоставляет обоснование для
+описания монады как способа перегрузки точки с запятой.
 
-Notice that the nesting of lambdas and bind operators when desugaring
-the \code{do} notation has the effect of influencing the execution of
-the rest of the \code{do} block based on the result of each line. This
-property can be used to introduce complex control structures, for
-instance to simulate exceptions.
+Обратите внимание, что вложенность лямбд и операторов bind при десахаризации
+нотации \code{do} имеет эффект влияния на выполнение
+остальной части блока \code{do} на основе результата каждой строки. Это
+свойство может быть использовано для введения сложных структур управления, например,
+для симуляции исключений.
 
-Interestingly, the equivalent of the \code{do} notation has found its
-application in imperative languages, C++ in particular. I'm talking
-about resumable functions or coroutines. It's not a secret that C++
+Интересно, что эквивалент нотации \code{do} нашёл своё
+применение в императивных языках, в частности, в C++. Я говорю
+о возобновляемых функциях или корутинах. Не секрет, что
 \urlref{https://bartoszmilewski.com/2014/02/26/c17-i-see-a-monad-in-your-future/}{futures
-  form a monad}. It's an example of the continuation monad, which we'll
-discuss shortly. The problem with continuations is that they are very
-hard to compose. In Haskell, we use the \code{do} notation to turn the
-spaghetti of ``my handler will call your handler'' into something that
-looks very much like sequential code. Resumable functions make the same
-transformation possible in C++. And the same mechanism can be applied to
-turn the
-\urlref{https://bartoszmilewski.com/2014/04/21/getting-lazy-with-c/}{spaghetti
-  of nested loops} into list comprehensions or ``generators,'' which are
-essentially the \code{do} notation for the list monad. Without the
-unifying abstraction of the monad, each of these problems is typically
-addressed by providing custom extensions to the language. In Haskell,
-this is all dealt with through libraries.
+  в C++ образуют монаду}. Это пример монады продолжения, которую мы
+обсудим вскоре. Проблема с продолжениями в том, что их очень
+трудно композировать. В Haskell мы используем нотацию \code{do}, чтобы превратить
+спагетти из ``мой обработчик вызовет твой обработчик'' во что-то, что
+выглядит очень похоже на последовательный код. Возобновляемые функции делают то же
+преобразование возможным в C++. И тот же механизм может быть применён, чтобы
+превратить
+\urlref{https://bartoszmilewski.com/2014/04/21/getting-lazy-with-c/}{спагетти
+  из вложенных циклов} в списочные включения или ``генераторы'', которые по существу
+являются нотацией \code{do} для монады списка. Без
+объединяющей абстракции монады каждая из этих проблем обычно
+адресуется предоставлением специальных расширений языку. В Haskell
+всё это обрабатывается через библиотеки.
