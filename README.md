@@ -3,88 +3,93 @@
 [![Download][download badge]][github latest release]
 [![License][license badge]][github latest release]
 
-# Category Theory For Programmers
+# Теория Категорий для Программистов (Русский перевод)
 
-An _unofficial_ PDF version of "**C**ategory **T**heory **F**or **P**rogrammers"
-by [Bartosz Milewski][bartosz github], converted from his [blogpost
-series][blogpost series] (_with permission!_).
+**Русский перевод** книги "**C**ategory **T**heory **F**or **P**rogrammers"
+от [Bartosz Milewski][bartosz github], основанной на его [серии постов в блоге][blogpost series].
+
+Оригинальная английская версия: [hmemcpy/milewski-ctfp-pdf][original repo]
 
 ![Category Theory for Programmers][ctfp image]
 
-## Buy the book
+## О переводе
 
-- **[Standard edition in full-color hardcover
-  print][buy regular edition on blurb]**
-  - Publish date: 12 August, 2019.
-  - Based off release tag [v1.3.0][v1.3.0 github release link]. See
-    [errata-1.3.0](errata-1.3.0.md) for changes and fixes since print.
-- **[Scala Edition in paperback][buy scala edition on blurb]**
-  - Publish date: 12 August, 2019.
-  - Based off release tag [v1.3.0][v1.3.0 github release link]. See
-    [errata-scala](errata-scala.md) for changes and fixes since print.
+Это полный перевод книги на русский язык, включающий:
 
-## Build the book
+- ✅ Все 31 главу (Часть 1, Часть 2, Часть 3)
+- ✅ Предисловие и дополнительные материалы
+- ✅ Обложку с оригинальным дизайном
+- ✅ Все примеры кода на Haskell и C++
 
-The building workflow requires [Nix][nix website]. After [installing
-Nix][nix download website], you need to enable the upcoming "flake" feature
-which must be [enabled manually][nixos wiki flake] the time being. This is
-needed to expose the new Nix commands and flakes support that are hidden behind
-feature-flags.
+Перевод выполнен с сохранением терминологии теории категорий и программирования.
 
-Afterwards, type `nix flake show` in the root directory of the project to see
-all the available versions of this book. Then type `nix build .#<edition>` to
-build the edition you want (Scala, OCaml, Reason and their printed versions).
-For example, to build the Scala edition you'll have to type
-`nix build .#ctfp-scala`. For Haskell (the original version) that is just
-`nix build .#ctfp`.
+## Скачать книгу
 
-Upon successful compilation, the PDF file will be placed in the `result`
-directory.
+Последняя версия русского перевода доступна в разделе [Releases][github latest release].
 
-The command `nix develop` will provide a shell containing all the required
-dependencies to build the book manually using the provided `Makefile`. To build
-the `ctfp-scala` edition, just run `make ctfp-scala`.
+## Собрать книгу
 
-## Contribute
+Для сборки книги требуется [Nix][nix website]. После [установки Nix][nix download website] 
+необходимо включить функцию "flake", которая должна быть [включена вручную][nixos wiki flake].
 
-Contributors are welcome to contribute to this book by sending pull-requests.
-Once reviewed, the changes are merged in the main branch and will be
-incorporated in the next release.
+После этого выполните команду для сборки:
 
-**Note from [Bartosz][bartosz github]**: I really appreciate all your
-contributions. You made this book much better than I could have imagined. Thank
-you!
+```bash
+# Для сборки русской версии (Haskell edition)
+nix build --extra-experimental-features 'nix-command flakes' .#ctfp
+```
 
-Find the [list of contributors on Github][contributors].
+После успешной компиляции PDF файл будет помещён в директорию `result/ctfp.pdf`.
 
-## Acknowledgements
+### Альтернативный способ с Makefile
 
-PDF LaTeX source and the tools to create it are based on the work by [Andres
-Raba][andres raba github]. The book content is taken, with permission, from
-[Bartosz Milewski][bartosz github]'s blogpost series, and adapted to the LaTeX
-format.
+Команда `nix develop` предоставит оболочку со всеми необходимыми зависимостями 
+для ручной сборки книги с использованием `Makefile`:
 
-The original blog post acknowledgments by Bartosz are consolidated in the
-_Acknowledgments_ page at the end of the book.
+```bash
+nix develop
+make ctfp
+```
 
-## License
+## Структура перевода
 
-The PDF book, `.tex` files, and associated images and figures in directories
-`src/fig` and `src/content` are licensed under [Creative Commons
+Русский перевод находится непосредственно в файлах глав:
+- `src/content/0.0/preface.tex` - Предисловие
+- `src/content/1.*/` - Часть 1 (главы 1.1-1.10)
+- `src/content/2.*/` - Часть 2 (главы 2.1-2.6)
+- `src/content/3.*/` - Часть 3 (главы 3.1-3.15)
+- `src/half-title.tex` - Обложка и титульные страницы
+
+## Вклад в проект
+
+Приветствуются исправления опечаток, улучшения перевода и технические правки.
+Для внесения изменений создайте pull request.
+
+## Благодарности
+
+- **[Bartosz Milewski][bartosz github]** - автор оригинальной книги
+- **[Andres Raba][andres raba github]** - LaTeX шаблон и инструменты
+- **[Igal Tabachnik (hmemcpy)][original repo]** - поддержка и развитие PDF версии
+
+Оригинальные благодарности от Bartosz собраны на странице _Благодарности_ в конце книги.
+
+## Лицензия
+
+PDF книга, `.tex` файлы и связанные изображения и рисунки в директориях 
+`src/fig` и `src/content` лицензированы под [Creative Commons 
 Attribution-ShareAlike 4.0 International License][license cc by sa].
 
-The script files `scraper.py` and others are licensed under [GNU General Public
-License version 3][license gnu gpl].
+Скриптовые файлы лицензированы под [GNU General Public License version 3][license gnu gpl].
 
 [download badge]:
   https://img.shields.io/badge/Download-latest-green.svg?style=flat-square
-[github actions link]: https://github.com/hmemcpy/milewski-ctfp-pdf/actions
+[github actions link]: https://github.com/OrelSokolov/milewski-ctfp-pdf/actions
 [github stars]:
-  https://img.shields.io/github/stars/hmemcpy/milewski-ctfp-pdf.svg?style=flat-square
+  https://img.shields.io/github/stars/OrelSokolov/milewski-ctfp-pdf.svg?style=flat-square
 [github workflow status]:
-  https://img.shields.io/github/actions/workflow/status/hmemcpy/milewski-ctfp-pdf/nix-flake-check.yaml?branch=master&style=flat-square
+  https://img.shields.io/github/actions/workflow/status/OrelSokolov/milewski-ctfp-pdf/nix-flake-check.yaml?branch=master&style=flat-square
 [github latest release]:
-  https://github.com/hmemcpy/milewski-ctfp-pdf/releases/latest
+  https://github.com/OrelSokolov/milewski-ctfp-pdf/releases/latest
 [license badge]:
   https://img.shields.io/badge/License-CC_By_SA-green.svg?style=flat-square
 [ctfp image]:
@@ -92,7 +97,8 @@ License version 3][license gnu gpl].
 [bartosz github]: https://github.com/BartoszMilewski
 [nixos wiki flake]: https://wiki.nixos.org/wiki/Flakes
 [andres raba github]: https://github.com/sarabander
-[contributors]: https://github.com/hmemcpy/milewski-ctfp-pdf/graphs/contributors
+[original repo]: https://github.com/hmemcpy/milewski-ctfp-pdf
+[contributors]: https://github.com/OrelSokolov/milewski-ctfp-pdf/graphs/contributors
 [license cc by sa]: https://spdx.org/licenses/CC-BY-SA-4.0.html
 [license gnu gpl]: https://spdx.org/licenses/GPL-3.0.html
 [blogpost series]:
